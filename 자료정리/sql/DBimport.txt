@@ -1,0 +1,1 @@
+LOAD DATA LOCAL INFILE '/home/ivps/www/zipcode/zipcode_DB/강원도.txt' INTO TABLE zipcode.zipcode CHARACTER SET 'utf8' FIELDS TERMINATED BY '|' IGNORE 1 LINES;
