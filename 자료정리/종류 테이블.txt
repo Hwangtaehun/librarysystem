@@ -1,0 +1,3 @@
+대분류: WHERE `kind_no` <= 10
+중분류: WHERE 11 <= `kind_no` <= 100, WHERE `kind_num` LIKE '(kind_no-1)_0';
+소분류: WHERE 101 <= `kind_no`, WHERE `kind_num` LIKE '(중분류 앞 두자리)%';
