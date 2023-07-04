@@ -351,24 +351,31 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			tf_Pw.setText(mem_pw);
 			tf_Pw2.setText(mem_pw);
 			tf_detail.setText(mem_detail);
-			fk.insert_add_no(add_no);
-			this.mem_lent = mem_lent;
-			this.mem_state = mem_state;
+			
 			if(mem_lent == 0) {
 				rb_active.setSelectedIcon(null);
+				//rb_active.setSelected(true);
 			}
 			else {
 				rb_stop.setSelectedIcon(null);
+				//rb_stop.setSelected(true);
 			}
 			
 			if(mem_state == 5) {
 				rb_normal.setSelectedIcon(null);
+				//rb_normal.setSelected(true);
 			}
 			else {
 				rb_special.setSelectedIcon(null);
+				//rb_special.setSelected(true);
 			}
+			
 			tf_address.setText(address);
 			tf_zipcode.setText(zipcode);
+			
+			fk.insert_add_no(add_no);
+			this.mem_lent = mem_lent;
+			this.mem_state = mem_state;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

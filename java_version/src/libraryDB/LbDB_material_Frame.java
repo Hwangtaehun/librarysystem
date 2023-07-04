@@ -718,11 +718,6 @@ public class LbDB_material_Frame extends LbDB_main_Frame {
 					mat_no = result.getInt("material.mat_no");
 					now_sql = "SELECT * FROM `reservation` WHERE `mat_no` = " + mat_no;
 					result = db.getResultSet(now_sql);
-					/*
-					while(result.next()) {
-						field_count++;
-					}
-					*/
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -213,22 +213,28 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 			removeTableRow(i);
 		}
 		try {
-			for(dataCount = 0; result.next(); dataCount++) {
-				table.setValueAt(result.getString("library.lib_name"), dataCount, 0);
-				table.setValueAt(result.getString("book.book_name"), dataCount, 1);
-				
-				mat_many = mat_manyZeroCheck(result.getString("material.mat_many"));
-				kind_symbol = result.getString("kind.kind_num") + mat_many + result.getString("material.mat_overlap");
-				
-				if(menu_title.equals("예약내역")) {
-					table.setValueAt(result.getString("reservation.res_date"), dataCount, 2);
-				}
-				else if(menu_title.equals("예약관리")) {
-					table.setValueAt(kind_symbol, dataCount, 2);
-					table.setValueAt(result.getString("reservation.res_date"), dataCount, 3);
-				}
-				else {
-					table.setValueAt(kind_symbol, dataCount, 2);
+			if(resultempty_check(result)) {
+				tf_book_name.setText("");
+				tf_date.setText("");
+			}
+			else {
+				for(dataCount = 0; result.next(); dataCount++) {
+					table.setValueAt(result.getString("library.lib_name"), dataCount, 0);
+					table.setValueAt(result.getString("book.book_name"), dataCount, 1);
+					
+					mat_many = mat_manyZeroCheck(result.getString("material.mat_many"));
+					kind_symbol = result.getString("kind.kind_num") + mat_many + result.getString("material.mat_overlap");
+					
+					if(menu_title.equals("예약내역")) {
+						table.setValueAt(result.getString("reservation.res_date"), dataCount, 2);
+					}
+					else if(menu_title.equals("예약관리")) {
+						table.setValueAt(kind_symbol, dataCount, 2);
+						table.setValueAt(result.getString("reservation.res_date"), dataCount, 3);
+					}
+					else {
+						table.setValueAt(kind_symbol, dataCount, 2);
+					}
 				}
 			}
 			repaint();
@@ -284,6 +290,14 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 			// TODO Auto-generated method stub
 			try {
 				String now_sql = "DELETE FROM reservation WHERE res_no = " + result.getInt("reservation.res_no");
+				System.out.println(now_sql);
+				db.Excute(now_sql);
+				now_sql = sql + sortsql;
+				LoadList(now_sql);
+				if(!resultempty_check(result)) {
+					tablefocus();
+					MoveData();
+				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
