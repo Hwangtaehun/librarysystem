@@ -856,6 +856,8 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			SwingItem si = new SwingItem(lib_select.combox, tf_book_name, tf_mem_id);
+			LbDB_reservation_Frame reservation = new LbDB_reservation_Frame("예약찾기", si, fk);
+			reservation.setVisible(true);
 		}
 	}
 	

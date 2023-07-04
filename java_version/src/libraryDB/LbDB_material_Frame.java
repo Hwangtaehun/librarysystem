@@ -6,7 +6,7 @@ import javax.swing.event.*;
 import java.sql.*;
 import java.time.*;
 
-//material테이블과 관련있는 event처리 클래스
+//material테이블과 관련있는 event처리 클래스, kind 조인 사용
 public class LbDB_material_Frame extends LbDB_main_Frame {
 	private JTextField tf_bookname, tf_author, tf_publish, tf_kind, tf_many, tf_dialog, tf_dialog2;
 	private JButton bookBt, kindBt;

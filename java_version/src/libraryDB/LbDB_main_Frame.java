@@ -607,6 +607,8 @@ public class LbDB_main_Frame extends LbDB_Frame {
 				break;
 			case "예약관리":
 				System.out.println("예약관리");
+				LbDB_reservation_Frame frame22 = new LbDB_reservation_Frame(db, cl, command);
+				frame22.setVisible(true);
 				break;
 			case "자료검색":
 				System.out.println("자료검색");
@@ -625,6 +627,8 @@ public class LbDB_main_Frame extends LbDB_Frame {
 				break;
 			case "예약내역":
 				System.out.println("예약내역");
+				LbDB_reservation_Frame frame23 = new LbDB_reservation_Frame(db, cl, command);
+				frame23.setVisible(true);
 				break;
 			case "상호대차내역":
 				System.out.println("상호대차내역");

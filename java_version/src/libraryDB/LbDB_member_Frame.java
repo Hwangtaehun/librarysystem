@@ -64,7 +64,8 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 		dialogform_final();
 		dialog(title);
 	}
-	public LbDB_member_Frame(String title, JTextField tf, foreignkey fk, LbDB_reservation_Frame res) {
+	public LbDB_member_Frame(String title, JTextField tf, foreignkey fk, LbDB_reservation_Frame res)//reservation_Frame일때 사용
+	{
 		db = new LbDB_DAO();
 		menu_title = title;
 		this.fk = fk;
