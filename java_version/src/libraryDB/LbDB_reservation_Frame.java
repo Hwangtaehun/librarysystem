@@ -14,6 +14,7 @@ import java.time.format.*;
 public class LbDB_reservation_Frame extends LbDB_main_Frame {
 	private JTextField tf_book_name, tf_research;
 	private String columnName[];
+	private JPanel northPanel;
 	private SwingItem si;
 	
 	LbDB_reservation_Frame(){}
@@ -27,7 +28,6 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 		fk = new foreignkey();
 		menuform();
 		Initform();
-		textfieldform();
 		
 		sortsql = " ORDER BY library.lib_name, book.book_name";
 		if(state == 1) {
@@ -43,13 +43,22 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 				+ "AND material.kind_no = kind.kind_no AND material.book_no = book.book_no AND material.lib_no = library.lib_no"
 				+ " AND member.mem_no LIKE " + pk;
 		}
-		
+		textfieldform();
 		tableform(columnName);
-		if(state == 2) {
+		
+		if(state == 1) {
+			cpane.add("North", northPanel);
+		}
+		cpane.add("West", leftPanel);
+		cpane.add("Center", centerPanel);
+		pack();
+		
+		if(state != 1) {
 			String now_sql = sql + sortsql;
 			LoadList(now_sql);
 			tablefocus();
 		}
+		
 		addWindowListener(this);
 	}
 	
@@ -61,15 +70,20 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 		this.fk = fk;
 		dialog(menu_title);
 		Initform();
+		researchform();
 		textfieldform();
 		
 		str = "도서관,자료이름,예약일";
 		columnName = str.split(",");
 		tableform(columnName);
+		
+		cpane.add("North", northPanel);
+		cpane.add("Center", centerPanel);
+		pack();
 	}
 	
 	private void researchform() {
-		JPanel northPanel, titlePanel, researchPanel;
+		JPanel titlePanel, researchPanel;
 		JLabel label;
 		JButton bt;
 		
@@ -91,9 +105,6 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 		northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.Y_AXIS));
 		northPanel.add(titlePanel);
 		northPanel.add(researchPanel);
-		
-		String columnName[] = {"도서관", "자료이름", "도서기호", "예약일"};
-		tableform(columnName);
 	}
 	
 	private void textfieldform() {
@@ -195,6 +206,7 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 	private void LoadList(String now_sql) {
 		String kind_symbol, mat_many;
 		
+		System.out.println(now_sql);
 		result = db.getResultSet(now_sql);
 		
 		for(int i = 0; i < dataCount; i++) {

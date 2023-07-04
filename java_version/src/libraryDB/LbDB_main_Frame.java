@@ -423,6 +423,7 @@ public class LbDB_main_Frame extends LbDB_Frame {
         menuBar.add(memberMenu);
         menuBar.add(lentMenu);
         menuBar.add(deliveryMenu);
+        menuBar.add(etcMenu);
         
         setJMenuBar(menuBar);
 	}
