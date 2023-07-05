@@ -256,21 +256,28 @@ class Combobox_Manager {
 
 //textfield를 전달하는 정보가 많아서 클래스 따로 생성
 class SwingItem{
-	private JTextField tf_bookname, tf_kind, tf_many, tf_mem_id;
+	private JTextField tf_book_name, tf_kind, tf_many, tf_mem_id, tf_len_date, tf_len_re_date;
 	private JComboBox <String> lib_Box;
 	
 	public SwingItem() {}
+	public SwingItem(JComboBox <String> lb, JTextField bn, JTextField id) {
+		lib_Box = lb;
+		tf_book_name = bn;
+		tf_mem_id = id;
+	}
+	
 	public SwingItem(JComboBox <String> lb, JTextField bn, JTextField ki, JTextField ma) {
 		lib_Box = lb;
-		tf_bookname = bn;
+		tf_book_name = bn;
 		tf_kind = ki;
 		tf_many = ma;
 	}
 	
-	public SwingItem(JComboBox <String> lb, JTextField bn, JTextField id) {
-		lib_Box = lb;
-		tf_bookname = bn;
+	public SwingItem(JTextField id, JTextField bn, JTextField ld, JTextField rd) {
 		tf_mem_id = id;
+		tf_book_name = bn;
+		tf_len_date = ld;
+		tf_len_re_date = rd;
 	}
 	
 	public void set_lib_Box(String str) {
@@ -278,7 +285,7 @@ class SwingItem{
 	}
 	
 	public void set_bookname(String str) {
-		tf_bookname.setText(str);
+		tf_book_name.setText(str);
 	}
 	
 	public void set_kind(String str) {
@@ -291,6 +298,14 @@ class SwingItem{
 	
 	public void set_memid(String str) {
 		tf_mem_id.setText(str);
+	}
+	
+	public void set_len_date(String str) {
+		tf_len_date.setText(str);
+	}
+	
+	public void set_len_re_date(String str) {
+		tf_len_re_date.setText(str);
 	}
 }
 

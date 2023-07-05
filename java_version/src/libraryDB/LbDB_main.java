@@ -27,7 +27,7 @@ class Client{
 
 //외래키와 외래키를 통해서 알 수 있는 정보를 담는 클래스
 class foreignkey{
-	private int add_no, kind_no, book_no, mem_no, mat_no, del_no, lib_no; //lib_no는 상호대차부분 자료검색에 사용
+	private int add_no, kind_no, book_no, mem_no, mat_no, del_no, len_no, lib_no; //lib_no는 상호대차부분 자료검색에 사용
 	public String kind_num, book_name;
 	
 	public foreignkey() {
@@ -37,6 +37,7 @@ class foreignkey{
 		mem_no = 0;
 		mat_no = 0;
 		del_no = 0;
+		len_no = 0;
 		lib_no = 0;
 	};
 	
@@ -62,6 +63,10 @@ class foreignkey{
 	
 	public void insert_del_no(int num) {
 		del_no = num;
+	}
+	
+	public void insert_len_no(int num) {
+		len_no = num;
 	}
 	
 	public void insert_lib_no(int num) {
@@ -90,6 +95,10 @@ class foreignkey{
 	
 	public int call_del_no() {
 		return del_no;
+	}
+	
+	public int call_len_no() {
+		return len_no;
 	}
 	
 	public int call_lib_no() {

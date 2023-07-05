@@ -15,6 +15,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 	private JRadioButton rb_lent, rb_return, rb_etc, rb_normal, rb_extend;
 	private ButtonGroup gr_return, gr_extend;
 	private String columnName[];
+	private SwingItem si;
 	private boolean booksea_use = false;
 	
 	public LbDB_lent_Frame() {}
@@ -33,7 +34,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 			sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no " +
 				  "AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no " + 
 				  "AND lent.mem_no = " + pk + " AND lent.len_re_st = 0";
-			String str = "책 이름,소장도서관,대출일,반납일예정";
+			String str = "자료이름,소장도서관,대출일,반납일예정";
 			columnName = str.split(",");
 			tableform(columnName);
 		}
@@ -41,7 +42,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 			sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no " +
 				  "AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no " + 
 				  "AND lent.mem_no = " + pk;
-			String str = "책 이름,소장도서관,대출일,반납일,반납상태";
+			String str = "자료이름,소장도서관,대출일,반납일,반납상태";
 			columnName = str.split(",");
 			tableform(columnName);
 		}
@@ -51,7 +52,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 			editform();
 			sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no " +
 				  "AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no";
-			String str = "회원아이디,책 이름,소장도서관,대출일,연장여부,반납일,반납상태,메모";
+			String str = "회원아이디,자료이름,소장도서관,대출일,연장여부,반납일,반납상태,메모";
 			columnName = str.split(",");
 			tableform(columnName);
 		}
@@ -67,7 +68,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 			sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no " 
 				+ "AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no "
 				+ "AND `len_re_st` = 0";
-			String str = "회원아이디,책 이름,소장도서관,대출일";
+			String str = "회원아이디,자료이름,소장도서관,대출일";
 			columnName = str.split(",");
 			tableform(columnName);
 		}
@@ -107,7 +108,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		editform();
 		sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no " +
 			  "AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no ";
-		String str = "회원아이디,책 이름,소장도서관,대출일,연장여부,반납일,반납상태,메모";
+		String str = "회원아이디,자료이름,소장도서관,대출일,연장여부,반납일,반납상태,메모";
 		columnName = str.split(",");
 		tableform(columnName);
 		baseform_fianl();
@@ -120,6 +121,29 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		addWindowListener(this);
 	}
 	
+	public LbDB_lent_Frame(String title, foreignkey fk, SwingItem si) {
+		db = new LbDB_DAO();
+		menu_title = title;
+		this.fk = fk;
+		this.si = si;
+		
+		dialog(menu_title);
+		menuform();
+		Initform();
+		baseform();
+		sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no " +
+			  "AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no ";
+		String str = "회원아이디,자료이름,소장도서관,대출일,연장여부,반납일,반납상태,메모";
+		columnName = str.split(",");
+		tableform(columnName);
+		cpane.add("North", northPanel);
+		cpane.add("Center", centerPanel);
+		
+		sortsql = " ORDER BY `mem_name`";
+		String now_sql = sql + sortsql;
+		LoadList(now_sql);
+	}
+	
 	private void baseform() {
 		JPanel titlePanel, researchPanel;
 		JLabel label;
@@ -130,7 +154,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		titlePanel.add(label);
 		
 		researchPanel = new JPanel();
-		if(menu_title.equals("대출관리") || menu_title.equals("반납추가")) {
+		if(menu_title.equals("대출관리") || menu_title.equals("반납추가") || menu_title.equals("대출찾기")) {
 			JComboBox <String> lib_Box = null;
 			
 			label = new JLabel("도서관");
@@ -372,7 +396,6 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		cpane.add("North", northPanel);
 		cpane.add("West", leftPanel);
 		cpane.add("Center", centerPanel);
-		//cpane.add("South", southPanel);
 		pack();
 	}
 	
@@ -467,7 +490,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 					len_state = return_state(result.getInt("lent.len_re_st"));
 					table.setValueAt(len_state, dataCount, 4);
 				}
-				else if(menu_title.equals("대출관리")) {
+				else if(menu_title.equals("대출관리") || menu_title.equals("대출찾기")) {
 					table.setValueAt(result.getString("member.mem_id"), dataCount, 0);
 					table.setValueAt(result.getString("book.book_name"), dataCount, 1);
 					table.setValueAt(result.getString("library.lib_name"), dataCount, 2);
@@ -904,6 +927,21 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 						try {
 							result.absolute(selectedCol + 1);
 							MoveData();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+						repaint();
+					}
+					
+					if(menu_title.equals("대출찾기")) {
+						try {
+							result.absolute(selectedCol + 1);
+							si.set_memid(result.getString("member.mem_id"));
+							si.set_bookname(result.getString("book.book_name"));
+							si.set_len_date(result.getString("lent.len_date"));
+							si.set_len_re_date(result.getString("lent.len_re_date"));
+							fk.insert_len_no(result.getInt("lent.len_no"));
+							closeFrame();
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
