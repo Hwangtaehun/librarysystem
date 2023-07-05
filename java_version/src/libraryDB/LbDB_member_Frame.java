@@ -178,6 +178,7 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			label = new JLabel("반납상태");
 			gbl.setConstraints(label, gbc);
 			leftPanel.add(label);
+			setGrid(gbc, 1,7,1,1);
 			state_pan = new Panel();
 			gr_state = new ButtonGroup();
 			rb_active = new JRadioButton("활성화", true);
@@ -192,7 +193,6 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			rb_stop.setActionCommand("state-2");
 			gr_state.add(rb_stop);
 			state_pan.add(rb_stop);
-			setGrid(gbc, 1,7,1,1);
 			gbl.setConstraints(state_pan, gbc);
 			leftPanel.add(state_pan);
 			
@@ -200,6 +200,7 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			label = new JLabel("회원구분");
 			gbl.setConstraints(label, gbc);
 			leftPanel.add(label);
+			setGrid(gbc, 1,8,1,1);
 			lent_pan = new Panel();
 			gr_lent = new ButtonGroup();
 			rb_normal = new JRadioButton("일반", true);
@@ -214,7 +215,6 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			rb_special.setActionCommand("lent-10");
 			gr_lent.add(rb_special);
 			lent_pan.add(rb_special);
-			setGrid(gbc, 1,8,1,1);
 			gbl.setConstraints(lent_pan, gbc);
 			leftPanel.add(lent_pan);
 		}
@@ -352,22 +352,18 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			tf_Pw2.setText(mem_pw);
 			tf_detail.setText(mem_detail);
 			
-			if(mem_lent == 0) {
-				rb_active.setSelectedIcon(null);
-				//rb_active.setSelected(true);
+			if(mem_state == 0) {
+				rb_active.setSelected(true);
 			}
 			else {
-				rb_stop.setSelectedIcon(null);
-				//rb_stop.setSelected(true);
+				rb_stop.setSelected(true);
 			}
 			
-			if(mem_state == 5) {
-				rb_normal.setSelectedIcon(null);
-				//rb_normal.setSelected(true);
+			if(mem_lent == 5) {
+				rb_normal.setSelected(true);
 			}
 			else {
-				rb_special.setSelectedIcon(null);
-				//rb_special.setSelected(true);
+				rb_special.setSelected(true);
 			}
 			
 			tf_address.setText(address);
