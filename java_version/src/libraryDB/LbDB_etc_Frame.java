@@ -8,7 +8,7 @@ import libraryDB.LbDB_lent_Frame.tableListener;
 
 import java.sql.*;
 
-public class LbDB_etc_Frame extends LbDB_main_Frame {
+public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 수정시 다시 작성
 	private JTextField tf_mem_id, tf_book_name, tf_len_date, tf_len_re_date;
 	private Combobox_Manager lib_len_manager, lib_re_manager;
 	
@@ -130,7 +130,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame {
 		gbl.setConstraints(bt, gbc);
 		leftPanel.add(bt);
 		
-		String columnName[] = {"회원아이디", "소장도서관", "자료이름", "도서기호", "대출일", "반납일", "해제일"};
+		String columnName[] = {"회원아이디", "자료이름", "소장도서관", "도서기호", "대출일", "반납일", "해제일"};
 		tablemodel = new LbDB_TableMode(columnName.length, columnName);
 		table = new JTable(tablemodel);
 		table.setPreferredScrollableViewportSize(new Dimension(700, 14*16));
@@ -227,8 +227,8 @@ public class LbDB_etc_Frame extends LbDB_main_Frame {
 					book_symbol = result.getString("kind.kind_num") + " " 
 								+ mat_manyZeroCheck(mat_many) + result.getString("material.mat_overlap");
 					table.setValueAt(result.getString("member.mem_id"), dataCount, 0);
-					table.setValueAt(result.getString("library.lib_name"), dataCount, 1);
-					table.setValueAt(result.getString("book.book_name"), dataCount, 2);
+					table.setValueAt(result.getString("book.book_name"), dataCount, 1);
+					table.setValueAt(result.getString("library.lib_name"), dataCount, 2);
 					table.setValueAt(book_symbol, dataCount, 3);
 					table.setValueAt(result.getString("lent.len_date"), dataCount, 4);
 					table.setValueAt(result.getString("lent.len_re_date"), dataCount, 5);
@@ -243,6 +243,14 @@ public class LbDB_etc_Frame extends LbDB_main_Frame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void research_lent() {
+		
+	}
+	
+	public void research_member() {
+		
 	}
 	
 	public class lentButtonListener implements ActionListener {
@@ -291,7 +299,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame {
 					System.out.println("data is Empty");
 				else {
 					tf_mem_id.setText(table.getValueAt(selectedCol, 0).toString());
-					tf_book_name.setText(table.getValueAt(selectedCol, 2).toString());
+					tf_book_name.setText(table.getValueAt(selectedCol, 1).toString());
 					tf_len_date.setText(table.getValueAt(selectedCol, 4).toString());
 					tf_len_re_date.setText(table.getValueAt(selectedCol, 5).toString());
 					tf_date.setText(table.getValueAt(selectedCol, 6).toString());
