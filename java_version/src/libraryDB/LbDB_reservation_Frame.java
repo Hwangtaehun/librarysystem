@@ -244,19 +244,6 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 		}
 	}
 	
-	private String mat_manyZeroCheck(String mat_many) {
-		String result;
-		
-		if(mat_many.equals("0")) {
-			result = "";
-		}
-		else {
-			result = mat_many;
-		}
-		
-		return result;
-	}
-	
 	private LbDB_reservation_Frame myself() {
 		return this;
 	}

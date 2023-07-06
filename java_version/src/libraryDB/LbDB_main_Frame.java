@@ -396,11 +396,11 @@ public class LbDB_main_Frame extends LbDB_Frame {
         JMenu memberMenu = new JMenu("자료 및 회원");
         JMenu lentMenu = new JMenu("대출 및 반납");
         JMenu deliveryMenu = new JMenu("상호대차");
-        JMenu etcMenu = new JMenu("예약과 대출장소관리");
+        JMenu etcMenu = new JMenu("기타");
         
-        JMenuItem[] menuItems = new JMenuItem[18];
+        JMenuItem[] menuItems = new JMenuItem[19];
         String[] items = {"책관리", "책추가", "종류관리", "종류추가", "도서관관리", "도서관추가", "회원관리", "자료관리", "자료추가", "대출관리", "대출추가", 
-        				  "반납추가", "상호대차관리-회원", "상호대차관리-자료", "상호대차도착일추가","상호대차완료내역", "예약관리", "대출장소관리"};
+        				  "반납추가", "상호대차관리-회원", "상호대차관리-자료", "상호대차도착일추가","상호대차완료내역", "예약관리", "대출장소관리", "연체관리"};
         
         for(int i=0; i<menuItems.length; i++) {
         	 menuItems[i] = new JMenuItem(items[i]); // 메뉴 아이템 컴포넌트 생성
@@ -431,6 +431,7 @@ public class LbDB_main_Frame extends LbDB_Frame {
         
         etcMenu.add(menuItems[16]);
         etcMenu.add(menuItems[17]);
+        etcMenu.add(menuItems[18]);
         
         menuBar.add(bookMenu);
         menuBar.add(kindMenu);
@@ -557,6 +558,20 @@ public class LbDB_main_Frame extends LbDB_Frame {
 		}
 		
 		return bool;
+	}
+	
+	protected String mat_manyZeroCheck(String mat_many) {
+		String result;
+		
+		if(mat_many.equals("0")) {
+			result = "";
+		}
+		else {
+			result = mat_many;
+			result += " ";
+		}
+		
+		return result;
 	}
 	
 	public class MenuAction implements ActionListener{
@@ -695,6 +710,16 @@ public class LbDB_main_Frame extends LbDB_Frame {
 				System.out.println("반납추가");
 				LbDB_lent_Frame frame16 = new LbDB_lent_Frame(db, cl, command);
 				frame16.setVisible(true);
+				break;
+			case "대출장소관리":
+				System.out.println("대출장소관리");
+				LbDB_etc_Frame frame24 = new LbDB_etc_Frame(db, cl, command);
+				frame24.setVisible(true);
+				break;
+			case "연체관리":
+				System.out.println("연체관리");
+				LbDB_etc_Frame frame25 = new LbDB_etc_Frame(db, cl, command);
+				frame25.setVisible(true);
 				break;
 			}
 			
