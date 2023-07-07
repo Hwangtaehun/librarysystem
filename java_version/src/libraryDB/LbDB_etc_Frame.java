@@ -8,6 +8,7 @@ import libraryDB.LbDB_lent_Frame.tableListener;
 
 import java.sql.*;
 
+//연체관리와 대출장소관리 부분 사용하는 클래스
 public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 수정시 다시 작성
 	private JTextField tf_mem_id, tf_book_name, tf_len_date, tf_len_re_date;
 	private Combobox_Manager lib_len_manager, lib_re_manager;
