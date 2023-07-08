@@ -44,7 +44,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		addWindowListener(this);
 	}
 	
-	private void baseform() {
+	private void baseform() { //공통적으로 사용하는 부분
 		JButton bt;
 		JLabel label;
 		
@@ -104,7 +104,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		leftPanel.add(tf_len_re_date);
 	}
 	
-	private void overdueform() {
+	private void overdueform() { //연체관리 프레임
 		JButton bt;
 		JLabel label;
 		
@@ -140,7 +140,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		centerPanel.add(scrollPane); 
 	}
 	
-	private void placeform() {
+	private void placeform() { //대출장소관리 프레임
 		JButton bt;
 		JLabel label;
 		JComboBox <String> lib_Box = null;
