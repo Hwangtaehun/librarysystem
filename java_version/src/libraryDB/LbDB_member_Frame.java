@@ -16,6 +16,7 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 	private int mem_state, mem_lent;
 	private boolean state_bool = false; //계정정지
 	private LbDB_reservation_Frame res = null;
+	private LbDB_etc_Frame etc;
 	
 	public LbDB_member_Frame() {}
 	public LbDB_member_Frame(LbDB_DAO db, String title) {
@@ -56,6 +57,21 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 		this.fk = fk;
 		tf_dialog = tf;
 		state_bool = bool;
+		sql = "SELECT * FROM `member`, `address` WHERE `member`.`add_no` = `address`.`add_no` AND NOT `mem_state` = 1";
+		sortsql = " ORDER BY `mem_name`";
+		Initform();
+		dialogform();
+		tableform();
+		dialogform_final();
+		dialog(title);
+	}
+	public LbDB_member_Frame(String title, JTextField tf, foreignkey fk, LbDB_etc_Frame etc) {
+		db = new LbDB_DAO();
+		menu_title = title;
+		this.fk = fk;
+		tf_dialog = tf;
+		this.etc = etc;
+		state_bool = false;
 		sql = "SELECT * FROM `member`, `address` WHERE `member`.`add_no` = `address`.`add_no` AND NOT `mem_state` = 1";
 		sortsql = " ORDER BY `mem_name`";
 		Initform();
@@ -391,6 +407,9 @@ public class LbDB_member_Frame extends LbDB_main_Frame {
 			
 			if(res != null) {
 				res.research();
+			}
+			else if(etc != null) {
+				etc.research_member();
 			}
 			
 			closeFrame();

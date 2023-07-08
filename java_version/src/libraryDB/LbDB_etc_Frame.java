@@ -12,6 +12,7 @@ import java.sql.*;
 public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 수정시 다시 작성
 	private JTextField tf_mem_id, tf_book_name, tf_len_date, tf_len_re_date;
 	private Combobox_Manager lib_len_manager, lib_re_manager;
+	private String[] library_array;
 	
 	public LbDB_etc_Frame() {}
 	public LbDB_etc_Frame(LbDB_DAO db, Client cl, String title) {
@@ -25,9 +26,26 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		Initform();
 		baseform();
 		if(menu_title.equals("대출장소관리")) {
+			//research_lent함수
+			String temp = "";
+			sql = "SELECT * FROM library";
+			result = db.getResultSet(sql);
+			
+			try {
+				while(result.next()) {
+					temp += result.getString("library.lib_name");
+					temp += "-";
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			library_array = temp.split("-");
+			
 			placeform();
 		}
 		else {
+			//research_member함수
 			overdueform();
 			sql = "SELECT * FROM overdue, lent, material, member, library, book, kind WHERE overdue.len_no = lent.len_no "
 				+ "AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no AND material.lib_no = library.lib_no "
@@ -159,7 +177,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		gbl.setConstraints(label, gbc);
 		leftPanel.add(label);
 		setGrid(gbc,1,7,1,1);
-		lib_re_manager = new Combobox_Manager(lib_Box, "library", "lib_no");
+		lib_re_manager = new Combobox_Manager(lib_Box, "library", "lib_no", true);
 		lib_Box = lib_re_manager.combox;
 		gbl.setConstraints(lib_Box, gbc);
 		leftPanel.add(lib_Box);
@@ -220,6 +238,12 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		}
 		try {
 			if(resultempty_check(result)) {
+				repaint();
+				tf_mem_id.setText(null);
+				tf_book_name.setText(null);
+				tf_len_date.setText(null);
+				tf_len_re_date.setText(null);
+				tf_date.setText(null);
 				return;
 			}
 			else {
@@ -246,19 +270,60 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		}
 	}
 	
+	private LbDB_etc_Frame myself() {
+		return this;
+	}
+	
 	public void research_lent() {
+		//장소관리
+		int lib_no;
+		String lib_no_len, lib_no_re;
 		
+		lib_no_len = "";
+		lib_no_re = "";
+		System.out.println("len_nd의 값: " + fk.call_len_no());
+		sql = "SELECT * FROM place WHERE len_no = " + fk.call_len_no();
+		result = db.getResultSet(sql);
+		
+		try {
+			while(result.next()) {
+				lib_no_len = result.getString("place.lib_no_len");
+				lib_no_re = result.getString("place.lib_no_re");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		lib_no = Integer.parseInt(lib_no_len);
+		lib_len_manager.combox.setSelectedItem(library_array[lib_no-1]);
+		System.out.println("대출도서관: " + library_array[lib_no-1]);
+		
+		if(lib_no_re == null) {
+			lib_re_manager.combox.setEnabled(false);
+			lib_re_manager.combox.setSelectedItem("없음");
+		}
+		else {
+			lib_re_manager.combox.setEnabled(true);
+			lib_no = Integer.parseInt(lib_no_re);
+			lib_re_manager.combox.setSelectedItem(library_array[lib_no-1]);
+			System.out.println("반납도서관: " + library_array[lib_no-1]);
+		}
 	}
 	
 	public void research_member() {
-		
+		//연체관리
+		String now_sql = sql + " AND lent.mem_no = " + fk.call_mem_no();
+		LoadList(now_sql);
 	}
 	
 	public class lentButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			SwingItem si = new SwingItem(tf_mem_id, tf_book_name, tf_len_date, tf_len_re_date);
+			LbDB_lent_Frame lent = new LbDB_lent_Frame("대출찾기", fk, si, myself());
+			lent.setVisible(true);
 		}
 	}
 	
@@ -266,7 +331,8 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			//LbDB_member_Frame member = new LbDB_member_Frame("회원찾기", )
+			LbDB_member_Frame member = new LbDB_member_Frame("회원찾기", tf_mem_id, fk, myself());
+			member.setVisible(true);
 		}
 	}
 	

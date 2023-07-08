@@ -16,6 +16,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 	private ButtonGroup gr_return, gr_extend;
 	private String columnName[];
 	private SwingItem si;
+	private LbDB_etc_Frame etc;
 	private boolean booksea_use = false;
 	
 	public LbDB_lent_Frame() {}
@@ -121,11 +122,12 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		addWindowListener(this);
 	}
 	
-	public LbDB_lent_Frame(String title, foreignkey fk, SwingItem si) {
+	public LbDB_lent_Frame(String title, foreignkey fk, SwingItem si, LbDB_etc_Frame etc) { //etc_frame만 사용
 		db = new LbDB_DAO();
 		menu_title = title;
 		this.fk = fk;
 		this.si = si;
+		this.etc = etc;
 		
 		dialog(menu_title);
 		menuform();
@@ -138,6 +140,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		tableform(columnName);
 		cpane.add("North", northPanel);
 		cpane.add("Center", centerPanel);
+		pack();
 		
 		sortsql = " ORDER BY `mem_name`";
 		String now_sql = sql + sortsql;
@@ -941,6 +944,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 							si.set_len_date(result.getString("lent.len_date"));
 							si.set_len_re_date(result.getString("lent.len_re_date"));
 							fk.insert_len_no(result.getInt("lent.len_no"));
+							etc.research_lent();
 							closeFrame();
 						} catch (SQLException e1) {
 							e1.printStackTrace();
