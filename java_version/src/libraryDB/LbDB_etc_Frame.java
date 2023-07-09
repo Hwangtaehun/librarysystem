@@ -238,6 +238,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		}
 		try {
 			if(resultempty_check(result)) {
+				tableempty();
 				repaint();
 				tf_mem_id.setText(null);
 				tf_book_name.setText(null);

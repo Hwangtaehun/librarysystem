@@ -360,6 +360,7 @@ public class LbDB_address_Dialog extends LbDB_main_Frame{
 				result = db.getResultSet(sql);
 				
 				if(resultempty_check(result)) {
+					tableempty();
 					return;
 				}
 				

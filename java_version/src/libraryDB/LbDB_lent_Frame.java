@@ -676,12 +676,12 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			int code = 0;
+			int code = 0, mat_lib_no = 0;
 			String now_sql, next_sql;
 			LocalDate len_date;
 			
+			len_date = LocalDate.now(); 
 			if(warning()) {
-				len_date = LocalDate.now(); 
 				if(menu_title.equals("대출추가")) {
 					reservation_check();
 					
@@ -717,6 +717,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 					}
 					try {
 						code = result.getInt("lent.len_no");
+						mat_lib_no = result.getInt("material.lib_no");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -739,6 +740,15 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 				}
 				System.out.println(next_sql);
 				db.Excute(next_sql);
+				
+				if(menu_title.equals("반납추가")) {
+					if(mat_lib_no != lib_select.foreignkey()) {
+						now_sql = "INSERT INTO delivery (mem_no, mat_no, lib_no_arr, del_arr_date, del_app) VALUES (" 
+								+ pk + ", " + code + ", " + lib_select.foreignkey() + ", '" + len_date +"', 2)";
+						System.out.println("타자료반납: " + now_sql);
+					}
+				}
+				
 				if(menu_title.equals("대출관리")) {
 					now_sql = sql + sortsql;
 					LoadList(now_sql);

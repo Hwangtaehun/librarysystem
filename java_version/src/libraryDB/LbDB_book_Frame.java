@@ -947,6 +947,7 @@ public class LbDB_book_Frame extends LbDB_main_Frame{
 		result = db.getResultSet(now_sql);
 		
 		if(resultempty_check(result)) {
+			tableempty();
 			return;
 		}
 		

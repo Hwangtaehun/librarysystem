@@ -214,6 +214,7 @@ public class LbDB_reservation_Frame extends LbDB_main_Frame {
 		}
 		try {
 			if(resultempty_check(result)) {
+				tableempty();
 				tf_book_name.setText("");
 				tf_date.setText("");
 			}

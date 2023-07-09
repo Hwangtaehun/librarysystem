@@ -282,6 +282,7 @@ public class LbDB_kind_Frame extends LbDB_main_Frame {
 		result = db.getResultSet(now_sql);
 		
 		if(resultempty_check(result)) {
+			tableempty();
 			return;
 		}
 		

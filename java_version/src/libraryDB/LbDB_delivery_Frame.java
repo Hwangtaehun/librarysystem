@@ -308,7 +308,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		String now_sql;
 		JButton bt;
 		
-		String columnName[] = {"책이름", "소장도서관", "수신도서관", "도착일", "상태"};
+		String columnName[] = {"책이름", "권차", "복권", "소장도서관", "수신도서관", "도착일", "상태"};
 		tablemodel = new LbDB_TableMode(columnName.length, columnName);
 		table = new JTable(tablemodel);
 		table.setPreferredScrollableViewportSize(new Dimension(700, 14*16));
@@ -504,12 +504,22 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			table.setValueAt(null, row, 1);
 			table.setValueAt(null, row, 2);
 		}
+		else if(menu_title.equals("상호대차완료내역")) {
+			table.setValueAt(null, row, 0);
+			table.setValueAt(null, row, 1);
+			table.setValueAt(null, row, 2);
+			table.setValueAt(null, row, 3);
+			table.setValueAt(null, row, 4);
+			table.setValueAt(null, row, 5);
+		}
 		else {
 			table.setValueAt(null, row, 0);
 			table.setValueAt(null, row, 1);
 			table.setValueAt(null, row, 2);
 			table.setValueAt(null, row, 3);
 			table.setValueAt(null, row, 4);
+			table.setValueAt(null, row, 5);
+			table.setValueAt(null, row, 6);
 		}
 	}
 	
@@ -577,6 +587,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		result = db.getResultSet(now_sql);
 		
 		if(resultempty_check(result)) {
+			tableempty();
 			return;
 		}
 		
@@ -616,34 +627,40 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 						
 						table.setValueAt(app_str, dataCount, 5);
 					}
-					else {
+					if(menu_title.equals("상호대차")) {
 						table.setValueAt(result.getString("book.book_name"), dataCount, 0);
 						table.setValueAt(lib_name_array[lib_no - 1], dataCount, 1);
 						table.setValueAt(lib_name_array[lib_no_arr - 1], dataCount, 2);
-						if(menu_title.equals("상호대차관리") || menu_title.equals("상호대차내역")) {
-							int app;
-							String app_str;
-							
-							if(result.getString("delivery.del_arr_date") == null) {
-								table.setValueAt("", dataCount, 3);
-							}
-							else {
-								table.setValueAt(result.getString("delivery.del_arr_date"), dataCount, 3);
-							}
-							
-							app = result.getInt("delivery.del_app");
-							if(app == 0) {
-								app_str = "거절";
-							}
-							else if(app == 1) {
-								app_str = "승인";
-							}
-							else {
-								app_str = "반송";
-							}
-							
-							table.setValueAt(app_str, dataCount, 4);
+					}
+					else {
+						int app;
+						String app_str;
+						
+						table.setValueAt(result.getString("book.book_name"), dataCount, 0);
+						table.setValueAt(result.getString("material.mat_many"), dataCount, 1);
+						table.setValueAt(result.getString("material.mat_overlap"), dataCount, 2);
+						table.setValueAt(lib_name_array[lib_no - 1], dataCount, 3);
+						table.setValueAt(lib_name_array[lib_no_arr - 1], dataCount, 4);
+						
+						if(result.getString("delivery.del_arr_date") == null) {
+							table.setValueAt("", dataCount, 5);
 						}
+						else {
+							table.setValueAt(result.getString("delivery.del_arr_date"), dataCount, 5);
+						}
+						
+						app = result.getInt("delivery.del_app");
+						if(app == 0) {
+							app_str = "거절";
+						}
+						else if(app == 1) {
+							app_str = "승인";
+						}
+						else {
+							app_str = "반송";
+						}
+						
+						table.setValueAt(app_str, dataCount, 6);
 					}
 				}
 			}
