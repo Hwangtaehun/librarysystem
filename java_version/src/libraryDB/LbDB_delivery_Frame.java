@@ -29,6 +29,10 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		menu_subtitle = str.split("-");
 		menu_title = menu_subtitle[0];
 		
+		if(menu_subtitle.length < 2) {
+			make_menu_subtitle();
+		}
+		
 		setTitle(str);
 		menuform();
 		Initform();
@@ -60,6 +64,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		fk = new foreignkey();
 		
 		dialog(menu_title);
+		make_menu_subtitle();
 		Initform();
 		baseform();
 		booksea_member_dialog();
@@ -76,9 +81,10 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		make_lib_array();
 		
 		sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND " 
-			+ "delivery.mem_no = member.mem_no AND material.book_no = book.book_no";
+			+ "delivery.mem_no = member.mem_no AND material.book_no = book.book_no AND NOT member.mem_state = 1";
 		sortsql = " ORDER BY book.book_name";
 		dialog(menu_title);
+		make_menu_subtitle();
 		Initform();
 		baseform();
 		booksea_manager_dialog();
@@ -486,6 +492,12 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		lib_name_array = sentence.split("-");
 	}
 	
+	private void make_menu_subtitle() {
+		menu_subtitle = new String[2];
+		menu_subtitle[0] = "";
+		menu_subtitle[1] = "";
+	}
+	
 	private void removeTableRow(int row) {
 		if(menu_title.equals("상호대차")) {
 			table.setValueAt(null, row, 0);
@@ -506,7 +518,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			String book_name, lib_arr_name;
 			int lib_no_arr;
 			
-			if(result == null) {
+			if(resultempty_check(result)) {
 				System.out.println("값이 없습니다.");
 				return;
 			}

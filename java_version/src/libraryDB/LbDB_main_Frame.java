@@ -547,7 +547,6 @@ public class LbDB_main_Frame extends LbDB_Frame {
 		
 		if(num == 0) {
 			bool = true;
-			JOptionPane.showMessageDialog(null, "검색된 자료가 없습니다.",  "테이블 오류", JOptionPane.PLAIN_MESSAGE);
 		}
 		
 		try {
@@ -558,6 +557,10 @@ public class LbDB_main_Frame extends LbDB_Frame {
 		}
 		
 		return bool;
+	}
+	
+	protected void tableempty() {
+		JOptionPane.showMessageDialog(null, "검색된 자료가 없습니다.",  "테이블 오류", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	protected String mat_manyZeroCheck(String mat_many) {
