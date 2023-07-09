@@ -341,7 +341,35 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			int code = 0;
+			String now_sql;
+			if(menu_title.equals("대출장소관리")) {
+				try {
+					code = result.getInt("place.pla_no");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				now_sql = "UPDATE place SET lib_no_len = " + lib_len_manager.foreignkey()
+						+ ", lib_no_re = " + lib_re_manager.foreignkey() + " WHERE pla_no = " + code;
+				db.Excute(now_sql);
+			}
+			else {
+				String date;
+				date = tf_date.getText();
+				if(dateformat_check(date)){
+					JOptionPane.showMessageDialog(null, "날짜 형식이 잘못되었습니다.",  "연체관리 오류", JOptionPane.PLAIN_MESSAGE);
+				}
+				
+				try {
+					code = result.getInt("overdue.due_no");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				now_sql = "UPDATE overdue SET due_exp = '" + date + "' WHERE due_no = " + code;
+				db.Excute(now_sql);
+			}
 		}
 	}
 	
@@ -349,7 +377,22 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			int code = 0, mem_no = 0;
+			String now_sql;
 			
+			try {
+				code = result.getInt("overdue.due_no");
+				mem_no = result.getInt("member.mem_no");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			now_sql = "DELETE FROM overdue WHERE due_no = " + code;
+			db.Excute(now_sql);
+			
+			now_sql = "UPDATE member SET mem_state = 0 WHERE mem_no = " + mem_no; 
+			db.Excute(now_sql);
 		}
 	}
 	
