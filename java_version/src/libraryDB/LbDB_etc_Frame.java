@@ -282,14 +282,15 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		
 		lib_no_len = "";
 		lib_no_re = "";
-		System.out.println("len_nd의 값: " + fk.call_len_no());
 		sql = "SELECT * FROM place WHERE len_no = " + fk.call_len_no();
 		result = db.getResultSet(sql);
 		
 		try {
 			while(result.next()) {
+				
 				lib_no_len = result.getString("place.lib_no_len");
 				lib_no_re = result.getString("place.lib_no_re");
+				fk.insert_pla_no(result.getInt("place.pla_no"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -300,8 +301,11 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		lib_len_manager.combox.setSelectedItem(library_array[lib_no-1]);
 		System.out.println("대출도서관: " + library_array[lib_no-1]);
 		
-		if(lib_no_re == null) {
+		if(fk.is_null_re_date) {
 			lib_re_manager.combox.setEnabled(false);
+		}
+		
+		if(lib_no_re == null) {
 			lib_re_manager.combox.setSelectedItem("없음");
 		}
 		else {
@@ -342,16 +346,18 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			int code = 0;
-			String now_sql;
+			String lib_no_re, now_sql;
 			if(menu_title.equals("대출장소관리")) {
-				try {
-					code = result.getInt("place.pla_no");
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				code = fk.call_pla_no();
+				if(lib_re_manager.foreignkey() == 0) {
+					lib_no_re = "null";
+				}
+				else {
+					lib_no_re = Integer.toString(lib_re_manager.foreignkey());
 				}
 				now_sql = "UPDATE place SET lib_no_len = " + lib_len_manager.foreignkey()
-						+ ", lib_no_re = " + lib_re_manager.foreignkey() + " WHERE pla_no = " + code;
+						+ ", lib_no_re = " + lib_no_re + " WHERE pla_no = " + code;
+				System.out.println(now_sql);
 				db.Excute(now_sql);
 			}
 			else {
@@ -359,6 +365,7 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 				date = tf_date.getText();
 				if(dateformat_check(date)){
 					JOptionPane.showMessageDialog(null, "날짜 형식이 잘못되었습니다.",  "연체관리 오류", JOptionPane.PLAIN_MESSAGE);
+					return;
 				}
 				
 				try {
@@ -368,7 +375,12 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 					e1.printStackTrace();
 				}
 				now_sql = "UPDATE overdue SET due_exp = '" + date + "' WHERE due_no = " + code;
+				System.out.println(now_sql);
 				db.Excute(now_sql);
+				
+				now_sql = sql + sortsql;
+				System.out.println(now_sql);
+				LoadList(now_sql);
 			}
 		}
 	}
@@ -389,10 +401,16 @@ public class LbDB_etc_Frame extends LbDB_main_Frame { //kind와 member테이블 
 			}
 			
 			now_sql = "DELETE FROM overdue WHERE due_no = " + code;
+			System.out.println(now_sql);
 			db.Excute(now_sql);
 			
-			now_sql = "UPDATE member SET mem_state = 0 WHERE mem_no = " + mem_no; 
+			now_sql = "UPDATE member SET mem_state = 0 WHERE mem_no = " + mem_no;
+			System.out.println(now_sql);
 			db.Excute(now_sql);
+			
+			now_sql = sql + sortsql;
+			System.out.println(now_sql);
+			LoadList(now_sql);
 		}
 	}
 	

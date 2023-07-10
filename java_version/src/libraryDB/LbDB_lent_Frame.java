@@ -954,6 +954,9 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 							si.set_len_date(result.getString("lent.len_date"));
 							si.set_len_re_date(result.getString("lent.len_re_date"));
 							fk.insert_len_no(result.getInt("lent.len_no"));
+							if(result.getString("lent.len_re_date") == null) {
+								fk.is_null_re_date = true;
+							}
 							etc.research_lent();
 							closeFrame();
 						} catch (SQLException e1) {

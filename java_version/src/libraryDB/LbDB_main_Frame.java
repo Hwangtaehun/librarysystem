@@ -513,15 +513,53 @@ public class LbDB_main_Frame extends LbDB_Frame {
 	
 	//날짜형식 확인하는 함수
 	protected boolean dateformat_check(String date_string) { 
+		int year, month, day, max_day;
 		boolean bool = true;
 		String date_array[];
 		
+		year = 0;
+		month = 0;
+		day = 0;
+		max_day = 0;
 		date_array = date_string.split("-");
 		
-		if(isInteger(date_array[0])) {
-			if(isInteger(date_array[1])) {
-				if(isInteger(date_array[2])) {
-					bool = false;
+		if(date_array.length == 3) {
+			if(isInteger(date_array[0])) {
+				String temp;
+				temp = date_array[0];
+				year = Integer.parseInt(temp);
+				if(isInteger(date_array[1])) {
+					temp = date_array[1];
+					month =  Integer.parseInt(temp);
+					if(isInteger(date_array[2])) {
+						temp = date_array[2];
+						day =  Integer.parseInt(temp);
+					}
+				}
+			}
+		}
+		
+		if(year > 0 && month > 0 && day > 0) {
+			if(month < 13) {
+				if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+					max_day = 32;
+				}
+				else if(month == 4 || month == 6 || month == 9 || month == 11) {
+					max_day = 31;
+				}
+				else {
+					if(year%400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+						max_day = 30;
+					}
+					else {
+						max_day = 29;
+					}
+				}
+				
+				if(date_array[0].length() == 4) {
+					if(day < max_day) {
+						bool = false;
+					}
 				}
 			}
 		}
