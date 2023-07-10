@@ -332,7 +332,6 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 	private void returnaddform() {
 		JButton bt;
 		JLabel label;
-		JPanel extendPanel = null;
 		JComboBox <String> lib_Box = null;
 		
 		setGrid(gbc,0,5,1,1);
