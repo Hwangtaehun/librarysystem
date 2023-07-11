@@ -8,7 +8,7 @@ import java.time.*;
 import java.time.format.*;
 
 //lent테이블과 관련있는 event처리 클래스
-public class LbDB_lent_Frame extends LbDB_main_Frame {
+public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 	private JPanel northPanel;
 	private Combobox_Manager lib_research, lib_select;
 	private JTextField tf_research, tf_book_name, tf_mem_id;
@@ -481,7 +481,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 					table.setValueAt(result.getString("book.book_name"), dataCount, 0);
 					table.setValueAt(result.getString("library.lib_name"), dataCount, 1);
 					table.setValueAt(result.getString("lent.len_date"), dataCount, 2);
-					date = estimate_return_date(result.getString("lent.len_date"), result.getInt("lent.len_ex"));
+					date = String.valueOf(estimateReturndate(result.getString("lent.len_date"), result.getInt("lent.len_ex")));
 					table.setValueAt(date, dataCount, 3);
 				}
 				else if(menu_title.equals("모든대출내역")) {
@@ -546,19 +546,6 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		return bool;
 	}
 	
-	private String estimate_return_date(String len_date, int len_ex) {
-		LocalDate date;
-		String return_date = "";
-		int day = 15;
-		
-		date = LocalDate.parse(len_date, DateTimeFormatter.ISO_DATE);
-		day += len_ex;
-		date.plusDays(day);
-		return_date = date.toString();
-		
-		return return_date;
-	}
-	
 	private String return_state(int num) {
 		String len_state;
 		
@@ -605,6 +592,18 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 			JOptionPane.showMessageDialog(null, "예약도서입니다.", "대출 오류", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+	}
+	
+	public LocalDate estimateReturndate(String lentdate, int extend) {
+		int period = 15;
+		LocalDate date;
+		
+		date = LocalDate.parse(lentdate);
+		period += extend;
+		date = date.plusDays(period);
+		System.out.println("date: " + date + ", period: " + period);
+		
+		return date;
 	}
 	
 	public class researchButtonListener implements ActionListener{
@@ -675,22 +674,20 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			int code = 0, mat_lib_no = 0;
-			String now_sql, next_sql;
-			LocalDate len_date;
-			
-			len_date = LocalDate.now(); 
+			int code = 0, mat_lib_no = 0, len_ex = 0;
+			String now_sql, next_sql, len_date = null;
+			 
 			if(warning()) {
 				if(menu_title.equals("대출추가")) {
 					reservation_check();
 					
 					now_sql = "INSERT INTO `lent` ( mat_no, mem_no, len_ex, len_date ) VALUES(" + fk.call_mat_no() + ", "
-							+ fk.call_mem_no() + ", " + ex + ", '" + len_date + "')";
+							+ fk.call_mem_no() + ", " + ex + ", '" + today + "')";
 					System.out.println(now_sql);
 					db.Excute(now_sql);
 					
 					next_sql = "SELECT `len_no` FROM `lent` WHERE `mat_no` = " + fk.call_mat_no() + " AND `mem_no` = "
-							 + fk.call_mem_no() + " AND `len_date` = '" + len_date + "'";
+							 + fk.call_mem_no() + " AND `len_date` = '" + today + "'";
 					result = db.getResultSet(next_sql);
 					
 					try {
@@ -716,12 +713,14 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 					}
 					try {
 						code = result.getInt("lent.len_no");
+						len_ex = result.getInt("lent.len_ex");
 						mat_lib_no = result.getInt("material.lib_no");
+						len_date = result.getString("lent.len_date");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					now_sql = "UPDATE `lent` SET `len_re_date` = '" + len_date + "', `len_re_st` = 1 WHERE len_no = " + code;
+					now_sql = "UPDATE `lent` SET `len_re_date` = '" + today + "', `len_re_st` = 1 WHERE len_no = " + code;
 					System.out.println(now_sql);
 					db.Excute(now_sql);
 					next_sql = "SELECT `pla_no` FROM `place` WHERE `len_no` = " + code;
@@ -743,8 +742,32 @@ public class LbDB_lent_Frame extends LbDB_main_Frame {
 				if(menu_title.equals("반납추가")) {
 					if(mat_lib_no != lib_select.foreignkey()) {
 						now_sql = "INSERT INTO delivery (mem_no, mat_no, lib_no_arr, del_arr_date, del_app) VALUES (" 
-								+ pk + ", " + code + ", " + lib_select.foreignkey() + ", '" + len_date +"', 2)";
+								+ pk + ", " + code + ", " + lib_select.foreignkey() + ", '" + today +"', 2)";
 						System.out.println("타자료반납: " + now_sql);
+					}
+					
+					now_sql = "SELECT * FROM overdue WHERE len_no = " + code;
+					System.out.println(now_sql);
+					result = db.getResultSet(now_sql);
+					
+					if(!resultempty_check(result)) {
+						LocalDate prd, due_exp;
+						Period diff;
+						
+						try {
+							code = result.getInt("overdue.due_no");
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						prd = estimateReturndate(len_date, len_ex);
+						diff = Period.between(prd, today);
+						due_exp = today;
+						due_exp.plus(diff);
+						System.out.println("해제일: " + due_exp);
+						
+						now_sql = "UPDATE overdue SET due_exp = '"  + due_exp + "' WHERE due_no = " + code;
 					}
 				}
 				

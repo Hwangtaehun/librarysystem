@@ -4,7 +4,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.*;
+
+interface todayinterface{
+	static final LocalDate today = LocalDate.now();
+	
+	abstract LocalDate estimateReturndate(String lentdate, int extend);
+}
 
 //콤보박스가 다른 콤보박스를 영향을 줄때 사용하는 클래스
 class Combobox_Inheritance{
