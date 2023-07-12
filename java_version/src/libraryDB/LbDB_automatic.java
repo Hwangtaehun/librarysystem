@@ -8,13 +8,14 @@ public class LbDB_automatic implements todayinterface {
 	private LbDB_DAO db;
 	private String sql;
 	private ResultSet result;
-	private int len_no[];
+	private int len_no[], mem_no[];
 	
 	public LbDB_automatic() {}
 	public LbDB_automatic(LbDB_DAO db) {
 		int num = 0;
 		this.db = db;
-		sql = "SELECT * FROM member, lent WHERE lent.mem_no = member.mem_no AND lent.lent_re_date is NULL";
+		sql = "SELECT * FROM lent WHERE len_re_date is NULL";
+		System.out.println(sql);
 		result = db.getResultSet(sql);
 		
 		if(!resultempty_check(result)) {
@@ -23,16 +24,36 @@ public class LbDB_automatic implements todayinterface {
 					num++;
 				}
 				
+				result.beforeFirst();
 				len_no = new int[num];
+				mem_no = new int[num];
 				num = 0;
 				
 				while(result.next()) {
-					len_no[num] = result.getInt("lent.len_no");
+					len_no[num] = result.getInt("len_no");
+					mem_no[num] = result.getInt("mem_no");
 					num++;
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			
+			for(int i = 0; i < mem_no.length; i++) {
+				sql = "UPDATE member SET mem_state = 2 WHERE mem_no = " + mem_no[i];
+				System.out.println(sql);
+				db.Excute(sql);
+			}
+			
+			for(int i = 0; i < len_no.length; i++) {
+				sql = "SELECT * FROM overdue WHERE len_no = " + len_no[i];
+				result = db.getResultSet(sql);
+				
+				if(resultempty_check(result)) {
+					sql = "INSERT INTO overdue SET len_no = " + len_no[i];
+					System.out.println(sql);
+					db.Excute(sql);
+				}
 			}
 		}
 	}
