@@ -528,11 +528,6 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			String book_name, lib_arr_name;
 			int lib_no_arr;
 			
-			if(resultempty_check(result)) {
-				System.out.println("값이 없습니다.");
-				return;
-			}
-			
 			lib_no_arr = result.getInt("delivery.lib_no_arr");
 			book_name = result.getString("book.book_name");
 			lib_arr_name = lib_name_array[lib_no_arr - 1];
@@ -879,13 +874,13 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 				else {
 					if(menu_title.equals("상호대차관리")) {
 						tf_bookname.setText(table.getValueAt(selectedCol, 0).toString());
-						lib_Box.setSelectedItem(table.getValueAt(selectedCol, 2).toString());
-						tf_date.setText(table.getValueAt(selectedCol, 3).toString());
+						lib_Box.setSelectedItem(table.getValueAt(selectedCol, 3).toString());
+						tf_date.setText(table.getValueAt(selectedCol, 5).toString());
 						
-						if(table.getValueAt(selectedCol, 4).toString().equals("거절")) {
+						if(table.getValueAt(selectedCol, 6).toString().equals("거절")) {
 							rb_dis.setSelected(true);
 						}
-						else if(table.getValueAt(selectedCol, 4).toString().equals("승인")) {
+						else if(table.getValueAt(selectedCol, 6).toString().equals("승인")) {
 							rb_app.setSelected(true);
 						}
 						else {

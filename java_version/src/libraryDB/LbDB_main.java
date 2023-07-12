@@ -131,6 +131,7 @@ public class LbDB_main {
 		db.printMetaData("overdue");
 		db.printMetaData("place");
 		db.printMetaData("reservation");
+		LbDB_automatic auto = new LbDB_automatic(db);
 		Client cl = new Client();
 		LbDB_Login_Frame log = new LbDB_Login_Frame(db, cl);
 		log.setVisible(true);

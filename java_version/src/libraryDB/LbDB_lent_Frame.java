@@ -744,6 +744,7 @@ public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 						now_sql = "INSERT INTO delivery (mem_no, mat_no, lib_no_arr, del_arr_date, del_app) VALUES (" 
 								+ pk + ", " + code + ", " + lib_select.foreignkey() + ", '" + today +"', 2)";
 						System.out.println("타자료반납: " + now_sql);
+						db.Excute(now_sql);
 					}
 					
 					now_sql = "SELECT * FROM overdue WHERE len_no = " + code;
@@ -755,7 +756,9 @@ public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 						Period diff;
 						
 						try {
-							code = result.getInt("overdue.due_no");
+							while(result.next()) {
+								code = result.getInt("overdue.due_no");
+							}
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -764,14 +767,14 @@ public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 						prd = estimateReturndate(len_date, len_ex);
 						diff = Period.between(prd, today);
 						due_exp = today;
-						due_exp.plus(diff);
+						due_exp = due_exp.plus(diff);
 						System.out.println("해제일: " + due_exp);
 						
 						now_sql = "UPDATE overdue SET due_exp = '"  + due_exp + "' WHERE due_no = " + code;
+						System.out.println(now_sql);
+						db.Excute(now_sql);
 					}
-				}
-				
-				if(menu_title.equals("대출관리")) {
+					
 					now_sql = sql + sortsql;
 					LoadList(now_sql);
 				}
@@ -799,8 +802,6 @@ public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 				}
 			}
 			
-			reservation_check();
-			
 			try {
 				code = result.getInt("lent.len_no");
 				len_re_st = result.getInt("lent.len_re_st");
@@ -814,8 +815,8 @@ public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
 			System.out.println("tf_memo의 내용: " + tf_memo.getText() + ", bool의 값" + tf_memo.getText().equals(""));
+			reservation_check();
 			
 			if(tf_memo.getText().equals("")) {
 				now_sql = "UPDATE `lent` SET mem_no = " + fk.call_mem_no() + ", mat_no = " + fk.call_mat_no() + ", len_ex = " 
@@ -833,6 +834,9 @@ public class LbDB_lent_Frame extends LbDB_main_Frame implements todayinterface{
 			if(len_re_st == 1) {
 				if(st != 1) {
 					now_sql = "UPDATE `place` SET `lib_no_re` = NULL WHERE `len_no` = " + code;
+					System.out.println(now_sql);
+					db.Excute(now_sql);
+					now_sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = " + code;
 					System.out.println(now_sql);
 					db.Excute(now_sql);
 				}
