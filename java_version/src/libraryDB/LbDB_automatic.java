@@ -114,11 +114,6 @@ public class LbDB_automatic implements todayinterface {
 		}
 	}
 	
-	public void duplicateDelivery() {
-		db = new LbDB_DAO();
-		sql = "SELECT * FROM delivery WHERE del_arr_date = '" + today + "' ORDER BY "; 
-	}
-	
 	private boolean resultempty_check(ResultSet rs) {
 		int num;
 		boolean bool;
