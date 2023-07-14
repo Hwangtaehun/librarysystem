@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = "ko">
+  <head>
+    <meta charset = "utf-8">
+    <title>Form 연습</title>
+    <link rel = "stylesheet" href="..\css\form.css" />
+    
+    <script>
+      function checkInput(myform){
+        if(myform.user_name.value.length <= 0){
+          alert("이름을 입력하세요 ");
+          myform.user_name.focus();
+          return false;
+        }
+        if(myform.user_password.value.length <= 0){
+          alert("비밀번호를 입력하세요 ");
+          myform.user_password.focus();
+          return false;
+        }
+        if(myform.user_address.value.length <= 0){
+          alert("주소를 입력하세요 ");
+          myform.user_address.focus();
+          return false;
+        }
+        return true;
+      }
+      function checkReset(){
+        return confirm("내용을 지우고 다시 입력 할꺼유??");
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Form Tag 입력 확인(JAVA SCRIPT-1)</h2>
+      <form action = "sj304.php" method = "post" onSubmit = "return checkInput(this)" onReset = "return checkReset()">
+        <label for = "user_name">이름 : </label>
+        <input type = "text" name = "user_name" id = "user_name" value = "">
+        
+        <label for = "user_password">비밀번호 : </label>
+        <input type = "password" name = "user_password" id = "user_password">
+        
+        <label for = "user_address">주소 : </label>
+        <input type = "text" name = "user_address" id="user_address" value=""><br>
+        
+        <input type = submit value = '입력'>
+        <input type = reset value = '지우기'>
+      </form>
+  </body>
+</html>
