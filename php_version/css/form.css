@@ -1,4 +1,11 @@
 header, h4 {text-align: center; border-style: double; background-color: #ffeeaa;}
+
+#div1{
+    text-align: center;
+    background-color: #f5f5dc;
+    border-style: hidden;
+}
+
 nav{background-color: #ccccdd;}
 
 nav a {color: white; text-decoration: none;}

@@ -1,0 +1,5 @@
+include __DIR__.'/../templates/home.html.php';
+
+$outString = ob_get_clean();
+
+include __DIR__.'/../templates/login.html.php';
