@@ -137,7 +137,7 @@ class Automatic {
 		return bool;
 	}
 	
-	public function estimateReturndate($lentdate, $extend) {
+	public function estimateReturndate($lentdate, int $extend) { //lentdate타입 확인
 		// TODO Auto-generated method stub
 		$period = 15;
 
