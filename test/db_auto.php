@@ -3,30 +3,32 @@ class Automatic {
     private $pdo;
 	private $sql;
 	private $result;
-	private $mem_no[];
-    private static $str_today = date("Y-m-d");
+    private $str_today;
 	
-	public function __construct(PDO pdo) {
-		$this->pdo = pdo;
-		overdue_manager();
-		clearmember();
+	public function __construct(PDO $pdo) {
+		$this->pdo = $pdo;
+		$this->str_today = date("Y-m-d");
+		$this->overdue_manager();
+		$this->clearmember();
 	}
 	
-	private funciont overdue_manager() {
+	private function overdue_manager() {
 		$this->sql = "SELECT * FROM lent WHERE len_re_date is NULL";
-		echo 'overdue_manager에 sql값: '.$this->sql.'<br>';
+		echo "overdue_manager에 sql값: $this->sql<br>";
 		$result = $this->pdo->query($this->sql);
 		$num = $result->columnCount();
 		$count = 0;
-		$len_no_array[];
 
 		if($num != 0) {	
 			try {
 				while($row = $result->fetchObject()) {
-					$str_estimate_date = estimateReturndate($row->len_date, $row->len_re_st);
+					$str_estimate_date = $this->estimateReturndate($row->len_date, $row->len_re_st);
 					$estimate_date = strtotime($str_estimate_date);
-					$today = strtotime($str_today)
+					$today = strtotime($this->str_today);
+					echo "\$estimate_date: $estimate_date, \$today: $today";
+					echo '<br>';
 					if($estimate_date >= $today ) {
+						echo "실행완료";
 						$this->sql = "UPDATE member SET mem_state = 2 WHERE mem_no = $row->mem_no";
 						echo '$sql: '.$this->sql;
 						$this->pdo->exec($sql);
@@ -54,10 +56,10 @@ class Automatic {
 		}
 	}
 	
-	private funciont clearmember() {
+	private function clearmember() {
 		$num = 0;
-		$before_week_date = date("Y-m-d", strtotime($lentdate.'-7 days'));
-		$this->sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp BETWEEN '$before_week_date' AND '$str_today'";
+		$before_week_date = date("Y-m-d", strtotime($this->str_today.'-7 days'));
+		$this->sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp BETWEEN '$before_week_date' AND '$this->str_today'";
 		echo '$sql: '.$this->sql;
 		$result = $this->pdo->query($this->sql);
 		$num = $result->columnCount();
@@ -68,7 +70,7 @@ class Automatic {
 
 				foreach ($result as $row) {
 					$mem_no[num] = $row[lent.mem_no];
-					num++;
+					$num++;
 				}
 
 				for($i = 0; $i < $num; $i++) {
@@ -87,7 +89,6 @@ class Automatic {
 
 		$period += $extend;
 		$date = date("Y-m-d", strtotime($lentdate.'+ '.$period.' days'));
-		echo 'date의 값: '.$date.'<br>';
 
 		return $date;
 	}
