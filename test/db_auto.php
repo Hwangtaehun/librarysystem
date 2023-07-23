@@ -16,8 +16,9 @@ class Automatic {
 		$this->sql = "SELECT * FROM lent WHERE len_re_date is NULL";
 		echo "overdue_manager에 sql값: $this->sql<br>";
 		$result = $this->pdo->query($this->sql);
-		$num = $result->columnCount();
+		$num = $result->rowCount();
 		$count = 0;
+		echo '$num = '.$num.', $count = '.$count;
 
 		if($num != 0) {	
 			try {
@@ -27,26 +28,26 @@ class Automatic {
 					$today = strtotime($this->str_today);
 					echo "\$estimate_date: $estimate_date, \$today: $today";
 					echo '<br>';
-					if($estimate_date >= $today ) {
-						echo "실행완료";
-						$this->sql = "UPDATE member SET mem_state = 2 WHERE mem_no = $row->mem_no";
-						echo '$sql: '.$this->sql;
-						$this->pdo->exec($sql);
+					if($estimate_date < $today ) {
 						$len_no_array[$count] = $row->len_no;
+						echo '$len_no_array['.$count.'] = '.$len_no_array[$count].'<br>';
 						$count++;
+						$this->sql = "UPDATE member SET mem_state = 2 WHERE mem_no = $row->mem_no";
+						echo '$sql: '.$this->sql.'데이터타입: '.gettype($this->sql);
+						$this->pdo->exec($this->sql);
 					}
 				}
 
 				for($i = 0; $i < $count; $i++) {
 					$this->sql = "SELECT * FROM overdue WHERE len_no = $len_no_array[$i]";
-					echo '$sql: '.$this->sql;
+					echo '$sql: '.$this->sql.'<br>';
 					$result = $this->pdo->query($this->sql);
-					$num = $result->columnCount();
+					$num = $result->rowCount();
 
-					if($num != 0){
+					if($num == 0){
 						$this->sql = "INSERT INTO overdue SET len_no = $len_no_array[$i]";
-						echo '$sql: '.$this->sql;
-						$this->pdo->exec($sql);
+						echo '$sql: '.$this->sql.'<br>';
+						$this->pdo->exec($this->sql);
 					}
 				}
 			}
@@ -57,26 +58,35 @@ class Automatic {
 	}
 	
 	private function clearmember() {
-		$num = 0;
-		$before_week_date = date("Y-m-d", strtotime($this->str_today.'-7 days'));
-		$this->sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp BETWEEN '$before_week_date' AND '$this->str_today'";
-		echo '$sql: '.$this->sql;
+		$this->sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp <= '$this->str_today'";
+		echo '$sql: '.$this->sql.'<br>';
 		$result = $this->pdo->query($this->sql);
-		$num = $result->columnCount();
-		
+		$result->setFetchMode(PDO::FETCH_NUM);
+		$num = $result->rowCount();
+
+		// while($row = $result->fetchObject()) {
+		// 	echo "<pre>";
+    	// 	print_r($row);
+    	// 	echo "</pre>";
+		// 	echo '$row[mem]'.$row[mem];
+		// }
+
 		if($num != 0) {
 			try {
 				$num = 0;
-
-				foreach ($result as $row) {
-					$mem_no[num] = $row[lent.mem_no];
+				while($row = $result->fetchObject()) {
+					$mem_no[$num] = $row->mem_no;
+					$due_no[$num] = $row->due_no;
 					$num++;
 				}
 
 				for($i = 0; $i < $num; $i++) {
 					$this->sql = "UPDATE member SET mem_state = 0 WHERE mem_no = $mem_no[$i]";
 					echo 'sql의 값: '.$this->sql;
-					$pdo->exec($sql);
+					$this->pdo->exec($this->sql);
+					$this->sql = "DELETE FROM overdue WHERE due_no = $due_no[$i]";
+					echo 'sql의 값: '.$this->sql;
+					$this->pdo->exec($this->sql);
 				}
 			} catch(PDOException $e){
 				$strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
@@ -84,7 +94,7 @@ class Automatic {
 		}
 	}
 	
-	public function estimateReturndate(string $lentdate, int $extend) {
+	private function estimateReturndate(string $lentdate, int $extend) {
 		$period = 15;
 
 		$period += $extend;
