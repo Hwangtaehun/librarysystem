@@ -74,7 +74,7 @@ class Automatic {
 		if($num != 0) {
 			try {
 				$num = 0;
-				while($row = $result->fetchObject()) {
+				while($row = $result->fetchObject()) { //foreach로 변경해보기
 					$mem_no[$num] = $row->mem_no;
 					$due_no[$num] = $row->due_no;
 					$num++;
