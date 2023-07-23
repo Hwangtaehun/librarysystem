@@ -13,9 +13,6 @@ class Automatic {
 	}
 	
 	private funciont overdue_manager() {
-		$len_no[];
-		$estimate_date;
-		
 		$this->sql = "SELECT * FROM lent WHERE len_re_date is NULL";
 		echo 'overdue_manager에 sql값: '.$this->sql.'<br>';
 		$result = $this->pdo->query($this->sql);
@@ -95,3 +92,8 @@ class Automatic {
 		return $date;
 	}
 }
+
+$pdo = new PDO('mysql:host=localhost;dbname=test;charset=utf8','mysejong','sj4321');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$class = new Automatic($pdo);
