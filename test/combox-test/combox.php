@@ -38,7 +38,6 @@
             //private $key;
             //private $sql;
             //private $key_name;
-            private $whole_string; //임시;
             private $parent_num;
             private $name_key;
             private $rs;
@@ -51,71 +50,72 @@
 
             public function __construct() {
                 if($pa_exist === false) {
-                    $whole_string[0] = "0";
-                    $whole_string[1] = "100";
-                    $whole_string[2] = "200";
-                    $whole_string[3] = "300";
-                    $whole_string[4] = "400";
-                    $whole_string[5] = "500";
-                    $whole_string[6] = "600";
-                    $whole_string[7] = "700";
-                    $whole_string[8] = "800";
-                    $whole_string[9] = "900";
+                    $name_key[0] = "0";
+                    $name_key[1] = "100";
+                    $name_key[2] = "200";
+                    $name_key[3] = "300";
+                    $name_key[4] = "400";
+                    $name_key[5] = "500";
+                    $name_key[6] = "600";
+                    $name_key[7] = "700";
+                    $name_key[8] = "800";
+                    $name_key[9] = "900";
                 }
                 else {
 
                 }
+
             }
 
-            private function makearray(string $str, bool $bool) {
-                if(empty($str) === false){
-                    $where = $str;
+            // private function makearray(string $str, bool $bool) {
+            //     if(empty($str) === false){
+            //         $where = $str;
 
-                    if($where == '없음') {
-                        $where = '';
-                    }
+            //         if($where == '없음') {
+            //             $where = '';
+            //         }
 
-                    if($bool) {
-                        $sentence = "없음-";
-                    }
-                    $this->key_name = $this->change_namekey();
-                    $this->sql = "SELECT `$this->keyname` FROM `$this->table` $where";
-                    $result = $this->pdo->query($this->sql);
-                    try {
-                        $count = 0;
+            //         if($bool) {
+            //             $sentence = "없음-";
+            //         }
+            //         $this->key_name = $this->change_namekey();
+            //         $this->sql = "SELECT `$this->keyname` FROM `$this->table` $where";
+            //         $result = $this->pdo->query($this->sql);
+            //         try {
+            //             $count = 0;
 
-                        while($row = $result->fetchObject()) {
-                            $sentence = $sentence.$row->$this->key_name;
-                            $sentenct = $sentence.'-';
+            //             while($row = $result->fetchObject()) {
+            //                 $sentence = $sentence.$row->$this->key_name;
+            //                 $sentenct = $sentence.'-';
 
-                            $fk_array[$count] = $row->$this->key;
-                            $count++;
-                        }
+            //                 $fk_array[$count] = $row->$this->key;
+            //                 $count++;
+            //             }
 
-                        $this->name_key = explode('-', $sentence);
-                    }
-                    catch(PDOException $e){
-                        $strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
-                    }
-                }
-            }
+            //             $this->name_key = explode('-', $sentence);
+            //         }
+            //         catch(PDOException $e){
+            //             $strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
+            //         }
+            //     }
+            // }
 
-            private function change_namekey() {
-                $cnt = 0;
-                $array = str_split($this->key);
+            // private function change_namekey() {
+            //     $cnt = 0;
+            //     $array = str_split($this->key);
 
-                for ($i = 0; $i < sizeof($array); $i++) { 
-                    if($array[$i] == '_') {
-                        $cnt = $i;
-                    }
-                }
-                for($i = 0; $i < $cnt + 1; $i++) {
-                    $str = $str.$array[$i];
-                }
-                $str.'name';
+            //     for ($i = 0; $i < sizeof($array); $i++) { 
+            //         if($array[$i] == '_') {
+            //             $cnt = $i;
+            //         }
+            //     }
+            //     for($i = 0; $i < $cnt + 1; $i++) {
+            //         $str = $str.$array[$i];
+            //     }
+            //     $str.'name';
 
-                return $str;
-            }
+            //     return $str;
+            // }
 
             public function ci_insert(Combobox_Inheritance $ci) {
                 $this->ci = $ci;
@@ -132,13 +132,18 @@
             }
         }
 
+        $combox = new Combox_manager();
+        $arr = $combox->call_name_key();
+
         ?>
+
         <form action = "combox_control.php" method = "POST">
-            <select name = "combox">
-                <option value = "청원">청원도서관</option>
-                <option value = "흥덕">흥덕도서관</option>
-                <option value = "금빛">금빛도서관</option>
-                <option value = "상당">상당도서관</option>
+            <select name = "hundred">
+                <?php
+                for ($i=0; $i < sizeof($arr); $i++) { 
+                    echo "<option value = $i > $arr[$i] </option>";
+                }
+                ?>
             </select>
             <input type="submit" value="등록" />
         </form>
