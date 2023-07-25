@@ -16,6 +16,7 @@
                 $this->parent = pn;
                 $this->child_manager = cm;
                 $this->child_sentence = cs;
+                $this->child_manager->exist_parent();
             }
 
             public function insert_nothing(bool $bool) {
@@ -49,22 +50,21 @@
             // public function __construct(string $table, string $key, string $where, bool $bool) {}
 
             public function __construct() {
-                if($pa_exist === false) {
-                    $name_key[0] = "0";
-                    $name_key[1] = "100";
-                    $name_key[2] = "200";
-                    $name_key[3] = "300";
-                    $name_key[4] = "400";
-                    $name_key[5] = "500";
-                    $name_key[6] = "600";
-                    $name_key[7] = "700";
-                    $name_key[8] = "800";
-                    $name_key[9] = "900";
+                if(pa_exist){
+                    $this->name_key[0] = "0";
+                    $this->name_key[1] = "100";
+                    $this->name_key[2] = "200";
+                    $this->name_key[3] = "300";
+                    $this->name_key[4] = "400";
+                    $this->name_key[5] = "500";
+                    $this->name_key[6] = "600";
+                    $this->name_key[7] = "700";
+                    $this->name_key[8] = "800";
+                    $this->name_key[9] = "900";
                 }
-                else {
+                else{
 
                 }
-
             }
 
             // private function makearray(string $str, bool $bool) {
@@ -122,24 +122,35 @@
                 $this->ci_exist = true;
             }
 
-            public function exist_parent(string $num) {
-                $this->pa_exist = true;
-                $this->parent_num = $num; 
+            public function insert_parent_num(string $num) {
+                $this->parent_num = $num;
+            }
+
+            public function exist_parent() {
+                $this->pa_exist = true; 
             }
 
             public function call_name_key() {
                 return $this->name_key;
             }
         }
-
-        $combox = new Combox_manager();
-        $arr = $combox->call_name_key();
-
         ?>
 
         <form action = "combox_control.php" method = "POST">
             <select name = "hundred">
                 <?php
+                $super = new Combox_manager();
+                $base = new Combox_manager();
+                $sub = new Combox_manager();
+
+                $super_arr = $super->call_name_key();
+                $base_arr = $base->call_name_key();
+                $sub_arr = $sub->call_name_key();
+
+                $super_to_base = new Combobox_Inheritance("대분류", $base, $base_arr);
+                $base_to_sub = new Combobox_Inheritance("중분류", $sub, $sub_arr);
+
+                $arr = $super->call_name_key();
                 for ($i=0; $i < sizeof($arr); $i++) { 
                     echo "<option value = $i > $arr[$i] </option>";
                 }
