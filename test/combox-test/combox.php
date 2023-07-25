@@ -31,21 +31,105 @@
             }
         }
 
-        class Combox_manager {
+        class Combox_manager { //0~99, 100~199 ... 900~999
             private $pdo;
-            private $fk = 1;
-            private $table;
-            private $key;
-            private $key_name;
+            private $fk_array;
+            //private $table;
+            //private $key;
+            //private $sql;
+            //private $key_name;
+            private $whole_string; //임시;
             private $parent_num;
-            private $sql;
-            private $arraystring;
+            private $name_key;
             private $rs;
             private $ci;
-            private ci_exist = false;
-            private pa_exist = false;
-            private dialog = false;
+            private $ci_exist = false;
+            private $pa_exist = false;
+            private $dialog = false;
             
+            // public function __construct(string $table, string $key, string $where, bool $bool) {}
+
+            public function __construct() {
+                if($pa_exist === false) {
+                    $whole_string[0] = "0";
+                    $whole_string[1] = "100";
+                    $whole_string[2] = "200";
+                    $whole_string[3] = "300";
+                    $whole_string[4] = "400";
+                    $whole_string[5] = "500";
+                    $whole_string[6] = "600";
+                    $whole_string[7] = "700";
+                    $whole_string[8] = "800";
+                    $whole_string[9] = "900";
+                }
+                else {
+
+                }
+            }
+
+            private function makearray(string $str, bool $bool) {
+                if(empty($str) === false){
+                    $where = $str;
+
+                    if($where == '없음') {
+                        $where = '';
+                    }
+
+                    if($bool) {
+                        $sentence = "없음-";
+                    }
+                    $this->key_name = $this->change_namekey();
+                    $this->sql = "SELECT `$this->keyname` FROM `$this->table` $where";
+                    $result = $this->pdo->query($this->sql);
+                    try {
+                        $count = 0;
+
+                        while($row = $result->fetchObject()) {
+                            $sentence = $sentence.$row->$this->key_name;
+                            $sentenct = $sentence.'-';
+
+                            $fk_array[$count] = $row->$this->key;
+                            $count++;
+                        }
+
+                        $this->name_key = explode('-', $sentence);
+                    }
+                    catch(PDOException $e){
+                        $strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
+                    }
+                }
+            }
+
+            private function change_namekey() {
+                $cnt = 0;
+                $array = str_split($this->key);
+
+                for ($i = 0; $i < sizeof($array); $i++) { 
+                    if($array[$i] == '_') {
+                        $cnt = $i;
+                    }
+                }
+                for($i = 0; $i < $cnt + 1; $i++) {
+                    $str = $str.$array[$i];
+                }
+                $str.'name';
+
+                return $str;
+            }
+
+            public function ci_insert(Combobox_Inheritance $ci) {
+                $this->ci = $ci;
+                $this->ci_exist = true;
+            }
+
+            public function exist_parent(string $num) {
+                $this->pa_exist = true;
+                $this->parent_num = $num; 
+            }
+
+            public function call_name_key() {
+                return $this->name_key;
+            }
         }
 
         ?>

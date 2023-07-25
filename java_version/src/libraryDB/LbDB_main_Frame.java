@@ -69,9 +69,9 @@ class Combobox_Manager {
 		db = new LbDB_DAO();
 		this.table = table;
 		this.key = key;
-		String str = "없음";
+		String where = "없음";
 		
-		makearray(str, bool);
+		makearray(where, bool);
 		combox = new JComboBox<String>(new DefaultComboBoxModel<String>(arraystring));
 		combox.addItemListener(new ComboboxListener());
 	}
@@ -137,21 +137,21 @@ class Combobox_Manager {
 		arraystring = sentence.split("-");
 	}
 	
-	private void makearray(String str, boolean bool) {
+	private void makearray(String where, boolean bool) {
 		String sentence = "";
 		
-		if(str.isEmpty()) {
+		if(where.isEmpty()) {
 			return;
 		}
-		else if(str.equals("없음")) {
-			str = "";
+		else if(where.equals("없음")) {
+			where = "";
 		}
 		
 		if(bool) {
 			sentence = "없음-";
 		}
 		key_name = changenamekey();
-		sql = "SELECT `" + key_name + "` FROM `" + table + "` " + str;
+		sql = "SELECT `" + key_name + "` FROM `" + table + "` " + where;
 		rs = db.getResultSet(sql);
 		try {
 			while(rs.next()) {
