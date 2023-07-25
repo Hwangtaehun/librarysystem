@@ -7,13 +7,11 @@
     <body>
         <?php
         class Combobox_Inheritance {
-            private $parent_name;
             private $nothing = false;
             private $child_manager;
             private $child_sentence; //데이터 타입: array
 
-            public function __construct(string $pn, Combo_manager $cm, array $cs) {
-                $this->parent = pn;
+            public function __construct(Combo_manager $cm, array $cs) {
                 $this->child_manager = cm;
                 $this->child_sentence = cs;
                 $this->child_manager->exist_parent();
@@ -21,10 +19,6 @@
 
             public function insert_nothing(bool $bool) {
                 $this->nothing = $bool;
-            }
-
-            public function call_parent_name() {
-                return $this->parent_name;
             }
 
             public function call_nothing() {
@@ -50,7 +44,7 @@
             // public function __construct(string $table, string $key, string $where, bool $bool) {}
 
             public function __construct() {
-                if(pa_exist){
+                if($this->pa_exist === false){
                     $this->name_key[0] = "0";
                     $this->name_key[1] = "100";
                     $this->name_key[2] = "200";
@@ -63,7 +57,30 @@
                     $this->name_key[9] = "900";
                 }
                 else{
-
+                    if($this->ci_exist){
+                        $this->name_key[0] = $parent_num.'0';
+                        $this->name_key[1] = $parent_num.'10';
+                        $this->name_key[2] = $parent_num.'20';
+                        $this->name_key[3] = $parent_num.'30';
+                        $this->name_key[4] = $parent_num.'40';
+                        $this->name_key[5] = $parent_num.'50';
+                        $this->name_key[6] = $parent_num.'60';
+                        $this->name_key[7] = $parent_num.'70';
+                        $this->name_key[8] = $parent_num.'80';
+                        $this->name_key[9] = $parent_num.'90';
+                    }
+                    else{
+                        $this->name_key[0] = $parent_num.'0';
+                        $this->name_key[1] = $parent_num.'1';
+                        $this->name_key[2] = $parent_num.'2';
+                        $this->name_key[3] = $parent_num.'3';
+                        $this->name_key[4] = $parent_num.'4';
+                        $this->name_key[5] = $parent_num.'5';
+                        $this->name_key[6] = $parent_num.'6';
+                        $this->name_key[7] = $parent_num.'7';
+                        $this->name_key[8] = $parent_num.'8';
+                        $this->name_key[9] = $parent_num.'9'; 
+                    }
                 }
             }
 
@@ -147,8 +164,8 @@
                 $base_arr = $base->call_name_key();
                 $sub_arr = $sub->call_name_key();
 
-                $super_to_base = new Combobox_Inheritance("대분류", $base, $base_arr);
-                $base_to_sub = new Combobox_Inheritance("중분류", $sub, $sub_arr);
+                $super_to_base = new Combobox_Inheritance($base, $base_arr);
+                $base_to_sub = new Combobox_Inheritance($sub, $sub_arr);
 
                 $arr = $super->call_name_key();
                 for ($i=0; $i < sizeof($arr); $i++) { 
