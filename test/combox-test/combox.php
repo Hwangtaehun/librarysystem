@@ -11,7 +11,7 @@
             private $child_manager;
             private $child_sentence; //데이터 타입: array
 
-            public function __construct(Combo_manager $cm, array $cs) {
+            public function __construct(Combox_manager $cm, array $cs) {
                 $this->child_manager = $cm;
                 $this->child_sentence = $cs;
                 $this->child_manager->exist_parent();
@@ -44,6 +44,21 @@
             // public function __construct(string $table, string $key, string $where, bool $bool) {}
 
             public function __construct() {
+                $this->name_key[0] = "0";
+                $this->name_key[1] = "100";
+                $this->name_key[2] = "200";
+                $this->name_key[3] = "300";
+                $this->name_key[4] = "400";
+                $this->name_key[5] = "500";
+                $this->name_key[6] = "600";
+                $this->name_key[7] = "700";
+                $this->name_key[8] = "800";
+                $this->name_key[9] = "900";
+            }
+
+            public function __destruct() {}
+
+            public function makearray() {
                 if($this->pa_exist === false){
                     $this->name_key[0] = "0";
                     $this->name_key[1] = "100";
@@ -58,28 +73,56 @@
                 }
                 else{
                     if($this->ci_exist){
-                        $this->name_key[0] = $parent_num.'0';
-                        $this->name_key[1] = $parent_num.'10';
-                        $this->name_key[2] = $parent_num.'20';
-                        $this->name_key[3] = $parent_num.'30';
-                        $this->name_key[4] = $parent_num.'40';
-                        $this->name_key[5] = $parent_num.'50';
-                        $this->name_key[6] = $parent_num.'60';
-                        $this->name_key[7] = $parent_num.'70';
-                        $this->name_key[8] = $parent_num.'80';
-                        $this->name_key[9] = $parent_num.'90';
+                        if(empty($parent_num)){
+                            $this->name_key[0] = '0';
+                            $this->name_key[1] = '10';
+                            $this->name_key[2] = '20';
+                            $this->name_key[3] = '30';
+                            $this->name_key[4] = '40';
+                            $this->name_key[5] = '50';
+                            $this->name_key[6] = '60';
+                            $this->name_key[7] = '70';
+                            $this->name_key[8] = '80';
+                            $this->name_key[9] = '90';
+                        }
+                        else {
+                            $this->name_key[0] = $parent_num.'0';
+                            $this->name_key[1] = $parent_num.'10';
+                            $this->name_key[2] = $parent_num.'20';
+                            $this->name_key[3] = $parent_num.'30';
+                            $this->name_key[4] = $parent_num.'40';
+                            $this->name_key[5] = $parent_num.'50';
+                            $this->name_key[6] = $parent_num.'60';
+                            $this->name_key[7] = $parent_num.'70';
+                            $this->name_key[8] = $parent_num.'80';
+                            $this->name_key[9] = $parent_num.'90';
+                        }
                     }
                     else{
-                        $this->name_key[0] = $parent_num.'0';
-                        $this->name_key[1] = $parent_num.'1';
-                        $this->name_key[2] = $parent_num.'2';
-                        $this->name_key[3] = $parent_num.'3';
-                        $this->name_key[4] = $parent_num.'4';
-                        $this->name_key[5] = $parent_num.'5';
-                        $this->name_key[6] = $parent_num.'6';
-                        $this->name_key[7] = $parent_num.'7';
-                        $this->name_key[8] = $parent_num.'8';
-                        $this->name_key[9] = $parent_num.'9'; 
+                        if(empty($parent_num)){
+                            $this->name_key[0] = '0';
+                            $this->name_key[1] = '1';
+                            $this->name_key[2] = '2';
+                            $this->name_key[3] = '3';
+                            $this->name_key[4] = '4';
+                            $this->name_key[5] = '5';
+                            $this->name_key[6] = '6';
+                            $this->name_key[7] = '7';
+                            $this->name_key[8] = '8';
+                            $this->name_key[9] = '9';
+                        }
+                        else {
+                            $this->name_key[0] = $parent_num.'0';
+                            $this->name_key[1] = $parent_num.'1';
+                            $this->name_key[2] = $parent_num.'2';
+                            $this->name_key[3] = $parent_num.'3';
+                            $this->name_key[4] = $parent_num.'4';
+                            $this->name_key[5] = $parent_num.'5';
+                            $this->name_key[6] = $parent_num.'6';
+                            $this->name_key[7] = $parent_num.'7';
+                            $this->name_key[8] = $parent_num.'8';
+                            $this->name_key[9] = $parent_num.'9'; 
+                        }
                     }
                 }
             }
@@ -155,18 +198,21 @@
         $super = new Combox_manager();
         $base = new Combox_manager();
         $sub = new Combox_manager();
-        echo '클래스 생성';
 
         $super_arr = $super->call_name_key();
         $base_arr = $base->call_name_key();
         $sub_arr = $sub->call_name_key();
-        echo '배열생성';
 
         $super_to_base = new Combobox_Inheritance($base, $base_arr);
         $super->ci_insert($super_to_base);
         $base_to_sub = new Combobox_Inheritance($sub, $sub_arr);
         $base->ci_insert($base_to_sub);
-        echo '두번째 클래스 생성';
+
+        $super_arr = $super->call_name_key();
+        $base->makearray();
+        $base_arr = $base->call_name_key();
+        $sub->makearray();
+        $sub_arr = $sub->call_name_key();
         ?>
 
         <form action = "combox_control.php" method = "POST">
@@ -180,14 +226,14 @@
             <select name = "ten">
                 <?php
                 for ($i=0; $i < sizeof($base_arr); $i++) { 
-                    echo "<option value = $i > base_arr[$i] </option>";
+                    echo "<option value = $i > $base_arr[$i] </option>";
                 }
                 ?>
             </select>
             <select name = "one">
                 <?php
                 for ($i=0; $i < sizeof($sub_arr); $i++) { 
-                    echo "<option value = $i > sub_arr[$i] </option>";
+                    echo "<option value = $i > $sub_arr[$i] </option>";
                 }
                 ?>
             </select>
