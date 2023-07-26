@@ -241,7 +241,6 @@
         </form>
         <script>
             function tenChange(e) {
-                var stepTenJsonArray = <?php echo json_encode()?>;
             }
         </script>
     </body>
