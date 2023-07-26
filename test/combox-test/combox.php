@@ -12,8 +12,8 @@
             private $child_sentence; //데이터 타입: array
 
             public function __construct(Combo_manager $cm, array $cs) {
-                $this->child_manager = cm;
-                $this->child_sentence = cs;
+                $this->child_manager = $cm;
+                $this->child_sentence = $cs;
                 $this->child_manager->exist_parent();
             }
 
@@ -151,25 +151,43 @@
                 return $this->name_key;
             }
         }
+
+        $super = new Combox_manager();
+        $base = new Combox_manager();
+        $sub = new Combox_manager();
+        echo '클래스 생성';
+
+        $super_arr = $super->call_name_key();
+        $base_arr = $base->call_name_key();
+        $sub_arr = $sub->call_name_key();
+        echo '배열생성';
+
+        $super_to_base = new Combobox_Inheritance($base, $base_arr);
+        $super->ci_insert($super_to_base);
+        $base_to_sub = new Combobox_Inheritance($sub, $sub_arr);
+        $base->ci_insert($base_to_sub);
+        echo '두번째 클래스 생성';
         ?>
 
         <form action = "combox_control.php" method = "POST">
             <select name = "hundred">
                 <?php
-                $super = new Combox_manager();
-                $base = new Combox_manager();
-                $sub = new Combox_manager();
-
-                $super_arr = $super->call_name_key();
-                $base_arr = $base->call_name_key();
-                $sub_arr = $sub->call_name_key();
-
-                $super_to_base = new Combobox_Inheritance($base, $base_arr);
-                $base_to_sub = new Combobox_Inheritance($sub, $sub_arr);
-
-                $arr = $super->call_name_key();
-                for ($i=0; $i < sizeof($arr); $i++) { 
-                    echo "<option value = $i > $arr[$i] </option>";
+                for ($i=0; $i < sizeof($super_arr); $i++) { 
+                    echo "<option value = $i > $super_arr[$i] </option>";
+                }
+                ?>
+            </select>
+            <select name = "ten">
+                <?php
+                for ($i=0; $i < sizeof($base_arr); $i++) { 
+                    echo "<option value = $i > base_arr[$i] </option>";
+                }
+                ?>
+            </select>
+            <select name = "one">
+                <?php
+                for ($i=0; $i < sizeof($sub_arr); $i++) { 
+                    echo "<option value = $i > sub_arr[$i] </option>";
                 }
                 ?>
             </select>
