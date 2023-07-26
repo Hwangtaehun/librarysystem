@@ -239,5 +239,10 @@
             </select>
             <input type="submit" value="등록" />
         </form>
+        <script>
+            function tenChange(e) {
+                var stepTenJsonArray = <?php echo json_encode()?>;
+            }
+        </script>
     </body>
 </html>
