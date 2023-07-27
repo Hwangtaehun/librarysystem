@@ -1,4 +1,4 @@
-<script language='javascript'>
+<script>
 var a = 'abc' ; 
 </script>
 <?php

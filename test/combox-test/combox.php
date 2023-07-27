@@ -3,6 +3,7 @@
     <head>
         <meta charset = "utf-8">
         <title>combox 연습</title>
+        <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <?php
@@ -72,8 +73,16 @@
                     $this->name_key[9] = "900";
                 }
                 else{
+
+                    if($parent_num == 0) {
+                        $num;   
+                    }
+                    else{
+                        $num = $parent_num;
+                    }
+
                     if($this->ci_exist){
-                        if(empty($parent_num)){
+                        if(empty($num)){
                             $this->name_key[0] = '0';
                             $this->name_key[1] = '10';
                             $this->name_key[2] = '20';
@@ -99,7 +108,7 @@
                         }
                     }
                     else{
-                        if(empty($parent_num)){
+                        if(empty($num)){
                             $this->name_key[0] = '0';
                             $this->name_key[1] = '1';
                             $this->name_key[2] = '2';
@@ -216,21 +225,21 @@
         ?>
 
         <form action = "combox_control.php" method = "POST">
-            <select name = "hundred">
+            <select id = "s1" name = "hundred" onchange="hundard_change()">
                 <?php
                 for ($i=0; $i < sizeof($super_arr); $i++) { 
                     echo "<option value = $i > $super_arr[$i] </option>";
                 }
                 ?>
             </select>
-            <select name = "ten">
+            <select id = "s2" name = "ten" onchange="ten_change()">
                 <?php
                 for ($i=0; $i < sizeof($base_arr); $i++) { 
                     echo "<option value = $i > $base_arr[$i] </option>";
                 }
                 ?>
             </select>
-            <select name = "one">
+            <select id = "s3" name = "one">
                 <?php
                 for ($i=0; $i < sizeof($sub_arr); $i++) { 
                     echo "<option value = $i > $sub_arr[$i] </option>";
@@ -240,7 +249,34 @@
             <input type="submit" value="등록" />
         </form>
         <script>
-            function tenChange(e) {
+            function hundard_change() {
+                var value = $('#s1').val();
+                $('#s2').empty();
+                <?php
+                $parent_num = "document.write (value);";
+                $base->insert_parent_num($parent_num);
+                $base->makearray();
+                $base_arr = $base->call_name_key();
+                $count = sizeof($base_arr);
+                for ($i=0; $i < $count ; $i++) { 
+                    echo "\$('#s2').append('<option>' + $base_arr[$i] + '</option>' )";
+                }
+                ?>
+            }
+
+            function ten_change() {
+                var value = $('#s2').val();
+                $('#s3').empty();
+                <?php
+                $parent_num = "document.write (value);";
+                $sub->insert_parent_num($parent_num);
+                $sub->makearray();
+                $sub_arr = $sub->call_name_key();
+                $count = sizeof($sub_arr);
+                for ($i=0; $i < $count ; $i++) { 
+                    echo "\$('#s2').append('<option>' + $base_arr[$i] + '</option>' )";
+                }
+                ?>
             }
         </script>
     </body>
