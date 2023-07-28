@@ -35,4 +35,12 @@
  }
 
  echo '$str: '.$str.'<br>';
+
+ for ($i=0; $i < 10; $i++) { 
+  $super[$i] = $i.'00';
+}
+
+for ($i=0; $i < 10; $i++) { 
+  echo '$super[$i] = '.$super[$i];
+}
 ?>
