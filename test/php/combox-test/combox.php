@@ -7,6 +7,11 @@
     </head>
     <body>
     <?php
+    class SortType{
+        public $type;
+        public $num;
+    }
+    
     for ($i=0; $i < 10; $i++) { 
         $super[$i] = $i.'00';
     }
