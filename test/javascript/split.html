@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Sample</title>
+    <script type = "text/Javascript">
+        function result_Split(n) {
+            var split_num = n.split("");
+            var count = 0;
+            var check = false;
+
+            document.write("함수 실행<br>");
+            document.write("매개변수 값 = " + n + "<br>");
+
+            for(i = 0; i < split_num.length; i++){
+                document.write("split_num[" + i +"] = " + split_num[i] + "<br>");
+                if(split_num[i] != '0'){
+                    check = true;
+                }
+
+                if(check) {
+                    if(split_num[i] == '0'){
+                        count++;
+                    }
+                }
+            }
+
+            if(count == 2){
+                document.write("백의 자리입니다.");
+            }
+            else if(count == 1){
+                document.write("십의 자리입니다.");
+            }
+            else{
+                document.write("일의 자리입니다.");
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <h2>Java Script - split 함수</h2>
+    <script>
+      const rand1 = Math.floor(Math.random() * 10);  
+      var hundred = new Array();
+      var ten = new Array();
+      var one = new Array();
+
+      for(n = 0; n < 10; n++){
+        hundred[n] = n + "00";
+        ten[n] = "0" + n + "0";
+        one[n] = "00" + n;
+      }
+
+      for(n = 0; n < 10; n++){
+        document.write("hundred[" + n + "] = " + hundred[n] + "<br>");
+      }
+
+      for(n = 0; n < 10; n++){
+        document.write("ten[" + n + "] = " + ten[n] + "<br>");
+      }
+
+      for(n = 0; n < 10; n++){
+        document.write("one[" + n + "] = " + one[n] + "<br>");
+      }
+
+      var num1 = hundred[rand1];
+      var num2 = ten[rand1];
+      var num3 = one[rand1];
+
+      result_Split(num1);
+      result_Split(num2);
+      result_Split(num3);
+    </script>
+  </body>
+</html>
