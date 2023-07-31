@@ -7,36 +7,44 @@
     </head>
     <body>
     <?php
-    class Manager {
-        public $pri;
-        public $name;
-    }
+    include_once __DIR__.'/Combobox_Manager.php';
+
+    $super_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '_00'");
+    $base_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '0_0'");
+    $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '00_'");
+
+    $super = $super_man->result_call();
+    $base = $base_man->result_call();
+    $sub = $sub_man->result_call();
     ?>
     <form action = "combox_control.php" method = "POST">
             <select id = "s1" name = "hundred" onchange='firstChange(this)'>
                 <?php
                 for ($z=0; $z < sizeof($super); $z++) { 
-                    echo "<option value = $super[$z] > $super[$z] </option>";
+                    echo "<option value = $super[$z]['kind_no'] > $super[$z]['kind_name'] </option>";
                 }
                 ?>
             </select>
             <select id = "s2" name = "ten" onchange='secondChange(this)'>
                 <?php
                 for ($z=0; $z < sizeof($base); $z++) { 
-                    echo "<option value = $base[$z] > $base[$z] </option>";
+                    echo "<option value = $base[$z]['kind_no'] > $base[$z]['kind_name'] </option>";
                 }
                 ?>
             </select>
             <select id = "s3" name = "one">
                 <?php
                 for ($z=0; $z < sizeof($sub); $z++) { 
-                    echo "<option value = $sub[$z] > $sub[$z] </option>";
+                    echo "<option value = $sub[$z]['kind_no'] > $sub[$z]['kind_name'] </option>";
                 }
                 ?>
             </select>
             <input type="submit" value="등록" />
             <?php
-             
+            //  $a = $base;
+            //  $base_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '1_0'");
+            //  $b = $
+            //  $aa = $sub;
             ?>
     </form>
         <script>

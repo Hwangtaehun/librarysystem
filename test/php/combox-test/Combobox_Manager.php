@@ -11,9 +11,9 @@ class Combobox_Manager {
 
 			$count = 0;
 			$key_name = $this->changenamekey($key);
-			echo '$key_name = '.$key_name.'<br>';
+			// echo '$key_name = '.$key_name.'<br>';
 			$sql = "SELECT * FROM `$table` WHERE $where";
-			echo '$sql = '.$sql.'<br>';
+			// echo '$sql = '.$sql.'<br>';
 			$result = $pdo->query($sql);
 
 			while ($row = $result->fetchObject()) {
@@ -55,3 +55,30 @@ class Combobox_Manager {
 	}
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset = "utf-8">
+        <title>combox 연습</title>
+    </head>
+    <body>
+		<?php
+		$table = 'kind';
+		$key = 'kind_no';
+		$where = "`kind_num` LIKE '_00'";
+		$test = new Combobox_Manager($table, $key, $where);
+		$rs = $test->result_call();
+		print_r($rs);
+		echo '<br>';
+		print_r($rs['kind_name']);
+		echo '<br> 후 <br>';
+		$after = $rs['kind_name'];
+		echo 'after의 크기 = '.sizeof($after).'<br>';
+		echo 'after의 타입 = '.gettype($after).'<br>';
+		foreach ($after as $key => $value) {
+			echo $key." ".$value."<br>";
+		}
+		?>
+    </body>
+</html>
