@@ -1,0 +1,7 @@
+https://kingle1024.tistory.com/182
+대분류
+where = "WHERE `kind_num` LIKE '_00'";
+중분류
+where = "WHERE `kind_num` LIKE '0_0'";
+소분류
+where = "WHERE `kind_num` LIKE '00_'";

@@ -41,7 +41,11 @@
     //     echo '$sub[$i] = '.$sub[$i].'<br>';
     // }
 
-    $stepArray = ['hundred'=>$super, 'ten'=>$base, 'one'=>$sub];
+    $a = 'hundred';
+    $b = 'ten';
+    $c = 'one';
+
+    $stepArray = [$a=>$super, $b=>$base, $c=>$sub];
 
     print_r($stepArray);
 ?>

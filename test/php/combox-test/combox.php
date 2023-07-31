@@ -3,7 +3,7 @@
     <head>
         <meta charset = "utf-8">
         <title>combox 연습</title>
-        <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
     <?php
@@ -500,6 +500,15 @@
                var stepCategoryJsonArray = <?php echo json_encode($SecondArray) ?>;
                $("select#s2 option").remove();
                var target = document.getElementById("s2");
+               for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+                  var opt = document.createElement('option');
+                  opt.value = stepCategoryJsonArray[e.value][i];
+                  opt.innerHTML = stepCategoryJsonArray[e.value][i];
+                  target.appendChild(opt);
+               }
+               var stepCategoryJsonArray = <?php echo json_encode($ThirdArray) ?>;
+               $("select#s3 option").remove();
+               var target = document.getElementById("s3");
                for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                   var opt = document.createElement('option');
                   opt.value = stepCategoryJsonArray[e.value][i];

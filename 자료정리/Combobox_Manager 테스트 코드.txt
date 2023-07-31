@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset = "utf-8">
+        <title>combox 연습</title>
+    </head>
+    <body>
+		<?php
+		$table = 'kind';
+		$key = 'kind_no';
+		$where = "`kind_num` LIKE '_00'";
+		$test = new Combobox_Manager($table, $key, $where);
+		$rs = $test->result_call();
+		print_r($rs);
+		echo '<br>';
+		print_r($rs['kind_name']);
+		echo '<br> 후 <br>';
+		$after = $rs['kind_name'];
+		print_r($after);
+		?>
+    </body>
+</html>
