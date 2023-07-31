@@ -55,15 +55,13 @@ CREATE TABLE `book` (
 );
 
 CREATE TABLE `kind` (
-  `kind_no` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `kind_num` VARCHAR(10) UNIQUE,
+  `kind_no` VARCHAR(10) PRIMARY KEY,
   `kind_name` VARCHAR(30)
 );
 
 CREATE TABLE `member` (
-  `mem_no` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `mem_name` VARCHAR(20) NOT NULL,
-  `mem_id` VARCHAR(20) UNIQUE,
+  `mem_id` VARCHAR(20) PRIMARY KEY,
   `mem_pw` VARCHAR(20) NOT NULL,
   `mem_lent` INTEGER,
   `mem_state` INTEGER,
@@ -76,7 +74,7 @@ CREATE TABLE `material` (
   `mat_no` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `lib_no` INTEGER,
   `book_no` INTEGER,
-  `kind_no` INTEGER,
+  `kind_no` VARCHAR(10),
   `mat_many` VARCHAR(10),
   `mat_overlap` VARCHAR(10),
   FOREIGN KEY (`lib_no`) REFERENCES `library`(`lib_no`) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -87,22 +85,22 @@ CREATE TABLE `material` (
 CREATE TABLE `reservation` (
   `res_no` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `res_date` DATE,
-  `mem_no` INTEGER,
+  `mem_id` INTEGER,
   `mat_no` INTEGER,
-  FOREIGN KEY (`mem_no`) REFERENCES `member`(`mem_no`) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`mem_id`) REFERENCES `member`(`mem_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (`mat_no`) REFERENCES `material`(`mat_no`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE `lent` (
   `len_no` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `mem_no` INTEGER,
+  `mem_id` INTEGER,
   `mat_no` INTEGER,
   `len_date` DATE,
   `len_ex` INTEGER,
   `len_re_date` DATE,
   `len_re_st` INTEGER,
   `len_memo` VARCHAR(30),
-  FOREIGN KEY (`mem_no`) REFERENCES `member`(`mem_no`) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`mem_id`) REFERENCES `member`(`mem_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (`mat_no`) REFERENCES `material`(`mat_no`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
@@ -125,12 +123,12 @@ CREATE TABLE `place` (
 
 CREATE TABLE `delivery` (
   `del_no` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `mem_no` INTEGER,
+  `mem_id` INTEGER,
   `mat_no` INTEGER,
   `lib_no_arr` INTEGER,
   `del_arr_date` DATE,
   `del_back` INTEGER,
-  FOREIGN KEY (`mem_no`) REFERENCES `member`(`mem_no`) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`mem_id`) REFERENCES `member`(`mem_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (`mat_no`) REFERENCES `material`(`mat_no`) ON DELETE SET NULL ON UPDATE CASCADE,
   FOREIGN KEY (`lib_no_arr`) REFERENCES `library`(`lib_no`) ON DELETE SET NULL ON UPDATE CASCADE
 );

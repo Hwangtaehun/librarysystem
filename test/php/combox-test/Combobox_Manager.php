@@ -22,7 +22,9 @@ class Combobox_Manager {
 				$count++;
 			}
 
-			$this->result = [$key => $this->pri, $key_name => $this->name];
+			for ($i=0; $i < $count ; $i++) { 
+				$this->result[$i] = array($this->pri[$i], $this->name[$i]);
+			}
 		}
 		catch(PDOException $e){
 			$strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
@@ -55,30 +57,3 @@ class Combobox_Manager {
 	}
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset = "utf-8">
-        <title>combox 연습</title>
-    </head>
-    <body>
-		<?php
-		$table = 'kind';
-		$key = 'kind_no';
-		$where = "`kind_num` LIKE '_00'";
-		$test = new Combobox_Manager($table, $key, $where);
-		$rs = $test->result_call();
-		print_r($rs);
-		echo '<br>';
-		print_r($rs['kind_name']);
-		echo '<br> 후 <br>';
-		$after = $rs['kind_name'];
-		echo 'after의 크기 = '.sizeof($after).'<br>';
-		echo 'after의 타입 = '.gettype($after).'<br>';
-		foreach ($after as $key => $value) {
-			echo $key." ".$value."<br>";
-		}
-		?>
-    </body>
-</html>

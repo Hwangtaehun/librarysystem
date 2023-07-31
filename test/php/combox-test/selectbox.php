@@ -9,9 +9,9 @@
     <?php
     include_once __DIR__.'/Combobox_Manager.php';
 
-    $super_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '_00'");
-    $base_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '0_0'");
-    $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '00_'");
+    $super_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '_00'");
+    $base_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '0_0'");
+    $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '00_'");
 
     $super = $super_man->result_call();
     $base = $base_man->result_call();
@@ -21,30 +21,39 @@
             <select id = "s1" name = "hundred" onchange='firstChange(this)'>
                 <?php
                 for ($z=0; $z < sizeof($super); $z++) { 
-                    echo "<option value = $super[$z]['kind_no'] > $super[$z]['kind_name'] </option>";
+                    $no[$z] = $super[$z][0];
+                    $name[$z] = $super[$z][1];
+                }
+                for ($z=0; $z < sizeof($super); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
                 }
                 ?>
             </select>
             <select id = "s2" name = "ten" onchange='secondChange(this)'>
                 <?php
                 for ($z=0; $z < sizeof($base); $z++) { 
-                    echo "<option value = $base[$z]['kind_no'] > $base[$z]['kind_name'] </option>";
+                    $no[$z] = $base[$z][0];
+                    $name[$z] = $base[$z][1];
+                }
+                for ($z=0; $z < sizeof($base); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
                 }
                 ?>
             </select>
             <select id = "s3" name = "one">
                 <?php
                 for ($z=0; $z < sizeof($sub); $z++) { 
-                    echo "<option value = $sub[$z]['kind_no'] > $sub[$z]['kind_name'] </option>";
+                    $no[$z] = $sub[$z][0];
+                    $name[$z] = $sub[$z][1];
+                }
+                for ($z=0; $z < sizeof($sub); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
                 }
                 ?>
             </select>
             <input type="submit" value="등록" />
             <?php
-            //  $a = $base;
-            //  $base_man = new Combobox_Manager("kind", "kind_no", "`kind_num` LIKE '1_0'");
-            //  $b = $
-            //  $aa = $sub;
+             
             ?>
     </form>
         <script>

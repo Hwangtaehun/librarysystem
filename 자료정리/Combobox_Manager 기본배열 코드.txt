@@ -8,18 +8,13 @@
 		<?php
 		$table = 'kind';
 		$key = 'kind_no';
-		$where = "`kind_num` LIKE '_00'";
+		$where = "`kind_no` LIKE '_00'";
 		$test = new Combobox_Manager($table, $key, $where);
 		$rs = $test->result_call();
 		print_r($rs);
-		echo '<br>';
-		print_r($rs['kind_name']);
-		echo '<br> 후 <br>';
-		$after = $rs['kind_name'];
-		echo 'after의 크기 = '.sizeof($after).'<br>';
-		echo 'after의 타입 = '.gettype($after).'<br>';
-		foreach ($after as $key => $value) {
-			echo $key." ".$value."<br>";
+		echo '$rs의 크기 = '.sizeof($rs).'<br>';
+		for ($i=0; $i < sizeof($rs) ; $i++) { 
+			echo '$rs['.$i.'][0] = '.$rs[$i][0].', $rs['.$i.'][0] = '.$rs[$i][1].'<br>';
 		}
 		?>
     </body>
