@@ -2,7 +2,6 @@
 class Automatic {
     private $pdo;
 	private $sql;
-	private $result;
     private $str_today;
 	
 	public function __construct(PDO $pdo) {
