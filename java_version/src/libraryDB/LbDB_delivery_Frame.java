@@ -110,17 +110,6 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			tf_bookname.setEnabled(false);
 			gbl.setConstraints(tf_bookname, gbc);
 			leftPanel.add(tf_bookname);
-			/*
-			setGrid(gbc,0,5,1,1);
-			label = new JLabel("    회원아이디   ");
-			gbl.setConstraints(label, gbc);
-			leftPanel.add(label);
-			setGrid(gbc,1,5,1,1);
-			tf_memberid = new JTextField(10);
-			tf_memberid.setEnabled(false);
-			gbl.setConstraints(tf_memberid, gbc);
-			leftPanel.add(tf_memberid);
-			*/
 		}
 		else {
 			setGrid(gbc,0,2,1,1);
@@ -142,6 +131,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			gbl.setConstraints(tf_bookname, gbc);
 			leftPanel.add(tf_bookname);
 		}
+		
 		if(menu_title.equals("상호대차관리")) {
 			if(menu_subtitle[1].equals("자료")) {
 				setGrid(gbc,2,2,1,1);
@@ -149,11 +139,6 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 				bt.addActionListener(new materialButtonListener());
 				gbl.setConstraints(bt, gbc);
 				leftPanel.add(bt);
-//				setGrid(gbc,2,5,1,1);
-//				bt = new JButton("회원찾기");
-//				bt.addActionListener(new memberButtonListener());
-//				gbl.setConstraints(bt, gbc);
-//				leftPanel.add(bt);
 			}
 			else {
 				setGrid(gbc,2,2,1,1);
@@ -223,7 +208,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		pack();
 		
 		sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND " 
-			+ "delivery.mem_no = member.mem_no AND material.book_no = book.book_no ";
+			+ "delivery.mem_no = member.mem_no AND material.book_no = book.book_no AND len_no IS NOT NULL ";
 		sortsql = "ORDER BY book.book_name";
 		
 		LoadList(sql + sortsql);
@@ -644,18 +629,20 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 							table.setValueAt(result.getString("delivery.del_arr_date"), dataCount, 5);
 						}
 						
-						app = result.getInt("delivery.del_app");
-						if(app == 0) {
-							app_str = "거절";
+						if(!menu_title.equals("상호대차완료내역")) {
+							app = result.getInt("delivery.del_app");
+							if(app == 0) {
+								app_str = "거절";
+							}
+							else if(app == 1) {
+								app_str = "승인";
+							}
+							else {
+								app_str = "반송";
+							}
+							
+							table.setValueAt(app_str, dataCount, 6);
 						}
-						else if(app == 1) {
-							app_str = "승인";
-						}
-						else {
-							app_str = "반송";
-						}
-						
-						table.setValueAt(app_str, dataCount, 6);
 					}
 				}
 			}
@@ -715,6 +702,11 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			System.out.println(sql);
 			result = db.getResultSet(sql);
 			
+			if(resultempty_check(result)) {
+				JOptionPane.showMessageDialog(null, "상호대차로 신청된 자료가 아닙니다.",  "테이블 오류", JOptionPane.PLAIN_MESSAGE);
+				return;
+			}
+			
 			try {
 				while(result.next()) {
 					del_no = result.getInt("del_no");
@@ -726,10 +718,6 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 			
 			if(dateformat_check(tf_date.getText())) {
 				JOptionPane.showMessageDialog(null, "날짜형식이 잘못되었습니다.", "수정 오류", JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			else if(del_no == 0) {
-				JOptionPane.showMessageDialog(null, "상호대차에 등록된 자료가 없습니다.", "테이블 오류", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			else {
