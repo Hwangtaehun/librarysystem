@@ -5,7 +5,7 @@ class Automatic {
 	private $result;
     private $str_today;
 	
-	public function __construct(PDO pdo) {
+	public function __construct(PDO $pdo) {
 		$this->pdo = $pdo;
 		$this->str_today = date("Y-m-d");
 		$this->overdue_manager();
