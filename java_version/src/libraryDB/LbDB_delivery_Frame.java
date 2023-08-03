@@ -561,7 +561,7 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 		}
 	}
 	
-	private void LoadList(String now_sql) {
+	private void LoadList(String now_sql) { //삭제후 빈테이블 확인
 		int lib_no, lib_no_arr;
 		System.out.println(now_sql);
 		result = db.getResultSet(now_sql);
@@ -788,10 +788,10 @@ public class LbDB_delivery_Frame extends LbDB_main_Frame{ //lib_no_arr의 값을
 				e1.printStackTrace();
 			}
 			
-			now_sql = "DELECT FROM delivery WHERE del_no = " + code;
+			now_sql = "DELETE FROM delivery WHERE del_no = " + code;
 			System.out.println(now_sql);
 			db.Excute(now_sql);
-			now_sql = "";
+			now_sql = sql;
 			LoadList(now_sql);
 		}
 	}

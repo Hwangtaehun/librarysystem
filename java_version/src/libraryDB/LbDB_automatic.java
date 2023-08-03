@@ -13,9 +13,8 @@ public class LbDB_automatic implements todayinterface {
 	public LbDB_automatic() {}
 	public LbDB_automatic(LbDB_DAO db) {
 		this.db = db;
-		overdue_manager();
 		clearmember();
-		checkoverdue();
+		overdue_manager();
 	}
 	
 	private void overdue_manager() {//대출일과 연장여부를 통해서 반납일 확인한 후에 반납일 지난 회원계정 정지
@@ -113,42 +112,6 @@ public class LbDB_automatic implements todayinterface {
 				System.out.println(sql);
 				db.Excute(sql);
 				sql = "DELETE FROM overdue WHERE due_no = " + due_no[i];
-				System.out.println(sql);
-				db.Excute(sql);
-			}
-		}
-	}
-	
-	private void checkoverdue() { //연체자 재확인하기위한 함수
-		int num = 0;
-		
-		sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no";
-		System.out.println(sql);
-		result = db.getResultSet(sql);
-		
-		if(!resultempty_check(result)) {
-			try {
-				while(result.next()) {
-					num++;
-				}
-				
-				if(num != 0) {
-					result.beforeFirst();
-					mem_no = new int[num];
-					num = 0;
-					
-					while(result.next()) {
-						mem_no[num] = result.getInt("lent.mem_no");
-						num++;
-					}	
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			for(int i = 0; i < mem_no.length; i++) {
-				sql = "UPDATE member SET mem_state = 2 WHERE mem_no = " + mem_no[i];
 				System.out.println(sql);
 				db.Excute(sql);
 			}
