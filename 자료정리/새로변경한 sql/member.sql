@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `member` (
   `mem_pw` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mem_lent` int(11) DEFAULT '5',
   `mem_state` int(11) NOT NULL DEFAULT '0',
-  `add_no` int(11) DEFAULT NULL,
+  `mem_zip` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mem_add` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `mem_detail` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -41,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `member` (
 -- 테이블의 덤프 데이터 `member`
 --
 
-INSERT INTO `member` (`mem_no`, `mem_name`, `mem_id`, `mem_pw`, `mem_lent`, `mem_state`, `add_no`, `mem_detail`) VALUES
+INSERT INTO `member` (`mem_no`, `mem_name`, `mem_id`, `mem_pw`, `mem_lent`, `mem_state`, `mem_zip`, `mem_detail`) VALUES
 (1, 'root', 'mysejong', 'sj4321', NULL, 1, NULL, NULL),
-(2, '황태훈', 'skymemoryblue', 'sj4321', 5, 0, 4847250, '3동 401호'),
-(3, '이정지', 'stopaccount', 'sj4321', 5, 2, 4814353, '103동 502호'),
-(4, 'guest', '1111', '1234', 5, 0, 4814735, '12');
+(2, '황태훈', 'skymemoryblue', 'sj4321', 5, 0, '28347', '3동 401호'),
+(3, '이정지', 'stopaccount', 'sj4321', 5, 2, '28647', '103동 502호'),
+(4, 'guest', '1111', '1234', 5, 0, '28568', '12');
 
 --
 -- 덤프된 테이블의 인덱스
@@ -57,7 +58,6 @@ INSERT INTO `member` (`mem_no`, `mem_name`, `mem_id`, `mem_pw`, `mem_lent`, `mem
 ALTER TABLE `member`
   ADD PRIMARY KEY (`mem_no`),
   ADD UNIQUE KEY `mem_id` (`mem_id`),
-  ADD KEY `add_no` (`add_no`);
 
 --
 -- 덤프된 테이블의 AUTO_INCREMENT
@@ -70,10 +70,6 @@ ALTER TABLE `member`
   MODIFY `mem_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- 덤프된 테이블의 제약사항
---
-
---
--- 테이블의 제약사항 `member`
 --
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

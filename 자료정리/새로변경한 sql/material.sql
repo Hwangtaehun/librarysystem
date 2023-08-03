@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `material` (
   `mat_no` int(11) NOT NULL,
   `lib_no` int(11) DEFAULT NULL,
   `book_no` int(11) DEFAULT NULL,
-  `kind_no` VARCHAR(10) DEFAULT NULL,
+  `kind_no` VARCHAR(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mat_symbol` VARCHAR(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `mat_many` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `mat_overlap` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'c.1'
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
