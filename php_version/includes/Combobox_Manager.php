@@ -4,7 +4,7 @@ class Combobox_Manager {
     private $name;
 	private $result;
 
-	public function __construct(string $table, string $key, string $where) {
+	public function __construct(string $table, string $key, string $where, bool $nothing) {
 		try {
 			$pdo = new PDO('mysql:host=localhost;dbname=librarydb;charset=utf8','mysejong','sj4321');
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -22,8 +22,16 @@ class Combobox_Manager {
 				$count++;
 			}
 
-			for ($i=0; $i < $count ; $i++) { 
-				$this->result[$i] = array($this->pri[$i], $this->name[$i]);
+			if($nothing){
+				$this->result[0] = array(0, '없음');
+				for ($i= 0; $i < $count ; $i++) { 
+					$this->result[$i+1] = array($this->pri[$i], $this->name[$i]); //확인
+				}
+			}
+			else{
+				for ($i=0; $i < $count ; $i++) { 
+					$this->result[$i] = array($this->pri[$i], $this->name[$i]);
+				}
 			}
 		}
 		catch(PDOException $e){
