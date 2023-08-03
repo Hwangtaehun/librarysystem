@@ -12,7 +12,7 @@
 
     $super_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '_00'", false);
     $base_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '0_0'", false);
-    $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '00_'", false);
+    $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '00_'", true);
 
     $super = $super_man->result_call();
     $base = $base_man->result_call();
@@ -55,7 +55,7 @@
             <input type="submit" value="등록" />
             <?php
              $inherit1 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '?_0'", false);
-             $inherit2 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '??_'", false);
+             $inherit2 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '??_'", true);
 
              $basearray = $inherit1->call_result();
              $subarray = $inherit2->call_result();
