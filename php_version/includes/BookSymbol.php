@@ -54,17 +54,17 @@ class BookSymbol{
 	}
 	
 	private function korean_check(String $str) {
-		return preg_match("^[ㄱ-ㅎ가-힣]*$", $str);
+		return preg_match("/[\xA1-\xFE][\xA1-\xFE]/", $str);
 	}
 	
 	private function english_check(String $str) {
 		$character = explode( '.', $str );
 		
 		if(sizeof($character) > 0) {
-			return preg_match("^[a-zA-Z]*$", $character[0]);
+			return preg_match("/^[a-zA-Z]+$/", $character[0]);
 		}
 		else {
-			return preg_match("^[a-zA-Z]*$", $str);
+			return preg_match("/^[a-zA-Z]+$/", $str);
 		}
 	}
 	
@@ -481,9 +481,10 @@ class BookSymbol{
 		$array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
 		$result_array = [];
 		
+		echo '$array의 크기 = '.sizeof($array);
 		$str_result = $array[0];
 		$uniVal = $array[1];
-		$str_result += $this->separate_character($uniVal);
+		$str_result = $str_result.$this->separate_character($uniVal);
 		$result_array = mb_str_split($str_result, $split_length = 1, $encoding = "utf-8");
 		
 		return $result_array;
@@ -629,14 +630,13 @@ class BookSymbol{
 	
 	public function separate_character($uniVal) {
 		$result = "";
+		$num_cho = $uniVal / 588;
+		$num_joong = $uniVal % 588 / 28;
+		$num_jong = $uniVal %28;
 		
-		$num_cho = ($uniVal-0xAC00)/28/21;
-		$num_joong = ($uniVal - 0xAC00)/28%21;
-		$num_jong = ($uniVal - 0xAC00)%28;
-		
-		$result += $this->cho[$num_cho];
-		$result += $this->joong[$num_joong];
-		$result += $this->jong[$num_jong];
+		$result = $result.$this->cho[$num_cho];
+		$result = $result.$this->joong[$num_joong];
+		$result = $result.$this->jong[$num_jong];
 		trim($result);
 		
 		return $result;

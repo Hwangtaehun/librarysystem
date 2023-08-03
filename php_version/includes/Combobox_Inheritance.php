@@ -1,6 +1,4 @@
 <?php
-include_once __DIR__.'/Combobox_Manager.php';
-
 class Combobox_Inheritance{
 	private $where_array;
 	private $result = [];
