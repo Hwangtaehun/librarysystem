@@ -9,9 +9,16 @@ class BookSymbol{
 	
     public function __construct(String $author, bool $bool){
         $this->lastauthor_exist = $bool;
-		$author_array = mb_str_split($author, $split_length = 1, $encoding = "utf-8");
+		$author_array = explode( ' ', $author);
+		//$this->print($author_array);
 		$this->inital($author_array);
     }
+
+	private function print(array $array){
+		for ($i = 0; $i < sizeof($array); $i++) { 
+			echo '배열 ['.$i.'] = '.$array[$i].'<br>';
+		}
+	}
 	
 	private function inital(array $author_array) {
 		$num = 0;
@@ -69,7 +76,7 @@ class BookSymbol{
 	}
 	
 	private function sequence_change(array $str) {
-		$temp = $str[sizeof($str)];
+		$temp = $str[sizeof($str)-1];
 		$str[sizeof($str)-1] = $str[0];
 		$str[0] = $temp;
 		
@@ -79,342 +86,343 @@ class BookSymbol{
 	private function englishTokorean(String $str) {
 		$result = "";
 		$result_array = [];
-		$array = explode( '', $str );
+		$array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
+		//$this->print($array);
 		
 		for($i = 0; $i < sizeof($array); $i++) {
 			switch($array[$i]) {
 			case 'a':
 			case 'A':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅏ";
+					$result = $result."ㅏ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'e') {
-						$result += "ㅐ";
+						$result = $result."ㅐ";
 					}
 					else {
 						$i--;
-						$result += "ㅏ";
+						$result = $result."ㅏ";
 					}
 				}
 				break;
 			case 'b':
 			case 'B':
-				$result += "ㅂ";
+				$result = $result."ㅂ";
 				break;
 			case 'c':
 			case 'C':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅋ";
+					$result = $result."ㅋ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'h') {
-						$result += "ㅊ";
+						$result = $result."ㅊ";
 					}
 					else {
 						$i--;
-						$result += "ㅋ";
+						$result = $result."ㅋ";
 					}
 				}
 				break;
 			case 'd':
 			case 'D':
-				$result += "ㄷ";
+				$result = $result."ㄷ";
 				break;
 			case 'e':
 			case 'E':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅔ";
+					$result = $result."ㅔ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'o') {
-						$result += "ㅓ";
+						$result = $result."ㅓ";
 					}
 					else if($array[$i] == 'u') {
-						$result += "ㅡ";
+						$result = $result."ㅡ";
 					}
 					else if($array[$i] == 'e') {
-						$result += "ㅣ";
+						$result = $result."ㅣ";
 					}
 					else {
 						$i--;
-						$result += "ㅔ";
+						$result = $result."ㅔ";
 					}
 				}
 				break;
 			case 'f':
 			case 'F':
-				$result += "ㅍ";
+				$result = $result."ㅍ";
 				break;
 			case 'G':
 			case 'g':
-				$result += "ㄱ";
+				$result = $result."ㄱ";
 				break;
 			case 'H':
 			case 'h':
-				$result += "ㅎ";
+				$result = $result."ㅎ";
 				break;
 			case 'I':
 			case 'i':
-				$result += "ㅣ";
+				$result = $result."ㅣ";
 				break;
 			case 'J':
 			case 'j':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅈ";
+					$result = $result."ㅈ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'j') {
-						$result += "ㅉ";
+						$result = $result."ㅉ";
 					}
 					else {
 						$i--;
-						$result += "ㅈ";
+						$result = $result."ㅈ";
 					}
 				}
 				break;
 			case 'K':
 			case 'k':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅋ";
+					$result = $result."ㅋ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'k') {
-						$result += "ㄲ";
+						$result = $result."ㄲ";
 					}
 					else {
 						$i--;
-						$result += "ㅋ";
+						$result = $result."ㅋ";
 					}
 				}
 				break;
 			case 'L':
 			case 'l':
-				$result += "ㄹ";
+				$result = $result."ㄹ";
 				break;
 			case 'M':
 			case 'm':
-				$result += "ㅁ";
+				$result = $result."ㅁ";
 				break;
 			case 'N':
 			case 'n':
 				if($i == sizeof($array) - 1) {
-					$result += "ㄴ";
+					$result = $result."ㄴ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'g') {
-						$result += "ㅇ";
+						$result = $result."ㅇ";
 					}
 					else {
 						$i--;
-						$result += "ㄴ";
+						$result = $result."ㄴ";
 					}
 				}
 				break;
 			case 'O':
 			case 'o':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅗ";
+					$result = $result."ㅗ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'e') {
-						$result += "ㅚ";
+						$result = $result."ㅚ";
 					}
 					else if($array[$i] == 'o') {
-						$result += "ㅜ";
+						$result = $result."ㅜ";
 					}
 					else {
 						$i--;
-						$result += "ㅗ";
+						$result = $result."ㅗ";
 					}
 				}
 				break;
 			case 'P':
 			case 'p':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅍ";
+					$result = $result."ㅍ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'p') {
-						$result += "ㅃ";
+						$result = $result."ㅃ";
 					}
 					else {
 						$i--;
-						$result += "ㅍ";
+						$result = $result."ㅍ";
 					}
 				}
 				break;
 			case 'Q':
 			case 'q':
-				$result += "ㅋ";
+				$result = $result."ㅋ";
 				break;
 			case 'R':
 			case 'r':
-				$result += "ㄹ";
+				$result = $result."ㄹ";
 				break;
 			case 'S':
 			case 's':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅅ";
+					$result = $result."ㅅ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 's') {
-						$result += "ㅆ";
+						$result = $result."ㅆ";
 					}
 					else {
 						$i--;
-						$result += "ㅅ";
+						$result = $result."ㅅ";
 					}
 				}
 				break;
 			case 'T':
 			case 't':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅌ";
+					$result = $result."ㅌ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 't') {
-						$result += "ㄸ";
+						$result = $result."ㄸ";
 					}
 					else {
 						$i--;
-						$result += "ㅌ";
+						$result = $result."ㅌ";
 					}
 				}
 				break;
 			case 'U':
 			case 'u':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅜ";
+					$result = $result."ㅜ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'i') {
-						$result += "ㅢ";
+						$result = $result."ㅢ";
 					}
 					else {
 						$i--;
-						$result += "ㅜ";
+						$result = $result."ㅜ";
 					}
 				}
 				break;
 			case 'V':
 			case 'v':
-				$result += "ㅂ";
+				$result = $result."ㅂ";
 				break;
 			case 'W':
 			case 'w':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅝ";
+					$result = $result."ㅝ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'a') {
 						if($i == sizeof($array) - 1) {
-							$result += "ㅘ";
+							$result = $result."ㅘ";
 						}
 						else {
 							$i++;
 							if($array[$i] == 'e') {
-								$result += "ㅙ";
+								$result = $result."ㅙ";
 							}
 							else {
 								$i--;
-								$result += "ㅘ";
+								$result = $result."ㅘ";
 							}
 						}
 					}
 					else if($array[$i] == 'e') {
-						$result += "ㅞ";
+						$result = $result."ㅞ";
 					}
 					else if($array[$i] == 'i') {
-						$result += "ㅟ";
+						$result = $result."ㅟ";
 					}
 					else if($array[$i] == 'o') {
-						$result += "ㅝ";
+						$result = $result."ㅝ";
 					}
 					else {
 						$i--;
-						$result += "ㅝ";
+						$result = $result."ㅝ";
 					}
 				}
 				break;
 			case 'X':
 			case 'x':
-				$result += "ㅋ";
-				$result += "ㅡ";
-				$result += "ㅅ";
-				$result += "ㅡ";
+				$result = $result."ㅋ";
+				$result = $result."ㅡ";
+				$result = $result."ㅅ";
+				$result = $result."ㅡ";
 				break;
 			case 'Y':
 			case 'y':
 				if($i == sizeof($array) - 1) {
-					$result += "ㅏ";
-					$result += "ㅇ";
-					$result += "ㅣ";
+					$result = $result."ㅏ";
+					$result = $result."ㅇ";
+					$result = $result."ㅣ";
 				}
 				else {
 					$i++;
 					if($array[$i] == 'a') {
 						if($i == sizeof($array) - 1) {
-							$result += "ㅒ";
+							$result = $result."ㅒ";
 						}
 						else {
 							$i++;
 							if($array[$i] == 'e') {
-								$result += "ㅑ";
+								$result = $result."ㅑ";
 							}
 							else {
 								$i--;
-								$result += "ㅒ";
+								$result = $result."ㅒ";
 							}
 						}
 					}
 					else if($array[$i] == 'e') {
 						if($i == sizeof($array) - 1) {
-							$result += "ㅖ";
+							$result = $result."ㅖ";
 						}
 						else {
 							$i++;
 							if($array[$i] == 'o') {
-								$result += "ㅕ";
+								$result = $result."ㅕ";
 							}
 							else {
 								$i--;
-								$result += "ㅖ";
+								$result = $result."ㅖ";
 							}
 						}
 					}
 					else if($array[$i] == 'o') {
-						$result += "ㅛ";
+						$result = $result."ㅛ";
 					}
 					else if($array[$i] == 'u') {
-						$result += "ㅠ";
+						$result = $result."ㅠ";
 					}
 					else {
 						$i--;
-						$result += "ㅣ";
+						$result = $result."ㅣ";
 					}
 				}
 				break;
 			case 'Z':
 			case 'z':
-				$result += "ㅅ";
+				$result = $result."ㅅ";
 				break;
 			}
 		}
-		//echo 'englishTokorean함수의 $result: '.$result;
-		$result_array = explode('', $result);
+		//echo 'englishTokorean함수의 $result: '.$result.'<br>';
+		$result_array = mb_str_split($result, $split_length = 1, $encoding = "utf-8");;
 		
 		return $result_array;
 	}
@@ -426,6 +434,7 @@ class BookSymbol{
 		$jong_num = 0;
 		$result_array = [];
 		
+		//echo '$str['.$num.'] = '.$str[$num].'<br>';
 		for($i = 0; $i < sizeof($this->cho); $i++) {
 			if($str[$num] === $this->cho[$i]) {
 				$cho_num = $i;
@@ -465,12 +474,13 @@ class BookSymbol{
 		
 		$num++;
 		
-		$unicode = ($cho_num * 21 + $joong_num) * 28 + $jong_num + 0xAC00;
-		//echo 'unicode = '.$unicode;
+		$uni_num = 0xAC00 + 28 * 21 * $cho_num + 28 * $joong_num + $jong_num;
+		$unicode = mb_chr($uni_num, 'UTF-8');
+		//echo '$unicode = '.$unicode;
 		
 		$result = $unicode;
 		for($i = $num; $i < sizeof($str); $i++) {
-			$result += $str[$i];
+			$result = $result.$str[$i];
 		}
 		
 		$result_array = mb_str_split($result, $split_length = 1, $encoding = "utf-8");
@@ -478,12 +488,16 @@ class BookSymbol{
 	}
 	
 	private function stringTochar(String $str) {
-		$array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
+		$array = [];
+		for ($i = 0; $i < mb_strlen($str,"UTF-8"); $i++) {
+			$char = mb_substr ($str, $i, 1, 'UTF-8');
+			array_push ($array, $char);
+		}
 		$result_array = [];
 		
-		echo '$array의 크기 = '.sizeof($array);
 		$str_result = $array[0];
 		$uniVal = $array[1];
+		//echo '$str_result = '.$str_result.', $uniVal = '.$uniVal.'<br>';
 		$str_result = $str_result.$this->separate_character($uniVal);
 		$result_array = mb_str_split($str_result, $split_length = 1, $encoding = "utf-8");
 		
@@ -498,55 +512,55 @@ class BookSymbol{
 		switch($author_char_array[$num]) {
 		case 'ㄱ':
 		case 'ㄲ':
-			$this->author_symbol += "1";
+			$this->author_symbol = $this->author_symbol."1";
 			break;
 		case 'ㄴ':
-			$this->author_symbol += "19";
+			$this->author_symbol = $this->author_symbol."19";
 			break;
 		case 'ㄷ':
 		case 'ㄸ':
-			$this->author_symbol += "2";
+			$this->author_symbol = $this->author_symbol."2";
 			break;
 		case 'ㄹ':
-			$this->author_symbol += "29";
+			$this->author_symbol = $this->author_symbol."29";
 			break;
 		case 'ㅁ':
-			$this->author_symbol += "3";
+			$this->author_symbol = $this->author_symbol."3";
 			break;
 		case 'ㅂ':
 		case 'ㅃ':
-			$this->author_symbol += "4";
+			$this->author_symbol = $this->author_symbol."4";
 			break;
 		case 'ㅅ':
 		case 'ㅆ':
-			$this->author_symbol += "5";
+			$this->author_symbol = $this->author_symbol."5";
 			break;
 		case 'ㅇ':
-			$this->author_symbol += "6";
+			$this->author_symbol = $this->author_symbol."6";
 			break;
 		case 'ㅈ':
 		case 'ㅉ':
-			$this->author_symbol += "7";
+			$this->author_symbol = $this->author_symbol."7";
 			break;
 		case 'ㅊ':
-			$this->author_symbol += "8";
+			$this->author_symbol = $this->author_symbol."8";
 			break;
 		case 'ㅋ':
-			$this->author_symbol += "87";
+			$this->author_symbol = $this->author_symbol."87";
 			break;
 		case 'ㅌ':
-			$this->author_symbol += "88";
+			$this->author_symbol = $this->author_symbol."88";
 			break;
 		case 'ㅍ':
-			$this->author_symbol += "89";
+			$this->author_symbol = $this->author_symbol."89";
 			break;
 		case 'ㅎ':
-			$this->author_symbol += "9";
+			$this->author_symbol = $this->author_symbol."9";
 			break;
 		}
 		
 		if($this->author_symbol == $author_char_array[0]) {
-			$this->author_symbol += "6";
+			$this->author_symbol = $this->author_symbol."6";
 		}
 		else {
 			$num++;
@@ -558,20 +572,20 @@ class BookSymbol{
 			case 'ㅐ':
 			case 'ㅑ':
 			case 'ㅒ':
-				$this->author_symbol += "2";
+				$this->author_symbol = $this->author_symbol."2";
 				break;
 			case 'ㅓ':
 			case 'ㅔ':
 			case 'ㅕ':
 			case 'ㅖ':
-				$this->author_symbol += "3";
+				$this->author_symbol = $this->author_symbol."3";
 				break;
 			case 'ㅗ':
 			case 'ㅘ':
 			case 'ㅙ':
 			case 'ㅚ':
 			case 'ㅛ':
-				$this->author_symbol += "4";
+				$this->author_symbol = $this->author_symbol."4";
 				break;
 			case 'ㅜ':
 			case 'ㅝ':
@@ -580,65 +594,81 @@ class BookSymbol{
 			case 'ㅠ':
 			case 'ㅡ':
 			case 'ㅢ':
-				$this->author_symbol += "5";
+				$this->author_symbol = $this->author_symbol."5";
 				break;
 			case 'ㅣ':
-				$this->author_symbol += "6";
+				$this->author_symbol = $this->author_symbol."6";
 				break;
 			}
 		}
 		else {
 			switch($author_char_array[$num]) {
 			case 'ㅏ':
-				$this->author_symbol += "2";
+				$this->author_symbol = $this->author_symbol."2";
 				break;
 			case 'ㅐ':
 			case 'ㅑ':
 			case 'ㅒ':
-				$this->author_symbol += "3";
+				$this->author_symbol = $this->author_symbol."3";
 				break;
 			case 'ㅓ':
 			case 'ㅔ':
 			case 'ㅕ':
 			case 'ㅖ':
-				$this->author_symbol += "4";
+				$this->author_symbol = $this->author_symbol."4";
 				break;
 			case 'ㅗ':
 			case 'ㅘ':
 			case 'ㅙ':
 			case 'ㅚ':
 			case 'ㅛ':
-				$this->author_symbol += "5";
+				$this->author_symbol = $this->author_symbol."5";
 				break;
 			case 'ㅜ':
 			case 'ㅝ':
 			case 'ㅞ':
 			case 'ㅟ':
 			case 'ㅠ':
-				$this->author_symbol += "6";
+				$this->author_symbol = $this->author_symbol."6";
 				break;
 			case 'ㅡ':
 			case 'ㅢ':
-				$this->author_symbol += "7";
+				$this->author_symbol = $this->author_symbol."7";
 				break;	
 			case 'ㅣ':
-				$this->author_symbol += "8";
+				$this->author_symbol = $this->author_symbol."8";
 				break;
 			}
 		}
 	}
+
+	private function ord8($c) {
+		$len = strlen($c);
+		if($len <= 0) return false;
+		$h = ord($c[0]);
+		if ($h <= 0x7F) return $h;
+		if ($h < 0xC2) return false;
+		if ($h <= 0xDF && $len>1) return ($h & 0x1F) <<  6 | (ord($c[1]) & 0x3F);
+		if ($h <= 0xEF && $len>2) return ($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) <<  6 | (ord($c[2]) & 0x3F);		  
+		if ($h <= 0xF4 && $len>3) return ($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 | (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F);
+		return false;
+	}
 	
 	public function separate_character($uniVal) {
 		$result = "";
-		$num_cho = $uniVal / 588;
-		$num_joong = $uniVal % 588 / 28;
-		$num_jong = $uniVal %28;
-		
-		$result = $result.$this->cho[$num_cho];
-		$result = $result.$this->joong[$num_joong];
-		$result = $result.$this->jong[$num_jong];
+
+		for ($i=0; $i<mb_strlen($uniVal, 'UTF-8'); $i++) {
+			$code = $this->ord8(mb_substr($uniVal, $i, 1, 'UTF-8')) - 44032;
+			if ($code > -1 && $code < 11172) {
+				$num_cho = $code / 588;
+				$num_joong = $code % 588 / 28;
+				$num_jong = $code % 28;
+				$result .= $this->cho[$num_cho].$this->joong[$num_joong].$this->jong[$num_jong];
+			} else {
+				$result .= mb_substr($uniVal, $i, 1, 'UTF-8');
+			}
+		}
 		trim($result);
-		
 		return $result;
 	}
 	
