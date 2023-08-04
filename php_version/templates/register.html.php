@@ -34,7 +34,7 @@
     <header>
         <h1> <?=$title?></h1>
     </header>
-    <form action="member_check.php" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action="register_check.php" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <label for = "user_id">아이디</label>
         <input type= "text" name="user_id" id="user_id" value=""><br>
         <label for = "user_password">비밀번호</label>
