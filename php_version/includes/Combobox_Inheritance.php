@@ -5,9 +5,7 @@ class Combobox_Inheritance{
 	private $where_array;
 	private $result = [];
 
-	public function __construct(string $table, string $key, string $where, bool $nothing) {
-		$pdo = new PDO('mysql:host=localhost;dbname=librarydb;charset=utf8','mysejong','sj4321');
-		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	public function __construct(PDO $pdo, string $table, string $key, string $where, bool $nothing) {
 		$count = $this->where_edit($where);
 		$word_front = $this->where_array[0].' '.$this->where_array[1];
 
@@ -17,7 +15,7 @@ class Combobox_Inheritance{
 				$word_back = $i.$this->where_array[2];
 				$base_where = "$word_front '$word_back'";
 				//echo '$base_where = '.$base_where;
-				$base_man = new Combobox_Manager($table, $key, $base_where, $nothing);
+				$base_man = new Combobox_Manager($pdo, $table, $key, $base_where, $nothing);
 				$name = $i.'00';
 				$this->result += ["$name" => $base_man->result_call()];
 			}
@@ -29,7 +27,7 @@ class Combobox_Inheritance{
 				$word_back = $str_i.$this->where_array[2];
 				$sub_where = "$word_front '$word_back'";
 				//echo '$sub_where = '.$sub_where;
-				$sub_man = new Combobox_Manager($table, $key, $sub_where, $nothing);
+				$sub_man = new Combobox_Manager($pdo, $table, $key, $sub_where, $nothing);
 				$name = $str_i.'0';
 				$this->result += ["$name" => $sub_man->result_call()];
 			}
