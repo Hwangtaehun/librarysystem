@@ -1,12 +1,18 @@
 <?php
 
-$title = '도서관 로그인'
+include_once __DIR__.'/includes/Dbconnect.php';
+include_once __DIR__.'/includes/Automatic.php';
 
-ob_start();
+$auto = new Automatic($pdo);
 
-include_once __DIR__.'/../include/Client.php';
-include_once __DIR__.'/../include/Dbconnect.php';
-include_once __DIR__.'/../class/TableManager.php';
-include_once __DIR__.'/../templates/login.html.php';
-
-$outString = ob_get_clean();
+if(!isset($_SESSION['mem_state'])) {
+    include_once __DIR__.'../templates/login.html.php';
+}
+else {
+    if($_SESSION['mem_state'] == 1){
+        include __DIR__.'../templates/managerlayout.html.php';
+    }
+    else{
+        include __DIR__.'../templates/memberlayout.html.php';
+    }
+}
