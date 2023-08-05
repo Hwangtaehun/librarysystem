@@ -24,7 +24,7 @@
     <header>
         <h1> <?=$title?></h1>
     </header>
-    <form action="login_check.php" method="post" onSubmit="return checkInput(this)">
+    <form action="/../php/login_check.php" method="post" onSubmit="return checkInput(this)">
         <label for = "user_id">아이디</label>
         <input type="text" name="user_id" id="user_id" value="">
         <label for = "user_password">비밀번호</label>
