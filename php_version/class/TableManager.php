@@ -31,6 +31,11 @@ class TableManager
         return $stmt;
     }
 
+    function loginCheck($mem_id, $mem_pw){
+        $sql = "SELECT * FROM `member` WHERE `mem_id` = '$mem_id' AND `mem_pw` = '$mem_pw'";
+        return $this->pdo->query($sql);
+    }
+
     function insertData($param)
     {
         $sql = 'INSERT INTO `'.$this->table.'` SET ';
