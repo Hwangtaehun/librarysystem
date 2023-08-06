@@ -11,6 +11,7 @@ nav{background-color: #ccccdd;}
 nav a {color: white; text-decoration: none;}
 nav a:hover {color: #ff0000;}
 nav li {display: table-cell; text-align: center; padding: 0.5em;}
+#out {display: table-cell; text-align: end; padding: 0.5em;}
 
 #fieldset_row {display: table; width: 100%; padding: 1px;}
 #div_row {display: table-cell; width: 70%;}

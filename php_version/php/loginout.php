@@ -1,0 +1,33 @@
+<?php
+session_start();
+include_once __DIR__.'/../includes/Dbconnect.php';
+
+if(!isset($_SESSION['mem_state'])) {
+    $mem_id = $_POST['user_id'];
+    $mem_pw = $_POST['user_password'];
+    $sql = "SELECT * FROM `member` WHERE `mem_id` = '$mem_id' AND `mem_pw` = '$mem_pw'";
+
+    $result = $pdo->query($sql);
+    $num = $result->rowCount();
+
+    if($num != 0){
+        $row = $result->fetch();
+        $_SESSION['mem_no'] = $row['mem_no'];
+        $_SESSION['mem_name'] = $row['mem_name'];
+        $_SESSION['mem_state'] = $row['mem_state'];
+
+        echo "<script>location.replace('../index.php');</script>";
+        exit;
+    }
+    else{
+        echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.')</script>";
+        echo "<script>location.replace('../index.php');</script>";
+        exit;
+    }
+}
+else {
+    $_SESSION = [];
+    echo "<script>location.replace('../index.php');</script>";
+    exit;
+}
+?>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once __DIR__.'/includes/Dbconnect.php';
 include_once __DIR__.'/includes/Automatic.php';
 
@@ -9,10 +9,13 @@ if(!isset($_SESSION['mem_state'])) {
     include_once __DIR__.'../templates/login.html.php';
 }
 else {
-    if($_SESSION['mem_state'] == 1){
-        include __DIR__.'../templates/managerlayout.html.php';
-    }
-    else{
-        include __DIR__.'../templates/memberlayout.html.php';
-    }
+    $title = '도서관 관리';
+
+    ob_start(); 
+
+    include __DIR__.'../templates/home.html.php';
+
+    $outString = ob_get_clean();
+
+    include __DIR__.'../templates/layout.html.php';
 }

@@ -5,7 +5,14 @@
     <link rel = "stylesheet" herf = "../css/form.css">
     <title><?=$title?></title>
     <script>
-        function checkInput(myform){
+        var check = false;
+
+        function checkInput(myform) {
+            if(check == false){
+                alert("아이디 중복체크를 해주세요.");
+                myform.id_check.focus();
+                return false;
+            }
             if(myform.user_id.value.length <= 0){
                 alert("아이디를 입력하세요.");
                 myform.user_name.focus();
@@ -28,15 +35,37 @@
             }
             return true;
         }
+
+        function checkid() {
+            var userid = document.getElementById("user_id").value;
+            if(userid)
+            {
+                url = "check.php?userid="+userid;
+                window.open(url,"chkid","width=400,height=200");
+            } else {
+                alert("아이디를 입력하세요.");
+            }
+        }
+
+        function decide() {
+            var check = true;
+        }
+
+        function change() {
+            var check = false;
+        }
     </script>
 </head>
 <body>
     <header>
         <h1> <?=$title?></h1>
     </header>
-    <form action="register_check.php" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action="php/register_check.php" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+        <label for = "user_id">이름</label>
+        <input type= "text" name="user_name" id="user_name" value=""><br>
         <label for = "user_id">아이디</label>
-        <input type= "text" name="user_id" id="user_id" value=""><br>
+        <input type= "text" name="user_id" id="user_id" value="">
+        <input type= "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"><br>
         <label for = "user_password">비밀번호</label>
         <input type= "password" name="user_password" id="user_password"><br>
         <label for = "user_pw_check">비밀번호 확인</label>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel = "stylesheet" herf = "../css/form.css">
+    <link rel = "stylesheet" herf = "css/form.css">
     <title><?=$title?></title>
     <script>
         function checkInput(myform){
@@ -24,13 +24,13 @@
     <header>
         <h1> <?=$title?></h1>
     </header>
-    <form action="../php/login_check.php" method="post" onSubmit="return checkInput(this)">
+    <form action="./php/loginout.php" method="post" onSubmit="return checkInput(this)">
         <label for = "user_id">아이디</label>
         <input type="text" name="user_id" id="user_id" value="">
         <label for = "user_password">비밀번호</label>
         <input type="password" name="user_password" id="user_password"><br>
         <input type=submit value='로그인'>
     </form>
-    <a href="register.html.php">회원가입</a>
+    <a href="./templates/register.html.php">회원가입</a>
 </body>
 </html>
