@@ -38,6 +38,13 @@
 
         function checkid() {
             var userid = document.getElementById("user_id").value;
+            check = false;
+            var bool = $("#testInput").attr("disabled");
+
+            if(bool){
+                document.getElementById("user_id").disabled = false;
+            }
+
             if(userid)
             {
                 url = "../php/check.php?userid="+userid;
@@ -48,11 +55,13 @@
         }
 
         function decide() {
-            var check = true;
+            check = true;
+            document.getElementById("user_id").disabled = true;
+            document.getElementById("id_check").value = "아이디로 변경"
         }
 
         function change() {
-            var check = false;
+            check = false;
         }
     </script>
 </head>
@@ -71,13 +80,13 @@
         <label for = "user_pw_check">비밀번호 확인</label>
         <input type= "password" name="user_pw_check" id="user_pw_check"><br>
         <label for = "user_zipcode">우편번호</label>
-        <input type= "text" name="user_zipcode" id="user_zipcode">
+        <input type= "text" name="user_zipcode" id="user_zipcode" readonly>
         <input type= "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
         <label for = "user_address">주소</label>
-        <input type= "text" name="user_address" id="user_address"><br>
+        <input type= "text" name="user_address" id="user_address" readonly><br>
         <label for = "user_detail">상세주소</label>
         <input type= "text" name="user_detail" id="user_detail">
-        <input type= "text" name="user_extra" id="user_extra" placeholder="참고항목"><br>
+        <input type= "text" name="user_extra" id="user_extra" placeholder="참고항목" readonly><br>
         <input type= submit value='회원가입'>
         <input type= reset value='지우기'>
     </form>
