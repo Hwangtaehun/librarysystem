@@ -31,22 +31,15 @@ class TableManager
         return $stmt;
     }
 
-    function loginCheck($mem_id, $mem_pw){
-        $sql = "SELECT * FROM `member` WHERE `mem_id` = '$mem_id' AND `mem_pw` = '$mem_pw'";
-        return $this->pdo->query($sql);
-    }
-
     function insertData($param)
     {
         $sql = 'INSERT INTO `'.$this->table.'` SET ';
         foreach($param as $key=>$value){
-            if($key != 'mem_pw_check'){
-                $sql .= '`'.$key.'`= :'.$key.', ';
-            }
+            $sql .= '`'.$key.'`= :'.$key.', ';
         }
         $sql = rtrim($sql, ', ');
-        echo '$sql = '.$sql;
-        $this->myQuery($sql, $param);
+        echo '$sql = '.$sql.'<br>';
+        //$this->myQuery($sql, $param);
     }
 
     function deleteData($id)
@@ -59,9 +52,7 @@ class TableManager
     function updateData($param){
         $sql = 'UPDATE`'.$this->table.'`SET ';
         foreach($param as $key=>$value){
-            if($key != 'mem_pw_check'){
-                $sql .= '`'.$key.'`= :'.$key.', ';
-            }
+            $sql .= '`'.$key.'`= :'.$key.', ';
         }
         $sql = rtrim($sql, ', ');
         $sql .= ' WHERE `'.$this->keyField.'`= :'.$this->keyField;

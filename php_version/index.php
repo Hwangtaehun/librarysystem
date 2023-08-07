@@ -6,7 +6,6 @@ include_once __DIR__.'/includes/Automatic.php';
 $auto = new Automatic($pdo);
 
 if(!isset($_SESSION['mem_state'])) {
-    setcookie('myname2', 'namevalue2');
     include_once __DIR__.'../templates/login.html.php';
 }
 else {
