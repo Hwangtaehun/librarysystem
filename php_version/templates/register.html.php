@@ -23,7 +23,7 @@
                 myform.mem_pw.focus();
                 return false;
             }
-            if(myform.mem_pw.value == myform.mem_pw_check.value){
+            if(myform.mem_pw.value != myform.mem_pw_check.value){
                 alert("비밀번호와 비밀번화 확인과 다릅니다.");
                 myform.mem_pw.focus();
                 return false;
@@ -37,13 +37,8 @@
         }
 
         function checkid() {
-            var userid = document.getElementById("mem_id").value;
             check = false;
-            var bool = $("#testInput").attr("disabled");
-
-            if(bool){
-                document.getElementById("mem_id").disabled = false;
-            }
+            var userid = document.getElementById("mem_id").value;
 
             if(userid)
             {
@@ -57,11 +52,15 @@
         function decide() {
             check = true;
             document.getElementById("mem_id").disabled = true;
-            document.getElementById("id_check").value = "아이디로 변경"
+            document.getElementById("id_check").value = "아이디 변경"
+            document.getElementById("id_check").setAttribute("onclick", "change()");
         }
 
         function change() {
             check = false;
+            document.getElementById("mem_id").disabled = false;
+            document.getElementById("id_check").value = "아이디 중복"
+            document.getElementById("id_check").setAttribute("onclick", "checkid()")
         }
     </script>
 </head>
@@ -69,23 +68,23 @@
     <header>
         <h1> <?=$title?></h1>
     </header>
-    <form action="php/member.php" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action=" " method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <label for = "mem_id">이름</label>
-        <input type= "text" name="mem_name" id="mem_name" value=""><br>
+        <input type= "text" name="mem_name" id="mem_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
         <label for = "mem_id">아이디</label>
-        <input type= "text" name="mem_id" id="mem_id" value="">
+        <input type= "text" name="mem_id" id="mem_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>">
         <input type= "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"><br>
         <label for = "mem_pw">비밀번호</label>
-        <input type= "password" name="mem_pw" id="mem_pw"><br>
+        <input type= "password" name="mem_pw" id="mem_pw" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
         <label for = "mem_pw_check">비밀번호 확인</label>
         <input type= "password" name="mem_pw_check" id="mem_pw_check"><br>
         <label for = "mem_zip">우편번호</label>
-        <input type= "text" name="mem_zip" id="mem_zip" readonly>
+        <input type= "text" name="mem_zip" id="mem_zip" value="<?php if(isset($row)){echo $row['mem_zip'];}?>" readonly>
         <input type= "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
         <label for = "mem_add">주소</label>
-        <input type= "text" name="mem_add" id="mem_add" readonly><br>
+        <input type= "text" name="mem_add" id="mem_add" value="<?php if(isset($row)){echo $row['mem_add'];}?>" readonly><br>
         <label for = "mem_detail">상세주소</label>
-        <input type= "text" name="mem_detail" id="mem_detail"><br>
+        <input type= "text" name="mem_detail" id="mem_detail" value="<?php if(isset($row)){echo $row['mem_detail'];}?>"><br>
         <input type= submit value='회원가입'>
         <input type= reset value='지우기'>
     </form>

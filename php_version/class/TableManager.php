@@ -40,9 +40,12 @@ class TableManager
     {
         $sql = 'INSERT INTO `'.$this->table.'` SET ';
         foreach($param as $key=>$value){
-            $sql .= '`'.$key.'`= :'.$key.', ';
+            if($key != 'mem_pw_check'){
+                $sql .= '`'.$key.'`= :'.$key.', ';
+            }
         }
         $sql = rtrim($sql, ', ');
+        echo '$sql = '.$sql;
         $this->myQuery($sql, $param);
     }
 
@@ -56,7 +59,9 @@ class TableManager
     function updateData($param){
         $sql = 'UPDATE`'.$this->table.'`SET ';
         foreach($param as $key=>$value){
-            $sql .= '`'.$key.'`= :'.$key.', ';
+            if($key != 'mem_pw_check'){
+                $sql .= '`'.$key.'`= :'.$key.', ';
+            }
         }
         $sql = rtrim($sql, ', ');
         $sql .= ' WHERE `'.$this->keyField.'`= :'.$this->keyField;

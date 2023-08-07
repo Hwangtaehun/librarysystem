@@ -16,6 +16,9 @@
                 myform.user_password.focus();
                 return false;
             }
+            <?php
+            setcookie('myname2');
+            ?>
             return true;
         }
     </script>
@@ -31,6 +34,6 @@
         <input type="password" name="user_password" id="user_password"><br>
         <input type=submit value='로그인'>
     </form>
-    <a href="./templates/register.html.php">회원가입</a>
+    <a href="./php/member.php">회원가입</a>
 </body>
 </html>

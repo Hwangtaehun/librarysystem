@@ -4,6 +4,15 @@
         <meta charset = "utf-8">
         <link rel="stylesheet" href="css/form.css">
         <title><?=$title?></title>
+        <script>
+            function logout() {
+                <?php
+                session_start();
+                $_SESSION = [];
+                header('location: ../index.php');
+                ?>
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -30,8 +39,8 @@
                 echo '<li><a href="php/book.php">내서재</a><li>';
                 echo '<li><a href="php/member.php">마이페이지</a><li>';
                }
-               echo '<li id="out"><a href="php/loginout.php">로그아웃</a></li>';
                ?>
+               <li id="out"><a onclick ="logout()">로그아웃</a></li>
             </ul>
         </nav>
         <main>
