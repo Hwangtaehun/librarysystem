@@ -30,7 +30,7 @@
                 echo '<li><a href="php/book.php">내서재</a><li>';
                 echo '<li><a href="php/member.php">마이페이지</a><li>';
                }
-               echo '<li id="out"><a href="php/loginout.php">로그아웃</a></li>';
+               echo '<li><a href="php/loginout.php">로그아웃</a></li>';
                ?>
             </ul>
         </nav>

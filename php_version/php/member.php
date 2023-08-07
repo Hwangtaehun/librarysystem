@@ -9,7 +9,6 @@ $member = new TableManager($pdo, 'member', 'mem_no');
 try {
     if(isset($_POST['mem_no'])) {
         if($_POST['mem_no'] == ''){
-            //회원가입
             $member->insertData($_POST);
             header('location: ../index.php');
         }

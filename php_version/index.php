@@ -6,6 +6,8 @@ include_once __DIR__.'/includes/Automatic.php';
 $auto = new Automatic($pdo);
 
 if(!isset($_SESSION['mem_state'])) {
+    $title = '도서관 관리 로그인';
+
     include_once __DIR__.'../templates/login.html.php';
 }
 else {
