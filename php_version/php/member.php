@@ -7,10 +7,12 @@ include_once __DIR__.'/../templates/msgOutput.html.php';
 $title = $_GET['title'];
 $member = new TableManager($pdo, 'member', 'mem_no');
 try {
-    if(isset($_POST['mem_id'])) {
-        //회원가입
-        $member->insertData($_POST);
-        header('location: ../index.php');
+    if(isset($_POST['mem_no'])) {
+        if($_POST['mem_no'] == ''){
+            //회원가입
+            $member->insertData($_POST);
+            header('location: ../index.php');
+        }
     }
 } catch(PDOException $e){
     $strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();

@@ -38,8 +38,7 @@ class TableManager
             $sql .= '`'.$key.'`= :'.$key.', ';
         }
         $sql = rtrim($sql, ', ');
-        echo '$sql = '.$sql.'<br>';
-        //$this->myQuery($sql, $param);
+        $this->myQuery($sql, $param);
     }
 
     function deleteData($id)

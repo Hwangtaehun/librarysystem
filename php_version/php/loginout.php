@@ -16,21 +16,17 @@ try {
             $_SESSION['mem_no'] = $row['mem_no'];
             $_SESSION['mem_name'] = $row['mem_name'];
             $_SESSION['mem_state'] = $row['mem_state'];
-    
-            //echo "<script>location.replace('../index.php');</script>";
             header('location: ../index.php');
             exit;
         }
         else{
             echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.')</script>";
-            //echo "<script>location.replace('../index.php');</script>";
             header('location: ../index.php');
             exit;
         }
     }
     else {
         $_SESSION = [];
-        //echo "<script>location.replace('../index.php');</script>";
         header('location: ../index.php');
         exit;
     }

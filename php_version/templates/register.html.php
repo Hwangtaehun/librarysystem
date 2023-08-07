@@ -13,24 +13,34 @@
                 myform.id_check.focus();
                 return false;
             }
-            if(myform.mem_id.value.length <= 0){
+            if(myform.id_name.value.length <= 0){
+                alert("이름을 입력하세요.");
+                myform.id_name.focus();
+                return false;
+            }
+            if(myform.id_id.value.length <= 0){
                 alert("아이디를 입력하세요.");
-                myform.mem_id.focus();
+                myform.id_id.focus();
                 return false;
             }
-            if(myform.mem_pw.value.length <= 0){
+            if(myform.id_pw.value.length <= 0){
                 alert("비밀번호를 입력하세요.");
-                myform.mem_pw.focus();
+                myform.id_pw.focus();
                 return false;
             }
-            if(myform.mem_pw.value != myform.mem_pw_check.value){
+            if(myform.id_pw_check.value.length <= 0){
+                alert("비밀번호 확인을 입력하세요.");
+                myform.id_pw_check.focus();
+                return false;
+            }
+            if(myform.id_pw.value != myform.id_pw_check.value){
                 alert("비밀번호와 비밀번화 확인과 다릅니다.");
-                myform.mem_pw.focus();
+                myform.id_pw.focus();
                 return false;
             }
-            if(myform.mem_zipcode.value.length <= 0){
+            if(myform.id_zip.value.length <= 0){
                 alert("주소를 입력하세요.");
-                myform.mem_pw.focus();
+                myform.id_zip.focus();
                 return false;
             }
             return true;
@@ -38,7 +48,7 @@
 
         function checkid() {
             check = false;
-            var userid = document.getElementById("mem_id").value;
+            var userid = document.getElementById("id_id").value;
 
             if(userid)
             {
@@ -55,14 +65,14 @@
 
         function decide() {
             check = true;
-            document.getElementById("mem_id").disabled = true;
+            document.getElementById("id_id").disabled = true;
             document.getElementById("id_check").value = "아이디 변경"
             document.getElementById("id_check").setAttribute("onclick", "change()");
         }
 
         function change() {
             check = false;
-            document.getElementById("mem_id").disabled = false;
+            document.getElementById("id_id").disabled = false;
             document.getElementById("id_check").value = "아이디 중복"
             document.getElementById("id_check").setAttribute("onclick", "checkid()")
         }
@@ -72,26 +82,30 @@
     <header>
         <h1> <?=$title?></h1>
     </header>
-    <form action=" " method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action="" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
-            <label for = "mem_id">이름</label>
-            <input type= "text" name="mem_name" id="mem_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
-            <label for = "mem_id">아이디</label>
-            <input type= "text" name="mem_id" id="mem_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>">
-            <input type= "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"><br>
-            <label for = "mem_pw">비밀번호</label>
-            <input type= "password" name="mem_pw" id="mem_pw" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
-            <label for = "mem_pw_check">비밀번호 확인</label>
-            <input type= "password" name="mem_pw_check" id="mem_pw_check"><br>
-            <label for = "mem_zip">우편번호</label>
-            <input type= "text" name="mem_zip" id="mem_zip" value="<?php if(isset($row)){echo $row['mem_zip'];}?>" readonly>
-            <input type= "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
-            <label for = "mem_add">주소</label>
-            <input type= "text" name="mem_add" id="mem_add" value="<?php if(isset($row)){echo $row['mem_add'];}?>" readonly><br>
-            <label for = "mem_detail">상세주소</label>
-            <input type= "text" name="mem_detail" id="mem_detail" value="<?php if(isset($row)){echo $row['mem_detail'];}?>"><br>
-            <input type= "submit" value='완료'>
-            <input type= "reset" value='지우기'>
+            <ul><label for = "mem_name">이름</label>
+                <input type= "text" name="mem_name" id="id_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
+                <label for = "mem_id">아이디</label>
+                <input type= "text" name="mem_id" id="id_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>">
+                <input type= "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"><br>
+                <label for = "mem_pw">비밀번호</label>
+                <input type= "password" name="mem_pw" id="id_pw" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
+                <label for = "mem_pw_check">비밀번호 확인</label>
+                <input type= "password" name="mem_pw_check" id="id_pw_check" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
+                <label for = "mem_zip">우편번호</label>
+                <input type= "text" name="mem_zip" id="id_zip" value="<?php if(isset($row)){echo $row['mem_zip'];}?>" readonly>
+                <input type= "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
+                <label for = "mem_add">주소</label>
+                <input type= "text" name="mem_add" id="id_add" value="<?php if(isset($row)){echo $row['mem_add'];}?>" readonly><br>
+                <label for = "mem_detail">상세주소</label>
+                <input type= "text" name="mem_detail" id="id_detail" value="<?php if(isset($row)){echo $row['mem_detail'];}?>"><br>
+                <input type="hidden" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
+            </ul>
+            <div class="form_class">
+                <input type= "submit" value='완료'>
+                <input type= "reset" value='지우기'>
+            </div>
         </fieldset>
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -129,17 +143,17 @@
                             extraAddr = ' (' + extraAddr + ')';
                         }
                         // 조합된 참고항목을 해당 필드에 넣는다.
-                        document.getElementById("mem_detail").value = extraAddr;
+                        document.getElementById("id_detail").value = extraAddr;
                     
                     } else {
-                        document.getElementById("mem_detail").value = '';
+                        document.getElementById("id_detail").value = '';
                     }
 
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('mem_zip').value = data.zonecode;
-                    document.getElementById("mem_add").value = addr;
+                    document.getElementById('id_zip').value = data.zonecode;
+                    document.getElementById("id_add").value = addr;
                     // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("mem_detail").focus();
+                    document.getElementById("id_detail").focus();
                 }
             }).open();
         }
