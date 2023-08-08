@@ -11,6 +11,11 @@ class TableManager
         $this->keyField = $keyField;
     }
 
+    function get_result(string $sql){
+        $result = $this->pdo->query($sql);
+        return $result;
+    }
+
     function selectAll()
     {
         $sql = 'SELECT * FROM `'.$this->table.'`';

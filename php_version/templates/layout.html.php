@@ -19,7 +19,7 @@
                 echo '<li><a href="php/kind.php">종류</a><li>';
                 echo '<li><a href="php/library.php">도서관</a><li>';
                 echo '<li><a href="php/material.php">자료</a><li>';
-                echo '<li><a href="php/member.php">회원</a><li>';
+                echo '<li><a href="php/memberList.php">회원</a><li>';
                 echo '<li><a href="php/lent.php">대출 및 반납</a><li>';
                 echo '<li><a href="php/delivery.php">상호대차</a><li>';
                 echo '<li><a href="php/etc.php">기타</a><li>';

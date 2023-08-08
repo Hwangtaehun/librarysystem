@@ -43,6 +43,7 @@
                 myform.id_zip.focus();
                 return false;
             }
+            document.getElementById("id_id").readOnly = true;
             return true;
         }
 

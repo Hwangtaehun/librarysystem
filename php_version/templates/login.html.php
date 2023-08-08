@@ -20,8 +20,7 @@
         }
     </script>
 </head>
-<body>
-    <center><br><br><br><br><br>
+<body class="center">
     <header>
         <h1> <?=$title?></h1>
     </header>
@@ -33,7 +32,5 @@
         <input type=submit value='로그인'>
     </form>
     <a href="./php/member.php?title=회원가입">회원가입</a>
-    </center>
-    
 </body>
 </html>
