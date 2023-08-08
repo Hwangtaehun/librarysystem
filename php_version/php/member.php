@@ -9,7 +9,9 @@ $member = new TableManager($pdo, 'member', 'mem_no');
 try {
     if(isset($_POST['mem_no'])) {
         if($_POST['mem_no'] == ''){
-            $member->insertData($_POST);
+            $param = ['mem_name'=>$_POST['mem_name'], 'mem_id'=>$_POST['mem_id'], 'mem_pw'=>$_POST['mem_pw'], 
+                    'mem_zip'=>$_POST['mem_zip'], 'mem_add'=>$_POST['mem_add'], 'mem_detail'=>$_POST['mem_detail']];
+            $member->insertData($param);
             header('location: ../index.php');
         }
     }

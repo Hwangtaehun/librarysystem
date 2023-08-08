@@ -61,18 +61,19 @@
 
         function checkReset() {
             check = false;
+            document.getElementById("id_id").readOnly = false;
         }
 
         function decide() {
             check = true;
-            document.getElementById("id_id").disabled = true;
+            document.getElementById("id_id").readOnly = true;
             document.getElementById("id_check").value = "아이디 변경"
             document.getElementById("id_check").setAttribute("onclick", "change()");
         }
 
         function change() {
             check = false;
-            document.getElementById("id_id").disabled = false;
+            document.getElementById("id_id").readOnly = false;
             document.getElementById("id_check").value = "아이디 중복"
             document.getElementById("id_check").setAttribute("onclick", "checkid()")
         }
