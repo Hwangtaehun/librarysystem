@@ -1,0 +1,3 @@
+https://capakhy64.tistory.com/2
+
+구체적인경로: apache2\conf\bitnami
