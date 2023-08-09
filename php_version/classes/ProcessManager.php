@@ -15,17 +15,19 @@ class ProcessManager{
   }
   
   public function run(){
-    echo 'run 실행<br>';
+    //echo 'run 실행<br>';
     $page = $this->makePage();
-    echo  $page['title'].'<br>';
-    $title = $page['title'];
-    if(isset($_SESSION['mem_state'])){
-      $outString = $this->outPage($page);
-      include __DIR__.'/../templates/layout.html.php';
-    }
-    else{
-      extract($page);
-      include __DIR__.'/../templates/'.$tempName;
+    //echo  $page['title'].'<br>';
+    if(isset($page['title'])){
+      $title = $page['title'];
+      if(isset($_SESSION['mem_state'])){
+        $outString = $this->outPage($page);
+        include __DIR__.'/../templates/layout.html.php';
+      }
+      else{
+        extract($page);
+        include __DIR__.'/../templates/'.$tempName;
+      }
     }
   }
   
@@ -38,9 +40,10 @@ class ProcessManager{
       $this->m_uri = 'member/home';
     }
     $uris = explode('/', $this->m_uri);
+    //print_r($uris);
     $funcName = $uris[1];
     $className = ucfirst($uris[0]).'Controller';
-    echo '$className = '.$className.' $funcName = '.$funcName.'<br>';
+    //echo '$className = '.$className.' $funcName = '.$funcName.'<br>';
     include __DIR__.'/../controllers/'.$className.'.php';
     $controller = new $className($memTable);
     $page = $controller->$funcName();

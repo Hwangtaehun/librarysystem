@@ -5,13 +5,13 @@ class MemberController{
 
     public function __construct(TableManager $memTable){
         $this->memTable = $memTable;
-        echo 'MemberController 생성<br>';
+        //echo 'MemberController 생성<br>';
     }
 
     public function home(){
-        echo 'home 실행<br>';
+        //echo 'home 실행<br>';
         if(!isset($_SESSION['mem_state'])) {
-            echo 'mem_state 확인완료<br>';
+            //echo 'mem_state 확인완료<br>';
             $title = '도서관 관리 로그인';
             return ['tempName'=>'login.html.php', 'title'=>$title];
         }
@@ -57,6 +57,22 @@ class MemberController{
         }
     }
 
+    public function idCheck(){
+        $mem_id= $_GET["userid"];
+        $where = "WHERE `mem_id` = '$mem_id'";
+        $result = $this->memTable->whereSQL($where);
+        $num = $result->rowCount();
+
+        if($num == 0){
+            echo "<span style='color:blue;'>$mem_id</span> 는 사용 가능한 아이디입니다.";
+            echo '<p><input type=button value="이 ID 사용" onclick="opener.parent.decide(); window.close();"></p>';
+        }
+        else{
+            echo "<span style='color:red;'>$mem_id</span> 는 중복된 아이디입니다.";
+            echo '<p><input type=button value="다른 ID 사용" onclick="opener.parent.change(); window.close()"></p>';
+        }
+    }
+
     public function logout(){
         $_SESSION = [];
         $title = '도서관 관리 로그인';
@@ -92,7 +108,7 @@ class MemberController{
         else{
             $title2 = '등록';
             $title = '회원가입';
-            return ['tampName'=>'memberForm.html.php', 'title'=>$title, 'title2'=>$title2];
+            return ['tempName'=>'memberForm.html.php', 'title'=>$title, 'title2'=>$title2];
         }
     }
 }
