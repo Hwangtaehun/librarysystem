@@ -30,6 +30,12 @@ class TableManager
         return $stmt->fetch();
     }
 
+    function whereSQL(string $where){
+        $sql = 'SELECT * FROM `'.$this->table.'` '.$where;
+        $stmt = $this->pdo->query($sql);
+        return $stmt;
+    }
+
     function myQuery($sql, $param = []){
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($param);

@@ -4,7 +4,8 @@ class Automatic {
 	private $sql;
     private $str_today;
 	
-	public function __construct(PDO $pdo) {
+	public function __construct() {
+		include_once __DIR__.'/Dbconnect.php';
 		$this->pdo = $pdo;
 		$this->str_today = date("Y-m-d");
 		$this->clearmember();

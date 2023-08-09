@@ -1,4 +1,19 @@
-<header></header>
+<head>
+    <script>
+        function checkResearch(myform) {
+            if(myform.user_research.value.length <= 0){
+                alert("검색할 내용을 입력해주세요.");
+                myform.user_research.focus();
+                return false;
+            }
+            return true;            
+        }
+    </script>
+</head>
+<form action="/member/research" method="post" onsubmit="return checkResearch(this)">
+    <input type="text" name="user_research" id="id_research" value = "" placeholder="검색할 회원 이름을 입력해주세요.">
+    <input type="submit" value = "검색">
+</form>
 <?php foreach($result as $row): ?>
     <fieldset id="fieldset_row">
         <div id="div_row">

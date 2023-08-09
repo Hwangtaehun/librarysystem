@@ -1,23 +1,14 @@
 <?php
-session_start();
-include_once __DIR__.'/includes/Dbconnect.php';
 include_once __DIR__.'/includes/Automatic.php';
+$auto = new Automatic();
 
-$auto = new Automatic($pdo);
-
-if(!isset($_SESSION['mem_state'])) {
-    $title = '도서관 관리 로그인';
-
-    include_once __DIR__.'../templates/login.html.php';
-}
-else {
-    $title = '도서관 관리';
-
-    ob_start(); 
-
-    include __DIR__.'../templates/home.html.php';
-
-    $outString = ob_get_clean();
-
-    include __DIR__.'../templates/layout.html.php';
-}
+try{
+    include_once __DIR__.'/classes/ProcessManager.php';
+    $uri = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+      
+    $ps = new ProcessManager($uri);
+    $ps->run();
+  }
+  catch(Exception $ex){
+    $outString='<p>오류발생:'.$e->getMessage().$e->getFile().'행:'.$e->getLine().'</p>';
+  }
