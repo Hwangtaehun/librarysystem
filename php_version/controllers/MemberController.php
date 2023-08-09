@@ -80,7 +80,14 @@ class MemberController{
     }
 
     public function delete(){
-        $this->memTable->deleteData($_POST['mem_no']);
+        $result = $this->memTable->selectID($_POST['mem_no']);
+        $mem_state = $result['mem_state'];
+        if($mem_state != 1){
+            $this->memTable->deleteData($_POST['mem_no']);
+        }
+        else{
+            echo "<script>alert('관리자 계정은 삭제가 불가능합니다.')</script>"; 
+        }
         header('location: /member/list');
     }
 

@@ -1,11 +1,18 @@
-<!doctyoe html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <link rel = "stylesheet" herf = "../css/form.css">
     <title><?=$title?></title>
     <script>
-        var check = false;
+        <?php
+        if(isset($row)){
+            echo 'var check = true';
+        }
+        else{
+            echo 'var check = false';
+        }
+        ?>
 
         function checkInput(myform) {
             if(check == false){
@@ -112,6 +119,13 @@
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+        if(check){
+            decide();
+        }
+        else{
+            change();
+        }
+
         function daumPostcode() {
             new daum.Postcode({
                 oncomplete: function(data) {
