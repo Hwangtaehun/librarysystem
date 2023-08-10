@@ -10,7 +10,7 @@ class Combobox_Inheritance{
 		$word_front = $this->where_array[0].' '.$this->where_array[1];
 
 		if($count === 1){
-			$max = 9;
+			$max = 10;
 			for ($i=0; $i < $max; $i++) { 
 				$word_back = $i.$this->where_array[2];
 				$base_where = "$word_front '$word_back'";
@@ -21,7 +21,7 @@ class Combobox_Inheritance{
 			}
 		}
 		else if($count === 2){
-			$max = 99;
+			$max = 100;
 			for ($i = 0; $i < $max; $i++) { 
 				$str_i = $this->intTostr($i);
 				$word_back = $str_i.$this->where_array[2];
