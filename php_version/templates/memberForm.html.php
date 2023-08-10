@@ -7,12 +7,12 @@
     <script>
         <?php
         if(isset($row)){
-            echo 'var register = true';
             echo 'var check = true';
+            $bool = false;
         }
         else{
-            echo 'var register = false';
             echo 'var check = false';
+            $bool = true;
         }
         ?>
 
@@ -90,11 +90,11 @@
     </script>
 </head>
 <body>
-    <header>
-        if(register){
-            <h1> <?=$title?></h1>
+    <?php
+        if($bool){
+            echo '<header><h1> '.$title.'</h1></header>';
         }
-    </header>
+    ?>
     <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
             <ul><label for = "mem_name">이름</label>
@@ -123,7 +123,7 @@
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-        if(register){
+        if(check){
             decide();
         }
         else{

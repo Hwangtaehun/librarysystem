@@ -11,9 +11,9 @@
         </header>
         <nav>
             <ul>
-                <li><a href="/">홈</a><li>
                <?php
                $state = $_SESSION['mem_state'];
+               echo '<li><a href="/">홈</a><li>';
                if($state == 1){
                 echo '<li><a>책</a><ul><li><a href="#">책관리</a></li><li><a href="#">책추가</a></li></ul></li>';
                 echo '<li><a>종류</a><ul><li><a href="#">종류관리</a></li><li><a href="#">종류추가</a></li></ul></li>';
@@ -30,8 +30,8 @@
                 echo '<li><a>내서재</a><ul><li><a href="#">대출중도서</a></li><li><a href="#">모든대출내역</a></li><li><a href="#">예약내역</a></li><li><a href="#">상호대차내역</a></li></ul></li>';
                 echo '<li><a>마이페이지</a><ul><li><a href="/member/addupdate?mem_no='.$mem_no.'">회원정보수정</a></li><li><a href="/member/delete?mem_no='.$mem_no.'">회원탈퇴</a></li></ul></li>';
                }
+               echo '<li><a href="/member/logout">로그아웃</a></li>';
                ?>
-               <li><a href="/member/logout">로그아웃</a></li>
             </ul>
         </nav>
         <main>
