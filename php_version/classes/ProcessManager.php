@@ -35,6 +35,8 @@ class ProcessManager{
     include __DIR__.'/../includes/Dbconnect.php';
     include __DIR__.'/../classes/TableManager.php';
     $memTable = new TableManager($pdo, 'member', 'mem_no');
+    $bookTable = new TableManager($pdo, 'book', 'book_no');
+    $kindTable = new TableManager($pdo, 'kind', 'kind_no');
     
     if($this->m_uri == '' || $this->m_uri == 'index.php'){
       $this->m_uri = 'member/home';
@@ -45,7 +47,7 @@ class ProcessManager{
     $className = ucfirst($uris[0]).'Controller';
     //echo '$className = '.$className.' $funcName = '.$funcName.'<br>';
     include __DIR__.'/../controllers/'.$className.'.php';
-    $controller = new $className($memTable);
+    $controller = new $className($memTable, $bookTable, $kindTable);
     $page = $controller->$funcName();
     
     return $page;

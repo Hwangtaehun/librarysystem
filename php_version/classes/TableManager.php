@@ -30,6 +30,11 @@ class TableManager
         return $stmt->fetch();
     }
 
+    function joinSQL(string $sql){
+        $stmt = $this->pdo->query($sql);
+        return $stmt;
+    }
+
     function whereSQL(string $where){
         $sql = 'SELECT * FROM `'.$this->table.'` '.$where;
         $stmt = $this->pdo->query($sql);

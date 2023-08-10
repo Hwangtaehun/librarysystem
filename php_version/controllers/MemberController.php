@@ -2,10 +2,13 @@
 session_start();
 class MemberController{
     private $memTable;
+    private $bookTable;
+    private $kindTable;
 
-    public function __construct(TableManager $memTable){
+    public function __construct(TableManager $memTable, TableManager $bookTable, TableManager $kindTable){
         $this->memTable = $memTable;
-        //echo 'MemberController 생성<br>';
+        $this->bookTable = $bookTable;
+        $this->kindTable = $kindTable;
     }
 
     public function home(){
