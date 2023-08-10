@@ -1,41 +1,41 @@
-*{padding:0;margin:0}
-li{list-style:none}
-a{text-decoration:none;font-size:14px}
+header, h4 {text-align: center; border-style: double; background-color: #ffeeaa;}
 
-.menu {
-	width: 800px;
-	overflow: hidden;
-	margin: 150px auto;
-  }
-  
-.menu > li {
-	width: 20%; /*20*5=100%*/
-	float: left;
-	text-align: center;
-	line-height: 40px;
-	background-color: #5778ff;
-}
-  
-.menu a {
-	color: #fff;
-}
-  
-.submenu > li {
-	line-height: 50px;
-	background-color: #94a9ff;
-}
-  
-.submenu {
-	height: 0; /*ul의 높이를 안보이게 처리*/
-	overflow: hidden;
+.center {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.menu > li:hover {
-	background-color: #94a9ff;
-	transition-duration: 0.5s;
+#div1{
+    text-align: center;
+    background-color: #f5f5dc;
+    border-style: hidden;
 }
-  
-.menu > li:hover .submenu {
-	height: 250px; /*서브메뉴 li한개의 높이 50*5*/
-	transition-duration: 1s;
+
+nav{background-color: #ccccdd; }
+nav a {color: white; text-decoration: none;}
+nav a:hover {color: #ff0000;}
+nav li {display: table-cell; text-align: center; padding: 0.5em;}
+
+nav > ul > li > ul {
+    margin: 0;
+	padding: 0;
+    display:none;
+    position: absolute;
+    background: gainsboro;
 }
+
+nav > ul > li:hover > ul {
+    display:block;
+}
+
+nav > ul > li > ul > li:hover {
+    background: green;
+    transition: ease 1s;
+}
+
+#fieldset_row {display: table; width: 100%; padding: 1px;}
+#div_row {display: table-cell; width: 70%;}
+#fieldset_row > form{display: table-cell; text-align: right; padding: 5px;}
