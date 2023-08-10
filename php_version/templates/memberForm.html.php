@@ -7,9 +7,11 @@
     <script>
         <?php
         if(isset($row)){
+            echo 'var register = true';
             echo 'var check = true';
         }
         else{
+            echo 'var register = false';
             echo 'var check = false';
         }
         ?>
@@ -89,7 +91,9 @@
 </head>
 <body>
     <header>
-        <h1> <?=$title?></h1>
+        if(register){
+            <h1> <?=$title?></h1>
+        }
     </header>
     <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
@@ -119,7 +123,7 @@
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-        if(check){
+        if(register){
             decide();
         }
         else{
