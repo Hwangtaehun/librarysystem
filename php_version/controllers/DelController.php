@@ -5,15 +5,17 @@ class DelController{
                     AND material.book_no = book.book_no";
     private $sort = "ORDER BY book.book_name";
 
-    private $memTable;
+    private $libTable;
     private $bookTable;
     private $kindTable;
+    private $memTable;
     private $delTable;
 
-    public function __construct(TableManager $memTable, TableManager $bookTable, TableManager $kindTable, TableManager $delTable){
-        $this->memTable = $memTable;
+    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $delTable){
+        $this->libTable = $libTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
+        $this->memTable = $memTable;
         $this->delTable = $delTable;
     }
 
@@ -56,6 +58,7 @@ class DelController{
         header('location: /del/list');
     }
 
+    //MatController 생성후 작성 ->completeButtonListener
     public function addupdate(){
         if(isset($_POST['del_no'])) {
             if($_POST['del_no'] == ''){

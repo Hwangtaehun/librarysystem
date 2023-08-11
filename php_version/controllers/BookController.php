@@ -1,15 +1,17 @@
 <?php
 session_start();
 class BookController{
-    private $memTable;
+    private $libTable;
     private $bookTable;
     private $kindTable;
+    private $memTable;
     private $delTable;
 
-    public function __construct(TableManager $memTable, TableManager $bookTable, TableManager $kindTable, TableManager $delTable){
-        $this->memTable = $memTable;
+    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $delTable){
+        $this->libTable = $libTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
+        $this->memTable = $memTable;
         $this->delTable = $delTable;
     }
 
@@ -21,7 +23,7 @@ class BookController{
 
     public function research(){
         $value = '%'.$_POST['user_research'].'%';
-        $where = "WHERE kind_name LIKE '$value'";
+        $where = "WHERE book_name LIKE '$value'";
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '책 현황';
