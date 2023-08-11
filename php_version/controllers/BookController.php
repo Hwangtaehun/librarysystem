@@ -4,11 +4,13 @@ class BookController{
     private $memTable;
     private $bookTable;
     private $kindTable;
+    private $delTable;
 
-    public function __construct(TableManager $memTable, TableManager $bookTable, TableManager $kindTable){
+    public function __construct(TableManager $memTable, TableManager $bookTable, TableManager $kindTable, TableManager $delTable){
         $this->memTable = $memTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
+        $this->delTable = $delTable;
     }
 
     public function list(){
