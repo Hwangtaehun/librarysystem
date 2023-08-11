@@ -5,13 +5,15 @@ class LibController{
     private $bookTable;
     private $kindTable;
     private $memTable;
+    private $matTable;
     private $delTable;
 
-    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $delTable){
+    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, TableManager $delTable){
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
         $this->memTable = $memTable;
+        $this->matTable = $matTable;
         $this->delTable = $delTable;
     }
 

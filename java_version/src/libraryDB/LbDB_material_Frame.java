@@ -541,12 +541,6 @@ public class LbDB_material_Frame extends LbDB_main_Frame {
 				now_sql = sql + " AND library.lib_name LIKE '" + lib_name + "' AND book.book_name LIKE '" + book_name +
 						  "' AND book.book_author LIKE '" + book_author +  "' AND book.book_publish LIKE '" + 
 						  book_publish + "'";
-						
-			   /*sql = "SELECT library.lib_name, book.book_name, book.book_author, book.book_publish, lent.len_re_st " +
-					   "FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no " + 
-					   "WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no" +
-					   " AND library.lib_name LIKE '" + lib_name + "' AND book.book_name LIKE '" + book_name + "' AND book.book_author LIKE '" + book_author 
-					   +  "' AND book.book_publish LIKE '" + book_publish + "'"; */
 				//System.out.println(sql);
 				
 			}

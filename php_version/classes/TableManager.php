@@ -41,6 +41,10 @@ class TableManager
         return $stmt;
     }
 
+    function addupdateSQL(string $sql){
+        $this->pdo->exec($sql);
+    }
+
     function myQuery($sql, $param = []){
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($param);
