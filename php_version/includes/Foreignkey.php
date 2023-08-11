@@ -47,7 +47,7 @@ class Foreignkey{ //lib_no는 상호대차부분 자료검색에 사용, pla_no�
 		$this->mat_no = $num;
 	}
 	
-	public function insert_del_no(int num) {
+	public function insert_del_no(int $num) {
 		$this->del_no = $num;
 	}
 	
