@@ -67,7 +67,7 @@ class MatController{
         $book_no = $_POST['book_no'];
         $this->matTable->deleteData($_POST['mat_no']);
         $sql = "UPDATE `material` SET `mat_overlap` = 'mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
-        $this->matTable->addupdateSQL($sql);
+        $this->matTable->updateSQL($sql);
         header('location: /mat/list');
     }
 
@@ -95,7 +95,7 @@ class MatController{
                 $this->matTable->updateData($param);
             }
             $sql = "UPDATE `material` SET `mat_overlap` = 'mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
-            $this->matTable->addupdateSQL($sql);
+            $this->matTable->updateSQL($sql);
             header('location: /mat/list');
         }
         if(isset($_GET['mat_no'])){
@@ -111,10 +111,22 @@ class MatController{
         }
     }
 
-    //ResController 생성후 제작-정지 계정 제한 및 자룍확인
+    //ResController 생성후 제작-정지 계정 제한 및 자료확인 함수 html.php에서 만들기
     public function resadd(){
-        $man_no = $_POST['mat_no'];
+        $mat_no = $_POST['mat_no'];
+        $mem_no = $_SESSION['mem_no'];
+        $where = "WHERE `mat_no` = $mat_no";
+        $row = $this->resTable->whereSQL($where);
+        $num = $row->rowCount();
 
+        if($num == 0){
+            $param = ['mem_no'=>$mem_no, 'mat_no'=>$mat_no];
+            $this->resTable->insertData($param);
+            header('location: /mat/list');
+        }
+        else{
+            echo "<script>alert('다른 회원분이 예약했습니다.')</script>";
+        }
     }
 
     public function delpop(){

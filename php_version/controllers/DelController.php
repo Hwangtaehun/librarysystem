@@ -116,8 +116,7 @@ class DelController{
     public function arrive(){
         $mat_no = $_POST['mat_no'];
         $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
-        $stmt = $this->delTable->whereSQL($where);
-        $result = $stmt->fetch();
+        $result = $this->delTable->whereSQL($where);
 
         if($this->assist->resultempty_check($result)){
             echo "<script>alert('상호대차로 신청된 자료가 아닙니다.')</script>";
