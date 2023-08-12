@@ -1,5 +1,6 @@
 팝업창-dialog
 book, delivery, kind, lent, material, member, reservation
 
-MatController->resadd 
-DelController->pagelent
+MatController->delpop, bookpop, kindpop, matpop
+DelController->mempop, matpop, matlibpop, pagelent(미완성)
+ResController->mempop

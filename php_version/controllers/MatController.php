@@ -29,6 +29,16 @@ class MatController{
         $this->delTable = $delTable;
     }
 
+    private function book_count(array $param){
+        $str_num = "c.";
+        $lib_no = $param['lib_no'];
+        $book_no = $param['book_no'];
+        $where = "WHERE `lib_no` LIKE $lib_no AND `book_no` LIKE $book_no";
+        $result = $this->matTable->whereSQL($where);
+        $str_num = $str_num.$result->rowCount();
+        return $str_num;
+    }
+
     public function list(){
         $mem_state = $_SESSION['mem_state'];
         if($mem_state == 1){
@@ -151,16 +161,6 @@ class MatController{
         $result = $this->matTable->selectAll();
         $title = '상세 검색';
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-    }
-
-    private function book_count(array $param){
-        $str_num = "c.";
-        $lib_no = $param['lib_no'];
-        $book_no = $param['book_no'];
-        $where = "WHERE `lib_no` LIKE $lib_no AND `book_no` LIKE $book_no";
-        $result = $this->matTable->whereSQL($where);
-        $str_num = $str_num.$result->rowCount();
-        return $str_num;
     }
 }
 ?>
