@@ -6,7 +6,7 @@
     <title><?=$title?></title>
     <script>
         function researchMem() {
-            url = "check.php";
+            url = "check.php"; //$controller
             window.open(url,"chkid","width=400,height=200");
         }
 

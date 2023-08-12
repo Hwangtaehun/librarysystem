@@ -1,2 +1,5 @@
 팝업창-dialog
 book, delivery, kind, lent, material, member, reservation
+
+MatController->resadd 
+DelController->pagelent

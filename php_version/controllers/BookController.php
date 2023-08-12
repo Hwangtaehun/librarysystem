@@ -6,14 +6,24 @@ class BookController{
     private $kindTable;
     private $memTable;
     private $matTable;
+    private $resTable;
+    private $lenTable;
+    private $dueTable;
+    private $plaTable;
     private $delTable;
 
-    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, TableManager $delTable){
+    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+    {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
         $this->memTable = $memTable;
         $this->matTable = $matTable;
+        $this->resTable = $resTable;
+        $this->lenTable = $lenTable;
+        $this->dueTable = $dueTable;
+        $this->plaTable = $plaTable;
         $this->delTable = $delTable;
     }
 

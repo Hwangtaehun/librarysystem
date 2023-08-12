@@ -83,11 +83,10 @@ class Assistance{
 	
 	public function mat_manyZeroCheck(String $mat_many) {
 		if($mat_many === "0") {
-			$result = "";
+			$result = '';
 		}
 		else {
-			$result = $mat_many;
-			$result += " ";
+			$result = $mat_many.' ';
 		}
 		
 		return $result;

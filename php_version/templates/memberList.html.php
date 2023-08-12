@@ -15,7 +15,8 @@
             $ispop = false;
         }
         else{
-            $action = '/member/mempop';
+            $fn = 'mempop';
+            $action = $controller->$fn();
             $ispop = true;
         }
         ?>

@@ -1,23 +1,34 @@
 <?php
+include_once __DIR__.'../includes/Assistance.php';
 session_start();
 class DelController{
     private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
                     AND material.book_no = book.book_no";
     private $sort = "ORDER BY book.book_name";
-
+    private $assist = new Assistance();
     private $libTable;
     private $bookTable;
     private $kindTable;
     private $memTable;
     private $matTable;
+    private $resTable;
+    private $lenTable;
+    private $dueTable;
+    private $plaTable;
     private $delTable;
 
-    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, TableManager $delTable){
+    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+    {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
         $this->memTable = $memTable;
         $this->matTable = $matTable;
+        $this->resTable = $resTable;
+        $this->lenTable = $lenTable;
+        $this->dueTable = $dueTable;
+        $this->plaTable = $plaTable;
         $this->delTable = $delTable;
     }
 
@@ -63,14 +74,31 @@ class DelController{
     //MatController 생성후 작성 ->completeButtonListener
     public function addupdate(){
         if(isset($_POST['del_no'])) {
-            if($_POST['del_no'] == ''){
-                $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
-                $this->delTable->insertData($param);
+            $result = $this->matTable->selectID($_POST['mem_no']);
+            if($_POST['lib_no_arr'] == $result['lib_no']){
+                    echo "<script>alert('자료가 있는 도서관과 배송되는 도서관이 같습니다')</script>";
             }
             else{
-                $this->delTable->updateData($_POST);
+                if($_POST['del_no'] == ''){
+                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
+                    $this->delTable->insertData($param);
+                    
+                }
+                else{
+                    $mat_no = $_POST['mat_no'];
+                    $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
+                    $stmt = $this->delTable->whereSQL($where);
+                    $result = $stmt->fetch();
+    
+                    if($this->assist->dateformat_check($_POST['lib_no_arr'])){
+                        echo "<script>alert('날짜형식이 잘못되었습니다.')</script>";
+                    }
+                    else{
+                        $this->delTable->updateData($_POST);
+                    }
+                }
+                header('location: /del/list');
             }
-            header('location: /del/list');
         }
         if(isset($_GET['del_no'])){
             $row = $this->delTable->selectID($_GET['del_no']);
@@ -85,13 +113,31 @@ class DelController{
         }
     }
 
+    public function arrive(){
+        $mat_no = $_POST['mat_no'];
+        $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
+        $stmt = $this->delTable->whereSQL($where);
+        $result = $stmt->fetch();
+
+        if($this->assist->resultempty_check($result)){
+            echo "<script>alert('상호대차로 신청된 자료가 아닙니다.')</script>";
+        }
+        else if($this->assist->dateformat_check($_POST['lib_no_arr'])){
+            echo "<script>alert('날짜형식이 잘못되었습니다.')</script>";
+        }
+        else{
+            $this->delTable->updateData($_POST);
+            header('location: /del/list');
+        }
+    }
+
     public function mempop(){
         if(isset($_POST['user_research'])){
             $value= $_POST['user_research'];
             $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
             $stmt = $this->memTable->whereSQL($where);
             $result = $stmt->fetchAll();
-            $title = '회원 찾기';
+            $title = '회원찾기';
             return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
         }
     }
@@ -100,16 +146,23 @@ class DelController{
     public function matpop(){
         if(isset($_POST['user_research'])){
             $value= $_POST['user_research'];
-            $where = "WHERE `mat_name` = '$value' OR `mem_name` = '$value'";
+            $where = "WHERE `mat_name` = '$value'";
             $stmt = $this->memTable->whereSQL($where);
             $result = $stmt->fetchAll();
-            $title = '회원 찾기';
-            return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
+            $title = '자료찾기';
+            return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
         }
     }
 
     public function matlibpop(){
-
+        if(isset($_POST['user_research'])){
+            $value= $_POST['user_research'];
+            $where = "WHERE `mat_name` = '$value'";
+            $stmt = $this->memTable->whereSQL($where);
+            $result = $stmt->fetchAll();
+            $title = '상세검색';
+            return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
+        }
     }
 
     //LentController 생성후 작성

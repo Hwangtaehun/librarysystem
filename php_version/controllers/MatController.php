@@ -1,23 +1,31 @@
 <?php
 session_start();
 class MatController{
-    private $symbol;
-    private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
-    private $sort = "ORDER BY book.book_name";
-    
     private $libTable;
     private $bookTable;
     private $kindTable;
     private $memTable;
     private $matTable;
+    private $resTable;
+    private $lenTable;
+    private $dueTable;
+    private $plaTable;
     private $delTable;
+    private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
+    private $sort = "ORDER BY book.book_name";
 
-    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, TableManager $delTable){
+    public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+    {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
         $this->kindTable = $kindTable;
         $this->memTable = $memTable;
         $this->matTable = $matTable;
+        $this->resTable = $resTable;
+        $this->lenTable = $lenTable;
+        $this->dueTable = $dueTable;
+        $this->plaTable = $plaTable;
         $this->delTable = $delTable;
     }
 
@@ -69,8 +77,8 @@ class MatController{
         if(isset($_POST['mat_no'])) {
             $lib_no = $_POST['lib_no'];
             $book_no = $_POST['book_no'];
-            $this->symbol = new BookSymbol($_POST['mat_author'], $_POST['mat_last']);
-            $mat_symbol = $this->symbol->call_symbol();
+            $symbol = new BookSymbol($_POST['mat_author'], $_POST['mat_last']);
+            $mat_symbol = $symbol->call_symbol();
 
             $mat_many = 0;
             if($_POST['mat_many'] != 0 || $_POST['mat_many'] != ''){
@@ -103,6 +111,36 @@ class MatController{
         }
     }
 
+    //ResController 생성후 제작-정지 계정 제한 및 자룍확인
+    public function resadd(){
+        $man_no = $_POST['mat_no'];
+
+    }
+
+    public function delpop(){
+        $result = $this->matTable->selectID($_POST['mat_no']);
+        $title = '상호대차';
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function bookpop(){
+        $result = $this->bookTable->selectAll();
+        $title = '책검색';
+        return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function kindpop(){
+        $result = $this->kindTable->selectAll();
+        $title = '종류검색';
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function matpop(){
+        $result = $this->matTable->selectAll();
+        $title = '상세 검색';
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+    }
+
     private function book_count(array $param){
         $str_num = "c.";
         $lib_no = $param['lib_no'];
@@ -112,7 +150,5 @@ class MatController{
         $str_num = $str_num.$result->rowCount();
         return $str_num;
     }
-
-    //팝업창 만들기
 }
 ?>
