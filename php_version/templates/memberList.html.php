@@ -15,6 +15,11 @@
         }
         else{
             $ispop = true;
+            include_once __DIR__.'/classes/ProcessManager.php';
+            $uri = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+      
+            $ps = new ProcessManager($uri);
+            $ps->run();
         }
         ?>
     </script>
