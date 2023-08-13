@@ -77,7 +77,7 @@ class MatController{
         $book_no = $_POST['book_no'];
         $this->matTable->deleteData($_POST['mat_no']);
         $sql = "UPDATE `material` SET `mat_overlap` = 'mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
-        $this->matTable->updateSQL($sql);
+        $this->matTable->delupdateSQL($sql);
         header('location: /mat/list');
     }
 
@@ -105,7 +105,7 @@ class MatController{
                 $this->matTable->updateData($param);
             }
             $sql = "UPDATE `material` SET `mat_overlap` = 'mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
-            $this->matTable->updateSQL($sql);
+            $this->matTable->delupdateSQL($sql);
             header('location: /mat/list');
         }
         if(isset($_GET['mat_no'])){

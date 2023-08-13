@@ -4,3 +4,4 @@ book, delivery, kind, lent, material, member, reservation
 MatController->delpop, bookpop, kindpop, matpop
 DelController->mempop, matpop, matlibpop, pagelent(미완성)
 ResController->mempop
+LenController->matpop, mempop, delpop, respop

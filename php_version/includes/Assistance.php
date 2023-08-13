@@ -91,5 +91,14 @@ class Assistance{
 		
 		return $result;
 	}
+
+	public function estimateReturndate(string $lentdate, int $extend) {
+		$period = 15;
+
+		$period += $extend;
+		$date = date("Y-m-d", strtotime($lentdate.'+ '.$period.' days'));
+
+		return $date;
+	}
 }
 ?>

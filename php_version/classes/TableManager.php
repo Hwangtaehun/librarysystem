@@ -31,17 +31,17 @@ class TableManager
     }
 
     function joinSQL(string $sql){
-        $stmt = $this->pdo->query($sql); //$result로 생각
+        $stmt = $this->pdo->query($sql); //fetch, fetchAll, rowCount 따로 사용
         return $stmt;
     }
 
     function whereSQL(string $where){
         $sql = 'SELECT * FROM `'.$this->table.'` '.$where;
-        $stmt = $this->pdo->query($sql); //$result로 생각
+        $stmt = $this->pdo->query($sql); //fetch, fetchAll, rowCount 따로 사용
         return $stmt;
     }
 
-    function updateSQL(string $sql){
+    function delupdateSQL(string $sql){
         $this->pdo->exec($sql);
     }
 
