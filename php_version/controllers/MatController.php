@@ -12,6 +12,7 @@ class MatController{
     private $plaTable;
     private $delTable;
     private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
+    private $popSql;
     private $sort = "ORDER BY book.book_name";
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
@@ -52,7 +53,21 @@ class MatController{
         
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '도서관 현황';
+        $title = '자료 현황';
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function findlist(){
+        $title = $_GET['title'];
+        if($title == '자료 찾기'){
+            $this->sql = $this->sql."AND material.mat_no NOT IN (SELECT mat_no FROM lent WHERE len_re_st = 0 OR len_re_st = 2 UNION SELECT mat_no FROM reservation)";
+            $sql = $this->sql.$this->sort;
+        }
+        else{
+            $sql = $this->sql.$this->sort;
+        }
+        $stmt = $this->matTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -68,7 +83,7 @@ class MatController{
         $sql = $this->sql.$where;
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '도서관 현황';
+        $title = '자료 현황';
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -111,12 +126,12 @@ class MatController{
         if(isset($_GET['mat_no'])){
             $row = $this->matTable->selectID($_GET['mat_no']);
             $title2 = ' 수정';
-            $title = '도서관'.$title2;
+            $title = '자료'.$title2;
             return ['tempName'=>'matForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
         else{
             $title2 = ' 입력';
-            $title = '도서관'.$title2;
+            $title = '자료'.$title2;
             return ['tempName'=>'matForm.html.php', 'title'=>$title, 'title2'=>$title2];
         }
     }
@@ -140,9 +155,11 @@ class MatController{
     }
 
     public function delpop(){
-        $result = $this->matTable->selectID($_POST['mat_no']);
-        $title = '상호대차';
-        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+        // $result = $this->matTable->selectID($_POST['mat_no']);
+        // $title = '상호대차';
+        // return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+        $mat_no = $_GET['mat_no'];
+        '/list/addupdate?mat_no='.$mat_no;
     }
 
     public function bookpop(){

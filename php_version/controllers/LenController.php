@@ -154,6 +154,7 @@ class LenController{
                     $lib_no_len = $_POST['lib_no'];
                     $param = ['len_no'=>$len_no, 'lib_no_len'=>$lib_no_len];
                     $this->plaTable->insertData($param);
+                    header('location: /len/list');
                 }
             }
             else{
@@ -170,11 +171,11 @@ class LenController{
                             $this->plaTable->delupdateSQL($sql);
                             $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
                             $this->dueTable->delupdateSQL($sql);
+                            header('location: /len/list');
                         }
                     }
                 }
             }
-            header('location: /len/list');
         }
         if(isset($_GET['len_no'])){
             $row = $this->lenTable->selectID($_GET['len_no']);

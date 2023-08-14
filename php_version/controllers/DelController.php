@@ -74,7 +74,7 @@ class DelController{
     //MatController 생성후 작성 ->completeButtonListener
     public function addupdate(){
         if(isset($_POST['del_no'])) {
-            $result = $this->matTable->selectID($_POST['mem_no']);
+            $result = $this->matTable->selectID($_POST['mat_no']);
             if($_POST['lib_no_arr'] == $result['lib_no']){
                     echo "<script>alert('자료가 있는 도서관과 배송되는 도서관이 같습니다')</script>";
             }
@@ -95,9 +95,9 @@ class DelController{
                     }
                     else{
                         $this->delTable->updateData($_POST);
+                        header('location: /del/list');
                     }
                 }
-                header('location: /del/list');
             }
         }
         if(isset($_GET['del_no'])){
@@ -109,7 +109,12 @@ class DelController{
         else{
             $title2 = ' 입력';
             $title = '상호대차'.$title2;
-            return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2];
+            if(isset($_GET['mat_no'])){
+                return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2, 'mat_no'=>$_GET['mat_no']];
+            }
+            else{
+                return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2];
+            }
         }
     }
 
