@@ -156,8 +156,23 @@ class LenController{
                     $this->plaTable->insertData($param);
                 }
             }
-            else{//여기부터 시작
-                $this->lenTable->updateData($_POST);
+            else{
+                if($this->assist->dateformat_check($_POST['len_date'])){
+                    echo "<script>alert('날짜형식이 잘못되었습니다.')</script>"; 
+                }
+                else{
+                    $this->lenTable->updateData($_POST);
+                    $row = $this->lenTable->selectID($_POST['len_no']);
+                    if($row['len_re_st'] == 1){
+                        if($_POST['len_re_st'] != 1){
+                            $len_no = $_POST['len_no'];
+                            $sql = "UPDATE `place` SET `lib_no_re` = NULL WHERE `len_no` = $len_no";
+                            $this->plaTable->delupdateSQL($sql);
+                            $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
+                            $this->dueTable->delupdateSQL($sql);
+                        }
+                    }
+                }
             }
             header('location: /len/list');
         }
@@ -208,6 +223,30 @@ class LenController{
             $param = ['due_exp'=>$due_exp];
             $this->dueTable->updateData($param);
         }
+    }
+
+    public function matpop(){
+        $result = $this->matTable->selectAll();
+        $title = '자료찾기';
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function mempop(){
+        $result = $this->memTable->selectAll();
+        $title = '회원찾기';
+        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function delpop(){
+        $result = $this->delTable->selectAll();
+        $title = '상호대차';
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function respop(){
+        $result = $this->resTable->selectAll();
+        $title = '예약찾기';
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 }
 ?>

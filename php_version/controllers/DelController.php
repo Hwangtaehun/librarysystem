@@ -166,7 +166,8 @@ class DelController{
 
     //LentController 생성후 작성
     public function pagelent(){
-
+        $len_no = $_GET['len_no'];
+        echo "<script>location.href='/len/addupdate?len_no=$len_no'</script>";
     }
 }
 ?>
