@@ -145,7 +145,7 @@ class DelController{
     public function matpop(){
         if(isset($_POST['user_research'])){
             $value= $_POST['user_research'];
-            $where = "WHERE `mat_name` = '$value'";
+            $where = "WHERE `book_name` = '$value'";
             $stmt = $this->memTable->whereSQL($where);
             $result = $stmt->fetchAll();
             $title = '자료찾기';
@@ -156,7 +156,7 @@ class DelController{
     public function matlibpop(){
         if(isset($_POST['user_research'])){
             $value= $_POST['user_research'];
-            $where = "WHERE `mat_name` = '$value'";
+            $where = "WHERE `book_name` = '$value'";
             $stmt = $this->memTable->whereSQL($where);
             $result = $stmt->fetchAll();
             $title = '상세검색';
