@@ -28,9 +28,7 @@ class MemberController{
     }
 
     public function home(){
-        //echo 'home 실행<br>';
         if(!isset($_SESSION['mem_state'])) {
-            //echo 'mem_state 확인완료<br>';
             $title = '도서관 관리 로그인';
             return ['tempName'=>'login.html.php', 'title'=>$title];
         }
@@ -70,9 +68,7 @@ class MemberController{
             header('location: ../index.php');
         }
         else{
-            $title = '도서관 관리 로그인';
-            echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.')</script>";
-            header('location: ../index.php');
+            echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.'); location.href='../index.php';</script>";
         }
     }
 
@@ -103,11 +99,11 @@ class MemberController{
         $mem_state = $result['mem_state'];
         if($mem_state != 1){
             $this->memTable->deleteData($_POST['mem_no']);
+            header('location: /member/list');
         }
         else{
-            echo "<script>alert('관리자 계정은 삭제가 불가능합니다.')</script>"; 
+            echo "<script>alert('관리자 계정은 삭제가 불가능합니다.'); location.href='/member/list';</script>"; 
         }
-        header('location: /member/list');
     }
 
     public function addupdate(){
