@@ -30,6 +30,9 @@ class BookController{
     public function list(){
         $result = $this->bookTable->selectAll();
         $title = '책 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -39,6 +42,9 @@ class BookController{
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '책 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
     }
 

@@ -30,6 +30,9 @@ class kindController{
     public function list(){
         $result = $this->kindTable->selectAll();
         $title = '종류 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -39,6 +42,9 @@ class kindController{
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '종류 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
     }
 

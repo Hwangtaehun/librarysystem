@@ -41,6 +41,9 @@ class MemberController{
     public function list(){
         $result = $this->memTable->selectAll();
         $title = '회원 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -50,6 +53,9 @@ class MemberController{
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '회원 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
     }
 

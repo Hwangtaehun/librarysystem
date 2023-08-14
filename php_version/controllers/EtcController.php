@@ -1,9 +1,6 @@
 <?php
 session_start();
 class EtcController{
-    private $sql = "SELECT * FROM overdue, lent, material, member, library, book, kind WHERE overdue.len_no = lent.len_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no 
-                    AND material.lib_no = library.lib_no AND material.book_no = book.book_no AND material.kind_no = kind.kind_no";
-    private $sort = " ORDER BY mem_id";
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -14,6 +11,9 @@ class EtcController{
     private $dueTable;
     private $plaTable;
     private $delTable;
+    private $sql = "SELECT * FROM overdue, lent, material, member, library, book, kind WHERE overdue.len_no = lent.len_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no 
+                    AND material.lib_no = library.lib_no AND material.book_no = book.book_no AND material.kind_no = kind.kind_no";
+    private $sort = " ORDER BY mem_id";
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
@@ -95,16 +95,18 @@ class EtcController{
         
     }
 
-    public function lenpop(){
-        $result = $this->lenTable->selectAll();
-        $title = '대출찾기';
-        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+    public function mempop(){
+        // $result = $this->memTable->selectAll();
+        // $title = '회원찾기';
+        // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 
-    public function mempop(){
-        $result = $this->memTable->selectAll();
-        $title = '회원찾기';
-        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+    public function lenpop(){
+        // $result = $this->lenTable->selectAll();
+        // $title = '대출찾기';
+        // return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/len/list?title=대출찾기';</script>";
     }
 
     public function libraryarray(){

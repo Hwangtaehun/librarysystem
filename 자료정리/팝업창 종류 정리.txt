@@ -2,9 +2,7 @@
 book, delivery, kind, lent, material, member, reservation
 
 MatController->delpop, bookpop, kindpop, matpop
-DelController->mempop, matpop, matlibpop, pagelent=>dc
+DelController->mempop, matpop, matlibpop, pagelent
+LenController->matpop, mempop, delpop, respop
 ResController->mempop
-LenController->matpop, mempop, delpop, respop=>dc
 EtcController->lenpop, mempop
-
-assist->dateformat_check => js함수 만들기

@@ -2,10 +2,6 @@
 include_once __DIR__.'../includes/Assistance.php';
 session_start();
 class DelController{
-    private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
-                    AND material.book_no = book.book_no";
-    private $sort = "ORDER BY book.book_name";
-    private $assist = new Assistance();
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -16,6 +12,10 @@ class DelController{
     private $dueTable;
     private $plaTable;
     private $delTable;
+    private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
+                    AND material.book_no = book.book_no";
+    private $sort = "ORDER BY book.book_name";
+    private $assist = new Assistance();
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
@@ -136,37 +136,40 @@ class DelController{
     }
 
     public function mempop(){
-        if(isset($_POST['user_research'])){
-            $value= $_POST['user_research'];
-            $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
-            $stmt = $this->memTable->whereSQL($where);
-            $result = $stmt->fetchAll();
-            $title = '회원찾기';
-            return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
-        }
+        // if(isset($_POST['user_research'])){
+        //     $value= $_POST['user_research'];
+        //     $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
+        //     $stmt = $this->memTable->whereSQL($where);
+        //     $result = $stmt->fetchAll();
+        //     $title = '회원찾기';
+        //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
+        // }
+        echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 
     //MatController 생성후 작성
     public function matpop(){
-        if(isset($_POST['user_research'])){
-            $value= $_POST['user_research'];
-            $where = "WHERE `book_name` = '$value'";
-            $stmt = $this->memTable->whereSQL($where);
-            $result = $stmt->fetchAll();
-            $title = '자료찾기';
-            return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
-        }
+        // if(isset($_POST['user_research'])){
+        //     $value= $_POST['user_research'];
+        //     $where = "WHERE `book_name` = '$value'";
+        //     $stmt = $this->memTable->whereSQL($where);
+        //     $result = $stmt->fetchAll();
+        //     $title = '자료찾기';
+        //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
+        // }
+        echo "<script>location.href='/mat/poplist?title=자료찾기';</script>";
     }
 
     public function matlibpop(){
-        if(isset($_POST['user_research'])){
-            $value= $_POST['user_research'];
-            $where = "WHERE `book_name` = '$value'";
-            $stmt = $this->memTable->whereSQL($where);
-            $result = $stmt->fetchAll();
-            $title = '상세검색';
-            return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
-        }
+        // if(isset($_POST['user_research'])){
+        //     $value= $_POST['user_research'];
+        //     $where = "WHERE `book_name` = '$value'";
+        //     $stmt = $this->memTable->whereSQL($where);
+        //     $result = $stmt->fetchAll();
+        //     $title = '상세검색';
+        //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
+        // }
+        echo "<script>location.href='/mat/poplist?title=상세 검색';</script>";
     }
 
     //LentController 생성후 작성

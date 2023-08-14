@@ -42,9 +42,9 @@ class MatController{
 
     public function list(){
         $mem_state = $_SESSION['mem_state'];
-        if($mem_state == 1){
+        if($mem_state != 1){
             $this->sql = "SELECT * FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no LEFT JOIN reservation ON material.mat_no = reservation.mat_no 
-                WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no";
+                WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
             $sql = $this->sql.$this->sort;
         }
         else{
@@ -57,21 +57,30 @@ class MatController{
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
-    public function findlist(){
+    public function poplist(){
         $title = $_GET['title'];
-        if($title == '자료 찾기'){
-            $this->sql = $this->sql."AND material.mat_no NOT IN (SELECT mat_no FROM lent WHERE len_re_st = 0 OR len_re_st = 2 UNION SELECT mat_no FROM reservation)";
-            $sql = $this->sql.$this->sort;
+        if($title == '상세 검색'){
+            $this->popSql = $this->sql;
         }
         else{
-            $sql = $this->sql.$this->sort;
+            $this->popSql = $this->sql."AND material.mat_no NOT IN (SELECT mat_no FROM lent WHERE len_re_st = 0 OR len_re_st = 2 UNION SELECT mat_no FROM reservation) ";
         }
+        $sql = $this->popSql.$this->sort;
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
     public function research(){
+        $ispop = false;
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+            $ispop = true;
+        }
+        else{
+            $title = '자료 현황';
+            $ispop = false;
+        }
         $value = '%'.$_POST['user_research'].'%';
         $lib_no = $_POST['lib_research'];
         if($lib_no == 0){
@@ -80,10 +89,14 @@ class MatController{
         else{
             $where = "AND library.lib_no LIKE $lib_no OR book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
         }
-        $sql = $this->sql.$where;
+        if($ispop){
+            $sql = $this->popSql.$where;
+        }
+        else{
+            $sql = $this->sql.$where;
+        }
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '자료 현황';
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -154,30 +167,34 @@ class MatController{
         }
     }
 
+    public function bookpop(){
+        // $result = $this->bookTable->selectAll();
+        // $title = '책검색';
+        // return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/book/list?title=책검색';</script>";
+    }
+
+    public function kindpop(){
+        // $result = $this->kindTable->selectAll();
+        // $title = '종류검색';
+        // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/kind/list?title=종류검색';</script>";
+    }
+
+    public function matpop(){
+        // $result = $this->matTable->selectAll();
+        // $title = '상세 검색';
+        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/mat/poplist?title=상세 검색';</script>";
+
+    }
+
     public function delpop(){
         // $result = $this->matTable->selectID($_POST['mat_no']);
         // $title = '상호대차';
         // return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
         $mat_no = $_GET['mat_no'];
-        '/list/addupdate?mat_no='.$mat_no;
-    }
-
-    public function bookpop(){
-        $result = $this->bookTable->selectAll();
-        $title = '책검색';
-        return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
-    }
-
-    public function kindpop(){
-        $result = $this->kindTable->selectAll();
-        $title = '종류검색';
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
-    }
-
-    public function matpop(){
-        $result = $this->matTable->selectAll();
-        $title = '상세 검색';
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/del/addupdate?mat_no=$mat_no';</script>";
     }
 }
 ?>

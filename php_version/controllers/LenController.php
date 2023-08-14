@@ -2,10 +2,6 @@
 include_once __DIR__.'../includes/Assistance.php';
 session_start();
 class LenController{
-    private $sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no 
-                    AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no ";
-    private $sort = " ORDER BY `mem_name`";
-    private $assist = new Assistance();
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -16,6 +12,10 @@ class LenController{
     private $dueTable;
     private $plaTable;
     private $delTable;
+    private $sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no 
+                    AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no ";
+    private $sort = " ORDER BY `mem_name`";
+    private $assist = new Assistance();
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
@@ -67,6 +67,9 @@ class LenController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         $title = '대출 현황';
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
@@ -226,28 +229,32 @@ class LenController{
         }
     }
 
-    public function matpop(){
-        $result = $this->matTable->selectAll();
-        $title = '자료찾기';
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+    public function mempop(){
+        // $result = $this->memTable->selectAll();
+        // $title = '회원찾기';
+        // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 
-    public function mempop(){
-        $result = $this->memTable->selectAll();
-        $title = '회원찾기';
-        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+    public function matpop(){
+        // $result = $this->matTable->selectAll();
+        // $title = '자료찾기';
+        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/mat/poplist?title=자료찾기';</script>";
     }
 
     public function delpop(){
-        $result = $this->delTable->selectAll();
-        $title = '상호대차';
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        // $result = $this->delTable->selectAll();
+        // $title = '상호대차';
+        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/del/list';</script>";
     }
 
     public function respop(){
-        $result = $this->resTable->selectAll();
-        $title = '예약찾기';
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        // $result = $this->resTable->selectAll();
+        // $title = '예약찾기';
+        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        echo "<script>location.href='/res/list?title=예약찾기';</script>";
     }
 }
 ?>

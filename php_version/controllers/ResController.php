@@ -39,6 +39,9 @@ class ResController{
         $stmt = $this->resTable->joinSQL($this->sql);
         $result = $stmt->fetchAll();
         $title = '예약 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -48,6 +51,9 @@ class ResController{
         $stmt = $this->resTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '예약 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -80,14 +86,15 @@ class ResController{
     }
 
     public function mempop(){
-        if(isset($_POST['user_research'])){
-            $value= $_POST['user_research'];
-            $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
-            $stmt = $this->memTable->whereSQL($where);
-            $result = $stmt->fetchAll();
-            $title = '회원찾기';
-            return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
-        }
+        // if(isset($_POST['user_research'])){
+        //     $value= $_POST['user_research'];
+        //     $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
+        //     $stmt = $this->memTable->whereSQL($where);
+        //     $result = $stmt->fetchAll();
+        //     $title = '회원찾기';
+        //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
+        // }
+        echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 }
 ?>
