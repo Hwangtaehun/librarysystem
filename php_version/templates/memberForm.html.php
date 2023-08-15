@@ -118,6 +118,11 @@
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
+                <?php
+                if($bool){
+                    echo "<a href='/'><input type='button' value='홈'></a>";
+                }
+                ?>
             </div>
         </fieldset>
     </form>
