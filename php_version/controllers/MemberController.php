@@ -71,7 +71,7 @@ class MemberController{
             $_SESSION['mem_no'] = $row['mem_no'];
             $_SESSION['mem_name'] = $row['mem_name'];
             $_SESSION['mem_state'] = $row['mem_state'];
-            header('location: ../index.php');
+            header('location: /');
         }
         else{
             echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.'); location.href='../index.php';</script>";
@@ -94,21 +94,38 @@ class MemberController{
         }
     }
 
+    public function memdel(){
+        $mem_no = $_GET['mem_no'];
+        echo "<script>var msg = '정말로 회원 탈퇴 하시겠습니까?';";
+        echo "if(confirm(msg)!=0) {";
+        echo "alert('계정 탈퇴가 완료 되었습니다.'); location.href='/member/delete?mem_no=$mem_no'; }";
+        echo "else { location.href='/'; }</script>";
+    }
+
     public function logout(){
         $_SESSION = [];
         $title = '도서관 관리 로그인';
-        header('location: ../index.php');
+        header('location: /');
     }
 
     public function delete(){
-        $result = $this->memTable->selectID($_POST['mem_no']);
-        $mem_state = $result['mem_state'];
-        if($mem_state != 1){
-            $this->memTable->deleteData($_POST['mem_no']);
-            header('location: /member/list');
+        if(isset($_POST['mem_no'])){
+            $result = $this->memTable->selectID($_POST['mem_no']);
+            $mem_state = $result['mem_state'];
+            if($mem_state != 1){
+                $this->memTable->deleteData($_POST['mem_no']);
+                header('location: /member/list');
+            }
+            else{
+                echo "<script>alert('관리자 계정은 삭제가 불가능합니다.'); location.href='/member/list';</script>"; 
+            }
         }
         else{
-            echo "<script>alert('관리자 계정은 삭제가 불가능합니다.'); location.href='/member/list';</script>"; 
+            if(isset($_GET['mem_no'])){
+                $this->memTable->deleteData($_GET['mem_no']);
+                $_SESSION = [];
+                echo "<script>location.href='/';</script>";
+            }
         }
     }
 
