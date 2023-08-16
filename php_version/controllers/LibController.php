@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class LibController{
     private $libTable;
@@ -11,6 +12,7 @@ class LibController{
     private $dueTable;
     private $plaTable;
     private $delTable;
+    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
@@ -25,6 +27,7 @@ class LibController{
         $this->dueTable = $dueTable;
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
+        $this->assist = new Assistance();
     }
 
     public function list(){
@@ -49,13 +52,20 @@ class LibController{
 
     public function addupdate(){
         if(isset($_POST['lib_no'])) {
-            if($_POST['lib_no'] == ''){
-                $this->libTable->insertData($_POST);
+            if($this->assist->dateformat_check($_POST['lib_date'])){
+                setcookie('zip', $_POST['lib_zip']);
+                setcookie('add', $_POST['lib_add']);
+                echo "<script>alert('날짜형식이 잘못되었습니다.'); history.back();</script>";
             }
             else{
-                $this->libTable->updateData($_POST);
+                if($_POST['lib_no'] == ''){
+                    $this->libTable->insertData($_POST);
+                }
+                else{
+                    $this->libTable->updateData($_POST);
+                }
+                header('location: /lib/list');
             }
-            header('location: /lib/list');
         }
         if(isset($_GET['lib_no'])){
             $row = $this->libTable->selectID($_GET['lib_no']);

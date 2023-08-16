@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class kindController{
     private $libTable;
@@ -49,7 +50,6 @@ class kindController{
     }
 
     private function makeKey(String $str, bool $bool) {
-        include_once __DIR__.'../includes/Assistance.php';
         $assist = new Assistance();
         $text = "문제발생";
         
@@ -97,7 +97,6 @@ class kindController{
     public function addupdate(){
         if(isset($_POST['kind_no'])) {
             $key = $_POST['sup'];
-
             if($key == '0'){
                 $key = $_POST['base'];
                 $array = mb_str_split($key, $split_length = 1, $encoding = "utf-8");
@@ -121,18 +120,21 @@ class kindController{
                 $kind_no = $this->makeKey($key, false);
             }
             
-            
-
-            if($_POST['kind_no'] == ''){
-                $param = ['kind_no'=>$kind_no, 'kind_name'=>$_POST['kind_name']];
-                $this->kindTable->insertData($param);
+            if($kind_no = "문제발생"){
+                echo "<script>alert('오류발생 했습니다.'); history.back();</script>";
             }
             else{
-                $pk = $_POST['kind_no'];
-                $param = ['kind_no'=>$kind_no, 'kind_name'=>$_POST['kind_name'], 'pk'=>$pk];
-                $this->kindTable->updateData($_POST);
+                if($_POST['kind_no'] == ''){
+                    $param = ['kind_no'=>$kind_no, 'kind_name'=>$_POST['kind_name']];
+                    $this->kindTable->insertData($param);
+                }
+                else{
+                    $pk = $_POST['kind_no'];
+                    $param = ['kind_no'=>$kind_no, 'kind_name'=>$_POST['kind_name'], 'pk'=>$pk];
+                    $this->kindTable->updateData($_POST);
+                }
+                header('location: /kind/list');
             }
-            header('location: /kind/list');
         }
         if(isset($_GET['kind_no'])){
             $row = $this->kindTable->selectID($_GET['mem_no']);
