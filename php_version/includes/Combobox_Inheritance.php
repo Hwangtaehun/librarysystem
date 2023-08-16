@@ -5,7 +5,7 @@ class Combobox_Inheritance{
 	private $where_array;
 	private $result = [];
 
-	public function __construct(PDO $pdo, string $table, string $key, string $where, bool $nothing) {
+	public function __construct(\PDO $pdo, string $table, string $key, string $where, bool $nothing) {
 		$count = $this->where_edit($where);
 		$word_front = $this->where_array[0].' '.$this->where_array[1];
 

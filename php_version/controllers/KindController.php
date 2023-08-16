@@ -38,8 +38,16 @@ class kindController{
     }
 
     public function research(){
-        $value = '%'.$_POST['user_research'].'%';
-        $where = "WHERE `kind_name` LIKE '$value'";
+        $value = $_POST['sup'];
+        if($_POST['sup'] == '없음'){
+            $array = explode('', $_POST['base']);
+            $value = $array[0].$array[1].'_'; 
+            if($_POST['base'] == '없음'){
+                $array = explode('', $_POST['super']);
+                $value = $array[0].'__';
+            }
+        }
+        $where = "WHERE `kind_no` LIKE '$value'";
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '종류 현황';
@@ -130,8 +138,9 @@ class kindController{
                 }
                 else{
                     $pk = $_POST['kind_no'];
-                    $param = ['kind_no'=>$kind_no, 'kind_name'=>$_POST['kind_name'], 'pk'=>$pk];
-                    $this->kindTable->updateData($_POST);
+                    $kind_name = $_POST['kind_name'];
+                    $sql = "UPDATE `kind` SET `kind_no` = '$kind_no', `kind_name` = '$kind_name' WHERE `kind_no` = '$pk'";
+                    $this->kindTable->delupdateSQL($sql);
                 }
                 header('location: /kind/list');
             }
