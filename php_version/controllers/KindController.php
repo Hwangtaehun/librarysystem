@@ -76,7 +76,7 @@ class kindController{
         }
         else {
             $key = $str.'%';
-            $sql = "WHERE `kind_num` LIKE '$key'";
+            $sql = "WHERE `kind_no` LIKE '$key'";
             $result = $this->kindTable->whereSQL($sql);
             $row = $result->fetchAll();
             $num = $result->rowCount();
@@ -131,7 +131,7 @@ class kindController{
                 $kind_no = $this->makeKey($key, false);
             }
             
-            if($kind_no = "문제발생"){
+            if($kind_no == "문제발생"){
                 echo "<script>alert('오류발생 했습니다.'); history.back();</script>";
             }
             else{
