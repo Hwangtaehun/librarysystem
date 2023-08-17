@@ -7,32 +7,32 @@
                 return false;
             }
             return true;            
-        }
-
-        <?php
-        include_once __DIR__.'/../includes/Combobox_Manager.php';
-        include_once __DIR__.'/../includes/Combobox_Inheritance.php';
-
-        $super_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '_00'", true);
-        $base_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '0_0'", true);
-        $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '00_'", true);
-    
-        $super = $super_man->result_call();
-        $base = $base_man->result_call();
-        $sub = $sub_man->result_call();
-
-        if($title == '종류 현황'){
-            $ispop = false;
-            $action = "/kind/research";
-        }
-        else{
-            $ispop = true;
-            $action = "/kind/research?title=$title";
-        }
-        ?>
+        }     
     </script>
 </head>
-<form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+<?php
+    include_once __DIR__.'/../includes/Combobox_Manager.php';
+    include_once __DIR__.'/../includes/Combobox_Inheritance.php';
+
+    $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", true);
+    $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", true);
+    $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
+    
+    $super = $super_man->result_call();
+    $base = $base_man->result_call();
+    $sub = $sub_man->result_call();
+
+    if($title == '종류 현황'){
+        $ispop = false;
+        $action = "/kind/research";
+    }
+    else{
+        $ispop = true;
+        $action = "/kind/research?title=$title";
+    }
+?>
+<body>
+    <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
     <label for = "kind_super">대분류</label>
     <select id = "s1" name = "super" onchange='superChange(this)'>
         <?php
@@ -70,8 +70,8 @@
         ?>
     </select>
     <input type="submit" value = "검색">
-</form>
-<?php if(isset($result)){foreach($result as $row): ?>
+    </form>
+    <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">
         <div id="div_row">
             <?=htmlspecialchars($row['kind_no'],ENT_QUOTES,'UTF-8');?>
@@ -89,16 +89,18 @@
         <form action="/kind/delete" method="post">
                 <input type="submit" value="삭제">
                 <a href="/kind/addupdate?kind_no=<?=$row['kind_no']?>"><input type="button" value="수정"></a>
-        <?php } 
-        $inherit1 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '?_0'", false);
-        $inherit2 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '??_'", true);
+        </form>
+        <?php } ?>
+    </fieldset>
+    <?php endforeach; }?>
+    <script>
+        <?php
+        $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", true);
+        $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
 
         $basearray = $inherit1->call_result();
         $subarray = $inherit2->call_result();
         ?>
-        </form>
-    </fieldset>
-    <script>
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
             $("select#s2 option").remove();
@@ -132,4 +134,4 @@
             }
         }
     </script>
-<?php endforeach; }?>
+</body>

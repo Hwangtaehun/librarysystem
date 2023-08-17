@@ -4,7 +4,7 @@ class Combobox_Manager {
     private $name;
 	private $result;
 
-	public function __construct(\PDO $pdo, string $table, string $key, string $where, bool $nothing) {
+	public function __construct(PDO $pdo, string $table, string $key, string $where, bool $nothing) {
 		try {
 			$count = 0;
 			$key_name = $this->changenamekey($key);

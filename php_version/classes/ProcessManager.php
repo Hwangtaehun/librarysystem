@@ -1,13 +1,16 @@
 <?php
 class ProcessManager{
   private $m_uri;
+  private $m_pdo;
   
-  public function __construct($uri){
+  public function __construct($uri, $pdo){
     $this->m_uri = $uri;
+    $this->m_pdo = $pdo;
     //echo 'construct : '.$uri.'<br>';
   }
   
   private function outPage($page = []){
+    $pdo = $this->m_pdo;
     extract($page);
     ob_start();
     include __DIR__.'/../templates/'.$tempName;
@@ -32,8 +35,8 @@ class ProcessManager{
   }
   
   private function makePage(){
-    include __DIR__.'/../includes/Dbconnect.php';
     include __DIR__.'/../classes/TableManager.php';
+    $pdo = $this->m_pdo;
     $libTable = new TableManager($pdo, 'library', 'lib_no');
     $bookTable = new TableManager($pdo, 'book', 'book_no');
     $kindTable = new TableManager($pdo, 'kind', 'kind_no');

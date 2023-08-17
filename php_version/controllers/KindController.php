@@ -39,14 +39,17 @@ class kindController{
 
     public function research(){
         $value = $_POST['sup'];
-        if($_POST['sup'] == '없음'){
-            $array = explode('', $_POST['base']);
-            $value = $array[0].$array[1].'_'; 
-            if($_POST['base'] == '없음'){
-                $array = explode('', $_POST['super']);
+        if($_POST['sup'] == 0){
+            if($_POST['base'] == 0){
+                $array = mb_str_split($_POST['super'], $split_length = 1, $encoding = "utf-8");
                 $value = $array[0].'__';
             }
+            else{
+                $array = mb_str_split($_POST['base'], $split_length = 1, $encoding = "utf-8");
+                $value = $array[0].$array[1].'_'; 
+            }
         }
+        echo '$value = '.$value.'<br>';
         $where = "WHERE `kind_no` LIKE '$value'";
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();

@@ -13,20 +13,20 @@
             }
             return true;
         }
-        <?php
-        include_once __DIR__.'/../includes/Combobox_Manager.php';
-        include_once __DIR__.'/../includes/Combobox_Inheritance.php';
-
-        $super_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '_00'", false);
-        $base_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '0_0'", false);
-        $sub_man = new Combobox_Manager("kind", "kind_no", "`kind_no` LIKE '00_'", true);
-    
-        $super = $super_man->result_call();
-        $base = $base_man->result_call();
-        $sub = $sub_man->result_call();
-        ?>
     </script>
 </head>
+<?php
+    include_once __DIR__.'/../includes/Combobox_Manager.php';
+    include_once __DIR__.'/../includes/Combobox_Inheritance.php';
+
+    $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", false);
+    $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", false);
+    $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
+    
+    $super = $super_man->result_call();
+    $base = $base_man->result_call();
+    $sub = $sub_man->result_call();
+?>
 <body>
     <form action="/kind/addupdate" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
@@ -71,8 +71,8 @@
                 <input type= "text" name="kind_name" id="id_name" value="<?php if(isset($row)){echo $row['kind_name'];}?>"><br>
                 <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
                 <?php
-                $inherit1 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '?_0'", false);
-                $inherit2 = new Combobox_Inheritance("kind", "kind_no", "`kind_no` LIKE '??_'", true);
+                $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", false);
+                $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
 
                 $basearray = $inherit1->call_result();
                 $subarray = $inherit2->call_result();

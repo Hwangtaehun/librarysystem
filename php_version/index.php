@@ -1,12 +1,13 @@
 <?php
+include_once __DIR__.'/includes/Dbconnect.php';
 include_once __DIR__.'/includes/Automatic.php';
-$auto = new Automatic();
+$auto = new Automatic($pdo);
 
 try{
     include_once __DIR__.'/classes/ProcessManager.php';
     $uri = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
       
-    $ps = new ProcessManager($uri);
+    $ps = new ProcessManager($uri, $pdo);
     $ps->run();
   }
   catch(Exception $ex){
