@@ -29,11 +29,12 @@
                 }
                 else {
                     $key = $str.'%';
-                    $sql = "SELECT * FROM `kind` WHERE `kind_num` LIKE '$key'";
+                    echo '$key = '.$key.'<br>';
+                    $sql = "SELECT * FROM `kind` WHERE `kind_no` LIKE '$key'";
                     $result = $pdo->query($sql);
                     $row = $result->fetchAll();
                     $num = $result->rowCount();
-                    $text = $row[$num][0];
+                    $text = $row[$num-1][0];
         
                     if($assist->isInteger($text)) {
                         $text=$text.".1";
@@ -85,11 +86,11 @@
                     $key = $num;
                     echo '86줄 $num = '.$num.'<br>';
                 }
-                $kind_no = $this->makeKey($key, true);
+                $kind_no = makeKey($key, true);
                 echo '89줄 $kind_no = '.$kind_no.'<br>';
             }
             else{
-                $kind_no = $this->makeKey($key, false);
+                $kind_no = makeKey($key, false);
                 echo '93줄 $kind_no = '.$kind_no.'<br>';
             }
         ?>
