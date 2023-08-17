@@ -19,21 +19,22 @@
         ?>
     </script>
 </head>
+<?php
+    include_once __DIR__.'/../includes/Combobox_Manager.php';
+    include_once __DIR__.'/../includes/Assistance.php';
+    $assist = new Assistance();
+    $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", true);
+    $lib = $lib_man->result_call();
+    $mem_state = $_SESSION['mem_state'];
+?>
 <body>
-    <?php
-     include_once __DIR__.'/../includes/Combobox_Manager.php';
-     include_once __DIR__.'/../includes/Assistance.php';
-     $assist = new Assistance();
-     $lib_man = new Combobox_Manager($pdo, "lib", "lib_no", "", true);
-     $lib = $lib_man->result_call();
-    ?>
     <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
         <select id = "s1" name = "lib_research">
             <?php
-            for($z=0;$z<sizeof($lib);$z++){
+            for($z = 0; $z < sizeof($lib); $z++){
                 $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
             }
-            for($z=0;$z<sizeof($lib);$z++){
+            for($z = 0;$z < sizeof($lib); $z++){
                 echo "<option  value = $no[$z] > $name[$z] </option>";
             }
             ?>
@@ -45,7 +46,6 @@
         <fieldset id="fieldset_row">
             <div id="div_row">
                 <?php
-                $mem_state = $_SESSION['mem_state'];
                 if($title = '자료 현황'){
                     if($mem_state != 1){
                         $state = $row['len_re_st'];
@@ -72,7 +72,10 @@
                                 }
                             }
                         }
-                        
+                    }
+                    else{
+                        $mat_many = $row['mat_many'];
+                        $mat_overlap = $row['mat_overlap'];
                     }
                 }
                 else if($title == '상세검색' ||  $title == '자료찾기'){
@@ -86,41 +89,36 @@
                     }
                     $mat_overlap = $assist->removeSymbol($o_overlap);
                 }
-                else{
-                    $mat_many = $row['mat_many'];
-                    $mat_overlap = $row['mat_overlap'];
-                    
-                }
-                htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');
-                if(isset($row['kind_no'])){
-                    htmlspecialchars($row['kind_no'],ENT_QUOTES,'UTF-8');
-                }
-                htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');
-                htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');
-                htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');
-                if(isset($mat_many)){
-                    htmlspecialchars($mat_many,ENT_QUOTES,'UTF-8');
-                    htmlspecialchars($mat_overlap,ENT_QUOTES,'UTF-8');
-                }
-                if(isset($lent_re_state)){
-                    htmlspecialchars($lent_re_state,ENT_QUOTES,'UTF-8');
-                    htmlspecialchars($res_state,ENT_QUOTES,'UTF-8');
-                }
                 ?>
+                <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
+                <? if(isset($row['kind_no'])){ ?>
+                    <?=htmlspecialchars($row['kind_no'],ENT_QUOTES,'UTF-8');?>
+                <?}?>
+                <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?>
+                <?php if(isset($mat_many)){ ?>
+                    <?=htmlspecialchars($mat_many,ENT_QUOTES,'UTF-8');?>
+                    <?=htmlspecialchars($mat_overlap,ENT_QUOTES,'UTF-8');?>
+                <?php } 
+                if(isset($lent_re_state)){ ?>
+                    <?=htmlspecialchars($lent_re_state,ENT_QUOTES,'UTF-8');?>
+                    <?=htmlspecialchars($res_state,ENT_QUOTES,'UTF-8');?>
+                <?php } ?>
             </div>
             <?php
                 if($ispop){
                     echo '<form>';
-                    $name = "'".$row['mem_id']."'";
-                    $no = "'".$row['mem_no']."'";
+                    $name = "'".$row['book_name']."'";
+                    $no = "'".$row['mat_no']."'";
                     echo '<input type=button value="선택" onclick="opener.parent.memValue('.$name.', '.$no.'); window.close();">';
                 }
                 else{
             ?>
             <form action="/mat/delete" method="post">
-                    <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
+                    <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                     <input type="submit" value="삭제">
-                    <a href="/mat/addupdate?mem_no=<?=$row['mem_no']?>"><input type="button" value="수정"></a>
+                    <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
             <?php } ?>
             </form>
             </fieldset>

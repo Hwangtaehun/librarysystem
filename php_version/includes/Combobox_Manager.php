@@ -15,7 +15,7 @@ class Combobox_Manager {
 			else{
 				$sql = "SELECT * FROM `$table` WHERE $where";
 			}
-			// echo '$sql = '.$sql.'<br>';
+			//echo '$sql = '.$sql.'<br>';
 			$result = $pdo->query($sql);
 
 			while ($row = $result->fetchObject()) {
