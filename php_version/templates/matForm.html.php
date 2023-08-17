@@ -1,11 +1,20 @@
-<!doctyoe html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <link rel = "stylesheet" herf = "../css/form.css">
     <title><?=$title?></title>
     <script>
-        var check = false;
+        <?php
+        if(isset($row)){
+            echo 'var check = true';
+            $bool = false;
+        }
+        else{
+            echo 'var check = false';
+            $bool = true;
+        }
+        ?>
 
         function checkInput(myform) {
             if(check == false){
@@ -53,7 +62,7 @@
 
             if(userid)
             {
-                url = "../php/check.php?userid="+userid;
+                url = "/member/idCheck?userid="+userid;
                 window.open(url,"chkid","width=400,height=200");
             } else {
                 alert("아이디를 입력하세요.");
@@ -81,10 +90,12 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1> <?=$title?></h1>
-    </header>
-    <form action="" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <?php
+        if($bool){
+            echo '<header><h1> '.$title.'</h1></header>';
+        }
+    ?>
+    <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
             <ul><label for = "mem_name">이름</label>
                 <input type= "text" name="mem_name" id="id_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
@@ -105,13 +116,25 @@
                 <input type="hidden" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
             </ul>
             <div class="form_class">
-                <input type= "submit" value='완료'>
+                <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
+                <?php
+                if($bool){
+                    echo "<a href='/'><input type='button' value='홈'></a>";
+                }
+                ?>
             </div>
         </fieldset>
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+        if(check){
+            decide();
+        }
+        else{
+            change();
+        }
+
         function daumPostcode() {
             new daum.Postcode({
                 oncomplete: function(data) {

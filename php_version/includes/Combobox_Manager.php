@@ -9,7 +9,12 @@ class Combobox_Manager {
 			$count = 0;
 			$key_name = $this->changenamekey($key);
 			// echo '$key_name = '.$key_name.'<br>';
-			$sql = "SELECT * FROM `$table` WHERE $where";
+			if(empty($where)){
+				$sql = "SELECT * FROM `$table`";
+			}
+			else{
+				$sql = "SELECT * FROM `$table` WHERE $where";
+			}
 			// echo '$sql = '.$sql.'<br>';
 			$result = $pdo->query($sql);
 

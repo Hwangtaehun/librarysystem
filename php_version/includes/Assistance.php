@@ -100,5 +100,23 @@ class Assistance{
 
 		return $date;
 	}
+
+	public function removeSymbol(string $str) {
+		$str_array = [];
+		
+		if($this->isInteger($str)) {
+			$str_fianl = "";
+			return $str_fianl;
+		}
+		
+		$str_fianl = "";
+		$str_array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
+		
+		for($i = 2; $i < sizeof($str_array); $i++) {
+			$str_fianl += $str_array[$i];
+		}
+
+		return $str_fianl;
+	}
 }
 ?>
