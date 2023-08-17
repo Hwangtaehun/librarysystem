@@ -80,7 +80,7 @@ class kindController{
             $result = $this->kindTable->whereSQL($sql);
             $row = $result->fetchAll();
             $num = $result->rowCount();
-            $text = $row[$num][0];
+            $text = $row[$num-1][0];
 
             if($assist->isInteger($text)) {
                 $text=$text.".1";
