@@ -62,7 +62,7 @@ class kindController{
 
     private function makeKey(String $str, bool $bool) {
         $assist = new Assistance();
-        $text = "문제발생";
+        $text = "중분류";
         
         if($bool) {
             $array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
@@ -133,6 +133,9 @@ class kindController{
             
             if($kind_no == "문제발생"){
                 echo "<script>alert('오류발생 했습니다.'); history.back();</script>";
+            }
+            else if($kind_no == "중분류"){
+                echo "<script>alert('중분류에 등록 수가 초과로 인해 등록이 불가능합니다.'); location.href='/kind/list'</script>";
             }
             else{
                 if($_POST['kind_no'] == ''){
