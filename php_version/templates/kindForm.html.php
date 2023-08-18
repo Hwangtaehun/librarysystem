@@ -67,7 +67,7 @@
                 }
                 ?>
                 </select><br>
-                <label for = "kind_name">책이름</label>
+                <label for = "kind_name">종류 이름</label>
                 <input type= "text" name="kind_name" id="id_name" value="<?php if(isset($row)){echo $row['kind_name'];}?>"><br>
                 <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
                 <?php

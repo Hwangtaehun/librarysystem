@@ -110,18 +110,25 @@ class MatController{
     }
 
     public function addupdate(){
-        include_once __DIR__.'../includes/BookSymbol.php';
+        include_once __DIR__.'/../includes/BookSymbol.php';
 
         if(isset($_POST['mat_no'])) {
             $lib_no = $_POST['lib_no'];
             $book_no = $_POST['book_no'];
-            $symbol = new BookSymbol($_POST['mat_author'], $_POST['mat_last']);
+            $symbol = new BookSymbol($_POST['mat_author']);
             $mat_symbol = $symbol->call_symbol();
 
             $mat_many = 0;
-            if($_POST['mat_many'] != 0 || $_POST['mat_many'] != ''){
-                $mat_many = 'v.'.$_POST['mat_many'];
+            $array = explode('.', $_POST['mat_many']);
+            if(sizeof($array) < 1){
+                if($_POST['mat_many'] != 0){
+                    $mat_many = 'v.'.$_POST['mat_many'];
+                }
             }
+            else{
+                $mat_many = $_POST['mat_many'];
+            }
+            
             $mat_overlap = $this->book_count($_POST);
 
             $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['sup'], 'mat_symbol'=>[$mat_symbol], 'mat_may'=>[$mat_many], 'mat_overlap'=>[$mat_overlap]];
@@ -174,12 +181,12 @@ class MatController{
         echo "<script>location.href='/book/list?title=책검색';</script>";
     }
 
-    public function kindpop(){
-        // $result = $this->kindTable->selectAll();
-        // $title = '종류검색';
-        // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
-        echo "<script>location.href='/kind/list?title=종류검색';</script>";
-    }
+    // public function kindpop(){
+    //     // $result = $this->kindTable->selectAll();
+    //     // $title = '종류검색';
+    //     // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
+    //     echo "<script>location.href='/kind/list?title=종류검색';</script>";
+    // }
 
     public function matpop(){
         // $result = $this->matTable->selectAll();

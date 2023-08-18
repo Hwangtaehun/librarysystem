@@ -7,9 +7,12 @@ class BookSymbol{
     private $author_symbol;
 	private $lastauthor_exist;
 	
-    public function __construct(String $author, bool $bool){
-        $this->lastauthor_exist = $bool;
-		$author_array = explode( ' ', $author);
+    public function __construct(String $author){
+        $this->lastauthor_exist = false;
+		$author_array = explode(' ', $author);
+		if(sizeof($author_array) > 1){
+			$this->lastauthor_exist = true;
+		}
 		//$this->print($author_array);
 		$this->inital($author_array);
     }

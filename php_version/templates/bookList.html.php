@@ -39,7 +39,8 @@
                 echo '<form>';
                 $name = "'".$row['book_name']."'";
                 $no = "'".$row['book_no']."'";
-                echo '<input type=button value="선택" onclick="opener.parent.bookValue('.$name.', '.$no.'); window.close();">';
+                $aut = "'".$row['book_author']."'";
+                echo '<input type=button value="선택" onclick="opener.parent.bookValue('.$no.', '.$name.','.$aut.'); window.close();">';
             }
             else{
         ?>

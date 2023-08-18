@@ -104,7 +104,7 @@
                 if(isset($lent_re_state)){ ?>
                     <?=htmlspecialchars($lent_re_state,ENT_QUOTES,'UTF-8');?>
                     <?=htmlspecialchars($res_state,ENT_QUOTES,'UTF-8');?>
-                <?php } ?>
+                <?php } //상호대차&예약 만들기?> 
             </div>
             <?php
                 if($ispop){

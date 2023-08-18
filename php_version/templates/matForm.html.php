@@ -4,183 +4,171 @@
     <meta charset="utf-8">
     <link rel = "stylesheet" herf = "../css/form.css">
     <title><?=$title?></title>
-    <script>
+    <!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"> -->
+        <script>
         <?php
-        if(isset($row)){
-            echo 'var check = true';
-            $bool = false;
-        }
-        else{
-            echo 'var check = false';
-            $bool = true;
-        }
+        echo 'var state = '.$_SESSION['mem_state'];
         ?>
 
         function checkInput(myform) {
-            if(check == false){
-                alert("아이디 중복체크를 해주세요.");
-                myform.id_check.focus();
+            if(state == 2){
+                alert("정지된 계정입니다.");
                 return false;
             }
-            if(myform.id_name.value.length <= 0){
-                alert("이름을 입력하세요.");
+            if(myform.ib_name.value.length <= 0){
+                alert("책 정보를 찾아주세요.");
                 myform.id_name.focus();
                 return false;
             }
-            if(myform.id_id.value.length <= 0){
-                alert("아이디를 입력하세요.");
-                myform.id_id.focus();
-                return false;
+            if(myform.mi_many.value.length <= 0){
+                ocument.getElementById("mi_many").value = '0';
             }
-            if(myform.id_pw.value.length <= 0){
-                alert("비밀번호를 입력하세요.");
-                myform.id_pw.focus();
-                return false;
-            }
-            if(myform.id_pw_check.value.length <= 0){
-                alert("비밀번호 확인을 입력하세요.");
-                myform.id_pw_check.focus();
-                return false;
-            }
-            if(myform.id_pw.value != myform.id_pw_check.value){
-                alert("비밀번호와 비밀번화 확인과 다릅니다.");
-                myform.id_pw.focus();
-                return false;
-            }
-            if(myform.id_zip.value.length <= 0){
-                alert("주소를 입력하세요.");
-                myform.id_zip.focus();
-                return false;
-            }
-            document.getElementById("id_id").readOnly = true;
             return true;
         }
 
-        function checkid() {
-            check = false;
-            var userid = document.getElementById("id_id").value;
-
-            if(userid)
-            {
-                url = "/member/idCheck?userid="+userid;
-                window.open(url,"chkid","width=400,height=200");
-            } else {
-                alert("아이디를 입력하세요.");
-            }
+        function checkbook() {
+            url = "/mat/bookpop";
+            window.open(url,"chkbk","width=400,height=200");
         }
 
-        function checkReset() {
-            check = false;
-            document.getElementById("id_id").readOnly = false;
-        }
-
-        function decide() {
-            check = true;
-            document.getElementById("id_id").readOnly = true;
-            document.getElementById("id_check").value = "아이디 변경"
-            document.getElementById("id_check").setAttribute("onclick", "change()");
-        }
-
-        function change() {
-            check = false;
-            document.getElementById("id_id").readOnly = false;
-            document.getElementById("id_check").value = "아이디 중복"
-            document.getElementById("id_check").setAttribute("onclick", "checkid()")
+        function bookValue(no, name, aut){
+            document.getElementById("id_book").value = no;
+            document.getElementById("ib_name").value = name;
+            document.getElementById("ib_author").value = aut;
         }
     </script>
 </head>
+<?php
+    include_once __DIR__.'/../includes/Combobox_Manager.php';
+    include_once __DIR__.'/../includes/Combobox_Inheritance.php';
+
+    $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", false);
+    $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", false);
+    $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", false);
+    $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
+    $super = $super_man->result_call();
+    $base = $base_man->result_call();
+    $sub = $sub_man->result_call();
+    $lib = $lib_man->result_call();
+?>
 <body>
-    <?php
-        if($bool){
-            echo '<header><h1> '.$title.'</h1></header>';
-        }
-    ?>
-    <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action="/mat/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
-            <ul><label for = "mem_name">이름</label>
-                <input type= "text" name="mem_name" id="id_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
-                <label for = "mem_id">아이디</label>
-                <input type= "text" name="mem_id" id="id_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>">
-                <input type= "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"><br>
-                <label for = "mem_pw">비밀번호</label>
-                <input type= "password" name="mem_pw" id="id_pw" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
-                <label for = "mem_pw_check">비밀번호 확인</label>
-                <input type= "password" name="mem_pw_check" id="id_pw_check" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
-                <label for = "mem_zip">우편번호</label>
-                <input type= "text" name="mem_zip" id="id_zip" value="<?php if(isset($row)){echo $row['mem_zip'];}?>" readonly>
-                <input type= "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
-                <label for = "mem_add">주소</label>
-                <input type= "text" name="mem_add" id="id_add" value="<?php if(isset($row)){echo $row['mem_add'];}?>" readonly><br>
-                <label for = "mem_detail">상세주소</label>
-                <input type= "text" name="mem_detail" id="id_detail" value="<?php if(isset($row)){echo $row['mem_detail'];}?>"><br>
-                <input type="hidden" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
+        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
+            <ul><label for = "lib_name">도서관</label>
+                <select id = "il_no" name = "lib_no">
+                    <?php
+                    for($z = 0; $z < sizeof($lib); $z++){
+                        $no[$z] = $lib[$z][0]; 
+                        $name[$z] = $lib[$z][1];
+                    }
+                    for($z = 0;$z < sizeof($lib); $z++){
+                        echo "<option  value = $no[$z] > $name[$z] </option>";
+                    }
+                    ?>
+                </select><br>
+                <label for = "book_name">책이름</label>
+                <input type= "text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
+                <input type= "button" name="book_check" id="ib_check" value="책 찾기" onclick="checkbook();"><br>
+                <label for = "book_author">저자</label>
+                <input type= "text" name="book_author" id="ib_author" value="<?php if(isset($row)){echo $row['book_author'];}?>" readonly><br>
+                <label for = "kind_super">대분류</label>
+                <select id = "s1" name = "super" onchange='superChange(this)'>
+                    <?php
+                    for ($z=0; $z < sizeof($super); $z++) { 
+                        $no[$z] = $super[$z][0];
+                        $name[$z] = $super[$z][1];
+                    }
+                    for ($z=0; $z < sizeof($super); $z++) { 
+                        echo "<option value = $no[$z] > $name[$z] </option>";
+                    }
+                    ?>
+                </select><br>
+                <label for = "kind_base">중분류</label>
+                <select id = "s2" name = "base" onchange='baseChange(this)'>
+                <?php
+                for ($z=0; $z < sizeof($base); $z++) { 
+                    $no[$z] = $base[$z][0];
+                    $name[$z] = $base[$z][1];
+                }
+                for ($z=0; $z < sizeof($base); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+                </select><br>
+                <label for = "kind_sub">소분류</label>
+                <select id = "s3" name = "sup">
+                <?php
+                for ($z=0; $z < sizeof($sub); $z++) { 
+                    $no[$z] = $sub[$z][0];
+                    $name[$z] = $sub[$z][1];
+                }
+                for ($z=0; $z < sizeof($sub); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+                </select><br>
+                <?php 
+                if(isset($row)){
+                    $kind_no = $row['kind_no'];
+                    $array = mb_str_split($kind_no, $split_length = 1, $encoding = "utf-8");
+                    $supvalue = $array[0].'00';
+                    $bavalue = $array[0].$array[1].'0';
+                    echo "document.getElementById('s1').value = $supvalue;";
+                    echo "document.getElementById('s2').value = $bavalue;";
+                    echo "document.getElementById('s3').value = $kind_no;";
+                }
+                ?>
+                <label for = "mat_many">권차</label>
+                <input type= "text" name="mat_many" id="mi_many" value="<?php if(isset($row)){echo $row['mat_many'];}?>"><br>
+                <input type="hidden" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
+                <input type="hidden" id="id_book" name="book_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
+                <?php
+                $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", false);
+                $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", false);
+
+                $basearray = $inherit1->call_result();
+                $subarray = $inherit2->call_result();
+                ?>
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
-                <?php
-                if($bool){
-                    echo "<a href='/'><input type='button' value='홈'></a>";
-                }
-                ?>
             </div>
         </fieldset>
     </form>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-        if(check){
-            decide();
+        function superChange(e){
+            var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
+            $("select#s2 option").remove();
+            var target = document.getElementById("s2");
+            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+                  var opt = document.createElement('option');
+                  opt.value = stepCategoryJsonArray[e.value][i][0];
+                  opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                  target.appendChild(opt);
+            }
+            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
+            $("select#s3 option").remove();
+            var target = document.getElementById("s3");
+            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+              var opt = document.createElement('option');
+              opt.value = stepCategoryJsonArray[e.value][i][0];
+              opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+              target.appendChild(opt);
+            }
         }
-        else{
-            change();
-        }
 
-        function daumPostcode() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var addr = ''; // 주소 변수
-                    var extraAddr = ''; // 참고항목 변수
-
-                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                        addr = data.roadAddress;
-                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                        addr = data.jibunAddress;
-                    }
-
-                    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                    if(data.userSelectedType === 'R'){
-                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                            extraAddr += data.bname;
-                        }
-                        // 건물명이 있고, 공동주택일 경우 추가한다.
-                        if(data.buildingName !== '' && data.apartment === 'Y'){
-                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                        }
-                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                        if(extraAddr !== ''){
-                            extraAddr = ' (' + extraAddr + ')';
-                        }
-                        // 조합된 참고항목을 해당 필드에 넣는다.
-                        document.getElementById("id_detail").value = extraAddr;
-                    
-                    } else {
-                        document.getElementById("id_detail").value = '';
-                    }
-
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('id_zip').value = data.zonecode;
-                    document.getElementById("id_add").value = addr;
-                    // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("id_detail").focus();
-                }
-            }).open();
+        function baseChange(e){
+            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
+            $("select#s3 option").remove();
+            var target = document.getElementById("s3");
+            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
+            }
         }
     </script>
 </body>
