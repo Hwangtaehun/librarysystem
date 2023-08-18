@@ -144,7 +144,11 @@ class MatController{
             header('location: /mat/list');
         }
         if(isset($_GET['mat_no'])){
-            $row = $this->matTable->selectID($_GET['mat_no']);
+            $mat_no = $_GET['mat_no'];
+            $sql = $this->sql."AND material.mat_no = $mat_no";
+            $stmt = $this->matTable->joinSQL($sql);
+            $row = $stmt->fetch();
+            //$row = $this->matTable->selectID($_GET['mat_no']);
             $title2 = ' 수정';
             $title = '자료'.$title2;
             return ['tempName'=>'matForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
