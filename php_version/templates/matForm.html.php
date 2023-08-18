@@ -137,7 +137,7 @@
             </div>
         </fieldset>
     </form>
-    <script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js">
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
             $("select#s2 option").remove();
