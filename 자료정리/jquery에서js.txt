@@ -1,0 +1,11 @@
+https://whales.tistory.com/57
+
+function commonAction(){    // 기존의 함수명
+    clearInterval(time);
+    time = setInterval( function () { slideAni() }, 1000 );
+}
+
+jQuery.timeAction = function(){   // 바뀌게 되는 부분
+    clearInterval(time);
+    time = setInterval( function () { slideAni() }, 1000 );
+}
