@@ -77,6 +77,7 @@ class MatController{
     }
 
     public function research(){
+        $in = '';
         $ispop = false;
         if(isset($_GET['title'])){
             $title = $_GET['title'];
@@ -87,12 +88,20 @@ class MatController{
             $ispop = false;
         }
         $value = '%'.$_POST['user_research'].'%';
+        $where = "WHERE book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
+        $m_result = $this->bookTable->whereSQL($where);
+        $m_row = $m_result->fetchAll();
+        for ($i=0; $i < sizeof($m_row); $i++) { 
+            $in .= $m_row[$i][0].', ';
+        }
+        $in = rtrim($in, ', ');
+
         $lib_no = $_POST['lib_research'];
         if($lib_no == 0){
-            $where = "OR book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
+            $where = "AND book.book_no IN ($in)";
         }
         else{
-            $where = "AND library.lib_no LIKE $lib_no OR book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
+            $where = "AND library.lib_no LIKE $lib_no AND book.book_no IN ($in)";
         }
         
         if($ispop){
@@ -101,6 +110,7 @@ class MatController{
         else{
             $sql = $this->sql.$where;
         }
+        
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
