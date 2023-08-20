@@ -104,7 +104,7 @@
                 if(isset($lent_re_state)){ ?>
                     <?=htmlspecialchars($lent_re_state,ENT_QUOTES,'UTF-8');?>
                     <?=htmlspecialchars($res_state,ENT_QUOTES,'UTF-8');?>
-                <?php } //상호대차&예약 만들기?> 
+                <?php }?> 
             </div>
             <?php
                 if($ispop){
@@ -119,6 +119,9 @@
                     <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                     <input type="submit" value="삭제">
                     <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
+                    <?php
+                    //상호대차&예약 만들기
+                    ?>
             <?php } ?>
             </form>
             </fieldset>

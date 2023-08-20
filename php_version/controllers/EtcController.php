@@ -100,7 +100,7 @@ class EtcController{
         // $title = '회원찾기';
         // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
         setcookie('pop', 'true');
-        echo "<script>location.href='/member/list?title=회원찾기';</script>";
+        echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 
     public function lenpop(){
@@ -108,7 +108,7 @@ class EtcController{
         // $title = '대출찾기';
         // return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
         setcookie('pop', 'true');
-        echo "<script>location.href='/len/list?title=대출찾기';</script>";
+        echo "<script>location.href='/len/list?title=대출찾기&pop=true';</script>";
     }
 
     public function libraryarray(){

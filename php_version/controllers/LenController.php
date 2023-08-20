@@ -233,32 +233,28 @@ class LenController{
         // $result = $this->memTable->selectAll();
         // $title = '회원찾기';
         // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/member/list?title=회원찾기';</script>";
+        echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 
     public function matpop(){
         // $result = $this->matTable->selectAll();
         // $title = '자료찾기';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/mat/poplist?title=자료찾기';</script>";
+        echo "<script>location.href='/mat/poplist?title=자료찾기&pop=true';</script>";
     }
 
     public function delpop(){
         // $result = $this->delTable->selectAll();
         // $title = '상호대차';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/del/list';</script>";
+        echo "<script>location.href='/del/list&pop=true';</script>";
     }
 
     public function respop(){
         // $result = $this->resTable->selectAll();
         // $title = '예약찾기';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/res/list?title=예약찾기';</script>";
+        echo "<script>location.href='/res/list?title=예약찾기&pop=true';</script>";
     }
 }
 ?>

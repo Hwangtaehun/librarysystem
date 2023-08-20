@@ -182,24 +182,21 @@ class MatController{
         // $result = $this->bookTable->selectAll();
         // $title = '책검색';
         // return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/book/list?title=책검색';</script>";
+        echo "<script>location.href='/book/list?title=책검색&pop=true';</script>";
     }
 
     public function kindpop(){
         // $result = $this->kindTable->selectAll();
         // $title = '종류검색';
         // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/kind/list?title=종류검색';</script>";
+        echo "<script>location.href='/kind/list?title=종류검색&pop=true';</script>";
     }
 
     public function matpop(){
         // $result = $this->matTable->selectAll();
         // $title = '상세 검색';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
-        echo "<script>location.href='/mat/poplist?title=상세 검색';</script>";
+        echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
 
     }
 
@@ -207,9 +204,8 @@ class MatController{
         // $result = $this->matTable->selectID($_POST['mat_no']);
         // $title = '상호대차';
         // return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
         $mat_no = $_GET['mat_no'];
-        echo "<script>location.href='/del/addupdate?mat_no=$mat_no';</script>";
+        echo "<script>location.href='/del/addupdate?mat_no=$mat_no&pop=true';</script>";
     }
 }
 ?>

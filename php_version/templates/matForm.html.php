@@ -39,16 +39,10 @@
             document.getElementById("id_book").value = no;
             document.getElementById("ib_name").value = name;
             document.getElementById("ib_author").value = aut;
-            deleteCookie('pop');
         }
 
         function kindValue(no){
             document.getElementById("id_kind").value = no;
-            deleteCookie('pop');
-        }
-
-        function deleteCookie(name) {
-            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
     </script>
 </head>
@@ -77,6 +71,7 @@
                 <label for = "book_name">책이름</label>
                 <input type= "text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type= "button" name="book_check" id="ib_check" value="책 찾기" onclick="checkbook();"><br>
+                <label for = "book_name">종류번호</label>
                 <input type= "text" name="kind_no" id="id_kind" value="<?php if(isset($row)){echo $row['kind_no'];}?>" readonly>
                 <input type= "button" name="kind_check" id="ik_check" value="종류 찾기" onclick="checkkind();"><br>
                 <label for = "mat_many">권차</label>
