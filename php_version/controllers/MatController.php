@@ -35,8 +35,13 @@ class MatController{
         $lib_no = $param['lib_no'];
         $book_no = $param['book_no'];
         $where = "WHERE `lib_no` LIKE $lib_no AND `book_no` LIKE $book_no";
+        if(isset($param['mat_no'])){
+            $mat_no = $param['mat_no'];
+            $where = $where." AND `mat_no` NOT LIKE $mat_no";
+        }
         $result = $this->matTable->whereSQL($where);
-        $str_num = $str_num.$result->rowCount();
+        $count = $result->rowCount() + 1;
+        $str_num = $str_num.$count;
         return $str_num;
     }
 
@@ -89,6 +94,7 @@ class MatController{
         else{
             $where = "AND library.lib_no LIKE $lib_no OR book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
         }
+        
         if($ispop){
             $sql = $this->popSql.$where;
         }
@@ -115,7 +121,7 @@ class MatController{
         if(isset($_POST['mat_no'])) {
             $lib_no = $_POST['lib_no'];
             $book_no = $_POST['book_no'];
-            $symbol = new BookSymbol($_POST['mat_author']);
+            $symbol = new BookSymbol($_POST['book_author']);
             $mat_symbol = $symbol->call_symbol();
 
             $mat_many = 0;
@@ -130,8 +136,7 @@ class MatController{
             }
             
             $mat_overlap = $this->book_count($_POST);
-
-            $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['sup'], 'mat_symbol'=>[$mat_symbol], 'mat_may'=>[$mat_many], 'mat_overlap'=>[$mat_overlap]];
+            $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['kind_no'], 'mat_symbol'=>$mat_symbol, 'mat_may'=>$mat_many, 'mat_overlap'=>$mat_overlap];
 
             if($_POST['mat_no'] == ''){
                 $this->matTable->insertData($param);
@@ -139,7 +144,7 @@ class MatController{
             else{
                 $this->matTable->updateData($param);
             }
-            $sql = "UPDATE `material` SET `mat_overlap` = 'mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
+            $sql = "UPDATE `material` SET `mat_overlap` = '$mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
             $this->matTable->delupdateSQL($sql);
             header('location: /mat/list');
         }

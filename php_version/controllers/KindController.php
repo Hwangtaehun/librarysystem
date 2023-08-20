@@ -49,7 +49,6 @@ class kindController{
                 $value = $array[0].$array[1].'_'; 
             }
         }
-        echo '$value = '.$value.'<br>';
         $where = "WHERE `kind_no` LIKE '$value'";
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
