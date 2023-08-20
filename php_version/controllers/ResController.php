@@ -94,6 +94,7 @@ class ResController{
         //     $title = '회원찾기';
         //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
         // }
+        setcookie('pop', 'true');
         echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 }

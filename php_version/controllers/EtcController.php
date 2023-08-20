@@ -99,6 +99,7 @@ class EtcController{
         // $result = $this->memTable->selectAll();
         // $title = '회원찾기';
         // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+        setcookie('pop', 'true');
         echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 
@@ -106,6 +107,7 @@ class EtcController{
         // $result = $this->lenTable->selectAll();
         // $title = '대출찾기';
         // return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+        setcookie('pop', 'true');
         echo "<script>location.href='/len/list?title=대출찾기';</script>";
     }
 

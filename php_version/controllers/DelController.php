@@ -145,6 +145,7 @@ class DelController{
         //     $title = '회원찾기';
         //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
         // }
+        setcookie('pop', 'true');
         echo "<script>location.href='/member/list?title=회원찾기';</script>";
     }
 
@@ -158,6 +159,7 @@ class DelController{
         //     $title = '자료찾기';
         //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
         // }
+        setcookie('pop', 'true');
         echo "<script>location.href='/mat/poplist?title=자료찾기';</script>";
     }
 
@@ -170,6 +172,7 @@ class DelController{
         //     $title = '상세검색';
         //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
         // }
+        setcookie('pop', 'true');
         echo "<script>location.href='/mat/poplist?title=상세 검색';</script>";
     }
 

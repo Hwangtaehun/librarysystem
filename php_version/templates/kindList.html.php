@@ -80,9 +80,8 @@
         <?php
             if($ispop){
                 echo '<form>';
-                $name = "'".$row['kind_name']."'";
                 $no = "'".$row['kind_no']."'";
-                echo '<input type=button value="선택" onclick="opener.parent.kindValue('.$name.', '.$no.'); window.close();">';
+                echo '<input type=button value="선택" onclick="opener.parent.kindValue('.$no.'); window.close();">';
             }
             else{
         ?>
