@@ -81,7 +81,7 @@
                 <input type="hidden" id="ib_author" name="book_author" value="<?php if(isset($row)){echo $row['book_author'];}?>">
             </ul>
             <div class="form_class">
-                <input type= "submit" value="<?=$title2 ?>">
+                <input type= "submit" value="<?= $title2 ?>">
                 <input type= "reset" value='지우기'>
             </div>
         </fieldset>

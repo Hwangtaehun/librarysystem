@@ -65,7 +65,8 @@ class ResController{
     public function addupdate(){
         if(isset($_POST['res_no'])) {
             if($_POST['res_no'] == ''){
-                $this->resTable->insertData($_POST);
+                $param = ['res_date'=>$_POST['res_date'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no']];
+                $this->resTable->insertData($param);
             }
             else{
                 $this->resTable->updateData($_POST);

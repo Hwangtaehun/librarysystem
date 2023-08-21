@@ -9,7 +9,17 @@
             return true;            
         }
 
+        function checkRes(myform){
+            if(myform.id_state.value != '예약가능'){
+                alert("예약이 불가능합니다.");
+                return false;
+            }
+            return true;
+        }
+
         <?php
+        $date = date("Y-m-d");
+
         if($title == '자료 현황'){
             $ispop = false;
             $action = "/mat/research";
@@ -116,14 +126,21 @@
                     echo '<input type=button value="선택" onclick="opener.parent.memValue('.$name.', '.$no.'); window.close();">';
                 }
                 else{
+                    if($state == 1){
             ?>
             <form action="/mat/delete" method="post">
                     <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                     <input type="submit" value="삭제">
                     <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
-                    <?php
-                    //상호대차&예약 만들기
-                    ?>
+            <?php }else{ ?>
+            <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
+                    <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
+                    <input type="hidden" name="mem_no" value="<?=$_SESSION['mem_no']?>">
+                    <input type="hidden" name="res_date" value="<?=$date?>">
+                    <input type="hidden" id="id_state" value="<?=$res_state?>">
+                    <input type="submit" value="예약">
+                    <a href="/mat/delpop?mat_no=<?=$row['mat_no']?>"><input type="button" value="상호대차"></a>
+            <?php } ?>
             <?php } ?>
             </form>
             </fieldset>
