@@ -78,6 +78,7 @@
                 <input type= "text" name="mat_many" id="mi_many" value="<?php if(isset($row)){echo $row['mat_many'];}?>"><br>
                 <input type="hidden" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
                 <input type="hidden" id="id_book" name="book_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
+                <input type="hidden" id="ib_author" name="book_author" value="<?php if(isset($row)){echo $row['book_author'];}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">

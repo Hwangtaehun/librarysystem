@@ -12,14 +12,16 @@
         <?php
         if($title == '회원 현황'){
             $ispop = false;
+            $action = "/member/research";
         }
         else{
             $ispop = true;
+            $action = "/member/research?title=$title&pop=true";
         }
         ?>
     </script>
 </head>
-<form action="/member/research" method="post" onsubmit="return checkResearch(this)">
+<form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
     <input type="text" name="user_research" id="id_research" value = "" placeholder="검색할 회원 이름을 입력해주세요.">
     <input type="submit" value = "검색">
 </form>

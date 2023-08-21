@@ -663,8 +663,10 @@ class BookSymbol{
 		for ($i=0; $i<mb_strlen($uniVal, 'UTF-8'); $i++) {
 			$code = $this->ord8(mb_substr($uniVal, $i, 1, 'UTF-8')) - 44032;
 			if ($code > -1 && $code < 11172) {
-				$num_cho = $code / 588;
-				$num_joong = $code % 588 / 28;
+				$temp = $code / 588;
+				$num_cho = (int)$temp;
+				$temp = $code % 588 / 28;
+				$num_joong = (int)$temp;
 				$num_jong = $code % 28;
 				$result .= $this->cho[$num_cho].$this->joong[$num_joong].$this->jong[$num_jong];
 			} else {

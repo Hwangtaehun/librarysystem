@@ -16,7 +16,7 @@
         }
         else{
             $ispop = true;
-            $action = "/book/research?title=$title";
+            $action = "/book/research?title=$title&pop=true";
         }
         ?>
     </script>

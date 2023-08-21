@@ -12,9 +12,11 @@
         <?php
         if($title == '자료 현황'){
             $ispop = false;
+            $action = "/mat/research";
         }
         else{
             $ispop = true;
+            $action = "/mat/research?title=$title&pop=true";
         }
         ?>
     </script>

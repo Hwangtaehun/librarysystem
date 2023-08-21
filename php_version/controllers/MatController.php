@@ -36,8 +36,10 @@ class MatController{
         $book_no = $param['book_no'];
         $where = "WHERE `lib_no` LIKE $lib_no AND `book_no` LIKE $book_no";
         if(isset($param['mat_no'])){
-            $mat_no = $param['mat_no'];
-            $where = $where." AND `mat_no` NOT LIKE $mat_no";
+            if($_POST['mat_no'] != ''){
+                $mat_no = $param['mat_no'];
+                $where = $where." AND `mat_no` NOT LIKE $mat_no";
+            }
         }
         $result = $this->matTable->whereSQL($where);
         $count = $result->rowCount() + 1;
@@ -120,8 +122,11 @@ class MatController{
         $lib_no = $_POST['lib_no'];
         $book_no = $_POST['book_no'];
         $this->matTable->deleteData($_POST['mat_no']);
-        $sql = "UPDATE `material` SET `mat_overlap` = 'mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
-        $this->matTable->delupdateSQL($sql);
+        if($_POST['mat_overlap' != 'c.1']){
+            $mat_overlap = $this->book_count($_POST);
+            $sql = "UPDATE `material` SET `mat_overlap` = '$mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
+            $this->matTable->delupdateSQL($sql);
+        }
         header('location: /mat/list');
     }
 
@@ -146,12 +151,17 @@ class MatController{
             }
             
             $mat_overlap = $this->book_count($_POST);
-            $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['kind_no'], 'mat_symbol'=>$mat_symbol, 'mat_may'=>$mat_many, 'mat_overlap'=>$mat_overlap];
 
             if($_POST['mat_no'] == ''){
+                $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['kind_no'], 'mat_symbol'=>$mat_symbol, 
+                          'mat_many'=>$mat_many, 'mat_overlap'=>$mat_overlap];
+                print_r($param);
+                echo '<br>'; 
                 $this->matTable->insertData($param);
             }
             else{
+                $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['kind_no'], 'mat_symbol'=>$mat_symbol, 
+                          'mat_many'=>$mat_many, 'mat_overlap'=>$mat_overlap, 'mat_no'=>$_POST['mat_no']];
                 $this->matTable->updateData($param);
             }
             $sql = "UPDATE `material` SET `mat_overlap` = '$mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
