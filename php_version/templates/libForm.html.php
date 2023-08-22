@@ -38,7 +38,7 @@
             <ul><label for = "lib_name">이름</label>
                 <input type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"><br>
                 <label for = "lib_id">설립일</label>
-                <input type= "text" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"><br>
+                <input type= "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"><br>
                 <label for = "lib_zip">우편번호</label>
                 <input type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" readonly>
                 <input type= "button" onclick="daumPostcode()" value="우편번호 찾기"><br>

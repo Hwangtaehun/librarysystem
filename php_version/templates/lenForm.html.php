@@ -10,8 +10,9 @@
         ?>
 
         function checkInput(myform) {
-            if(state == 2){
-                alert("정지된 계정입니다.");
+            if(myform.im_id.value.length <= 0){
+                alert("아이디를 찾아주세요.");
+                myform.id_name.focus();
                 return false;
             }
             if(myform.ib_name.value.length <= 0){
@@ -25,24 +26,24 @@
             return true;
         }
 
-        function checkbook() {
-            url = "/mat/bookpop";
+        function checkmem() {
+            url = "/len/mempop";
             window.open(url,"chkbk","width=400,height=200");
         }
 
-        function checkkind() {
-            url = "/mat/kindpop";
+        function checkmat() {
+            url = "/len/matpop";
             window.open(url,"chkbk","width=400,height=200");
         }
 
-        function bookValue(no, name, aut){
+        function memValue(name, no){
             document.getElementById("id_book").value = no;
-            document.getElementById("ib_name").value = name;
-            document.getElementById("ib_author").value = aut;
+            document.getElementById("im_id").value = name;
         }
 
-        function kindValue(no){
-            document.getElementById("id_kind").value = no;
+        function matValue(name, no){
+            document.getElementById("id_mem").value = no;
+            document.getElementById("ib_name").value = name;
         }
     </script>
 </head>
@@ -53,11 +54,14 @@
     $lib = $lib_man->result_call();
 ?>
 <body>
-    <form action="/mat/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action="/len/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for = "lib_name">도서관</label>
-                <select id = "il_no" name = "lib_no">
+            <ul><label for ="mem_id">회원아이디</label>
+                <input type="text" name="mem_id" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
+                <input type="button" name="mem_check" id="im_check" value="회원 찾기" onclick="checkmem();"><br>
+                <label for ="lib_name">도서관</label>
+                <select id ="il_no" name="lib_no">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
                         $no[$z] = $lib[$z][0]; 
@@ -68,17 +72,25 @@
                     }
                     ?>
                 </select><br>
-                <label for = "book_name">책이름</label>
-                <input type= "text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
-                <input type= "button" name="book_check" id="ib_check" value="책 찾기" onclick="checkbook();"><br>
-                <label for = "book_name">종류번호</label>
-                <input type= "text" name="kind_no" id="id_kind" value="<?php if(isset($row)){echo $row['kind_no'];}?>" readonly>
-                <input type= "button" name="kind_check" id="ik_check" value="종류 찾기" onclick="checkkind();"><br>
-                <label for = "mat_many">권차</label>
-                <input type= "text" name="mat_many" id="mi_many" value="<?php if(isset($row)){echo $row['mat_many'];}?>"><br>
-                <input type="hidden" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
-                <input type="hidden" id="id_book" name="book_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
-                <input type="hidden" id="ib_author" name="book_author" value="<?php if(isset($row)){echo $row['book_author'];}?>">
+                <label for ="book_name">책이름</label>
+                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
+                <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
+                <?php if(isset($row)){ ?>
+                <label for ="len_date">대출일</label>
+                <input type="date" name="len_date" id="id_date" value="<?php echo $row['len_date']; ?>"><br>
+                <?php } ?>
+                    <input type="radio" name="len_ex" id="id_normal" value="0"> 일반
+                    <input type="radio" name="len_ex" id="id_extend" value="7"> 연장 <br>
+                <?php if(isset($row)){ ?>
+                    <input type="date" name="len_re_date" id="id_re_date" value="<?php echo $row['len_re_date']; ?>"><br>
+                    <input type="radio" name="len_re_st" id="id_lent" value="0"> 대출중
+                    <input type="radio" name="len_re_st" id="id_return" value="1"> 반납
+                    <input type="radio" name="len_re_st" id="id_etc" value="2"> 기타 <br>
+                    <input type="text" name="len_memo" id="id_memo" value="<?php echo $row['len_memo']; ?>"><br>
+                <? } ?>
+                <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
+                <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
+                <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
@@ -87,4 +99,7 @@
         </fieldset>
     </form>
 </body>
+<script>
+
+</script>
 </html>

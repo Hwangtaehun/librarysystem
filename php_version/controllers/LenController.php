@@ -181,7 +181,11 @@ class LenController{
             }
         }
         if(isset($_GET['len_no'])){
-            $row = $this->lenTable->selectID($_GET['len_no']);
+            $len_no = $_GET['len_no'];
+            $sql = $this->sql."AND lent.len_no = $len_no";
+            $stmt = $this->matTable->joinSQL($sql);
+            $row = $stmt->fetch();
+            //$row = $this->lenTable->selectID($_GET['len_no']);
             $title2 = ' 수정';
             $title = '대출'.$title2;
             return ['tempName'=>'lenForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
