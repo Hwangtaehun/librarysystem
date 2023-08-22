@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__.'../includes/Assistance.php';
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class LenController{
     private $libTable;
@@ -15,7 +15,7 @@ class LenController{
     private $sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no 
                     AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no ";
     private $sort = " ORDER BY `mem_name`";
-    private $assist = new Assistance();
+    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
@@ -30,6 +30,7 @@ class LenController{
         $this->dueTable = $dueTable;
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
+        $this->assist = new Assistance();
     }
 
     private function reservationCheck(){

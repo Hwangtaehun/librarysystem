@@ -38,6 +38,16 @@
             }
         }
 
+        function checkmem() {
+            url = "/len/mempop";
+            window.open(url,"chkbk","width=400,height=200");
+        }
+
+        function checkmat() {
+            url = "/len/matpop";
+            window.open(url,"chkbk","width=400,height=200");
+        }
+
         function changeDate(){
             document.getElementById("il_date").value = date("Y-m-d");
         }
@@ -78,9 +88,9 @@
             <option value=1>회원id</option>
             <option value=2>자료이름</option>
         </select>
-        <a href="/len/matpop"><input type="button" id="ie_research" value="회원찾기"></a>
-        <a href="/len/matpop"><input type="button" id="ia_research" value="자료찾기"></a>
-        <input type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();"></a>
+        <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();"></a>
+        <input type="text" name="user_research" id="id_research" value = "" readonly>
         <input type="hidden" id="id_mem" name="mem_no" value="">
         <input type="hidden" id="ib_mat" name="mat_no" value="">
         <input type="submit" value = "검색">
@@ -88,30 +98,30 @@
     <?php if(isset($result)){foreach($result as $row): ?>
         <fieldset id="fieldset_row">
             <div id="div_row">
-                <? 
-                if($title == '대출중자료'){
-                    $reDate = $assist->estimateReturndate($row['len_re_date'], $row['len_ex']);
-                }
-
-                if(!isset($row['len_re_st'])){
-                    $len_re_st = '기타';
-                    if($row['len_re_st'] == 0){
-                        $len_re_st = '대출중';
+                <?php
+                    if($title == '대출중자료'){
+                        $reDate = $assist->estimateReturndate($row['len_re_date'], $row['len_ex']);
                     }
-                    else if($row['len_re_st'] == 1){
-                        $len_re_st = '반납';
+
+                    if(isset($row['len_re_st'])){
+                        $len_re_st = '기타';
+                        if($row['len_re_st'] == 0){
+                            $len_re_st = '대출중';
+                        }
+                        else if($row['len_re_st'] == 1){
+                            $len_re_st = '반납';
+                        }
                     }
-                }
+    
+                    $extend = '연장 X';
+                    if($row['len_ex'] == 7){
+                        $extend = '연장 O';
+                    }
 
-                $extend = '연장 X';
-                if($row['len_ex'] == 7){
-                    $extend = '연장 O';
-                }
-
-                if(isset($row['mem_id'])){ ?>
+                if($mem_state == 1){ ?>
                     <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
-                <?}?>
+                <?php }?>
                 <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
                 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
                 <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?>
@@ -122,41 +132,44 @@
                     <?=htmlspecialchars($row['len_re_date'],ENT_QUOTES,'UTF-8');?>
                 <?php } 
                 if($title == '모든대출내역'){ ?>
-                    <?=htmlspecialchars($lent_re_st,ENT_QUOTES,'UTF-8');?>
+                    <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?>
                 <?php }
                 else if($title == '대출 현황'){ ?>
-                    <?=htmlspecialchars($lent_re_st,ENT_QUOTES,'UTF-8');?>
+                    <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?>
                     <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?>
+                <?php if(!empty($row['len_memo'])){ ?>
                     <?=htmlspecialchars($row['len_memo'],ENT_QUOTES,'UTF-8');?>
+                <?php } ?>
                 <?php } ?> 
             </div>
-            <?php
-                if($ispop){
+            <?php if($ispop){
                     echo '<form>';
                     $mem = "'".$row['mem_no']."'";
                     $mat = "'".$row['mat_no']."'";
                     $no = "'".$row['len_no']."'";
                     echo '<input type=button value="선택" onclick="opener.parent.lenValue('.$mem.','.$mat.','.$no.'); window.close();">';
-                }
+                } 
                 else{
-                    if($state == 1){
-                        if($title != '반납추가'){
+                    if ($mem_state == 1) {
+                        if($title != '반납추가'){ ?>
+                            <form action="/len/delete" method="post">
+                                <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
+                                <input type="submit" value="삭제">
+                                <a href="/len/addupdate?len_no=<?=$row['len_no']?>"><input type="button" value="수정"></a>
+                  <?php }
+                        else{ ?>
+                            <form action="/len/returnLent()" method="post">
+                                <label for ="lent_re_date">반납일</label>
+                                <input type="date" name="lent_re_date" id="il_date" value="">
+                                <input type="button" name="today" value="오늘" onclick="changeDate()"><br>
+                                <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
+                                <input type="hidden" name="len_re_st" value="1">
+                                <input type="submit" value="반납">
+                  <?php }
+                    } 
+                }
             ?>
-            <form action="/len/delete" method="post">
-                    <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
-                    <input type="submit" value="삭제">
-                    <a href="/len/addupdate?len_no=<?=$row['len_no']?>"><input type="button" value="수정"></a>
-            <?php }else{?>
-                <form action="/len/returnLent()" method="post">
-                    <label for ="lent_re_date">반납일</label>
-                    <input type="date" name="lent_re_date" id="il_date" value="">
-                    <input type="button" name="today" value="오늘" onclick="changeDate()"><br>
-                    <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
-                    <input type="hidden" name="len_re_st" value="1">
-                    <input type="submit" value="반납">
-            <? } } }?>
             </form>
-            </fieldset>
         </fieldset>
     <?php endforeach; }?>
 </body>

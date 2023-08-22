@@ -21,7 +21,7 @@
                 return false;
             }
             if(myform.mi_many.value.length <= 0){
-                ocument.getElementById("mi_many").value = '0';
+                document.getElementById("mi_many").value = '0';
             }
             return true;
         }
@@ -76,18 +76,22 @@
                 <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
                 <?php if(isset($row)){ ?>
-                <label for ="len_date">대출일</label>
-                <input type="date" name="len_date" id="id_date" value="<?php echo $row['len_date']; ?>"><br>
-                <?php } ?>
-                    <input type="radio" name="len_ex" id="id_normal" value="0"> 일반
-                    <input type="radio" name="len_ex" id="id_extend" value="7"> 연장 <br>
+                    <label for ="len_date">대출일</label>
+                    <input type="date" name="len_date" id="id_date" value="<?php echo $row['len_date']; ?>"><br>
+                <?php }?>
+                <label for ="len_ex">연장여부</label>
+                <input type="radio" name="len_ex" id="id_extend" value="7"> 예 
+                <input type="radio" name="len_ex" id="id_normal" value="0"> 아니요<br>
                 <?php if(isset($row)){ ?>
-                    <input type="date" name="len_re_date" id="id_re_date" value="<?php echo $row['len_re_date']; ?>"><br>
-                    <input type="radio" name="len_re_st" id="id_lent" value="0"> 대출중
-                    <input type="radio" name="len_re_st" id="id_return" value="1"> 반납
-                    <input type="radio" name="len_re_st" id="id_etc" value="2"> 기타 <br>
-                    <input type="text" name="len_memo" id="id_memo" value="<?php echo $row['len_memo']; ?>"><br>
-                <? } ?>
+                <label for ="len_ex">반납일</label>
+                <input type="date" name="len_re_date" id="id_re_date" value="<?php echo $row['len_re_date']; ?>"><br>
+                <label for ="len_ex">반납상태</label>
+                <input type="radio" name="len_re_st" id="id_lent" value="0"> 대출중
+                <input type="radio" name="len_re_st" id="id_return" value="1"> 반납
+                <input type="radio" name="len_re_st" id="id_etc" value="2"> 기타 <br>
+                <label for ="len_ex">메모</label>
+                <input type="text" name="len_memo" id="id_memo" value="<?php echo $row['len_memo']; ?>"><br>
+                <?php }?> 
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
@@ -100,6 +104,28 @@
     </form>
 </body>
 <script>
+    <?php
+    if(isset($row)){
+        $len_ex = $row['len_ex'];
+        $len_re_st = $row['len_re_st'];
 
+        if($len_ex == 0){
+            echo "$('#id_normal').prop('check', true)";
+        }
+        else{
+            echo "$('#id_extend').prop('check', true)";
+        }
+
+        if($len_re_st == 0){
+            echo "$('#id_lent').prop('check', true)";
+        }
+        else if($len_re_st == 1){
+            echo "$('#id_return').prop('check', true)";
+        }
+        else{
+            echo "$('#id_etc').prop('check', true)";
+        }
+    }
+    ?>
 </script>
 </html>
