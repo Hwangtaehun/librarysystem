@@ -170,7 +170,7 @@ class DelController{
         //     $title = '상세검색';
         //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
         // }
-        echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
+        echo "<script>location.href='/mat/poplist?title=상세검색&pop=true';</script>";
     }
 
     //LentController 생성후 작성

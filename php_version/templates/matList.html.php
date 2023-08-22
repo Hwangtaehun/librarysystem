@@ -123,7 +123,7 @@
                     echo '<form>';
                     $name = "'".$row['book_name']."'";
                     $no = "'".$row['mat_no']."'";
-                    echo '<input type=button value="선택" onclick="opener.parent.memValue('.$name.', '.$no.'); window.close();">';
+                    echo '<input type=button value="선택" onclick="opener.parent.matValue('.$name.', '.$no.'); window.close();">';
                 }
                 else{
                     if($state == 1){
