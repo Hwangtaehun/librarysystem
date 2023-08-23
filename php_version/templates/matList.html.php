@@ -51,7 +51,7 @@
             }
             ?>
         </select>
-        <input type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+        <input type="text" name="user_research" id="id_research" value = "" placeholder="책제목을 입력해주세요.">
         <input type="submit" value = "검색">
     </form>
     <?php if(isset($result)){foreach($result as $row): ?>

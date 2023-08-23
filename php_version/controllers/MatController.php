@@ -230,7 +230,8 @@ class MatController{
         // $title = '상호대차';
         // return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
         $mat_no = $_GET['mat_no'];
-        echo "<script>location.href='/del/addupdate?mat_no=$mat_no&pop=true';</script>";
+        $lib_no = $_GET['lib_no'];
+        echo "<script>location.href='/del/addupdate?mat_no=$mat_no&lib_no=$lib_no&pop=true';</script>";
     }
 }
 ?>

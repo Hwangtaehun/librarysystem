@@ -12,14 +12,6 @@
             return true;            
         }
 
-        function checkRes(myform){
-            if(myform.id_state.value != '예약가능'){
-                alert("예약이 불가능합니다.");
-                return false;
-            }
-            return true;
-        }
-
         function changeSelect(){
             var value = document.getElementById("s1");
             if(value == '1'){
@@ -118,7 +110,7 @@
                         $extend = '연장 O';
                     }
 
-                if($mem_state == 1){ ?>
+                if($title == '상호대차완료내역'){ ?>
                     <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>

@@ -50,7 +50,7 @@ class DelController{
     }
 
     public function completelist(){
-        $this->sql = $this->sql." AND len_no IS NOT NULL ";
+        $this->sql = $this->sql." AND lent.len_no IS NOT NULL ";
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
@@ -58,9 +58,24 @@ class DelController{
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
+    public function addlist(){
+        $this->sql = $this->sql." AND delivery.del_arr_date IS NULL ";
+        $sql = $this->sql.$this->sort;
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $title = '상호대차도착일추가';
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+    }
+
     public function research(){
         $value = '%'.$_POST['user_research'].'%';
-        $where = "WHERE kind_name LIKE '$value'";
+        if($_POST['lib_research'] != 0){
+            $lib_no = $_POST['lib_research'];
+            $where = "WHERE book.book_name LIKE '$value' AND library.lib_no = $lib_no";
+        }
+        else{
+            $where = "WHERE book.book_name LIKE '$value'";
+        }
         $stmt = $this->delTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '상호대차 현황';
@@ -177,6 +192,17 @@ class DelController{
     public function pagelent(){
         $len_no = $_GET['len_no'];
         echo "<script>location.href='/len/addupdate?len_no=$len_no'</script>";
+    }
+
+    public function libraryarray(){
+        $num = 1;
+        $result = $this->libTable->selectAll();
+        $lib_array[0] = '없음';
+        foreach($result as $row):
+            $lib_array[$num] = $row['lib_name'];
+            $num++;
+        endforeach;
+        return $lib_array;
     }
 }
 ?>

@@ -28,17 +28,12 @@
 
         function checkmem() {
             url = "/len/mempop";
-            window.open(url,"chkme","width=400,height=200");
+            window.open(url,"chkbk","width=400,height=200");
         }
 
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkma","width=400,height=200");
-        }
-
-        function checkdel() {
-            url = "/len/delpop";
-            window.open(url,"chkde","width=400,height=200");
+            window.open(url,"chkbk","width=400,height=200");
         }
 
         function memValue(name, no){
@@ -47,16 +42,8 @@
         }
 
         function matValue(name, no){
-            document.getElementById("id_mat").value = no;
+            document.getElementById("id_mem").value = no;
             document.getElementById("ib_name").value = name;
-        }
-
-        function delValue(mem, id, mat, book, del){
-            document.getElementById("id_mem").value = mem;
-            document.getElementById("im_id").value = id;
-            document.getElementById("id_mat").value = mat;
-            document.getElementById("ib_name").value = book;
-            document.getElementById("id_del").value = del;
         }
     </script>
 </head>
@@ -84,8 +71,7 @@
                         echo "<option  value = $no[$z] > $name[$z] </option>";
                     }
                     ?>
-                </select>
-                <input type="button" name="del_check" id="ide_check" value="상호대차" onclick="checkdel();"><br>
+                </select><br>
                 <label for ="book_name">책이름</label>
                 <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
@@ -109,7 +95,6 @@
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
-                <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){echo $row['del_no'];}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
