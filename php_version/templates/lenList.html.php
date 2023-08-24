@@ -13,20 +13,24 @@
         }
 
         function changeSelect(){
-            var value = document.getElementById("s1");
+            var value = document.getElementById("s1").value;
+            const mem = document.getElementById("ie_research");
+            const mat = document.getElementById("ia_research");
             if(value == '1'){
                 document.getElementById("id_research").value = "";
-                document.getElementById("ie_research").disabled=true;
-                document.getElementById("id_mam").value = "";   
+                document.getElementById("id_mat").value = "";
+                mem.disabled=false;
+                mat.disabled=true;   
             }
             else if(value == '2'){
                 document.getElementById("id_research").value = "";
-                document.getElementById("ia_research").disabled=true;
                 document.getElementById("id_mem").value = "";
+                mem.disabled=true;
+                mat.disabled=false;
             }
             else{
-                document.getElementById("ie_research").disabled=false;
-                document.getElementById("ia_research").disabled=false;
+                mem.disabled=false;
+                mat.disabled=false;
             }
         }
 
@@ -44,14 +48,14 @@
             document.getElementById("il_date").value = date("Y-m-d");
         }
 
-        function memValue(name, no){
-            document.getElementById("id_mem").value = no;
+        function matValue(name, no){
+            document.getElementById("id_mat").value = no;
             bookname = name;
             document.getElementById("id_research").value = memid+' '+bookname;
         }
 
         function memValue(name, no){
-            document.getElementById("id_mat").value = no;
+            document.getElementById("id_mem").value = no;
             memid = name;
             document.getElementById("id_research").value = memid+' '+bookname;
         }
@@ -76,7 +80,7 @@
 <body>
     <form action="/len/research" method="post" onsubmit="return checkResearch(this)">
         <select id = "s1" name = "opt_type" onchange="changeSelect()">
-            <option value=0>전채</option>
+            <option value=0>전체</option>
             <option value=1>회원id</option>
             <option value=2>자료이름</option>
         </select>
@@ -84,7 +88,8 @@
         <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();"></a>
         <input type="text" name="user_research" id="id_research" value = "" readonly>
         <input type="hidden" id="id_mem" name="mem_no" value="">
-        <input type="hidden" id="ib_mat" name="mat_no" value="">
+        <input type="hidden" id="id_mat" name="mat_no" value="">
+        <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
         <input type="submit" value = "검색">
     </form>
     <?php if(isset($result)){foreach($result as $row): ?>
@@ -110,7 +115,7 @@
                         $extend = '연장 O';
                     }
 
-                if($title == '상호대차완료내역'){ ?>
+                if($title == '대출 현황'){ ?>
                     <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>
@@ -151,8 +156,8 @@
                   <?php }
                         else{ ?>
                             <form action="/len/returnLent()" method="post">
-                                <label for ="lent_re_date">반납일</label>
-                                <input type="date" name="lent_re_date" id="il_date" value="">
+                                <label for ="len_re_date">반납일</label>
+                                <input type="date" name="len_re_date" id="il_date" value="">
                                 <input type="button" name="today" value="오늘" onclick="changeDate()"><br>
                                 <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
                                 <input type="hidden" name="len_re_st" value="1">

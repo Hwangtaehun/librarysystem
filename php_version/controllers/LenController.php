@@ -105,27 +105,34 @@ class LenController{
     }
 
     public function research(){
-        $title = $_GET['title'];
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
+
+        if(isset($_POST['title'])){
+            $title = $_POST['title'];
+        }
+        
         if($_SESSION['mem_state'] == 1){
             if($_POST['mem_no'] == ''){
-                $mem_no = $_POST['mem_no'];
-                $sql = " AND lent.mem_no = $mem_no";
+                $mat_no = $_POST['mat_no'];
+                $sql = $this->sql." AND lent.mat_no = $mat_no";
             }
             else if($_POST['mat_no'] == ''){
-                $mat_no = $_POST['met_no'];
-                $sql = " AND lent.mat_no = $mat_no";
+                $mem_no = $_POST['mem_no'];
+                $sql = $this->sql." AND lent.mem_no = $mem_no";
             }
             else{
                 $mem_no = $_POST['mem_no'];
-                $mat_no = $_POST['met_no'];
-                $sql = $this->sql." AND lent.mat_no = $mat_no UNION ".$this->sql." AND lent.mem_no = $mem_no";
+                $mat_no = $_POST['mat_no'];
+                $sql = $this->sql." AND lent.mat_no = $mat_no AND lent.mem_no = $mem_no";
             }
         }
         else{
             $value = '%'.$_POST['user_research'].'%';
             $sql = $this->sql." AND book_name LIKE '$value'";
         }
-        $stmt = $this->lenTable->whereSQL($sql);
+        $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
@@ -245,7 +252,7 @@ class LenController{
         // $result = $this->matTable->selectAll();
         // $title = '자료찾기';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        echo "<script>location.href='/mat/poplist?title=자료찾기&pop=true';</script>";
+        echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
     }
 
     public function delpop(){

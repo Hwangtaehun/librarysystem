@@ -126,7 +126,7 @@
                     echo '<input type=button value="선택" onclick="opener.parent.matValue('.$name.', '.$no.'); window.close();">';
                 }
                 else{
-                    if($state == 1){
+                    if($mem_state == 1){
             ?>
             <form action="/mat/delete" method="post">
                     <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">

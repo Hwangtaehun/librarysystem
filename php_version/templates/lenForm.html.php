@@ -109,7 +109,7 @@
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
-                <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){echo $row['del_no'];}?>">
+                <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){if(!empty($row['del_no'])){echo $row['del_no'];}}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
@@ -117,30 +117,47 @@
             </div>
         </fieldset>
     </form>
-</body>
-<script>
+    <script>
     <?php
     if(isset($row)){
         $len_ex = $row['len_ex'];
         $len_re_st = $row['len_re_st'];
+    ?>
+        const normal = document.getElementById('id_normal');
+        const extend = document.getElementById('id_extend');
+        const lent = document.getElementById('id_lent');
+        const ret = document.getElementById('id_return');
+        const etc = document.getElementById('id_etc');
 
+    <?php
         if($len_ex == 0){
-            echo "$('#id_normal').prop('check', true)";
+    ?>
+            normal.checked = true;
+    <?php
         }
         else{
-            echo "$('#id_extend').prop('check', true)";
+    ?>
+            extend.checked = true;
+    <?php
         }
 
         if($len_re_st == 0){
-            echo "$('#id_lent').prop('check', true)";
+    ?>
+            lent.checked = true;
+    <?php
         }
         else if($len_re_st == 1){
-            echo "$('#id_return').prop('check', true)";
+    ?>
+            ret.checked = true;
+    <?php
         }
         else{
-            echo "$('#id_etc').prop('check', true)";
+    ?>
+            etc.checked = true;
+    <?php
         }
     }
     ?>
-</script>
+    </script>
+</body>
 </html>

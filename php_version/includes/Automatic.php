@@ -105,7 +105,7 @@ class Automatic {
 		if($num != 0){
 			try {
 				$num = 0;
-				while($row = $result->fetchAll()){
+				while($row = $result->fetchObject()){
 					$del_no[$num] = $row->del_no;
 					$num++;
 				}

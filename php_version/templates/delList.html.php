@@ -66,33 +66,23 @@
                         }
                     }
                     
-                if($mem_state == 1){ ?>
+                if($title == '상호대차완료내역'){ ?>
                     <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>
                 <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
+                <?php if(!$ispop){ ?>
                 <?=htmlspecialchars($row['mat_many'],ENT_QUOTES,'UTF-8');?>
                 <?=htmlspecialchars($row['mat_overlap'],ENT_QUOTES,'UTF-8');?>
-                <?php if($mem_state == 1){ ?>
-                <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?>
-                <?php } ?>
-                <?php if(isset($reDate)){ ?>
-                    <?=htmlspecialchars($reDate,ENT_QUOTES,'UTF-8');?>
-                <?php } ?>
-                <?php if(!empty($row['del_re_date'])){ ?>
-                    <?=htmlspecialchars($row['del_re_date'],ENT_QUOTES,'UTF-8');?>
-                <?php } 
-                if($title == '모든대출내역'){ ?>
-                    <?=htmlspecialchars($del_re_st,ENT_QUOTES,'UTF-8');?>
-                <?php }
-                else if($title == '대출 현황'){ ?>
-                    <?=htmlspecialchars($del_re_st,ENT_QUOTES,'UTF-8');?>
-                    <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?>
-                <?php if(!empty($row['del_memo'])){ ?>
-                    <?=htmlspecialchars($row['del_memo'],ENT_QUOTES,'UTF-8');?>
-                <?php } ?>
                 <?php } ?> 
+                <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> 
+                <?php if(!$ispop){ ?>
+                    <?php if($title != '상호대차도착일추가'){ ?>
+                        <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?>
+                    <?php } ?>
+                <?=htmlspecialchars($row['del_app'],ENT_QUOTES,'UTF-8');?>
+                <?php } ?>
             </div>
             <?php if($ispop){
                     echo '<form>';
@@ -105,20 +95,20 @@
                 } 
                 else{
                     if ($mem_state == 1) {
-                        if($title != '반납추가'){ ?>
+                        if($title == '상호대차관리'){ ?>
                             <form action="/del/delete" method="post">
                                 <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
                                 <input type="submit" value="삭제">
                                 <a href="/del/addupdate?del_no=<?=$row['del_no']?>"><input type="button" value="수정"></a>
                   <?php }
-                        else{ ?>
+                        else if($title == '상호대차도착일추가'){ ?>
                             <form action="/del/returndelt()" method="post">
-                                <label for ="delt_re_date">반납일</label>
-                                <input type="date" name="delt_re_date" id="il_date" value="">
+                                <label for ="del_arr_date">도착일</label>
+                                <input type="date" name="del_arr_date" id="il_date" value="">
                                 <input type="button" name="today" value="오늘" onclick="changeDate()"><br>
                                 <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
                                 <input type="hidden" name="del_re_st" value="1">
-                                <input type="submit" value="반납">
+                                <input type="submit" value="도착일추가">
                   <?php }
                     } 
                 }
