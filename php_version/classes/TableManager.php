@@ -69,13 +69,12 @@ class TableManager
     }
 
     function updateData($param){
-        $sql = 'UPDATE `'.$this->table.'` SET ';
+        $sql = 'UPDATE`'.$this->table.'`SET ';
         foreach($param as $key=>$value){
             $sql .= '`'.$key.'`= :'.$key.', ';
         }
         $sql = rtrim($sql, ', ');
         $sql .= ' WHERE `'.$this->keyField.'`= :'.$this->keyField;
-        echo '$sql = '.$sql;
         $this->myQuery($sql, $param);
     }
 }
