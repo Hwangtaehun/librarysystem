@@ -86,7 +86,10 @@
                 <label for ="mem_id">회원아이디</label>
                 <input type="text" name="mem_id" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
                 <input type="button" name="mem_check" id="im_check" value="회원 찾기" onclick="checkmem();"><br>
-                <label for ="lib_name">수신도서관</label>
+                <?php
+                    if($title == '대출 추가'){
+                ?>
+                <label for ="lib_name">대출 도서관</label>
                 <select id ="il_no" name="lib_no">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
@@ -98,6 +101,9 @@
                     }
                     ?>
                 </select><br>
+                <?php
+                    }
+                ?>
                 <label for ="book_name">책이름</label>
                 <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
@@ -121,7 +127,9 @@
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
+                <?php if($title == '대출 추가'){ ?>
                 <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){if(!empty($row['del_no'])){echo $row['del_no'];}}?>">
+                <?php } ?>
                 <input type="hidden" id="id_res" name="res_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
             </ul>
             <div class="form_class">

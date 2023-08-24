@@ -155,8 +155,6 @@ class MatController{
             if($_POST['mat_no'] == ''){
                 $param = ['lib_no'=>$_POST['lib_no'], 'book_no'=>$_POST['book_no'], 'kind_no'=>$_POST['kind_no'], 'mat_symbol'=>$mat_symbol, 
                           'mat_many'=>$mat_many, 'mat_overlap'=>$mat_overlap];
-                print_r($param);
-                echo '<br>'; 
                 $this->matTable->insertData($param);
             }
             else{

@@ -169,9 +169,6 @@ class LenController{
                 }
             }
             else{
-                $param = ['len_no'=>$_POST['len_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 'len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo']];
-                print_r($param);
-                $this->lenTable->updateData($param);
                 $len_no = $_POST['len_no'];
                 $row = $this->lenTable->selectID($_POST['len_no']);
                 if($row['len_re_st'] == 1){
@@ -182,7 +179,14 @@ class LenController{
                         $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
                         $this->dueTable->delupdateSQL($sql);
                     }
+                }//위치변경
+                $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 'len_re_date'=>$_POST['len_re_date'], 
+                          'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
+                if(isset($_POST['len_re_date'])){
+                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
+                              'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
                 }
+                $this->lenTable->updateData($param);
                 header('location: /len/list');
             }
         }
@@ -205,12 +209,11 @@ class LenController{
     public function returnadd(){
         $lib_no = $_POST['lib_no'];
         $mat_no = $_POST['mat_no'];
-        $len_re_date = $_POST['len_re_date'];
-        $today = date("Y-m-d");
-
-        $param = ['len_re_date'=>$len_re_date, 'len_re_st'=>1];
-        $this->lenTable->updateData($param);
         $len_no = $_POST['len_no'];
+        $today = date("Y-m-d");
+        
+        $param = ['len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>1, 'len_no'=>$len_no];
+        $this->lenTable->updateData($param);
         $sql = "UPDATE `place` SET `lib_no_re` = $lib_no WHERE `len_no` = $len_no";
         $this->plaTable->delupdateSQL($sql);
 
@@ -224,8 +227,6 @@ class LenController{
 
         $where = "WHERE len_no = $len_no";
         $stmt = $this->dueTable->whereSQL($where);
-        $row = $stmt->fetch();
-        $due_no = $row['due_no'];
         if(!$this->assist->resultempty_check($stmt)){
             $row = $this->lenTable->selectID($len_no);
             $prd = $this->assist->estimateReturndate($row['len_date'], $row['len_ex']);
@@ -236,6 +237,7 @@ class LenController{
             $param = ['due_exp'=>$due_exp];
             $this->dueTable->updateData($param);
         }
+        header('location: /len/returnLent');
     }
 
     public function mempop(){

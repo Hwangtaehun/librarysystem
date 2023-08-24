@@ -158,11 +158,29 @@
                                 <input type="submit" value="삭제">
                                 <a href="/len/addupdate?len_no=<?=$row['len_no']?>"><input type="button" value="수정"></a>
                   <?php }
-                        else{ ?>
+                        else{
+                            include_once __DIR__.'/../includes/Combobox_Manager.php';
+
+                            $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
+                            $lib = $lib_man->result_call(); 
+                            ?>
                             <form action="/len/returnadd" method="post">
+                                <label for ="lib_name">대출 도서관</label>
+                                <select id ="il_no" name="lib_no">
+                                    <?php
+                                    for($z = 0; $z < sizeof($lib); $z++){
+                                        $no[$z] = $lib[$z][0]; 
+                                        $name[$z] = $lib[$z][1];
+                                    }
+                                    for($z = 0;$z < sizeof($lib); $z++){
+                                        echo "<option  value = $no[$z] > $name[$z] </option>";
+                                    }
+                                    ?>
+                                </select>
                                 <label for ="len_re_date">반납일</label>
                                 <input type="date" name="len_re_date" id="il_date" value="">
                                 <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
+                                <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                                 <input type="hidden" name="len_re_st" value="1">
                                 <input type="submit" value="반납">
                   <?php }
