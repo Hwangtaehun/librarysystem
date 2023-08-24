@@ -25,7 +25,7 @@
                         echo '<li><a>도서관</a><ul><li><a href="/lib/list">도서관관리</a></li><li><a href="/lib/addupdate">도서관추가</a></li></ul></li>';
                         echo '<li><a>자료</a><ul><li><a href="/mat/list">자료관리</a></li><li><a href="/mat/addupdate">자료추가</a></li></ul></li>';
                         echo '<li><a href="/member/list">회원</a></li>';
-                        echo '<li><a>대출 및 반납</a><ul><li><a href="/len/list">대출관리</a></li><li><a href="/len/addupdate">대출추가</a></li><li><a href="/list/returnLent">반납추가</a></li></ul></li>';
+                        echo '<li><a>대출 및 반납</a><ul><li><a href="/len/list">대출관리</a></li><li><a href="/len/addupdate">대출추가</a></li><li><a href="/len/returnLent">반납추가</a></li></ul></li>';
                         echo '<li><a>상호대차</a><ul><li><a href="/del/list">상호대차관리</a></li><li><a href="/del/addlist">상호대차도착일추가</a></li><li><a href="/del/completelist">상호대차완료내역</a></li></ul></li>';
                         echo '<li><a>기타</a><ul><li><a href="#">예약관리</a></li><li><a href="#">대출장소관리</a></li><li><a href="#">연체관리</a></li></ul></li>';
                     }

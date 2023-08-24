@@ -27,18 +27,37 @@
 </form>
 <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">
+        <?php
+         $state = $row['mem_state'];
+
+         if($state == 0){
+            $mem_state = '일반';
+         }
+         else if($state == 1){
+            $mem_state = '관리자';
+         }
+         else{
+            $mem_state = '정지';
+         }
+        ?>
         <div id="div_row">
             <?=htmlspecialchars($row['mem_name'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['mem_pw'],ENT_QUOTES,'UTF-8');?>
+            <?php if(isset($row['mem_add'])){ ?>
             <?=htmlspecialchars($row['mem_add'],ENT_QUOTES,'UTF-8');?>
+            <?php } ?>
+            <?=htmlspecialchars($mem_state,ENT_QUOTES,'UTF-8');?>
+            
         </div>
         <?php
             if($ispop){
                 echo '<form>';
                 $name = "'".$row['mem_id']."'";
                 $no = "'".$row['mem_no']."'";
-                echo '<input type=button value="선택" onclick="opener.parent.memValue('.$name.', '.$no.'); window.close();">';
+                if($state == 0){
+                    echo '<input type=button value="선택" onclick="opener.parent.memValue('.$name.', '.$no.'); window.close();">';
+                }
             }
             else{
         ?>

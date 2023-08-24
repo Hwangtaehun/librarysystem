@@ -6,39 +6,24 @@
     <title><?=$title?></title>
     <script>
         <?php
-        echo 'var state = '.$_SESSION['mem_state'];
+        $mem_state = $_SESSION['mem_state'];
         ?>
 
         function checkInput(myform) {
-            if(myform.im_id.value.length <= 0){
-                alert("아이디를 찾아주세요.");
-                myform.id_name.focus();
-                return false;
-            }
             if(myform.ib_name.value.length <= 0){
                 alert("책 정보를 찾아주세요.");
                 myform.id_name.focus();
                 return false;
             }
-            if(myform.mi_many.value.length <= 0){
-                document.getElementById("mi_many").value = '0';
+            if(myform.id_arr_date.value.length <= 0){
+                document.getElementById("mi_many").value = null;
             }
             return true;
-        }
-
-        function checkmem() {
-            url = "/len/mempop";
-            window.open(url,"chkbk","width=400,height=200");
         }
 
         function checkmat() {
             url = "/len/matpop";
             window.open(url,"chkbk","width=400,height=200");
-        }
-
-        function memValue(name, no){
-            document.getElementById("id_book").value = no;
-            document.getElementById("im_id").value = name;
         }
 
         function matValue(name, no){
@@ -57,11 +42,11 @@
     <form action="/len/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for ="mem_id">회원아이디</label>
-                <input type="text" name="mem_id" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
-                <input type="button" name="mem_check" id="im_check" value="회원 찾기" onclick="checkmem();"><br>
-                <label for ="lib_name">도서관</label>
-                <select id ="il_no" name="lib_no">
+            <ul><label for ="book_name">책이름</label>
+                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_GET['book_name'])){echo $_GET['book_name'];}?>" readonly>
+                <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
+                <label for ="lib_name">수신도서관</label>
+                <select id ="il_no" name="lib_no_arr">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
                         $no[$z] = $lib[$z][0]; 
@@ -72,29 +57,17 @@
                     }
                     ?>
                 </select><br>
-                <label for ="book_name">책이름</label>
-                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
-                <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
                 <?php if(isset($row)){ ?>
-                    <label for ="len_date">대출일</label>
-                    <input type="date" name="len_date" id="id_date" value="<?php echo $row['len_date']; ?>"><br>
-                <?php }?>
-                <label for ="len_ex">연장여부</label>
-                <input type="radio" name="len_ex" id="id_extend" value="7"> 예 
-                <input type="radio" name="len_ex" id="id_normal" value="0"> 아니요<br>
-                <?php if(isset($row)){ ?>
-                <label for ="len_ex">반납일</label>
-                <input type="date" name="len_re_date" id="id_re_date" value="<?php echo $row['len_re_date']; ?>"><br>
-                <label for ="len_ex">반납상태</label>
-                <input type="radio" name="len_re_st" id="id_lent" value="0"> 대출중
-                <input type="radio" name="len_re_st" id="id_return" value="1"> 반납
-                <input type="radio" name="len_re_st" id="id_etc" value="2"> 기타 <br>
-                <label for ="len_ex">메모</label>
-                <input type="text" name="len_memo" id="id_memo" value="<?php echo $row['len_memo']; ?>"><br>
+                <label for ="len_arr_date">도착일</label>
+                <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"><br>
+                <label for ="del_app">상태</label>
+                <input type="radio" name="del_app" id="id_de" value="0"> 거절
+                <input type="radio" name="del_app" id="id_ap" value="1"> 승인
+                <input type="radio" name="del_app" id="id_re" value="2"> 반송 <br>
                 <?php }?> 
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
-                <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
-                <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
+                <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}else if($mem_state == 0){echo $_SESSION['mem_no'];}?>">
+                <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}else if(isset($_GET['mat_no'])){echo $_GET['mat_no'];}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
@@ -106,24 +79,31 @@
 <script>
     <?php
     if(isset($row)){
-        $len_ex = $row['len_ex'];
-        $len_re_st = $row['len_re_st'];
+        $lib_no = $row['lib_no_arr'];
+        $del_app = $row['del_app'];
+        echo 'var lib_no = '.$lib_no;
+    ?>
+        const li = document.getElementById('il_no');
+        const de = document.getElementById('id_de');
+        const ap = document.getElementById('id_ap');
+        const re = document.getElementById('id_re');
 
-        if($len_ex == 0){
-            echo "$('#id_normal').prop('check', true)";
-        }
-        else{
-            echo "$('#id_extend').prop('check', true)";
-        }
-
+        li.value = lib_no;
+    <?php
         if($len_re_st == 0){
-            echo "$('#id_lent').prop('check', true)";
+    ?>
+            de.checked = true;
+    <?php
         }
         else if($len_re_st == 1){
-            echo "$('#id_return').prop('check', true)";
+    ?>
+            ap.checked = true;
+    <?php
         }
         else{
-            echo "$('#id_etc').prop('check', true)";
+    ?>
+            re.checked = true;
+    <?php
         }
     }
     ?>

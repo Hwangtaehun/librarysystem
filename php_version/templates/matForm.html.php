@@ -86,5 +86,17 @@
             </div>
         </fieldset>
     </form>
+    <script>
+        <?php
+        if(isset($row)){
+            $lib_no = $row['lib_no'];
+            echo "var lib_no = $lib_no;";
+        ?>
+            const li = document.getElementById('il_no');
+            li.value = lib_no;
+        <?php    
+        }
+        ?>
+    </script>
 </body>
 </html>

@@ -92,7 +92,7 @@ class DelController{
         if(isset($_POST['del_no'])) {
             $result = $this->matTable->selectID($_POST['mat_no']);
             if($_POST['lib_no_arr'] == $result['lib_no']){
-                    echo "<script>alert('자료가 있는 도서관과 배송되는 도서관이 같습니다')</script>";
+                    echo "<script>alert('자료가 있는 도서관과 배송되는 도서관이 같습니다'); history.back();</script>";
             }
             else{
                 if($_POST['del_no'] == ''){
@@ -106,7 +106,7 @@ class DelController{
                     $stmt = $this->delTable->whereSQL($where);
                     $result = $stmt->fetch();
     
-                    if($this->assist->dateformat_check($_POST['lib_no_arr'])){
+                    if($this->assist->dateformat_check($_POST['lib_arr_date'])){
                         echo "<script>alert('날짜형식이 잘못되었습니다.'); history.back();</script>";
                     }
                     else{
@@ -123,7 +123,7 @@ class DelController{
             return ['tempName'=>'delForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
         else{
-            $title2 = ' 입력';
+            $title2 = ' 신청';
             $title = '상호대차'.$title2;
             if(isset($_GET['mat_no'])){
                 return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2, 'mat_no'=>$_GET['mat_no']];

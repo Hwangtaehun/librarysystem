@@ -200,7 +200,7 @@ class LenController{
         }
         else{
             $title2 = ' 입력';
-            $title = '대출'.$title2;
+            $title = '대출 추가';
             return ['tempName'=>'lenForm.html.php', 'title'=>$title, 'title2'=>$title2];
         }
     }
@@ -259,7 +259,7 @@ class LenController{
         // $result = $this->delTable->selectAll();
         // $title = '상호대차';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        echo "<script>location.href='/del/list&pop=true';</script>";
+        echo "<script>location.href='/del/list?pop=true';</script>";
     }
 
     public function respop(){

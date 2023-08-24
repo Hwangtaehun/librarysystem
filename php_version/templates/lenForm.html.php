@@ -41,8 +41,13 @@
             window.open(url,"chkde","width=400,height=200");
         }
 
+        function checkres() { //reservation의 template을 완성후 사용해보기
+            // url = "/len/respop";
+            // window.open(url,"chkde","width=400,height=200");
+        }
+
         function memValue(name, no){
-            document.getElementById("id_book").value = no;
+            document.getElementById("id_mem").value = no;
             document.getElementById("im_id").value = name;
         }
 
@@ -70,7 +75,15 @@
     <form action="/len/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for ="mem_id">회원아이디</label>
+            <ul><?php
+                    if($title == '대출 추가'){
+                ?>
+                <input type="button" name="del_check" id="ide_check" value="상호대차" onclick="checkdel();">
+                <input type="button" name="del_check" id="ide_check" value="예약" onclick="checkdel();"><br>
+                <?php
+                    }
+                ?>
+                <label for ="mem_id">회원아이디</label>
                 <input type="text" name="mem_id" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
                 <input type="button" name="mem_check" id="im_check" value="회원 찾기" onclick="checkmem();"><br>
                 <label for ="lib_name">도서관</label>
@@ -84,8 +97,7 @@
                         echo "<option  value = $no[$z] > $name[$z] </option>";
                     }
                     ?>
-                </select>
-                <input type="button" name="del_check" id="ide_check" value="상호대차" onclick="checkdel();"><br>
+                </select><br>
                 <label for ="book_name">책이름</label>
                 <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
@@ -110,6 +122,7 @@
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
                 <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){if(!empty($row['del_no'])){echo $row['del_no'];}}?>">
+                <input type="hidden" id="id_res" name="res_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
