@@ -46,6 +46,9 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $title = '상호대차 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -192,17 +195,6 @@ class DelController{
     public function pagelent(){
         $len_no = $_GET['len_no'];
         echo "<script>location.href='/len/addupdate?len_no=$len_no'</script>";
-    }
-
-    public function libraryarray(){
-        $num = 1;
-        $result = $this->libTable->selectAll();
-        $lib_array[0] = '없음';
-        foreach($result as $row):
-            $lib_array[$num] = $row['lib_name'];
-            $num++;
-        endforeach;
-        return $lib_array;
     }
 }
 ?>

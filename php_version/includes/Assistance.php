@@ -118,5 +118,17 @@ class Assistance{
 
 		return $str_fianl;
 	}
+
+	public function libraryarray(PDO $pdo){
+        $num = 1;
+		$sql = "SELECT * FROM `library`";
+        $result = $pdo->query($sql);
+        $lib_array[0] = '없음';
+        foreach($result as $row):
+            $lib_array[$num] = $row['lib_name'];
+            $num++;
+        endforeach;
+        return $lib_array;
+    }
 }
 ?>

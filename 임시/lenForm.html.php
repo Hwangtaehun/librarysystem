@@ -20,9 +20,6 @@
                 myform.id_name.focus();
                 return false;
             }
-            if(myform.mi_many.value.length <= 0){
-                document.getElementById("mi_many").value = '0';
-            }
             return true;
         }
 
@@ -84,9 +81,9 @@
                     }
                 ?>
                 <label for ="mem_id">회원아이디</label>
-                <input type="text" name="mem_id" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
+                <input type="text" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
                 <input type="button" name="mem_check" id="im_check" value="회원 찾기" onclick="checkmem();"><br>
-                <label for ="lib_name">수신도서관</label>
+                <label for ="lib_name">도서관</label>
                 <select id ="il_no" name="lib_no">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
@@ -99,7 +96,7 @@
                     ?>
                 </select><br>
                 <label for ="book_name">책이름</label>
-                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
+                <input type="text" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
                 <?php if(isset($row)){ ?>
                     <label for ="len_date">대출일</label>
@@ -118,7 +115,6 @@
                 <label for ="len_ex">메모</label>
                 <input type="text" name="len_memo" id="id_memo" value="<?php echo $row['len_memo']; ?>"><br>
                 <?php }?> 
-                <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
                 <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){if(!empty($row['del_no'])){echo $row['del_no'];}}?>">
@@ -135,16 +131,16 @@
     if(isset($row)){
         $len_ex = $row['len_ex'];
         $len_re_st = $row['len_re_st'];
-        $lib_no = $row['lib_no'];
-        echo "var lib_no = $lib_no;";
+        // $lib_no = $row['lib_no'];
+        // echo "var lib_no = $lib_no;";
     ?>
         const normal = document.getElementById('id_normal');
         const extend = document.getElementById('id_extend');
         const lent = document.getElementById('id_lent');
         const ret = document.getElementById('id_return');
         const etc = document.getElementById('id_etc');
-        const li = document.getElementById('il_no');
-        li.value = lib_no;
+        // const li = document.getElementById('il_no');
+        // li.value = lib_no;
 
     <?php
         if($len_ex == 0){

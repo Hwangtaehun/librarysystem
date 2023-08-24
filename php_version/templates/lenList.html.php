@@ -65,6 +65,10 @@
             $ispop = false;
             $action = "/len/research";
         }
+        else if($title == '반납 추가'){
+            $ispop = false;
+            $action = "/len/research?title=$title";
+        }
         else{
             $ispop = true;
             $action = "/len/research?title=$title&pop=true";
@@ -148,17 +152,16 @@
                 } 
                 else{
                     if ($mem_state == 1) {
-                        if($title != '반납추가'){ ?>
+                        if($title != '반납 추가'){ ?>
                             <form action="/len/delete" method="post">
                                 <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
                                 <input type="submit" value="삭제">
                                 <a href="/len/addupdate?len_no=<?=$row['len_no']?>"><input type="button" value="수정"></a>
                   <?php }
                         else{ ?>
-                            <form action="/len/returnLent()" method="post">
+                            <form action="/len/returnadd" method="post">
                                 <label for ="len_re_date">반납일</label>
                                 <input type="date" name="len_re_date" id="il_date" value="">
-                                <input type="button" name="today" value="오늘" onclick="changeDate()"><br>
                                 <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
                                 <input type="hidden" name="len_re_st" value="1">
                                 <input type="submit" value="반납">

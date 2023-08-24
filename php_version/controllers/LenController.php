@@ -169,23 +169,21 @@ class LenController{
                 }
             }
             else{
-                if($this->assist->dateformat_check($_POST['len_date'])){
-                    echo "<script>alert('날짜형식이 잘못되었습니다.')</script>"; 
-                }
-                else{
-                    $this->lenTable->updateData($_POST);
-                    $row = $this->lenTable->selectID($_POST['len_no']);
-                    if($row['len_re_st'] == 1){
-                        if($_POST['len_re_st'] != 1){
-                            $len_no = $_POST['len_no'];
-                            $sql = "UPDATE `place` SET `lib_no_re` = NULL WHERE `len_no` = $len_no";
-                            $this->plaTable->delupdateSQL($sql);
-                            $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
-                            $this->dueTable->delupdateSQL($sql);
-                            header('location: /len/list');
-                        }
+                $param = ['len_no'=>$_POST['len_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 'len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo']];
+                print_r($param);
+                $this->lenTable->updateData($param);
+                $len_no = $_POST['len_no'];
+                $row = $this->lenTable->selectID($_POST['len_no']);
+                if($row['len_re_st'] == 1){
+                    if($_POST['len_re_st'] != 1){
+                        $len_no = $_POST['len_no'];
+                        $sql = "UPDATE `place` SET `lib_no_re` = NULL WHERE `len_no` = $len_no";
+                        $this->plaTable->delupdateSQL($sql);
+                        $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
+                        $this->dueTable->delupdateSQL($sql);
                     }
                 }
+                header('location: /len/list');
             }
         }
         if(isset($_GET['len_no'])){
@@ -193,7 +191,6 @@ class LenController{
             $sql = $this->sql."AND lent.len_no = $len_no";
             $stmt = $this->matTable->joinSQL($sql);
             $row = $stmt->fetch();
-            //$row = $this->lenTable->selectID($_GET['len_no']);
             $title2 = ' 수정';
             $title = '대출'.$title2;
             return ['tempName'=>'lenForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
@@ -259,7 +256,7 @@ class LenController{
         // $result = $this->delTable->selectAll();
         // $title = '상호대차';
         // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
-        echo "<script>location.href='/del/list?pop=true';</script>";
+        echo "<script>location.href='/del/list?title=상호대차찾기&pop=true';</script>";
     }
 
     public function respop(){

@@ -17,7 +17,7 @@
         }
 
         <?php
-        if($title == '상호대차'){
+        if($title == '상호대차찾기'){
             $ispop = true;
             $action = "/del/research?title=$title&pop=true";
         }
@@ -35,7 +35,7 @@
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", true);
     $lib = $lib_man->result_call();
     $mem_state = $_SESSION['mem_state'];
-    $lib_array = $DelController->libraryarray();
+    $lib_array = $assist->libraryarray($pdo);
 ?>
 <body>
 <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
@@ -78,10 +78,10 @@
                 <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?>
                 <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> 
                 <?php if(!$ispop){ ?>
-                    <?php if($title != '상호대차도착일추가'){ ?>
+                    <?php if($title != '상호대차도착일추가'){ if(isset($row['del_arr_date'])){ ?>
                         <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?>
-                    <?php } ?>
-                <?=htmlspecialchars($row['del_app'],ENT_QUOTES,'UTF-8');?>
+                    <?php } } ?>
+                <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?>
                 <?php } ?>
             </div>
             <?php if($ispop){
@@ -91,7 +91,9 @@
                     $mat = "'".$row['mat_no']."'";
                     $book = "'".$row['book_name']."'";
                     $del = "'".$row['del_no']."'";
-                    echo '<input type=button value="선택" onclick="opener.parent.delValue('.$mem.','.$id.','.$mat.','.$book.','.$del.'); window.close();">';
+                    if($row['del_app'] == 1){
+                        echo '<input type=button value="선택" onclick="opener.parent.delValue('.$mem.','.$id.','.$mat.','.$book.','.$del.'); window.close();">';
+                    }
                 } 
                 else{
                     if ($mem_state == 1) {
