@@ -32,7 +32,7 @@
                     else{
                         $mem_no = $_SESSION['mem_no'];
                         echo '<li><a href="/mat/list">자료 검색</a><li>';
-                        echo '<li><a>내서재</a><ul><li><a href="/len/memLent">대출중도서</a></li><li><a href="/len/memAllLent">모든대출내역</a></li><li><a href="#">예약내역</a></li><li><a href="#">상호대차내역</a></li></ul></li>';
+                        echo '<li><a>내서재</a><ul><li><a href="/len/memLent">대출중도서</a></li><li><a href="/len/memAllLent">모든대출내역</a></li><li><a href="#">예약내역</a></li><li><a href="del/list">상호대차내역</a></li></ul></li>';
                         echo '<li><a>마이페이지</a><ul><li><a href="/member/addupdate?mem_no='.$mem_no.'">회원정보수정</a></li><li><a href="/member/memdel?mem_no='.$mem_no.'">회원탈퇴</a></li></ul></li>';
                     }
                     echo '<li><a href="/member/logout">로그아웃</a></li>';

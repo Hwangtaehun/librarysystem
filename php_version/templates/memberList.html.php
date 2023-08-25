@@ -28,12 +28,12 @@
 <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">
         <?php
-         $state = $row['mem_state'];
+         $m_state = $row['mem_state'];
 
-         if($state == 0){
+         if($m_state == 0){
             $mem_state = '일반';
          }
-         else if($state == 1){
+         else if($m_state == 1){
             $mem_state = '관리자';
          }
          else{
@@ -53,10 +53,11 @@
         <?php
             if($ispop){
                 echo '<form>';
-                $name = "'".$row['mem_id']."'";
                 $no = "'".$row['mem_no']."'";
-                if($state == 0){
-                    echo '<input type=button value="선택" onclick="opener.parent.memValue('.$name.', '.$no.'); window.close();">';
+                $name = "'".$row['mem_id']."'";
+                $state = "'".$row['mem_state']."'";
+                if($state != 1){
+                    echo '<input type=button value="선택" onclick="opener.parent.memValue('.$no.','.$name.','.$state.'); window.close();">';
                 }
             }
             else{

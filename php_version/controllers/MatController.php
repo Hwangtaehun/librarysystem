@@ -228,7 +228,12 @@ class MatController{
         // $title = '상호대차';
         // return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
         $mat_no = $_GET['mat_no'];
-        $lib_no = $_GET['lib_no'];
+        $m_sql = $this->sql."AND material.mat_no = $mat_no";
+        $stmt = $this->matTable->joinSQL($m_sql);
+        $row = $stmt->fetch();
+        $lib_no = $row['lib_no'];
+        $book_name = $row['book_name'];
+        setcookie('mat_no'.$mat_no, $book_name);
         echo "<script>location.href='/del/addupdate?mat_no=$mat_no&lib_no=$lib_no&pop=true';</script>";
     }
 }

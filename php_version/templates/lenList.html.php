@@ -48,13 +48,13 @@
             document.getElementById("il_date").value = date("Y-m-d");
         }
 
-        function matValue(name, no){
+        function matValue(no, name){
             document.getElementById("id_mat").value = no;
             bookname = name;
             document.getElementById("id_research").value = memid+' '+bookname;
         }
 
-        function memValue(name, no){
+        function memValue(no, name, state){
             document.getElementById("id_mem").value = no;
             memid = name;
             document.getElementById("id_research").value = memid+' '+bookname;
@@ -65,13 +65,13 @@
             $ispop = false;
             $action = "/len/research";
         }
-        else if($title == '반납 추가'){
-            $ispop = false;
-            $action = "/len/research?title=$title";
-        }
-        else{
+        else if($title == '대출찾기'){
             $ispop = true;
             $action = "/len/research?title=$title&pop=true";
+        }
+        else{
+            $ispop = false;
+            $action = "/len/research?title=$title";
         }
         ?>
     </script>
@@ -82,6 +82,12 @@
     $mem_state = $_SESSION['mem_state'];
 ?>
 <body>
+    <?php if($mem_state != 1){ ?>
+    <form action="/len/research" method="post" onsubmit="return checkResearch(this)">
+        <input type="text" name="user_research" id="id_research" value = "" placeholder="책제목을 입력해주세요.">
+        <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
+        <input type="submit" value = "검색">
+    <?php }else{ ?>
     <form action="/len/research" method="post" onsubmit="return checkResearch(this)">
         <select id = "s1" name = "opt_type" onchange="changeSelect()">
             <option value=0>전체</option>
@@ -95,13 +101,15 @@
         <input type="hidden" id="id_mat" name="mat_no" value="">
         <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
         <input type="submit" value = "검색">
+    <?php } ?>
     </form>
     <?php if(isset($result)){foreach($result as $row): ?>
         <fieldset id="fieldset_row">
             <div id="div_row">
                 <?php
                     if($title == '대출중자료'){
-                        $reDate = $assist->estimateReturndate($row['len_re_date'], $row['len_ex']);
+                        $date = $row['len_date'];
+                        $reDate = $assist->estimateReturndate((string)$date, $row['len_ex']);
                     }
 
                     if(isset($row['len_re_st'])){

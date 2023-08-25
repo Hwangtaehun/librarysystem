@@ -15,9 +15,6 @@
                 myform.id_name.focus();
                 return false;
             }
-            if(myform.id_arr_date.value.length <= 0){
-                document.getElementById("mi_many").value = null;
-            }
             return true;
         }
 
@@ -26,7 +23,7 @@
             window.open(url,"chkbk","width=400,height=200");
         }
 
-        function matValue(name, no){
+        function matValue(no, name){
             document.getElementById("id_mem").value = no;
             document.getElementById("ib_name").value = name;
         }
@@ -34,7 +31,6 @@
 </head>
 <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
-
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
     $lib = $lib_man->result_call();
 ?>
@@ -43,8 +39,20 @@
         <fieldset id = form_fieldset>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for ="book_name">책이름</label>
-                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_GET['book_name'])){echo $_GET['book_name'];}?>" readonly>
-                <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
+                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_COOKIE['mat_no'.$_GET['mat_no']])){echo $_COOKIE['mat_no'.$_GET['mat_no']];}?>" readonly>
+                <?php if(!isset($_GET['mat_no'])){ ?>
+                    <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();">
+                <?php } ?>
+                <br>
+                <?php if(isset($_GET['lib_no'])) {
+                    $lib_arr[0] = '없음';
+                    for ($z=0; $z < sizeof($lib); $z++) { 
+                        $lib_arr[$z+1] = $lib[$z][1];
+                    }
+                    $value = $lib_arr[$_GET['lib_no']]; ?>
+                    <label for ="org_name">소장도서관</label>
+                    <input type="text" value="<?php $value ?>" readonly>
+                <?php } ?>
                 <label for ="lib_name">수신도서관</label>
                 <select id ="il_no" name="lib_no_arr">
                     <?php
@@ -90,12 +98,12 @@
 
         li.value = lib_no;
     <?php
-        if($len_re_st == 0){
+        if($del_app == 0){
     ?>
             de.checked = true;
     <?php
         }
-        else if($len_re_st == 1){
+        else if($del_app == 1){
     ?>
             ap.checked = true;
     <?php

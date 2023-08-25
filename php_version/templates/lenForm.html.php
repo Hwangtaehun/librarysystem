@@ -12,12 +12,17 @@
         function checkInput(myform) {
             if(myform.im_id.value.length <= 0){
                 alert("아이디를 찾아주세요.");
-                myform.id_name.focus();
+                myform.im_id.focus();
                 return false;
             }
             if(myform.ib_name.value.length <= 0){
                 alert("책 정보를 찾아주세요.");
-                myform.id_name.focus();
+                myform.ib_name.focus();
+                return false;
+            }
+            if(myform.id_sta.value == '2'){
+                alert("정지된 계정이어서 대출이 불가능합니다.");
+                myform.im_id.focus();
                 return false;
             }
             if(myform.mi_many.value.length <= 0){
@@ -46,12 +51,13 @@
             // window.open(url,"chkde","width=400,height=200");
         }
 
-        function memValue(name, no){
+        function memValue(no, name, state){
             document.getElementById("id_mem").value = no;
             document.getElementById("im_id").value = name;
+            document.getElementById("id_sta").value = state;
         }
 
-        function matValue(name, no){
+        function matValue(no, name){
             document.getElementById("id_mat").value = no;
             document.getElementById("ib_name").value = name;
         }
@@ -67,7 +73,6 @@
 </head>
 <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
-
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
     $lib = $lib_man->result_call();
 ?>
@@ -126,6 +131,7 @@
                 <?php }?> 
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
+                <input type="hidden" id="id_sta" name="mem_state" value="<?php if(isset($row)){echo $row['mem_state'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
                 <?php if($title == '대출 추가'){ ?>
                 <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){if(!empty($row['del_no'])){echo $row['del_no'];}}?>">

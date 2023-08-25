@@ -16,6 +16,28 @@
             document.getElementById("il_date").value = date("Y-m-d");
         }
 
+        function changeSelect(){
+            var value = document.getElementById("s1").value;
+            const mem = document.getElementById("ie_research");
+            const mat = document.getElementById("ia_research");
+            if(value == '1'){
+                document.getElementById("id_research").value = "";
+                document.getElementById("id_mat").value = "";
+                mem.disabled=false;
+                mat.disabled=true;   
+            }
+            else if(value == '2'){
+                document.getElementById("id_research").value = "";
+                document.getElementById("id_mem").value = "";
+                mem.disabled=true;
+                mat.disabled=false;
+            }
+            else{
+                mem.disabled=false;
+                mat.disabled=false;
+            }
+        }
+
         <?php
         if($title == '상호대차찾기'){
             $ispop = true;
@@ -38,20 +60,26 @@
     $lib_array = $assist->libraryarray($pdo);
 ?>
 <body>
-<form action="/del/research" method="post" onsubmit="return checkResearch(this)">
-        <select id = "s1" name = "lib_research">
-            <?php
-            for($z = 0; $z < sizeof($lib); $z++){
-                $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
-            }
-            for($z = 0;$z < sizeof($lib); $z++){
-                echo "<option  value = $no[$z] > $name[$z] </option>";
-            }
-            ?>
-        </select>
+    <?php if($mem_state != 1){ ?>
+    <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
         <input type="text" name="user_research" id="id_research" value = "" placeholder="책제목을 입력해주세요.">
+        <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
         <input type="submit" value = "검색">
-    </form>
+    <?php }else{ ?>
+    <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
+        <select id = "s1" name = "opt_type" onchange="changeSelect()">
+            <option value=0>전체</option>
+            <option value=1>회원id</option>
+            <option value=2>자료이름</option>
+        </select>
+        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();"></a>
+        <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();"></a>
+        <input type="text" name="user_research" id="id_research" value = "" readonly>
+        <input type="hidden" id="id_mem" name="mem_no" value="">
+        <input type="hidden" id="id_mat" name="mat_no" value="">
+        <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
+        <input type="submit" value = "검색">
+    <?php } ?>
     <?php if(isset($result)){foreach($result as $row): ?>
         <fieldset id="fieldset_row">
             <div id="div_row">
@@ -66,7 +94,7 @@
                         }
                     }
                     
-                if($title == '상호대차완료내역'){ ?>
+                if($title != '상호대차도착일추가'){ ?>
                     <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>
@@ -97,7 +125,7 @@
                 } 
                 else{
                     if ($mem_state == 1) {
-                        if($title == '상호대차관리'){ ?>
+                        if($title == '상호대차 현황'){ ?>
                             <form action="/del/delete" method="post">
                                 <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
                                 <input type="submit" value="삭제">

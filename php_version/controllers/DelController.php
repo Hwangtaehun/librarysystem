@@ -55,6 +55,7 @@ class DelController{
     public function completelist(){
         $this->sql = $this->sql." AND lent.len_no IS NOT NULL ";
         $sql = $this->sql.$this->sort;
+        echo '$sql = '.$sql;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $title = '상호대차완료 현황';
@@ -71,17 +72,41 @@ class DelController{
     }
 
     public function research(){
+        $title = '상호대차 현황';
+
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
+
+        if(isset($_POST['title'])){
+            $title = $_POST['title'];
+        }
+
         $value = '%'.$_POST['user_research'].'%';
         if($_POST['lib_research'] != 0){
             $lib_no = $_POST['lib_research'];
-            $where = "WHERE book.book_name LIKE '$value' AND library.lib_no = $lib_no";
+            $sql = $this->sql." AND book.book_name LIKE '$value' AND library.lib_no = $lib_no";
+        }
+        else if($_SESSION['mem_state'] == 1){
+            if($_POST['mem_no'] == ''){
+                $mat_no = $_POST['mat_no'];
+                $sql = $this->sql." AND delivery.mat_no = $mat_no";
+            }
+            else if($_POST['mat_no'] == ''){
+                $mem_no = $_POST['mem_no'];
+                $sql = $this->sql." AND delivery.mem_no = $mem_no";
+            }
+            else{
+                $mem_no = $_POST['mem_no'];
+                $mat_no = $_POST['mat_no'];
+                $sql = $this->sql." AND delivery.mat_no = $mat_no AND delivery.mem_no = $mem_no";
+            }
         }
         else{
-            $where = "WHERE book.book_name LIKE '$value'";
+            $sql = $this->sql." AND book.book_name LIKE '$value'";
         }
-        $stmt = $this->delTable->whereSQL($where);
+        $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '상호대차 현황';
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -120,7 +145,11 @@ class DelController{
             }
         }
         if(isset($_GET['del_no'])){
-            $row = $this->delTable->selectID($_GET['del_no']);
+            $del_no = $_GET['del_no'];
+            $sql = $this->sql." AND `del_no` = $del_no";
+            $stmt = $this->delTable->joinSQL($sql);
+            $row =  $stmt->fetch();
+            //$row = $this->delTable->selectID($_GET['del_no']);
             $title2 = ' 수정';
             $title = '상호대차'.$title2;
             return ['tempName'=>'delForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];

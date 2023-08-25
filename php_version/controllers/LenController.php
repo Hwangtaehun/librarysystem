@@ -105,6 +105,8 @@ class LenController{
     }
 
     public function research(){
+        $title = '대출 현황';
+        
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }

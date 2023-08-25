@@ -48,7 +48,6 @@
 </head>
 <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
-
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
     $lib = $lib_man->result_call();
 ?>
