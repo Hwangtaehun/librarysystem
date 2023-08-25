@@ -56,21 +56,21 @@
     $lib_array = $assist->libraryarray($pdo);
 ?>
 <body>
-    <? if($mem_state != 1){ ?>
-    <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
+    <?php if($mem_state != 1){ ?>
+        <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
         <input type="text" name="user_research" id="id_research" value = "" placeholder="책제목을 입력해주세요.">
         <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
         <input type="submit" value = "검색">
-    <? }else if($title == '상호대차도착일추가'){ ?>
-    <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
+    <?php }else if($title == '상호대차도착일추가'){ ?>
+        <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
         <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();"></a>
         <input type="text" name="user_research" id="id_research" value = "" readonly>
         <input type="hidden" id="id_mem" name="mem_no" value="">
         <input type="hidden" id="id_mat" name="mat_no" value="">
         <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
         <input type="submit" value = "검색">
-    <? }else{ ?>
-    <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
+    <?php }else{ ?>
+        <form action="/del/research" method="post" onsubmit="return checkResearch(this)">
         <select id = "s1" name = "opt_type" onchange="changeSelect()">
             <option value=0>전체</option>
             <option value=1>회원id</option>
@@ -141,7 +141,6 @@
                                 <label for ="del_arr_date">도착일</label>
                                 <input type="date" name="del_arr_date" id="il_date" value="">
                                 <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
-                                <input type="hidden" name="del_re_st" value="1">
                                 <input type="submit" value="도착일추가">
                   <?php }
                     } 

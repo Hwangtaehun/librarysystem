@@ -53,9 +53,8 @@ class DelController{
     }
 
     public function completelist(){
-        $this->sql = $this->sql." AND lent.len_no IS NOT NULL ";
+        $this->sql = $this->sql." AND delivery.len_no IS NOT NULL ";
         $sql = $this->sql.$this->sort;
-        echo '$sql = '.$sql;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $title = '상호대차완료 현황';
@@ -63,7 +62,7 @@ class DelController{
     }
 
     public function addlist(){
-        $this->sql = $this->sql." AND delivery.del_arr_date IS NULL ";
+        $this->sql = $this->sql." AND delivery.del_arr_date IS NULL AND delivery.del_app = 1 ";
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
@@ -134,13 +133,14 @@ class DelController{
                     $stmt = $this->delTable->whereSQL($where);
                     $result = $stmt->fetch();
     
-                    if($this->assist->dateformat_check($_POST['lib_arr_date'])){
-                        echo "<script>alert('날짜형식이 잘못되었습니다.'); history.back();</script>";
+                    if($_POST['lib_arr_date'] == ''){
+                        $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
+                        $this->delTable->updateData($param);
                     }
                     else{
                         $this->delTable->updateData($_POST);
-                        header('location: /del/list');
                     }
+                    header('location: /del/list');
                 }
             }
         }
@@ -167,20 +167,22 @@ class DelController{
     }
 
     public function arrive(){
-        $mat_no = $_POST['mat_no'];
-        $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
-        $result = $this->delTable->whereSQL($where);
+        // $mat_no = $_POST['mat_no'];
+        // $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
+        // $result = $this->delTable->whereSQL($where);
 
-        if($this->assist->resultempty_check($result)){
-            echo "<script>alert('상호대차로 신청된 자료가 아닙니다.')</script>";
-        }
-        else if($this->assist->dateformat_check($_POST['lib_no_arr'])){
-            echo "<script>alert('날짜형식이 잘못되었습니다.')</script>";
-        }
-        else{
-            $this->delTable->updateData($_POST);
-            header('location: /del/list');
-        }
+        // if($this->assist->resultempty_check($result)){
+        //     echo "<script>alert('상호대차로 신청된 자료가 아닙니다.')</script>";
+        // }
+        // else if($this->assist->dateformat_check($_POST['lib_no_arr'])){
+        //     echo "<script>alert('날짜형식이 잘못되었습니다.')</script>";
+        // }
+        // else{
+        //     $this->delTable->updateData($_POST);
+        //     header('location: /del/list');
+        // }
+        $this->delTable->updateData($_POST);
+        header('location: /del/list');
     }
 
     public function mempop(){

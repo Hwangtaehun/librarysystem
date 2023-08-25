@@ -35,7 +35,7 @@
     $lib = $lib_man->result_call();
 ?>
 <body>
-    <form action="/len/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
+    <form action="/del/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for ="book_name">책이름</label>
@@ -76,6 +76,7 @@
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
                 <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}else if($mem_state == 0){echo $_SESSION['mem_no'];}?>">
                 <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}else if(isset($_GET['mat_no'])){echo $_GET['mat_no'];}?>">
+                <input type="hidden" name="del_no" value="<?php if(isset($row)){echo $row['del_no'];}?>">
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
@@ -90,6 +91,7 @@
         echo "const li = document.getElementById('il_no');";
         $lib_no = $row['lib_no_arr'];
         echo "var lib_no = $lib_no;";
+        echo "li.value = lib_no;";
     }
 
     if(isset($row['del_app'])){ ?>
