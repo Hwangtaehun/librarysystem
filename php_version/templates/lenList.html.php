@@ -173,7 +173,7 @@
                             $lib = $lib_man->result_call(); 
                             ?>
                             <form action="/len/returnadd" method="post">
-                                <label for ="lib_name">대출 도서관</label>
+                                <label for ="lib_name">반납 도서관</label>
                                 <select id ="il_no" name="lib_no">
                                     <?php
                                     for($z = 0; $z < sizeof($lib); $z++){

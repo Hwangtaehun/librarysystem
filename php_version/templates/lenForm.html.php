@@ -25,9 +25,6 @@
                 myform.im_id.focus();
                 return false;
             }
-            if(myform.mi_many.value.length <= 0){
-                document.getElementById("mi_many").value = '0';
-            }
             return true;
         }
 
@@ -149,43 +146,28 @@
     if(isset($row)){
         $len_ex = $row['len_ex'];
         $len_re_st = $row['len_re_st'];
-        $lib_no = $row['lib_no'];
-        echo "var lib_no = $lib_no;";
     ?>
         const normal = document.getElementById('id_normal');
         const extend = document.getElementById('id_extend');
         const lent = document.getElementById('id_lent');
         const ret = document.getElementById('id_return');
         const etc = document.getElementById('id_etc');
-        const li = document.getElementById('il_no');
-        li.value = lib_no;
 
     <?php
         if($len_ex == 0){
-    ?>
-            normal.checked = true;
-    <?php
+            echo "normal.checked = true;";
         }
         else{
-    ?>
-            extend.checked = true;
-    <?php
+            echo "extend.checked = true;";
         }
-
         if($len_re_st == 0){
-    ?>
-            lent.checked = true;
-    <?php
+            echo "lent.checked = true;";
         }
         else if($len_re_st == 1){
-    ?>
-            ret.checked = true;
-    <?php
+            echo "ret.checked = true;";
         }
         else{
-    ?>
-            etc.checked = true;
-    <?php
+            echo "etc.checked = true;";
         }
     }
     ?>

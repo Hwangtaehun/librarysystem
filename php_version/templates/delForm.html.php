@@ -86,34 +86,28 @@
 </body>
 <script>
     <?php
-    if(isset($row)){
+    if(isset($row['lib_no_arr'])){
+        echo "const li = document.getElementById('il_no');";
         $lib_no = $row['lib_no_arr'];
-        $del_app = $row['del_app'];
-        echo 'var lib_no = '.$lib_no;
-    ?>
-        const li = document.getElementById('il_no');
+        echo "var lib_no = $lib_no;";
+    }
+
+    if(isset($row['del_app'])){ ?>
         const de = document.getElementById('id_de');
         const ap = document.getElementById('id_ap');
         const re = document.getElementById('id_re');
-
-        li.value = lib_no;
     <?php
+        $del_app = $row['del_app'];
         if($del_app == 0){
-    ?>
-            de.checked = true;
-    <?php
+            echo "de.checked = true;";
         }
         else if($del_app == 1){
-    ?>
-            ap.checked = true;
-    <?php
+            echo "ap.checked = true;";
         }
         else{
-    ?>
-            re.checked = true;
-    <?php
+            echo "re.checked = true;";
         }
-    }
-    ?>
+    }?>
+        
 </script>
 </html>
