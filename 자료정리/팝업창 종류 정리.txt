@@ -3,6 +3,6 @@ book, delivery, kind, lent, material, member, reservation
 
 MatController->delpop, bookpop, kindpop, matpop
 DelController->mempop, matpop, matlibpop, pagelent
-LenController->matpop, mempop, delpop, respop
+LenController->matpop, mempop, delpop, respop --대출도서관 변경
 ResController->mempop
 EtcController->lenpop, mempop

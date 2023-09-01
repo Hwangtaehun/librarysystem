@@ -34,6 +34,28 @@
             }
         }
 
+        function checkmem() {
+            url = "/len/mempop";
+            window.open(url,"chkbk","width=400,height=200");
+        }
+
+        function checkmat() {
+            url = "/len/matpop";
+            window.open(url,"chkbk","width=400,height=200");
+        }
+
+        function memValue(no, name, state){
+            document.getElementById("id_mem").value = no;
+            memid = name;
+            document.getElementById("id_research").value = memid+' '+bookname;
+        }
+
+        function matValue(no, name){
+            document.getElementById("id_mat").value = no;
+            bookname = name;
+            document.getElementById("id_research").value = memid+' '+bookname;
+        }
+
         <?php
         if($title == '상호대차찾기'){
             $ispop = true;
@@ -121,11 +143,13 @@
                     echo '<form>';
                     $mem = "'".$row['mem_no']."'";
                     $id = "'".$row['mem_id']."'";
+                    $state = "'".$row['mem_state']."'";
                     $mat = "'".$row['mat_no']."'";
                     $book = "'".$row['book_name']."'";
+                    $lib = "'".$row['lib_no_arr']."'";
                     $del = "'".$row['del_no']."'";
                     if($row['del_app'] == 1){
-                        echo '<input type=button value="선택" onclick="opener.parent.delValue('.$mem.','.$id.','.$mat.','.$book.','.$del.'); window.close();">';
+                        echo '<input type=button value="선택" onclick="opener.parent.delValue('.$mem.','.$id.','.$state.','.$mat.','.$book.','.$lib.','.$del.'); window.close();">';
                     }
                 } 
                 else{

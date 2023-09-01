@@ -44,8 +44,8 @@
         }
 
         function checkres() { //reservation의 template을 완성후 사용해보기
-            // url = "/len/respop";
-            // window.open(url,"chkde","width=400,height=200");
+            url = "/len/respop";
+            window.open(url,"chkde","width=400,height=200");
         }
 
         function memValue(no, name, state){
@@ -59,12 +59,23 @@
             document.getElementById("ib_name").value = name;
         }
 
-        function delValue(mem, id, mat, book, del){
+        function delValue(mem, id, state, mat, book, lib, del){
             document.getElementById("id_mem").value = mem;
             document.getElementById("im_id").value = id;
+            document.getElementById("id_sta").value = state;
             document.getElementById("id_mat").value = mat;
             document.getElementById("ib_name").value = book;
+            document.getElementById("il_no").value = lib; //안되면 const사용하기
             document.getElementById("id_del").value = del;
+        }
+
+        function resValue(mem, id, state, mat, book, lib){
+            document.getElementById("id_mem").value = mem;
+            document.getElementById("im_id").value = id;
+            document.getElementById("id_sta").value = state;
+            document.getElementById("id_mat").value = mat;
+            document.getElementById("ib_name").value = book;
+            document.getElementById("il_no").value = lib; //안되면 const사용하기
         }
     </script>
 </head>
@@ -81,7 +92,7 @@
                     if($title == '대출 추가'){
                 ?>
                 <input type="button" name="del_check" id="ide_check" value="상호대차" onclick="checkdel();">
-                <input type="button" name="del_check" id="ide_check" value="예약" onclick="checkdel();"><br>
+                <input type="button" name="del_check" id="ide_check" value="예약찾기" onclick="checkres();"><br>
                 <?php
                     }
                 ?>
