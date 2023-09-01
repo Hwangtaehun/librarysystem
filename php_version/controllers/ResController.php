@@ -34,9 +34,10 @@ class ResController{
         $mem_state = $_SESSION['mem_state'];
         if($mem_state != 1){
             $mem_no = $_SESSION['mem_no'];
-            $this->sql = $this->sql." AND member.mem_no LIKE $mem_no".$this->sort;
+            $this->sql = $this->sql." AND member.mem_no LIKE $mem_no";
         }
-        $stmt = $this->resTable->joinSQL($this->sql);
+        $sql = $this->sql.$this->sort;
+        $stmt = $this->resTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $title = '예약 현황';
         if(isset($_GET['title'])){
@@ -46,10 +47,18 @@ class ResController{
     }
 
     public function research(){
-        $value = $_POST['research_id'];
-        $where = "WHERE reservation.mem_no LIKE '$value'".$this->sort;
-        $stmt = $this->resTable->whereSQL($where);
-        $result = $stmt->fetchAll();
+        if($_SESSION['mem_state'] == 1){
+            $value = $_POST['mem_no'];
+            $sql = $this->sql." AND reservation.mem_no LIKE '$value'".$this->sort;
+            $stmt = $this->resTable->joinSQL($sql);
+            $result = $stmt->fetchAll();
+        }
+        else{
+            $value = $_POST['user_research'];
+            $sql = "AND ".$this->sort." AND book.book_name LIKE '%$value%'";
+            $stmt = $this->resTable->joinSQL($sql);
+            $result = $stmt->fetchAll();
+        }
         $title = '예약 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
