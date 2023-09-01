@@ -62,7 +62,6 @@
         <form action="/res/delete" method="post">
                 <input type="hidden" name="mem_no" value="<?=$row['res_no']?>">
                 <input type="submit" value="삭제">
-                <a href="/res/addupdate?res_no=<?=$row['res_no']?>"><input type="button" value="수정"></a>
         <?php } ?>
         </form>
         </fieldset>
