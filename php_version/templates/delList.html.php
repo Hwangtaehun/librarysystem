@@ -167,6 +167,11 @@
                                 <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
                                 <input type="submit" value="도착일추가">
                   <?php }
+                        else{ ?>
+                            <form action="/del/pagelent" method="post">
+                                <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
+                                <input type="submit" value="이동">
+                  <?php }
                     } 
                 }
             ?>

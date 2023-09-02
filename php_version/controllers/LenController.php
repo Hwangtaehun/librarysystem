@@ -132,8 +132,17 @@ class LenController{
         }
         else{
             $value = '%'.$_POST['user_research'].'%';
-            $sql = $this->sql." AND book_name LIKE '$value'";
+            $sql = $this->sql." AND book.book_name LIKE '$value'";
         }
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+    }
+
+    public function listlen(){
+        $title = '대출 현황';
+        $value = $_GET['len_no'];
+        $sql = $this->sql." AND lent.len_no LIKE '$value'";
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
