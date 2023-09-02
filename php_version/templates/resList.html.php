@@ -42,7 +42,7 @@
         <input type="submit" value = "검색">
     <?php }else{ ?>
         <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
-        <input type="text" name="user_research" id="id_research" value = "책이름을 입력해주세요.">
+        <input type="text" name="user_research" id="id_research" value = "" placeholder="책이름을 입력하세요.">
         <input type="submit" value = "검색"> 
     <?php } ?>
     </form>

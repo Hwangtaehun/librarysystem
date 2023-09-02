@@ -55,7 +55,7 @@ class ResController{
         }
         else{
             $value = $_POST['user_research'];
-            $sql = "AND ".$this->sort." AND book.book_name LIKE '%$value%'";
+            $sql = $this->sql." AND book.book_name LIKE '%$value%'";
             $stmt = $this->resTable->joinSQL($sql);
             $result = $stmt->fetchAll();
         }
