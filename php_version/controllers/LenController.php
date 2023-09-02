@@ -68,10 +68,10 @@ class LenController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
+        $title = '대출 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        $title = '대출 현황';
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 

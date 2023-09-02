@@ -69,7 +69,7 @@
                 else{
             ?>
             <form action="/res/delete" method="post">
-                    <input type="hidden" name="mem_no" value="<?=$row['res_no']?>">
+                    <input type="hidden" name="res_no" value="<?=$row['res_no']?>">
                     <input type="submit" value="삭제">
             <?php } ?>
             </form>

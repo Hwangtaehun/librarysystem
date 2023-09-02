@@ -127,7 +127,7 @@
                         $extend = '연장 O';
                     }
 
-                if($title == '대출 현황'){ ?>
+                if($title == '대출 현황' || $title == '대출찾기'){ ?>
                     <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>
@@ -143,7 +143,7 @@
                 if($title == '모든대출내역'){ ?>
                     <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?>
                 <?php }
-                else if($title == '대출 현황'){ ?>
+                else if($title == '대출 현황' || $title == '대출찾기'){ ?>
                     <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?>
                     <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?>
                 <?php if(!empty($row['len_memo'])){ ?>
@@ -153,10 +153,11 @@
             </div>
             <?php if($ispop){
                     echo '<form>';
-                    $mem = "'".$row['mem_no']."'";
-                    $mat = "'".$row['mat_no']."'";
+                    $mem = "'".$row['mem_id']."'";
+                    $mat = "'".$row['book_name']."'";
                     $no = "'".$row['len_no']."'";
-                    echo '<input type=button value="선택" onclick="opener.parent.lenValue('.$mem.','.$mat.','.$no.'); window.close();">';
+                    $date = "'".$row['len_date']."'";
+                    echo '<input type=button value="선택" onclick="opener.parent.lenValue('.$no.','.$mem.','.$mat.','.$date.'); window.close();">';
                 } 
                 else{
                     if ($mem_state == 1) {

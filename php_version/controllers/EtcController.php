@@ -39,13 +39,14 @@ class EtcController{
     }
 
     public function plalist(){
-        $result = $this->plaTable->selectAll();
+        // $result = $this->plaTable->selectAll();
         $title = '대출 장소 현황';
-        return ['tempName'=>'plaList.html.php','title'=>$title,'result'=>$result];
+        // return ['tempName'=>'plaList.html.php','title'=>$title,'result'=>$result];
+        return ['tempName'=>'plaList.html.php','title'=>$title];
     }
 
     public function dueresearch(){
-        $value = $_POST['user_id'];
+        $value = $_POST['user_research'];
         $sql= $this->sql." AND lent.mem_no = $value".$this->sql;
         $stmt = $this->dueTable->joinSQL($sql);
         $result = $stmt->fetchAll();
@@ -54,10 +55,12 @@ class EtcController{
     }
 
     public function plaresearch(){
-        $value = $_POST['user_id'];
+        $value = $_POST['len_no'];
         $where = "WHERE len_no = $value";
+        //echo '$where = '.$where;
         $stmt = $this->plaTable->whereSQL($where);
         $result = $stmt->fetchAll();
+        //print_r($result);
         $title = '대출 장소 현황';
         return ['tempName'=>'plaList.html.php','title'=>$title,'result'=>$result];
     }
@@ -89,10 +92,8 @@ class EtcController{
             $row = $this->dueTable->selectID($_GET['due_no']);
             $title2 = ' 수정';
             $title = '연체'.$title2;
-            return ['tempName'=>'plaForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
+            return ['tempName'=>'dueForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
-
-        
     }
 
     public function mempop(){
@@ -109,17 +110,6 @@ class EtcController{
         // return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
         setcookie('pop', 'true');
         echo "<script>location.href='/len/list?title=대출찾기&pop=true';</script>";
-    }
-
-    public function libraryarray(){
-        $num = 1;
-        $result = $this->libTable->selectAll();
-        $lib_array[0] = '없음';
-        foreach($result as $row):
-            $lib_array[$num] = $row['lib_name'];
-            $num++;
-        endforeach;
-        return $lib_array;
     }
 }
 ?>
