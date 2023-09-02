@@ -239,13 +239,16 @@ class LenController{
         $where = "WHERE len_no = $len_no";
         $stmt = $this->dueTable->whereSQL($where);
         if(!$this->assist->resultempty_check($stmt)){
+            $row = $stmt->fetch();
+            $due_no = $row['due_no'];
             $row = $this->lenTable->selectID($len_no);
             $prd = $this->assist->estimateReturndate($row['len_date'], $row['len_ex']);
             $from = new DateTime($today);
             $to = new DateTime($prd);
             $diff = date_diff($from, $to);
-            $due_exp = date("Y-m-d", strtotime($today.'+ '.$diff.' days'));
-            $param = ['due_exp'=>$due_exp];
+            $day = $diff->days;
+            $due_exp = date("Y-m-d", strtotime($today.' + '.$day.' days'));
+            $param = ['due_no'=>$due_no,'due_exp'=>$due_exp];
             $this->dueTable->updateData($param);
         }
         header('location: /len/returnLent');

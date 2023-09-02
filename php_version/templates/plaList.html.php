@@ -1,5 +1,16 @@
 <head>
     <script>
+        function setCookie(key, value, expiredays) {
+            let todayDate = new Date();
+            todayDate.setDate(todayDate.getDate() + expiredays);
+            document.cookie = key + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+        }
+
+        function getCookie(key){
+            key = new RegExp(key + '=([^;]*)');
+            return key.test(document.cookie) ? unescape(RegExp.$1) : '';
+        }
+
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -15,6 +26,9 @@
         }
 
         function lenValue(no, mem, mat, date){
+            setCookie('mem_id', mem, 1);
+            setCookie('book_name', mat, 1);
+            setCookie('len_date', date, 1);
             document.getElementById("id_len").value = no;
             document.getElementById("id_research").value = mem + ' ' + mat + ' ' + date;
         }
@@ -35,9 +49,12 @@ $lib_array = $assist->libraryarray($pdo);
     <?php if(isset($result)){foreach($result as $row): ?>
         <fieldset id="fieldset_row">
             <div id="div_row">
-                <?=htmlspecialchars($_COOKIE['mem_id'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($_COOKIE['book_name'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($_COOKIE['len_date'],ENT_QUOTES,'UTF-8');?>
+                <script>
+                    var mem_id = getCookie('mem_id');
+                    var book_name = getCookie('book_name');
+                    var len_date = getCookie('len_date');
+                    document.write(mem_id + " " + book_name + " " + len_date + " ");
+                </script>
                 <?=htmlspecialchars($lib_array[$row['lib_no_len']],ENT_QUOTES,'UTF-8');?>
                 <?php $lib_no_re = $row['lib_no_re']; if($lib_no_re == ''){$lib_name = "없음";}else{$lib_name = $lib_array[$row['lib_no_re']];}?>
                 <?=htmlspecialchars($lib_name,ENT_QUOTES,'UTF-8');?>

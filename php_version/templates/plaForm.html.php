@@ -4,6 +4,12 @@
         <meta charset="utf-8">
         <link rel = "stylesheet" herf = "../css/form.css">
         <title><?=$title?></title>
+        <script>
+            function getCookie(key){
+                key = new RegExp(key + '=([^;]*)');
+                return key.test(document.cookie) ? unescape(RegExp.$1) : '';
+            }
+        </script>
     </head>
     <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
@@ -16,13 +22,13 @@
         <form action="/etc/addupdate" method="post" onSubmit="return checkInput(this)">
             <fieldset id = form_fieldset>
             <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-                <ul><label for = "pla_name">회원아이디</label>
-                    <input type= "text" name="pla_id" id="id_name" value="<?php if(isset($_COOKIE['mem_id'])){echo $_COOKIE['mem_id'];}?>" disabled><br>
-                    <label for = "pla_author">책이름</label>
-                    <input type= "text" name="pla_name" id="id_author" value="<?php if(isset($_COOKIE['book_name'])){echo $_COOKIE['book_name'];}?>" disabled><br>
-                    <label for = "pla_publish">대출날짜</label>
-                    <input type= "text" name="pla_date" id="id_publish" value="<?php if(isset($_COOKIE['len_date'])){echo $_COOKIE['len_date'];}?>" disabled><br>
-                    <label for = "pla_year">대출 도서관</label>
+                <ul><label for = "pla_id">회원아이디</label>
+                    <input type= "text" name="pla_id" id="id_id" value="" disabled><br>
+                    <label for = "pla_name">책이름</label>
+                    <input type= "text" name="pla_name" id="id_name" value="" disabled><br>
+                    <label for = "pla_date">대출날짜</label>
+                    <input type= "text" name="pla_date" id="id_date" value="" disabled><br>
+                    <label for = "pla_len">대출 도서관</label>
                     <select id ="il_no_len" name="lib_no_len">
                         <?php
                         for($z = 0; $z < sizeof($lib_len); $z++){
@@ -34,7 +40,7 @@
                         }
                         ?>
                     </select><br>
-                    <label for = "pla_price">반납 도서관</label>
+                    <label for = "pla_re">반납 도서관</label>
                     <select id ="il_no_re" name="lib_no_re">
                         <?php
                         for($z = 0; $z < sizeof($lib_re); $z++){
@@ -66,9 +72,16 @@
         $lib_no_re = $row['lib_no_re'];
         if($lib_no_re == ''){
             $lib_no_re = 0;
+            echo "li_re.disabled = true;";
         }
-        echo "var lib_no_re = $lib_no_re;";
-        echo "li_re.value = lib_no_re;";
+        else{
+            echo "var lib_no_re = $lib_no_re;";
+            echo "li_re.value = lib_no_re;";
+        }
         ?>
+
+        document.getElementById("id_id").value = getCookie('mem_id');
+        document.getElementById("id_name").value = getCookie('book_name');
+        document.getElementById("id_date").value = getCookie('len_date');
     </script>
 </html>
