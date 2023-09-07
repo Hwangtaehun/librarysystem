@@ -1,8 +1,0 @@
-팝업창-dialog
-book, delivery, kind, lent, material, member, reservation
-
-MatController->delpop, bookpop, kindpop, matpop
-DelController->mempop, matpop, matlibpop, pagelent
-LenController->matpop, mempop, delpop, respop
-ResController->mempop
-EtcController->lenpop, mempop
