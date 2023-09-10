@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel = "stylesheet" herf = "../css/form.css">
     <title><?=$title?></title>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js">
+    <script>
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
                 alert("종류이름을 입력하세요.");
@@ -87,29 +87,29 @@
     <script>
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
-            $("select#s2 option").remove();
             var target = document.getElementById("s2");
+            target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
-                  var opt = document.createElement('option');
-                  opt.value = stepCategoryJsonArray[e.value][i][0];
-                  opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
-                  target.appendChild(opt);
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
             }
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            $("select#s3 option").remove();
             var target = document.getElementById("s3");
+            target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
-              var opt = document.createElement('option');
-              opt.value = stepCategoryJsonArray[e.value][i][0];
-              opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
-              target.appendChild(opt);
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
             }
         }
 
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            $("select#s3 option").remove();
             var target = document.getElementById("s3");
+            target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
                 opt.value = stepCategoryJsonArray[e.value][i][0];
