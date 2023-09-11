@@ -22,10 +22,14 @@
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", false);
     $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", false);
     $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
+    $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", false);
+    $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
     
     $super = $super_man->result_call();
     $base = $base_man->result_call();
     $sub = $sub_man->result_call();
+    $basearray = $inherit1->call_result();
+    $subarray = $inherit2->call_result();
 ?>
 <body>
     <form action="/kind/addupdate" method="post" onSubmit="return checkInput(this)">
@@ -70,13 +74,6 @@
                 <label for = "kind_name">종류 이름</label>
                 <input type= "text" name="kind_name" id="id_name" value="<?php if(isset($row)){echo $row['kind_name'];}?>"><br>
                 <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
-                <?php
-                $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", false);
-                $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
-
-                $basearray = $inherit1->call_result();
-                $subarray = $inherit2->call_result();
-                ?>
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">

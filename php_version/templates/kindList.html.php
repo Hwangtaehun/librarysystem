@@ -1,5 +1,5 @@
 <head>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js">
+    <script>
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -17,10 +17,14 @@
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", true);
     $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", true);
     $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
+    $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", true);
+    $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
     
     $super = $super_man->result_call();
     $base = $base_man->result_call();
     $sub = $sub_man->result_call();
+    $basearray = $inherit1->call_result();
+    $subarray = $inherit2->call_result();
 
     if($title == '종류 현황'){
         $ispop = false;
@@ -93,38 +97,31 @@
     </fieldset>
     <?php endforeach; }?>
     <script>
-        <?php
-        $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", true);
-        $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
-
-        $basearray = $inherit1->call_result();
-        $subarray = $inherit2->call_result();
-        ?>
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
-            $("select#s2 option").remove();
             var target = document.getElementById("s2");
+            target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
-                  var opt = document.createElement('option');
-                  opt.value = stepCategoryJsonArray[e.value][i][0];
-                  opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
-                  target.appendChild(opt);
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
             }
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            $("select#s3 option").remove();
             var target = document.getElementById("s3");
+            target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
-              var opt = document.createElement('option');
-              opt.value = stepCategoryJsonArray[e.value][i][0];
-              opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
-              target.appendChild(opt);
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
             }
         }
 
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            $("select#s3 option").remove();
             var target = document.getElementById("s3");
+            target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
                 opt.value = stepCategoryJsonArray[e.value][i][0];

@@ -48,8 +48,21 @@
 </head>
 <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
+    include_once __DIR__.'/../includes/Combobox_Inheritance.php';
+
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
+    $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", false);
+    $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", false);
+    $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", false);
+    $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", false);
+    $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", false);
+    
     $lib = $lib_man->result_call();
+    $super = $super_man->result_call();
+    $base = $base_man->result_call();
+    $sub = $sub_man->result_call();
+    $basearray = $inherit1->call_result();
+    $subarray = $inherit2->call_result();
 ?>
 <body>
     <form action="/mat/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
@@ -70,9 +83,43 @@
                 <label for = "book_name">책이름</label>
                 <input type= "text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type= "button" name="book_check" id="ib_check" value="책 찾기" onclick="checkbook();"><br>
-                <label for = "book_name">종류번호</label>
-                <input type= "text" name="kind_no" id="id_kind" value="<?php if(isset($row)){echo $row['kind_no'];}?>" readonly>
-                <input type= "button" name="kind_check" id="ik_check" value="종류 찾기" onclick="checkkind();"><br>
+                <label for = "book_name">종류번호</label><br>
+                <label for = "kind_super">대분류</label>
+                <select id = "s1" name = "super" onchange='superChange(this)'>
+                    <?php
+                    for ($z=0; $z < sizeof($super); $z++) { 
+                        $no[$z] = $super[$z][0];
+                        $name[$z] = $super[$z][1];
+                    }
+                    for ($z=0; $z < sizeof($super); $z++) { 
+                        echo "<option value = $no[$z] > $name[$z] </option>";
+                    }
+                    ?>
+                </select><br>
+                <label for = "kind_base">중분류</label>
+                <select id = "s2" name = "base" onchange='baseChange(this)'>
+                <?php
+                for ($z=0; $z < sizeof($base); $z++) { 
+                    $no[$z] = $base[$z][0];
+                    $name[$z] = $base[$z][1];
+                }
+                for ($z=0; $z < sizeof($base); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+                </select><br>
+                <label for = "kind_no">소분류</label>
+                <select id = "s3" name = "kind_no">
+                <?php
+                for ($z=0; $z < sizeof($sub); $z++) { 
+                    $no[$z] = $sub[$z][0];
+                    $name[$z] = $sub[$z][1];
+                }
+                for ($z=0; $z < sizeof($sub); $z++) { 
+                    echo "<option value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+                </select><br>
                 <label for = "mat_many">권차</label>
                 <input type= "text" name="mat_many" id="mi_many" value="<?php if(isset($row)){echo $row['mat_many'];}?>"><br>
                 <input type="hidden" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
@@ -87,7 +134,7 @@
     </form>
     <script>
         <?php
-        if(isset($row)){
+        if(isset($row['lib_no'])){
             $lib_no = $row['lib_no'];
             echo "var lib_no = $lib_no;";
         ?>
@@ -95,7 +142,121 @@
             li.value = lib_no;
         <?php    
         }
+
+        if(isset($row['kind_no'])){
+            $kind_no = $row['kind_no'];
+            $temp = (int)$kind_no / 100;
+            $hundred = (int)$temp;
+            $temp = ((int)$kind_no % 100) / 10;
+            $ten = (int)$temp;
+            $one = (int)$kind_no % 10;
+
+            if($hundred == 0){
+                $major = "000";
+                $middle = "0";
+                $small = "0";
+            }
+            else{
+                $major = (string)$hundred."00";
+                $middle = (string)$hundred;
+                $small = (string)$hundred;
+            }
+
+            if($ten == 0){
+                $middle = $middle."00";
+                $small = $small."0";
+            }
+            else{
+                $middle = $middle.(string)$ten."0";
+                $small = $small.(string)$ten;
+            }
+
+            if($one == 0){
+                $small = $small."0";
+            }
+            else{
+                $small = $small.(string)$one;
+            }
+            
+            echo "var major = $major;";
+            echo "var middle = $middle;";
+            echo "var small = $small;";
+            echo "let s1 = document.getElementById('s1');";
+            echo "let s2 = document.getElementById('s2');";
+            echo "let s3 = document.getElementById('s3');";
+            echo "s1.value = major;";
+            echo "majorChange(major);";
+            echo "s2.value = middle;";
+            echo "middleChange(middle);";
+            echo "s3.value = small;";
+        }
         ?>
+
+        function majorChange(n){
+            var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
+            var target = document.getElementById("s2");
+            target.innerHTML = "";
+            for(var i = 0; i < stepCategoryJsonArray[n].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[n][i][0];
+                opt.innerHTML = stepCategoryJsonArray[n][i][1];
+                target.appendChild(opt);
+            }
+            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
+            var target = document.getElementById("s3");
+            target.innerHTML = "";
+            for(var i = 0; i < stepCategoryJsonArray[n].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[n][i][0];
+                opt.innerHTML = stepCategoryJsonArray[n][i][1];
+                target.appendChild(opt);
+            }
+        }
+
+        function middleChange(n){
+            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
+            var target = document.getElementById("s3");
+            target.innerHTML = "";
+            for(var i = 0; i < stepCategoryJsonArray[n].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[n][i][0];
+                opt.innerHTML = stepCategoryJsonArray[n][i][1];
+                target.appendChild(opt);
+            }
+        }
+
+        function superChange(e){
+            var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
+            var target = document.getElementById("s2");
+            target.innerHTML = "";
+            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
+            }
+            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
+            var target = document.getElementById("s3");
+            target.innerHTML = "";
+            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
+            }
+        }
+
+        function baseChange(e){
+            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
+            var target = document.getElementById("s3");
+            target.innerHTML = "";
+            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+                var opt = document.createElement('option');
+                opt.value = stepCategoryJsonArray[e.value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                target.appendChild(opt);
+            }
+        }
     </script>
 </body>
 </html>

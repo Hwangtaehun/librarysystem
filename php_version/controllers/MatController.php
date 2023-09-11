@@ -208,12 +208,12 @@ class MatController{
         echo "<script>location.href='/book/list?title=책검색&pop=true';</script>";
     }
 
-    public function kindpop(){
-        // $result = $this->kindTable->selectAll();
-        // $title = '종류검색';
-        // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
-        echo "<script>location.href='/kind/list?title=종류검색&pop=true';</script>";
-    }
+    // public function kindpop(){
+    //     // $result = $this->kindTable->selectAll();
+    //     // $title = '종류검색';
+    //     // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
+    //     echo "<script>location.href='/kind/list?title=종류검색&pop=true';</script>";
+    // }
 
     public function matpop(){
         // $result = $this->matTable->selectAll();
