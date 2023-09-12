@@ -36,13 +36,14 @@ nav > ul > li > ul > li:hover {
     transition: ease 1s;
 }
 
-aside{float:left; background-color: #ccccdd;}
+aside{left: 20%; float:left; background-color: #ccccdd;}
 aside a {color: white; text-decoration: none;}
 aside a:hover {color: #ff0000;}
-aside li {display: table-row; text-align: center; padding: 0.5em;}
+aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
 
 footer{width: 99%; height: 50px; z-index: 1; bottom:0; position: fixed;}
 
 #fieldset_row {display: table; width: 100%; padding: 1px;}
 #div_row {display: table-cell; width: 70%;}
 #fieldset_row > form{display: table-cell; text-align: right; padding: 5px;}
+#title {color: white; text-decoration: none;}
