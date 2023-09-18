@@ -83,21 +83,31 @@
             <ul>
                 <li><a href="/">홈</a></li>
                 <li><a href="/mat/list">자료 검색</a></li>
-                <li><a>내서재</a><ul><li><a href="/len/memLent">대출중도서</a></li><li><a href="/len/memAllLent">모든대출내역</a></li><li><a href="/res/list">예약내역</a></li><li><a href="/del/list">상호대차내역</a></li></ul></li>
-                <li><a>마이페이지</a><ul><li><a href="/member/addupdate?mem_no='.$mem_no.'">회원정보수정</a></li><li><a href="/member/memdel?mem_no='.$mem_no.'">회원탈퇴</a></li></ul></li>
+                <li><a>내서재</a>
+                    <ul>
+                        <li><a href="/len/memLent">대출중도서</a></li>
+                        <li><a href="/len/memAllLent">모든대출내역</a></li>
+                        <li><a href="/res/list">예약내역</a></li>
+                        <li><a href="/del/list">상호대차내역</a></li>
+                    </ul>
+                </li>
+                <li><a>마이페이지</a>
+                    <ul>
+                        <li><a href="/member/addupdate?mem_no='.$mem_no.'">회원정보수정</a></li>
+                        <li><a href="/member/memdel?mem_no='.$mem_no.'">회원탈퇴</a></li>
+                    </ul>
+                </li>
                 <li><a href="/member/logout">로그아웃</a></li>
             </ul>
         </nav>
         <aside>
-            <div id="aside">
-                <li>
-                    <a><h2>내서재</h2></a>
-                    <li><a href="/len/memLent">대출중도서</a></li>
-                    <li><a href="/len/memAllLent">모든대출내역</a></li>
-                    <li><a href="/res/list">예약내역</a></li>
-                    <li><a href="/del/list">상호대차내역</a></li>
-                </li>
-            </div>
+            <li>
+                <a><h2>내서재</h2></a>
+                <li><a href="/len/memLent">대출중도서</a></li>
+                <li><a href="/len/memAllLent">모든대출내역</a></li>
+                <li><a href="/res/list">예약내역</a></li>
+                <li><a href="/del/list">상호대차내역</a></li>
+            </li>
         </aside>
         <main>
             <h2>도서관 성적 관리</h2>

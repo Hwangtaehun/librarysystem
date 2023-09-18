@@ -78,6 +78,12 @@ class MemberController{
         }
     }
 
+    public function logout(){
+        $_SESSION = [];
+        $title = '도서관 관리 로그인';
+        header('location: /');
+    }
+
     public function idCheck(){
         $mem_id= $_GET["userid"];
         $where = "WHERE `mem_id` = '$mem_id'";
@@ -100,12 +106,6 @@ class MemberController{
         echo "if(confirm(msg)!=0) {";
         echo "alert('계정 탈퇴가 완료 되었습니다.'); location.href='/member/delete?mem_no=$mem_no'; }";
         echo "else { location.href='/'; }</script>";
-    }
-
-    public function logout(){
-        $_SESSION = [];
-        $title = '도서관 관리 로그인';
-        header('location: /');
     }
 
     public function delete(){
