@@ -58,6 +58,6 @@ aside a {color: white; text-decoration: none;}
 aside a:hover {color: #ff0000;}
 aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
 
-main{padding-left: 6%;}
+main{padding-left: 100px;}
 
 footer{width: 99%; height: 50px; z-index: 1; bottom:0; position: fixed;}

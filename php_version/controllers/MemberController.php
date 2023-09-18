@@ -84,6 +84,10 @@ class MemberController{
         header('location: /');
     }
 
+    public function logalert(){
+        echo "<script>alert('로그인을 해주세요.'); location.href='../index.php';</script>";
+    }
+
     public function idCheck(){
         $mem_id= $_GET["userid"];
         $where = "WHERE `mem_id` = '$mem_id'";

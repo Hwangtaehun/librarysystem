@@ -180,6 +180,17 @@
                ?>
             </ul>
         </nav>
+        <aside>
+            <?php 
+            if($title != '회원 관리' && $title != '도서관 관리' && $title != '자료 현황'){
+                if($bool){
+                    echo "<li><a><h2>$menu</h2></a>";
+                    $script = makehtml($menu, $menus);
+                    echo $script;    
+                    echo "</li>";
+                }
+            } ?>
+        </aside>
         <main>
             <?= $outString ?>
         </main>

@@ -33,7 +33,7 @@ header, h4 {text-align: center; border-style: double; background-color: #ffeeaa;
 nav{background-color: #ccccdd; }
 nav a {color: white; text-decoration: none;}
 nav a:hover {color: #ff0000;}
-nav li {display: table-cell; text-align: justify; padding: 0.5em;}
+nav li {display: table-cell; text-align: center; padding: 0.5em;}
 
 nav > ul > li > ul {
     margin: 0;
@@ -58,6 +58,6 @@ aside a {color: white; text-decoration: none;}
 aside a:hover {color: #ff0000;}
 aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
 
-main{padding-left: 6%;}
+main{padding-left: 100px;}
 
 footer{width: 99%; height: 50px; z-index: 1; bottom:0; position: fixed;}
