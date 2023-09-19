@@ -30,8 +30,12 @@
 
         if($title == '대출 장소 현황'){
             $menu = '기타';
-        }
+        } 
         else{
+            if($title == '회원 현황' || $title == '도서관 관리'){
+                $class = '';
+            }
+
             $menu_arr = explode(' ', $title);
             if(sizeof($menu_arr) == 1){
                 if($menu_arr[0] == '로그인'){
@@ -54,6 +58,9 @@
             if($title ==  '회원 수정'){
                 $menu = '마이페이지';
             }
+            if($title == '자료 현황'){
+                $class = '';
+            }
         }
 
         if($menu == '반납'){
@@ -62,6 +69,7 @@
         else if($menu == '예약' || $menu == '연체'){
             $menu = '기타';
         }
+        
             
         if($state == 1){
             $menus['책'][0][0] = '책관리';
@@ -183,15 +191,28 @@
             </ul>
         </nav>
         <aside>
-            <?php 
-            if($title != '회원 관리' && $title != '도서관 관리' && $title != '자료 현황'){
-                if($bool){
-                    echo "<li><a><h2>$menu</h2></a>";
-                    $script = makehtml($menu, $menus);
-                    echo $script;    
-                    echo "</li>";
+            <?php
+            if($state != 1){
+                if($title != '자료 현황' && $title != '도서관 관리'){
+                    if($bool){
+                        echo "<li><a><h2>$menu</h2></a>";
+                        $script = makehtml($menu, $menus);
+                        echo $script;    
+                        echo "</li>";
+                    }
                 }
-            } ?>
+            }
+            else{
+                if($title != '회원 현황' && $title != '도서관 관리'){
+                    if($bool){
+                        echo "<li><a><h2>$menu</h2></a>";
+                        $script = makehtml($menu, $menus);
+                        echo $script;    
+                        echo "</li>";
+                    }
+                }
+            } 
+            ?>
         </aside>
         <main <?= $class ?>>
             <?= $outString ?>
