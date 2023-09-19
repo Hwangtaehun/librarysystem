@@ -19,10 +19,12 @@
         </script>
     </head>
     <?php
+    $class = '';
     if(isset($_GET['pop'])){
         $bool = false;
     }
     else{
+        $class = 'class="ped"';
         $bool = true;
         $state = 3;
 
@@ -191,7 +193,7 @@
                 }
             } ?>
         </aside>
-        <main>
+        <main <?= $class ?>>
             <?= $outString ?>
         </main>
         <footer>
