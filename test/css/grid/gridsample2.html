@@ -1,0 +1,85 @@
+        <div class="grid">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+            <div>11</div>
+            <div>12</div>
+        </div>
+
+        <div class="grid">
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+            <div class="thumbnail">1</div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-gap: 10px;
+      margin: 5px 10px;
+    }
+    
+    @media (max-width: 480px) {
+      .grid {grid-template-columns: repeat(6, 1fr);}
+      .thumbnail {grid-column: 3 span}
+    }
+    
+    /* Media Query for low resolution  Tablets, Ipads */
+    @media (min-width: 481px) and (max-width: 767px) {
+      .grid {grid-template-columns: repeat(8, 1fr);}
+      .thumbnail {grid-column: 4 span}
+    }
+    
+    /* Media Query for Tablets Ipads portrait mode */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .grid {grid-template-columns: repeat(12, 1fr);}
+      .thumbnail {grid-column: 4 span}
+    }
+    
+    /* Media Query for Laptops and Desktops */
+    @media (min-width: 1025px) and (max-width: 1280px) {
+      .grid {grid-template-columns: repeat(12, 1fr);}
+      .thumbnail {grid-column: 3 span}
+    }
+    
+    /* Media Query for Large screens */
+    @media (min-width: 1281px) {
+      .grid {grid-template-columns: repeat(12, 1fr);}
+      .thumbnail {grid-column: 2 span}
+    }
+    
+    .grid > * {
+      background: rgba(255, 0, 0, .1);
+      padding: 10px;
+      text-align: center;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+</style>  
