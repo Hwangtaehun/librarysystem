@@ -52,13 +52,13 @@
                 myform.id_zip.focus();
                 return false;
             }
-            document.getElementById("id_id").readOnly = true;
+            document.querySelector("#id_id").readOnly = true;
             return true;
         }
 
         function checkid() {
             check = false;
-            var userid = document.getElementById("id_id").value;
+            var userid = document.querySelector("#id_id").value;
 
             if(userid)
             {
@@ -71,21 +71,21 @@
 
         function checkReset() {
             check = false;
-            document.getElementById("id_id").readOnly = false;
+            document.querySelector("#id_id").readOnly = false;
         }
 
         function decide() {
             check = true;
-            document.getElementById("id_id").readOnly = true;
-            document.getElementById("id_check").value = "아이디 변경"
-            document.getElementById("id_check").setAttribute("onclick", "change()");
+            document.querySelector("#id_id").readOnly = true;
+            document.querySelector("#id_check").value = "아이디 변경"
+            document.querySelector("#id_check").setAttribute("onclick", "change()");
         }
 
         function change() {
             check = false;
-            document.getElementById("id_id").readOnly = false;
-            document.getElementById("id_check").value = "아이디 중복"
-            document.getElementById("id_check").setAttribute("onclick", "checkid()")
+            document.querySelector("#id_id").readOnly = false;
+            document.querySelector("#id_check").value = "아이디 중복"
+            document.querySelector("#id_check").setAttribute("onclick", "checkid()")
         }
     </script>
 </head>
@@ -168,17 +168,17 @@
                             extraAddr = ' (' + extraAddr + ')';
                         }
                         // 조합된 참고항목을 해당 필드에 넣는다.
-                        document.getElementById("id_detail").value = extraAddr;
+                        document.querySelector("#id_detail").value = extraAddr;
                     
                     } else {
-                        document.getElementById("id_detail").value = '';
+                        document.querySelector("#id_detail").value = '';
                     }
 
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('id_zip').value = data.zonecode;
-                    document.getElementById("id_add").value = addr;
+                    document.querySelector("#id_zip").value = data.zonecode;
+                    document.querySelector("#id_add").value = addr;
                     // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("id_detail").focus();
+                    document.querySelector("#id_detail").focus();
                 }
             }).open();
         }

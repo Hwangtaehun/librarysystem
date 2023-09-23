@@ -49,33 +49,33 @@
         }
 
         function memValue(no, name, state){
-            document.getElementById("id_mem").value = no;
-            document.getElementById("im_id").value = name;
-            document.getElementById("id_sta").value = state;
+            document.querySelector("#id_mem").value = no;
+            document.querySelector("#im_id").value = name;
+            document.querySelector("#id_sta").value = state;
         }
 
         function matValue(no, name){
-            document.getElementById("id_mat").value = no;
-            document.getElementById("ib_name").value = name;
+            document.querySelector("#id_mat").value = no;
+            document.querySelector("#ib_name").value = name;
         }
 
         function delValue(mem, id, state, mat, book, lib, del){
-            document.getElementById("id_mem").value = mem;
-            document.getElementById("im_id").value = id;
-            document.getElementById("id_sta").value = state;
-            document.getElementById("id_mat").value = mat;
-            document.getElementById("ib_name").value = book;
-            document.getElementById("il_no").value = lib; //안되면 const사용하기
-            document.getElementById("id_del").value = del;
+            document.querySelector("#id_mem").value = mem;
+            document.querySelector("#im_id").value = id;
+            document.querySelector("#id_sta").value = state;
+            document.querySelector("#id_mat").value = mat;
+            document.querySelector("#ib_name").value = book;
+            document.querySelector("#il_no").value = lib; //안되면 const사용하기
+            document.querySelector("#id_del").value = del;
         }
 
         function resValue(mem, id, state, mat, book, lib){
-            document.getElementById("id_mem").value = mem;
-            document.getElementById("im_id").value = id;
-            document.getElementById("id_sta").value = state;
-            document.getElementById("id_mat").value = mat;
-            document.getElementById("ib_name").value = book;
-            document.getElementById("il_no").value = lib; //안되면 const사용하기
+            document.querySelector("#id_mem").value = mem;
+            document.querySelector("#im_id").value = id;
+            document.querySelector("#id_sta").value = state;
+            document.querySelector("#id_mat").value = mat;
+            document.querySelector("#ib_name").value = book;
+            document.querySelector("#il_no").value = lib; //안되면 const사용하기
         }
     </script>
 </head>
@@ -158,11 +158,11 @@
         $len_ex = $row['len_ex'];
         $len_re_st = $row['len_re_st'];
     ?>
-        const normal = document.getElementById('id_normal');
-        const extend = document.getElementById('id_extend');
-        const lent = document.getElementById('id_lent');
-        const ret = document.getElementById('id_return');
-        const etc = document.getElementById('id_etc');
+        const normal = document.querySelector('#id_normal');
+        const extend = document.querySelector('#id_extend');
+        const lent = document.querySelector('#id_lent');
+        const ret = document.querySelector('#id_return');
+        const etc = document.querySelector('#id_etc');
 
     <?php
         if($len_ex == 0){

@@ -29,8 +29,8 @@
             setCookie('mem_id', mem, 1);
             setCookie('book_name', mat, 1);
             setCookie('len_date', date, 1);
-            document.getElementById("id_len").value = no;
-            document.getElementById("id_research").value = mem + ' ' + mat + ' ' + date;
+            document.querySelector("#id_len").value = no;
+            document.querySelector("#id_research").value = mem + ' ' + mat + ' ' + date;
         }
     </script>
 </head>

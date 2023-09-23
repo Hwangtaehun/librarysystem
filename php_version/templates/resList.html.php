@@ -15,8 +15,8 @@
         }
 
         function memValue(no, name, state){
-            document.getElementById("id_mem").value = no;
-            document.getElementById("id_research").value = name;
+            document.querySelector("#id_mem").value = no;
+            document.querySelector("#id_research").value = name;
         }
 
         <?php

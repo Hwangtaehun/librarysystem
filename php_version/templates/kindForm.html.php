@@ -83,8 +83,8 @@
     </form>
     <script>
         function superChange(e){
-            var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
-            var target = document.getElementById("s2");
+            var stepCategoryJsonArray = <?php echo json_encode($basearray); ?>;
+            var target = document.querySelector("#s2");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
@@ -92,8 +92,8 @@
                 opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
                 target.appendChild(opt);
             }
-            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            var target = document.getElementById("s3");
+            var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
+            var target = document.querySelector("#s3");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
@@ -104,8 +104,8 @@
         }
 
         function baseChange(e){
-            var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            var target = document.getElementById("s3");
+            var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
+            var target = document.querySelector("#s3");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');

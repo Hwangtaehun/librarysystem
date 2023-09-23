@@ -20,7 +20,7 @@
                 return false;
             }
             if(myform.mi_many.value.length <= 0){
-                ocument.getElementById("mi_many").value = '0';
+                ocument.querySelector("#mi_many").value = '0';
             }
             return true;
         }
@@ -36,13 +36,13 @@
         }
 
         function bookValue(no, name, aut){
-            document.getElementById("id_book").value = no;
-            document.getElementById("ib_name").value = name;
-            document.getElementById("ib_author").value = aut;
+            document.querySelector("#id_book").value = no;
+            document.querySelector("#ib_name").value = name;
+            document.querySelector("#ib_author").value = aut;
         }
 
         function kindValue(no){
-            document.getElementById("id_kind").value = no;
+            document.querySelector("#id_kind").value = no;
         }
     </script>
 </head>
@@ -138,7 +138,7 @@
             $lib_no = $row['lib_no'];
             echo "var lib_no = $lib_no;";
         ?>
-            const li = document.getElementById('il_no');
+            const li = document.querySelector('#il_no');
             li.value = lib_no;
         <?php    
         }
@@ -181,9 +181,9 @@
             echo "var major = $major;";
             echo "var middle = $middle;";
             echo "var small = $small;";
-            echo "let s1 = document.getElementById('s1');";
-            echo "let s2 = document.getElementById('s2');";
-            echo "let s3 = document.getElementById('s3');";
+            echo "let s1 = document.querySelector('#s1');";
+            echo "let s2 = document.querySelector('#s2');";
+            echo "let s3 = document.querySelector('#s3');";
             echo "s1.value = major;";
             echo "majorChange(major);";
             echo "s2.value = middle;";
@@ -194,7 +194,7 @@
 
         function majorChange(n){
             var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
-            var target = document.getElementById("s2");
+            var target = document.querySelector("#s2");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[n].length; i++){
                 var opt = document.createElement('option');
@@ -203,7 +203,7 @@
                 target.appendChild(opt);
             }
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            var target = document.getElementById("s3");
+            var target = document.querySelector("#s3");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[n].length; i++){
                 var opt = document.createElement('option');
@@ -215,7 +215,7 @@
 
         function middleChange(n){
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            var target = document.getElementById("s3");
+            var target = document.querySelector("#s3");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[n].length; i++){
                 var opt = document.createElement('option');
@@ -227,7 +227,7 @@
 
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray) ?>;
-            var target = document.getElementById("s2");
+            var target = document.querySelector("#s2");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
@@ -236,7 +236,7 @@
                 target.appendChild(opt);
             }
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            var target = document.getElementById("s3");
+            var target = document.querySelector("#s3");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
@@ -248,7 +248,7 @@
 
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray) ?>;
-            var target = document.getElementById("s3");
+            var target = document.querySelector("#s3");
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');

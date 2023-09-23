@@ -63,12 +63,12 @@
     </body>
     <script>
         <?php
-        echo "const li_len = document.getElementById('il_no_len');";
+        echo "const li_len = document.querySelector('#il_no_len');";
         $lib_no_len = $row['lib_no_len'];
         echo "var lib_no_len = $lib_no_len;";
         echo "li_len.value = lib_no_len;";
 
-        echo "const li_re = document.getElementById('il_no_re');";
+        echo "const li_re = document.querySelector('#il_no_re');";
         $lib_no_re = $row['lib_no_re'];
         if($lib_no_re == ''){
             $lib_no_re = 0;
@@ -80,8 +80,8 @@
         }
         ?>
 
-        document.getElementById("id_id").value = getCookie('mem_id');
-        document.getElementById("id_name").value = getCookie('book_name');
-        document.getElementById("id_date").value = getCookie('len_date');
+        document.querySelector("#id_id").value = getCookie('mem_id');
+        document.querySelector("#id_name").value = getCookie('book_name');
+        document.querySelector("#id_date").value = getCookie('len_date');
     </script>
 </html>

@@ -24,8 +24,8 @@
         }
 
         function matValue(no, name){
-            document.getElementById("id_mem").value = no;
-            document.getElementById("ib_name").value = name;
+            document.querySelector("#id_mem").value = no;
+            document.querySelector("#ib_name").value = name;
         }
     </script>
 </head>
@@ -88,16 +88,16 @@
 <script>
     <?php
     if(isset($row['lib_no_arr'])){
-        echo "const li = document.getElementById('il_no');";
+        echo "const li = document.querySelector('#il_no');";
         $lib_no = $row['lib_no_arr'];
         echo "var lib_no = $lib_no;";
         echo "li.value = lib_no;";
     }
 
     if(isset($row['del_app'])){ ?>
-        const de = document.getElementById('id_de');
-        const ap = document.getElementById('id_ap');
-        const re = document.getElementById('id_re');
+        const de = document.querySelector('#id_de');
+        const ap = document.querySelector('#id_ap');
+        const re = document.querySelector('#id_re');
     <?php
         $del_app = $row['del_app'];
         if($del_app == 0){

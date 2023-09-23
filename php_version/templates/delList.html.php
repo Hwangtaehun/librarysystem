@@ -13,18 +13,18 @@
         }
 
         function changeSelect(){
-            var value = document.getElementById("s1").value;
-            const mem = document.getElementById("ie_research");
-            const mat = document.getElementById("ia_research");
+            var value = document.querySelector("#s1").value;
+            const mem = document.querySelector("#ie_research");
+            const mat = document.querySelector("#ia_research");
             if(value == '1'){
-                document.getElementById("id_research").value = "";
-                document.getElementById("id_mat").value = "";
+                document.querySelector("#id_research").value = "";
+                document.querySelector("#id_mat").value = "";
                 mem.disabled=false;
                 mat.disabled=true;   
             }
             else if(value == '2'){
-                document.getElementById("id_research").value = "";
-                document.getElementById("id_mem").value = "";
+                document.querySelector("#id_research").value = "";
+                document.querySelector("#id_mem").value = "";
                 mem.disabled=true;
                 mat.disabled=false;
             }
@@ -45,15 +45,15 @@
         }
 
         function memValue(no, name, state){
-            document.getElementById("id_mem").value = no;
+            document.querySelector("#id_mem").value = no;
             memid = name;
-            document.getElementById("id_research").value = memid+' '+bookname;
+            document.querySelector("#id_research").value = memid+' '+bookname;
         }
 
         function matValue(no, name){
-            document.getElementById("id_mat").value = no;
+            document.querySelector("#id_mat").value = no;
             bookname = name;
-            document.getElementById("id_research").value = memid+' '+bookname;
+            document.querySelector("#id_research").value = memid+' '+bookname;
         }
 
         <?php
