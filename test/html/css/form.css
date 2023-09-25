@@ -1,4 +1,4 @@
-header, h4 {text-align: center; border-style: double; background-color: #ffeeaa;}
+header, h4 {text-align: center; border-style: double; background-color: #e9b824;}
 
 .login {
     margin-left: 1em; width: 10em; margin-bottom: 1em; padding: 0.5em;
@@ -46,8 +46,8 @@ header, h4 {text-align: center; border-style: double; background-color: #ffeeaa;
 }
 
 nav{background-color: #ccccdd; }
-nav a {color: white; text-decoration: none;}
-nav a:hover {color: #ff0000;}
+nav a {color: #ffffff; text-decoration: none;}
+nav a:hover {color: #d83f31;}
 nav li {display: table-cell; text-align: center; padding: 0.5em;}
 
 nav > ul > li > ul {
@@ -55,7 +55,7 @@ nav > ul > li > ul {
 	padding: 0;
     display:none;
     position: absolute;
-    background: gainsboro;
+    background: #61677A;
 }
 
 nav > ul > li:hover > ul {
@@ -63,13 +63,13 @@ nav > ul > li:hover > ul {
 }
 
 nav > ul > li > ul > li:hover {
-    background: green;
+    background: #219c90;
     transition: ease 1s;
 }
 
-aside{float:left; width: 96px; background: skyblue; position: sticky; top: 0;}
-aside h2 {color: black; text-decoration: none; background: gold;}
-aside a {color: white; text-decoration: none;}
+aside{float:left; width: 96px; background: #3085c3; position: sticky; top: 0;}
+aside h2 {color: #000000; text-decoration: none; background: #f4e869;}
+aside a {color: #ffffff; text-decoration: none;}
 aside a:hover {color: #ff0000;}
 aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
 
