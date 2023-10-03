@@ -136,6 +136,19 @@
     ?>
     <body>
         <header>
+            <div id="head">
+            <?php
+            if(!isset($_SESSION['mem_state'])){
+                echo '<li><a href="/member/login">로그인</a></li>';
+                echo '<li><a href="/member/addupdate">회원가입</a></li>';
+            }
+            else{
+                $name = $_SESSION['mem_name'];
+                echo '<li><a>'.$name.'님 환영합니다.</a></li>';
+                echo '<li><a href="/member/logout">로그아웃</a></li>';
+            }
+            ?>
+            </div>
             <h1><?=$title?></h1>
         </header>
         <nav>
@@ -185,7 +198,6 @@
                         echo $script;
                         echo '</ul></li>';
                     }
-                    echo '<li><a href="/member/logout">로그아웃</a></li>';
                 }
                ?>
             </ul>

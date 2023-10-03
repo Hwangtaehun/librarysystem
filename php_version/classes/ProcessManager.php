@@ -23,14 +23,8 @@ class ProcessManager{
     //echo  $page['title'].'<br>';
     if(isset($page['title'])){
       $title = $page['title'];
-      if(isset($_SESSION['mem_state'])){
-        $outString = $this->outPage($page);
-        include __DIR__.'/../templates/layout.html.php';
-      }
-      else{
-        extract($page);
-        include __DIR__.'/../templates/'.$tempName;
-      }
+      $outString = $this->outPage($page);
+      include __DIR__.'/../templates/layout.html.php';
     }
   }
   

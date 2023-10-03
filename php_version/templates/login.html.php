@@ -20,17 +20,11 @@
             }
         </script>
     </head>
-    <body class="center">
-        <header>
-            <h1> <?=$title?></h1>
-        </header>
+    <body>
         <form action="/member/login" method="post" onSubmit="return checkInput(this)">
-            <label for = "user_id">아이디</label>
-            <input type="text" name="user_id" id="user_id" value=""><br>
-            <label for = "user_password">비밀번호</label>
-            <input type="password" name="user_password" id="user_password"><br><br>
-            <input type=submit value='로그인'>
+            <input class="login" type="text" name="user_id" id="user_id" value="" placeholder="아이디"><br>
+            <input class="login" type="password" name="user_password" id="user_password" placeholder="비밀번호"><br><br>
+            <input id="but" type=submit value='로그인'>
         </form>
-        <a href="/member/addupdate">회원가입</a>
     </body>
 </html>

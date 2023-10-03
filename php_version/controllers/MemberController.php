@@ -28,14 +28,8 @@ class MemberController{
     }
 
     public function home(){
-        if(!isset($_SESSION['mem_state'])) {
-            $title = '도서관 관리 로그인';
-            return ['tempName'=>'login.html.php', 'title'=>$title];
-        }
-        else {
-            $title = '도서관 관리';
-            return ['tempName'=>'home.html.php', 'title'=>$title];
-        }
+        $title = '도서관 관리';
+        return ['tempName'=>'home.html.php', 'title'=>$title];
     }
 
     public function list(){
@@ -60,32 +54,38 @@ class MemberController{
     }
 
     public function login(){
-        $mem_id = $_POST['user_id'];
-        $mem_pw = $_POST['user_password'];
-        $where = "WHERE `mem_id` = '$mem_id' AND `mem_pw` = '$mem_pw'";
-        $result = $this->memTable->whereSQL($where);
-        $num = $result->rowCount();
-    
-        if($num != 0){
-            $row = $result->fetch();
-            $_SESSION['mem_no'] = $row['mem_no'];
-            $_SESSION['mem_name'] = $row['mem_name'];
-            $_SESSION['mem_state'] = $row['mem_state'];
-            header('location: /');
+        if(isset($_POST['user_id'])){
+            $mem_id = $_POST['user_id'];
+            $mem_pw = $_POST['user_password'];
+            $where = "WHERE `mem_id` = '$mem_id' AND `mem_pw` = '$mem_pw'";
+            $result = $this->memTable->whereSQL($where);
+            $num = $result->rowCount();
+        
+            if($num != 0){
+                $row = $result->fetch();
+                $_SESSION['mem_no'] = $row['mem_no'];
+                $_SESSION['mem_name'] = $row['mem_name'];
+                $_SESSION['mem_state'] = $row['mem_state'];
+                header('location: /');
+            }
+            else{
+                echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.'); history.back();</script>";
+            }
         }
         else{
-            echo "<script>alert('아이디와 비밀번호가 일치하지 않습니다.'); location.href='../index.php';</script>";
+            $title = '로그인';
+            return ['tempName'=>'login.html.php', 'title'=>$title];
         }
+        
     }
 
     public function logout(){
         $_SESSION = [];
-        $title = '도서관 관리 로그인';
         header('location: /');
     }
 
     public function logalert(){
-        echo "<script>alert('로그인을 해주세요.'); location.href='../index.php';</script>";
+        echo "<script>alert('로그인을 해주세요.'); location.href='/member/login';</script>";
     }
 
     public function idCheck(){
