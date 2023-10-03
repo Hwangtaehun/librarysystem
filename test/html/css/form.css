@@ -8,6 +8,13 @@ header, h4 {text-align: center; border-style: double; background-color: #e9b824;
     padding-left: 100px;
 }
 
+.grid {
+    max-width: 1024px;
+    display: inline;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 #but {
     margin-left: 1em; width: 11.5em; margin-bottom: 1em; padding: 0.5em;
 }
