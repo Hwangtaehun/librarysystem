@@ -19,12 +19,10 @@
         </script>
     </head>
     <?php
-    $class = '';
     if(isset($_GET['pop'])){
         $bool = false;
     }
     else{
-        $class = 'class="ped"';
         $bool = true;
         $state = 3;
 
@@ -32,10 +30,6 @@
             $menu = '기타';
         } 
         else{
-            if($title == '회원 현황' || $title == '도서관 관리'){
-                $class = '';
-            }
-
             $menu_arr = explode(' ', $title);
             if(sizeof($menu_arr) == 1){
                 if($menu_arr[0] == '로그인'){
@@ -57,9 +51,6 @@
         if($state != 1){
             if($title ==  '회원 수정'){
                 $menu = '마이페이지';
-            }
-            if($title == '자료 현황'){
-                $class = '';
             }
         }
 
@@ -202,31 +193,33 @@
                ?>
             </ul>
         </nav>
-        <aside>
-            <?php
-            if($state != 1){
-                if($title != '자료 현황' && $title != '도서관 관리'){
-                    if($bool){
-                        echo "<li><a><h2>$menu</h2></a>";
-                        $script = makehtml($menu, $menus);
-                        echo $script;    
-                        echo "</li>";
-                    }
+        <?php
+        if($state != 1){
+            if($title != '자료 현황' && $title != '도서관 관리'){
+                if($bool){
+                    echo "<aside>";
+                    echo "<li><a><h2>$menu</h2></a>";
+                    $script = makehtml($menu, $menus);
+                    echo $script;    
+                    echo "</li>";
+                    echo "</aside>";
                 }
             }
-            else{
-                if($title != '회원 현황' && $title != '도서관 관리'){
-                    if($bool){
-                        echo "<li><a><h2>$menu</h2></a>";
-                        $script = makehtml($menu, $menus);
-                        echo $script;    
-                        echo "</li>";
-                    }
+        }
+        else{
+            if($title != '회원 현황' && $title != '도서관 관리'){
+                if($bool){
+                    echo "<aside>";
+                    echo "<li><a><h2>$menu</h2></a>";
+                    $script = makehtml($menu, $menus);
+                    echo $script;    
+                    echo "</li>";
+                    echo "</aside>";
                 }
-            } 
-            ?>
-        </aside>
-        <main <?= $class ?>>
+            }
+        } 
+        ?>
+        <main>
             <?= $outString ?>
         </main>
         <footer>

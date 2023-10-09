@@ -8,11 +8,9 @@
         <?php
         if(isset($row)){
             echo 'var check = true';
-            $bool = false;
         }
         else{
             echo 'var check = false';
-            $bool = true;
         }
         ?>
 
@@ -90,11 +88,6 @@
     </script>
 </head>
 <body>
-    <?php
-        if($bool){
-            echo '<header><h1> '.$title.'</h1></header>';
-        }
-    ?>
     <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
             <ul><label for = "mem_name">이름</label>
@@ -118,11 +111,6 @@
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
-                <?php
-                if($bool){
-                    echo "<a href='/'><input type='button' value='홈'></a>";
-                }
-                ?>
             </div>
         </fieldset>
     </form>

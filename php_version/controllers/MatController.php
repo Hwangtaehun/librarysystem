@@ -48,7 +48,13 @@ class MatController{
     }
 
     public function list(){
-        $mem_state = $_SESSION['mem_state'];
+        if(isset($_SESSION['mem_state'])){
+            $mem_state = $_SESSION['mem_state'];
+        }
+        else{
+            $mem_state = 2;
+        }
+        
         if($mem_state != 1){
             $this->sql = "SELECT * FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no LEFT JOIN reservation ON material.mat_no = reservation.mat_no 
                 WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
