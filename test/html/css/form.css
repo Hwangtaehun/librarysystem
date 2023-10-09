@@ -7,14 +7,29 @@ body {
     grid-template-areas:
       'header header'
       'nav nav'
-      '. main'
+      'aside main'
       'footer footer';
 }
 
 @media (min-width: 1025px){
     body {
-        padding-left: 100px;
-        padding-right: 100px;
+        grid-template-columns: auto 96px 928px auto;
+        grid-template-areas:
+        '. header header .'
+        '. nav nav .'
+        '. aside main .'
+        '. footer footer .';
+    }
+}
+
+@media (max-width: 400px){
+    body {
+        grid-template-columns: auto;
+        grid-template-rows: 100px auto 50px;
+        grid-template-areas:
+        'header'
+        'main'
+        'footer';
     }
 }
 
@@ -44,7 +59,7 @@ nav > ul > li > ul > li:hover {
 
 main{grid-area: main; padding-left: 10px;}
 
-aside{float:left; background: #3085c3; position: sticky; top: 0; max-height: 200px;}
+aside{grid-area: aside; float:left; background: #3085c3; position: sticky; top: 0; max-height: 200px;}
 aside h2 {color: #000000; text-decoration: none; background: #f4e869;}
 aside a {color: #ffffff; text-decoration: none;}
 aside a:hover {color: #ff0000;}
