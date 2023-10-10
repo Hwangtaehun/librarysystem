@@ -21,6 +21,7 @@
     <?php
     if(isset($_GET['pop'])){
         $bool = false;
+        $state = 3;
     }
     else{
         $bool = true;
@@ -127,6 +128,7 @@
     ?>
     <body>
         <header>
+            <?php if(!isset($_GET['pop'])){ ?>
             <div id="head">
             <?php
             if(!isset($_SESSION['mem_state'])){
@@ -140,6 +142,7 @@
             }
             ?>
             </div>
+            <?php } ?>
             <h1><?=$title?></h1>
         </header>
         <nav>

@@ -22,9 +22,9 @@ body {
     }
 }
 
-@media (max-width: 400px){
+@media (max-width: 410px){
     body {
-        grid-template-columns: auto;
+        grid-template-columns: 380px;
         grid-template-rows: 100px auto 50px;
         grid-template-areas:
         'header'
@@ -60,7 +60,7 @@ nav > ul > li > ul > li:hover {
 main{grid-area: main; padding-left: 10px;}
 
 aside{grid-area: aside; float:left; background: #3085c3; position: sticky; top: 0; max-height: 200px;}
-aside h2 {width: 96px; color: #000000; background: #f4e869; text-align: center; text-decoration: none;}
+aside h2 {min-width: 96px; color: #000000; background: #f4e869; text-align: center; text-decoration: none;}
 aside a {color: #ffffff; text-decoration: none;}
 aside a:hover {color: #ff0000;}
 aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
@@ -68,7 +68,7 @@ aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.
 footer {grid-area: footer;}
 
 .login {
-    margin-left: 1em; width: 10em; margin-bottom: 1em; padding: 0.5em;
+    margin-top: 1em; margin-left: 1em; margin-bottom: 1em; width: 10em; padding: 0.5em;
 }
 
 #but {
