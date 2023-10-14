@@ -1,0 +1,86 @@
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 60px 40px auto 35px;
+}
+
+@media (min-width: 1025px){
+    body {
+        grid-template-columns: auto 96px 832px 96px auto;
+        grid-template-areas:
+        '. . header link.'
+        '. nav nav nav .'
+        '. aside main main .'
+        '. footer footer footer .';
+    }
+}
+
+@media (max-width: 400px){
+    body {
+        grid-template-columns: auto;
+        grid-template-rows: 60px auto 50px;
+        grid-template-areas:
+        'header'
+        'main'
+        'footer';
+    }
+}
+
+header{grid-area: header; text-align: center;}
+
+nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
+.bg-body-tertiary > .nav-pills > .nav-item > .active{
+    background-color: #363062;
+}
+.bg-body-tertiary > .nav-pills > .nav-item > .active:hover{
+    background-color: red;
+}
+
+main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+main > form > .form-control{ margin-left: 1em; width: 12em;}
+
+aside{grid-area: aside; float:left; background: #4D4C7D; position: sticky; top: 0; max-height: 200px; margin-top: 1em;}
+aside h2 {color: #000000; text-decoration: none; background: #F99417;}
+aside a {color: #ffffff; text-decoration: none;}
+aside a:hover {color: #F99417;}
+aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
+
+footer {grid-area: footer; text-align: center; border-style: ridge;}
+
+.link {
+    grid-area: link;
+    float:right; 
+    text-decoration: none;
+    list-style:none;
+}
+.link li{
+    float: left;
+    margin-right: 10px;
+}
+
+#but {
+    margin-left: 1em; width: 11.5em; margin-bottom: 1em; padding: 0.5em;
+}
+
+#div1{
+    text-align: center;
+    background-color: #f5f5dc;
+    border-style: hidden;
+}
+
+#fieldset_row {
+    display: table; 
+    width: 100%; 
+    padding: 1px;
+}
+
+#div_row {
+    display: table-cell;
+    width: 70%;
+}
+
+#fieldset_row > form{
+    display: table-cell;
+    text-align: right; 
+    padding: 5px;
+}

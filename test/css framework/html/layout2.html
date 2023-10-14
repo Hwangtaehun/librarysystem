@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <link rel="stylesheet" href="../css/form.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>layout테스트</title>
+        <script>
+            var menus = [
+                {
+                    menu: "내서재",
+                    title: "대출중도서",
+                    url: "/len/memLent",
+                },
+                {
+                    menu: "내서재",
+                    title: "모든대출내역",
+                    url: "/len/memAllLent",
+                },
+                {
+                    menu: "내서재",
+                    title: "예약내역",
+                    url: "/res/list",
+                },
+                {
+                    menu: "내서재",
+                    title: "상호대차내역",
+                    url: "/del/list",
+                },
+                {
+                    menu: "마이페이지",
+                    title: "회원정보수정",
+                    url: "/member/addupdate?mem_no=" + mem_no,
+                },
+                {
+                    menu: "마이페이지",
+                    title: "회원탈퇴",
+                    url: "/member/memdel?mem_no=" + mem_no,
+                }
+            ]
+
+            function filter_title(menu){
+                let temp = Array();
+                for(let i = 0; i < menus.length; i++){
+                    if(menus[i].menu === menu){
+                        temp.push(i);
+                    }
+                }
+                return temp;
+            }
+            
+            function filter_url(menu){
+                let temp = Array();
+                for (let i = 0; i < menus.length; i++) {
+                    if(menus[i].menu === menu){
+                        temp.push(i);
+                    }
+                }
+                return temp;
+            }
+
+            let menu = "내서재";
+            document.write(menu);
+            var target = document.getElementById("side");
+            target.innerHTML = "";
+            let title_array = filter_title(menu);
+            let url_array = filter_url(menu);
+            var asi = document.createElement("aside");
+            let str = '<li><a id="title"><h2>'+ menu + '</h2></a>';
+            for (let i = 0; i < title_array.length; i++) {
+                str = str + '<li><a hert="' + url_array[i] + '">'+ title_array[i] +'</a></li>';
+            }
+            str = str + '</li>';
+            document.write(str);
+            asi.innerText = str;
+            target.appendChild(asi);
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>layout테스트</h1>
+        </header>
+        <div class="link">
+            <li><a href="/len/memLent">로그인</a></li>
+            <li><a href="/res/list">회원가입</a></li>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">홈</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/len/memLent">대출중도서</a></li>
+                      <li><a class="dropdown-item" href="/len/memAllLent">모든대출내역</a></li>
+                      <li><a class="dropdown-item" href="/res/list">예약내역</a></li>
+                      <li><a class="dropdown-item" href="/del/list">상호대차내역</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mat/list">자료 검색</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/member/addupdate?mem_no='.$mem_no.'">회원정보수정</a></li>
+                      <li><a class="dropdown-item" href="/member/memdel?mem_no='.$mem_no.'">회원탈퇴</a></li>
+                    </ul>
+                  </li>
+            </ul>
+        </nav>
+        <aside>
+            <li>
+                <a><h2>내서재</h2></a>
+                <li><a href="/len/memLent">대출중도서</a></li>
+                <li><a href="/len/memAllLent">모든대출내역</a></li>
+                <li><a href="/res/list">예약내역</a></li>
+                <li><a href="/del/list">상호대차내역</a></li>
+            </li>
+        </aside>
+        <main>
+            <form action="/member/login" method="post" onSubmit="return checkInput(this)">
+                <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디"><br>
+                <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호"><br><br>
+                <input id="but" type=submit value='로그인'>
+            </form>
+        </main>
+        <footer>
+            <h4>청주 도서관 관리</h4>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
