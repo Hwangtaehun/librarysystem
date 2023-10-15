@@ -1,31 +1,24 @@
 body {
     min-height: 100vh;
-    margin: 0;
     display: grid;
-    grid-template-columns: 96px auto;
-    grid-template-rows: 100px 40px auto 50px;
-    grid-template-areas:
-      'header header'
-      'nav nav'
-      'aside main'
-      'footer footer';
+    grid-template-rows: 60px 40px auto 35px;
 }
 
 @media (min-width: 1025px){
     body {
-        grid-template-columns: auto 96px 928px auto;
+        grid-template-columns: auto 140px 744px 140px auto;
         grid-template-areas:
-        '. header header .'
-        '. nav nav .'
-        '. aside main .'
-        '. footer footer .';
+        '. . header link.'
+        '. nav nav nav .'
+        '. aside main main .'
+        '. footer footer footer .';
     }
 }
 
-@media (max-width: 410px){
+@media (max-width: 400px){
     body {
-        grid-template-columns: 380px;
-        grid-template-rows: 100px auto 50px;
+        grid-template-columns: auto;
+        grid-template-rows: 60px auto 50px;
         grid-template-areas:
         'header'
         'main'
@@ -33,42 +26,45 @@ body {
     }
 }
 
-header, h4 {grid-area: header; text-align: center; border-style: double; background-color: #e9b824;}
+header{grid-area: header; text-align: center;}
 
-nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px; background-color: #ccccdd;}
-nav a {color: #ffffff; text-decoration: none;}
-nav a:hover {color: #d83f31;}
-nav li {display: table-cell; text-align: center; padding: 0.5em;}
-
-nav > ul > li > ul {
-    margin: 0;
-	padding: 0;
-    display:none;
-    position: absolute;
-    background: #61677A;
+nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
+.bg-body-tertiary > .nav-pills > .nav-item > .active{
+    background-color: #363062;
+}
+.bg-body-tertiary > .nav-pills > .nav-item > .active:hover{
+    background-color: #ff0000;
+}
+.bg-body-tertiary > .nav-pills > .dropdown > .dropdown-menu > li > .dropdown-item{
+    background-color: #F5F5F5;
+}
+.bg-body-tertiary > .nav-pills > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
+    background-color: #4D4C7D;
+    color: #F5F5F5
 }
 
-nav > ul > li:hover > ul {
-    display:block;
-}
+main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+main > form > .form-control{ margin-left: 1em; width: 12em; margin-bottom: 1em;}
+main > form > .btn-outline-primary{margin-left: 1em; width: 12em; margin-bottom: 1em; padding: 0.5em; border-color: #363062; color: #363062;}
+main > form > .btn-outline-primary:hover{background-color: #363062;}
 
-nav > ul > li > ul > li:hover {
-    background: #219c90;
-    transition: ease 1s;
-}
-
-main{grid-area: main; padding-left: 10px;}
-
-aside{grid-area: aside; float:left; background: #3085c3; position: sticky; top: 0; max-height: 200px;}
-aside h2 {min-width: 96px; color: #000000; background: #f4e869; text-align: center; text-decoration: none;}
-aside a {color: #ffffff; text-decoration: none;}
-aside a:hover {color: #ff0000;}
+aside{grid-area: aside; float:left; background: #4D4C7D; position: sticky; top: 0; max-height: 180px; margin-top: 1em;}
+aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
+aside .dropdown-item {color: #ffffff; text-decoration: none;}
+aside .dropdown-item:hover {color: #F99417;}
 aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
 
-footer {grid-area: footer;}
+footer {grid-area: footer; text-align: center; border-style: hidden;}
 
-.login {
-    margin-top: 1em; margin-left: 1em; margin-bottom: 1em; width: 10em; padding: 0.5em;
+.link {
+    grid-area: link;
+    float:right; 
+    text-decoration: none;
+    list-style:none;
+}
+.link li{
+    float: left;
+    margin-right: 10px;
 }
 
 #but {
@@ -96,14 +92,4 @@ footer {grid-area: footer;}
     display: table-cell;
     text-align: right; 
     padding: 5px;
-}
-
-#head {
-    float:right; 
-    text-decoration: none;
-    list-style:none;
-}
-#head li{
-    float: left;
-    margin-right: 10px;
 }

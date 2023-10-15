@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/form.css">
         <title><?=$title?></title>
         <script>
             function checkInput(myform){
@@ -22,9 +21,9 @@
     </head>
     <body>
         <form action="/member/login" method="post" onSubmit="return checkInput(this)">
-            <input class="login" type="text" name="user_id" id="user_id" value="" placeholder="아이디"><br>
-            <input class="login" type="password" name="user_password" id="user_password" placeholder="비밀번호"><br><br>
-            <input id="but" type=submit value='로그인'>
+            <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
+            <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
+            <input type="submit" class="btn btn-outline-primary" value='로그인'>
         </form>
     </body>
 </html>

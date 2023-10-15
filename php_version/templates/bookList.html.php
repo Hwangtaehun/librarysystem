@@ -45,11 +45,10 @@
             else{
         ?>
         <form action="/book/delete" method="post">
-                <input type="hidden" name="mem_no" value="<?=$row['book_no']?>">
-                <input type="submit" value="삭제">
-                <a href="/book/addupdate?book_no=<?=$row['book_no']?>"><input type="button" value="수정"></a>
+            <input type="hidden" name="mem_no" value="<?=$row['book_no']?>">
+            <input type="submit" value="삭제">
+            <a href="/book/addupdate?book_no=<?=$row['book_no']?>"><input type="button" value="수정"></a>
         <?php } ?>
         </form>
-        </fieldset>
     </fieldset>
 <?php endforeach; }?>

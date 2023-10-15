@@ -3,6 +3,7 @@
     <head>
         <meta charset = "utf-8">
         <link rel="stylesheet" href="../css/form.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <title><?=$title?></title>
         <script>
         <?php
@@ -11,7 +12,7 @@
             for ($i=0; $i < sizeof($menus[$menu]) ; $i++) { 
                 $m_url = $menus[$menu][$i][1];
                 $m_title = $menus[$menu][$i][0];
-                $m_script .= "<li><a href='$m_url'>$m_title</a></li>";
+                $m_script .= "<li><a class='dropdown-item' href='$m_url'>$m_title</a></li>";
             }
             return $m_script;
         }
@@ -127,73 +128,82 @@
     }
     ?>
     <body>
+        <?php if(!isset($_GET['pop'])){ ?>
+        <div class="link">
+        <?php
+        if(!isset($_SESSION['mem_state'])){
+            echo '<li><a href="/member/login">로그인</a></li>';
+            echo '<li><a href="/member/addupdate">회원가입</a></li>';
+        }
+        else{
+            $name = $_SESSION['mem_name'];
+            echo '<li><a>'.$name.'님</a></li>';
+            echo '<li><a href="/member/logout">로그아웃</a></li>';
+        }
+        ?>
+        </div>
+        <?php } ?>
         <header>
-            <?php if(!isset($_GET['pop'])){ ?>
-            <div id="head">
-            <?php
-            if(!isset($_SESSION['mem_state'])){
-                echo '<li><a href="/member/login">로그인</a></li>';
-                echo '<li><a href="/member/addupdate">회원가입</a></li>';
-            }
-            else{
-                $name = $_SESSION['mem_name'];
-                echo '<li><a>'.$name.'님 환영합니다.</a></li>';
-                echo '<li><a href="/member/logout">로그아웃</a></li>';
-            }
-            ?>
-            </div>
-            <?php } ?>
             <h1><?=$title?></h1>
         </header>
-        <nav>
-            <ul>
-               <?php
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <ul class="nav nav-pills">
+                <?php
                 if($bool){
-                    echo '<li><a href="/">홈</a><li>';
+                    echo '<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>';
                     if($state == 1){
-                        echo '<li><a>책</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('책', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a>종류</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">종류</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('종류', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a>도서관</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">도서관</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('도서관', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a>자료</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자료</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('자료', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a href="/member/list">회원</a></li>';
-                        echo '<li><a>대출 및 반납</a><ul>';
+                        echo '<li class="nav-item"><a class="nav-link" href="/member/list">회원</a></li>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출 및 반납</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('대출', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a>상호대차</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('상호대차', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a>기타</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">기타</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('기타', $menus);
                         echo $script;
                         echo '</ul></li>';
                     }
                     else{
-                        echo '<li><a href="/mat/list">자료 검색</a><li>';
-                        echo '<li><a>내서재</a><ul>';
+                        echo '<li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('내서재', $menus);
                         echo $script;
                         echo '</ul></li>';
-                        echo '<li><a>마이페이지</a><ul>';
+                        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>';
+                        echo '<ul class="dropdown-menu">';
                         $script = makehtml('마이페이지', $menus);
                         echo $script;
                         echo '</ul></li>';
                     }
                 }
-               ?>
+                ?>
             </ul>
         </nav>
         <?php
@@ -201,7 +211,7 @@
             if($title != '자료 현황' && $title != '도서관 관리'){
                 if($bool){
                     echo "<aside>";
-                    echo "<li><a><h2>$menu</h2></a>";
+                    echo "<li><a><h3>$menu</h3></a>";
                     $script = makehtml($menu, $menus);
                     echo $script;    
                     echo "</li>";
@@ -213,7 +223,7 @@
             if($title != '회원 현황' && $title != '도서관 관리'){
                 if($bool){
                     echo "<aside>";
-                    echo "<li><a><h2>$menu</h2></a>";
+                    echo "<li><a><h3>$menu</h3></a>";
                     $script = makehtml($menu, $menus);
                     echo $script;    
                     echo "</li>";
@@ -228,5 +238,6 @@
         <footer>
             <h4>청주 도서관 관리</h4>
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
