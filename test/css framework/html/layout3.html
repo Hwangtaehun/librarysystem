@@ -112,7 +112,7 @@
         </nav>
         <aside>
             <li>
-                <a><h3>내서재</h3></a>
+                <a><h2>내서재</h2></a>
                 <li><a href="/len/memLent">대출중도서</a></li>
                 <li><a href="/len/memAllLent">모든대출내역</a></li>
                 <li><a href="/res/list">예약내역</a></li>
@@ -120,10 +120,10 @@
             </li>
         </aside>
         <main>
-            <form action="/member/login" method="post" onSubmit="return checkInput(this)">
-                <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
-                <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
-                <button type="button" class="btn btn-outline-primary" type=submit>로그인</button>
+            <form action="/book/delete" method="post">
+                <input type="hidden" name="mem_no" value="<?=$row['book_no']?>">
+                <input type="submit" value="삭제">
+                <a href="/book/addupdate?book_no=<?=$row['book_no']?>"><input type="button" value="수정"></a>
             </form>
         </main>
         <footer>
