@@ -90,6 +90,7 @@
 <body>
     <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
+        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for = "mem_name">이름</label>
                 <input type= "text" name="mem_name" id="id_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
                 <label for = "mem_id">아이디</label>
