@@ -137,7 +137,7 @@
         }
         else{
             $name = $_SESSION['mem_name'];
-            echo '<li><a>'.$name.'님 환영합니다.</a></li>';
+            echo '<li><a>'.$name.'님</a></li>';
             echo '<li><a href="/member/logout">로그아웃</a></li>';
         }
         ?>
