@@ -96,13 +96,13 @@
                 <?php
                     }
                 ?>
-                <label for ="mem_id">회원아이디</label>
+                <label for ="mem_id">회원아이디</label><br>
                 <input type="text" name="mem_id" id="im_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>" readonly>
                 <input type="button" name="mem_check" id="im_check" value="회원 찾기" onclick="checkmem();"><br>
                 <?php
                     if($title == '대출 추가'){
                 ?>
-                <label for ="lib_name">대출 도서관</label>
+                <label for ="lib_name">대출 도서관</label><br>
                 <select id ="il_no" name="lib_no">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
@@ -117,24 +117,24 @@
                 <?php
                     }
                 ?>
-                <label for ="book_name">책이름</label>
+                <label for ="book_name">책이름</label><br>
                 <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();"><br>
                 <?php if(isset($row)){ ?>
-                    <label for ="len_date">대출일</label>
+                    <label for ="len_date">대출일</label><br>
                     <input type="date" name="len_date" id="id_date" value="<?php echo $row['len_date']; ?>"><br>
                 <?php }?>
-                <label for ="len_ex">연장여부</label>
+                <label for ="len_ex">연장여부</label><br>
                 <input type="radio" name="len_ex" id="id_extend" value="7"> 예 
                 <input type="radio" name="len_ex" id="id_normal" value="0"> 아니요<br>
                 <?php if(isset($row)){ ?>
-                <label for ="len_ex">반납일</label>
+                <label for ="len_ex">반납일</label><br>
                 <input type="date" name="len_re_date" id="id_re_date" value="<?php echo $row['len_re_date']; ?>"><br>
-                <label for ="len_ex">반납상태</label>
+                <label for ="len_ex">반납상태</label><br>
                 <input type="radio" name="len_re_st" id="id_lent" value="0"> 대출중
                 <input type="radio" name="len_re_st" id="id_return" value="1"> 반납
                 <input type="radio" name="len_re_st" id="id_etc" value="2"> 기타 <br>
-                <label for ="len_ex">메모</label>
+                <label for ="len_ex">메모</label><br>
                 <input type="text" name="len_memo" id="id_memo" value="<?php echo $row['len_memo']; ?>"><br>
                 <?php }?> 
                 <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">

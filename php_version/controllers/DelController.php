@@ -57,7 +57,7 @@ class DelController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '상호대차완료 현황';
+        $title = '상호대차 완료 현황';
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -66,7 +66,7 @@ class DelController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '상호대차도착일추가';
+        $title = '상호대차 도착일 추가';
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 

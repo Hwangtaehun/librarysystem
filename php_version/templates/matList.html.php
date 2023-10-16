@@ -37,7 +37,10 @@
     $assist = new Assistance();
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", true);
     $lib = $lib_man->result_call();
-    $mem_state = $_SESSION['mem_state'];
+    $mem_state = 3;
+    if(isset($_SESSION['mem_state'])){
+        $mem_state = $_SESSION['mem_state'];
+    }
 ?>
 <body>
     <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
@@ -132,7 +135,7 @@
                     <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                     <input type="submit" value="삭제">
                     <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
-            <?php }else{ ?>
+            <?php }else if($mem_state == 3){}else{ ?>
             <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
                     <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                     <input type="hidden" name="mem_no" value="<?=$_SESSION['mem_no']?>">

@@ -68,7 +68,7 @@
     <form action="/mat/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for = "lib_name">도서관</label>
+            <ul><label for = "lib_name">도서관</label><br>
                 <select id = "il_no" name = "lib_no">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
@@ -80,11 +80,11 @@
                     }
                     ?>
                 </select><br>
-                <label for = "book_name">책이름</label>
+                <label for = "book_name">책이름</label><br>
                 <input type= "text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                 <input type= "button" name="book_check" id="ib_check" value="책 찾기" onclick="checkbook();"><br>
                 <label for = "book_name">종류번호</label><br>
-                <label for = "kind_super">대분류</label>
+                <label for = "kind_super">대분류</label><br>
                 <select id = "s1" name = "super" onchange='superChange(this)'>
                     <?php
                     for ($z=0; $z < sizeof($super); $z++) { 
@@ -96,7 +96,7 @@
                     }
                     ?>
                 </select><br>
-                <label for = "kind_base">중분류</label>
+                <label for = "kind_base">중분류</label><br>
                 <select id = "s2" name = "base" onchange='baseChange(this)'>
                 <?php
                 for ($z=0; $z < sizeof($base); $z++) { 
@@ -108,7 +108,7 @@
                 }
                 ?>
                 </select><br>
-                <label for = "kind_no">소분류</label>
+                <label for = "kind_no">소분류</label><br>
                 <select id = "s3" name = "kind_no">
                 <?php
                 for ($z=0; $z < sizeof($sub); $z++) { 
@@ -120,7 +120,7 @@
                 }
                 ?>
                 </select><br>
-                <label for = "mat_many">권차</label>
+                <label for = "mat_many">권차</label><br>
                 <input type= "text" name="mat_many" id="mi_many" value="<?php if(isset($row)){echo $row['mat_many'];}?>"><br>
                 <input type="hidden" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
                 <input type="hidden" id="id_book" name="book_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
