@@ -63,6 +63,7 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
     list-style:none;
 }
 .link li{
+    text-size-adjust: auto;
     float: left;
     margin-right: 10px;
 }
