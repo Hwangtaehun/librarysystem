@@ -54,7 +54,7 @@ nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
     background-color: #363062;
 }
 .bg-body-tertiary > .nav-pills > .nav-item > .active:hover{
-    background-color: #ff0000;
+    background-color: #F99417;
 }
 .bg-body-tertiary > .nav-pills > .dropdown > .dropdown-menu > li > .dropdown-item{
     background-color: #F5F5F5;
@@ -88,12 +88,6 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
     float: left;
     margin-right: 10px;
     font-size: 95%;
-}
-
-#div1{
-    text-align: center;
-    background-color: #f5f5dc;
-    border-style: hidden;
 }
 
 #id_add{
