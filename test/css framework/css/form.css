@@ -2,27 +2,48 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 40px auto 35px;
+    grid-template-columns: 140px auto 140px;
+    grid-template-areas:
+    '. header link'
+    'nav nav nav'
+    'aside main main'
+    'footer footer footer';
 }
 
 @media (min-width: 1025px){
     body {
         grid-template-columns: auto 140px 744px 140px auto;
         grid-template-areas:
-        '. . header link.'
+        '. . header link .'
         '. nav nav nav .'
         '. aside main main .'
         '. footer footer footer .';
     }
 }
 
-@media (max-width: 400px){
+@media (min-width: 410px) AND (max-width: 668px){
     body {
+        grid-template-rows: 60px 80px auto 35px 0px;
+        grid-template-columns: 140px auto 140px;
+        grid-template-areas:
+        '. header link'
+        'nav nav nav'
+        'main main main'
+        'footer footer footer'
+        'aside aside aside';
+    }
+}
+
+@media (max-width: 410px){
+    body {
+        grid-template-rows: 60px auto 50px 0px 0px;
         grid-template-columns: auto;
-        grid-template-rows: 60px auto 50px;
         grid-template-areas:
         'header'
         'main'
-        'footer';
+        'footer'
+        'nav'
+        'aside';
     }
 }
 
@@ -33,7 +54,7 @@ nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
     background-color: #363062;
 }
 .bg-body-tertiary > .nav-pills > .nav-item > .active:hover{
-    background-color: #ff0000;
+    background-color: #F99417;
 }
 .bg-body-tertiary > .nav-pills > .dropdown > .dropdown-menu > li > .dropdown-item{
     background-color: #F5F5F5;
@@ -48,49 +69,50 @@ main > form > .form-control{ margin-left: 1em; width: 12em; margin-bottom: 1em;}
 main > form > .btn-outline-primary{margin-left: 1em; width: 12em; margin-bottom: 1em; padding: 0.5em; border-color: #363062; color: #363062;}
 main > form > .btn-outline-primary:hover{background-color: #363062;}
 
-aside{grid-area: aside; float:left; background: #4D4C7D; position: sticky; top: 0; max-height: 180px; margin-top: 1em;}
+aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em;}
 aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
-aside a {color: #ffffff; text-decoration: none;}
-aside a:hover {color: #F99417;}
-aside li {line-height: 200%; display: table-row; text-align: center; padding: 0.5em;}
+aside .dropdown-item {color: #ffffff; text-decoration: none;}
+aside .dropdown-item:hover {color: #F99417;}
+aside li {line-height: 200%; display: table-row; text-align: center; font-size: 95%; background: #4D4C7D;}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 
 .link {
     grid-area: link;
+    display: grid;
     float:right; 
     text-decoration: none;
     list-style:none;
 }
 .link li{
-    text-size-adjust: auto;
     float: left;
     margin-right: 10px;
+    font-size: 95%;
 }
 
-#but {
-    margin-left: 1em; width: 11.5em; margin-bottom: 1em; padding: 0.5em;
+#id_add{
+    width: 30%;
 }
 
-#div1{
-    text-align: center;
-    background-color: #f5f5dc;
-    border-style: hidden;
+#id_detail{
+    width: 40%;
 }
 
 #fieldset_row {
     display: table; 
     width: 100%; 
     padding: 1px;
+    border: 1px groove #000000;
 }
 
 #div_row {
     display: table-cell;
-    width: 70%;
+    float: left;
+    max-width: 732px;
 }
 
 #fieldset_row > form{
     display: table-cell;
     text-align: right; 
-    padding: 5px;
+    float: right;
 }
