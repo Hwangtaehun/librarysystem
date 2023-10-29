@@ -1,28 +1,9 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset = "utf-8">
+        <meta charset="utf-8">
         <link rel="stylesheet" href="../css/form.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <title>로그인</title>
-        <script>
-                </script>
-    </head>
-        <body>
-                <div class="link">
-        <li><a href="/member/login">로그인</a></li><li><a href="/member/addupdate">회원가입</a></li>        </div>
-                <header>
-            <h1>로그인</h1>
-        </header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li>            </ul>
-        </nav>
-        <aside><li><a><h3>마이페이지</h3></a><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></li></aside>        <main>
-            <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
         <title>로그인</title>
         <script>
             function checkInput(myform){
@@ -40,14 +21,34 @@
             }
         </script>
     </head>
-    <body>
-        <form action="/member/login" method="post" onSubmit="return checkInput(this)">
-            <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
-            <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
-            <input type="submit" class="btn btn-outline-primary" value='로그인'>
-        </form>
-    </body>
-</html>        </main>
+        <header>
+            <h1>로그인</h1>
+        </header>
+        <div class="link">
+            <li><a href="/member/login">로그인</a></li><li><a href="/member/addupdate">회원가입</a></li>        
+        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>
+                <li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>
+                    <ul class="dropdown-menu">
+                        <li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li>
+                        <li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li>
+                        <li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li>
+                        <li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
+                    <ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li>
+            </ul>
+        </nav>
+        <aside><li><a><h3>마이페이지</h3></a><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></li></aside>
+        <main>
+            <form action="/member/login" method="post" onSubmit="return checkInput(this)">
+                <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
+                <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
+                <input type="submit" class="btn btn-outline-primary" value='로그인'>
+            </form>
+        </main>
         <footer>
             <h4>청주 도서관 관리</h4>
         </footer>
