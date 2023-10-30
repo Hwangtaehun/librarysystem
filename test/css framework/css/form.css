@@ -2,35 +2,35 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 40px auto 35px;
-    grid-template-columns: 140px auto 140px;
+    grid-template-columns: 140px auto;
     grid-template-areas:
-    '. header link'
-    'nav nav nav'
-    'aside main main'
-    'footer footer footer';
+    'header header'
+    'nav nav'
+    'aside main'
+    'footer footer';
 }
 
 @media (min-width: 1025px){
     body {
-        grid-template-columns: auto 140px 744px 140px auto;
+        grid-template-columns: auto 140px 884px auto;
         grid-template-areas:
-        '. . header link .'
-        '. nav nav nav .'
-        '. aside main main .'
-        '. footer footer footer .';
+        '. header header .'
+        '. nav nav .'
+        '. aside main .'
+        '. footer footer .';
     }
 }
 
 @media (min-width: 410px) AND (max-width: 668px){
     body {
         grid-template-rows: 60px 80px auto 35px 0px;
-        grid-template-columns: 140px auto 140px;
+        grid-template-columns: 140px auto;
         grid-template-areas:
-        '. header link'
-        'nav nav nav'
-        'main main main'
-        'footer footer footer'
-        'aside aside aside';
+        'header header'
+        'nav nav'
+        'main main'
+        'footer footer'
+        'aside aside';
     }
 }
 
@@ -47,7 +47,23 @@ body {
     }
 }
 
-header{grid-area: header; text-align: center;}
+header{grid-area: header;}
+header h1{
+    float: left;
+}
+header .link {
+    float:right; 
+    margin-top: 15px;
+    text-decoration: none;
+    list-style:none;
+}
+header .link li{
+    margin-right: 10px;
+    font-size: 95%;
+}
+header .link li a{
+    margin-left: 10px;
+}
 
 nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
 .bg-body-tertiary > .nav-pills > .nav-item > .active{
@@ -74,19 +90,6 @@ aside li {line-height: 200%; display: table-row; text-align: center; font-size: 
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 
-.link {
-    grid-area: link;
-    display: grid;
-    float:right; 
-    text-decoration: none;
-    list-style:none;
-}
-.link li{
-    float: left;
-    margin-right: 10px;
-    font-size: 95%;
-}
-
 .auth_page{
     padding: 2vh 0px;
     min-height: 100vh;
@@ -112,6 +115,26 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
 
 #id_detail{
     width: 40%;
+}
+
+#form_fieldset > legend{
+    padding-left: 10px;
+    border-bottom: 1px solid #000000;
+}
+#form_fieldset > .form_class{
+    float: right;
+}
+#form_fieldset > ul{
+    border-bottom: 1px solid #000000;
+}
+#form_fieldset > ul > label{
+    width: 110px;
+    margin-bottom: 10px;
+}
+#form_fieldset > ul > .input{
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #000000;
 }
 
 #fieldset_row {
