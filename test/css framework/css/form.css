@@ -65,9 +65,6 @@ nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
 }
 
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
-main > form > .form-control{ margin-left: 1em; width: 12em; margin-bottom: 1em;}
-main > form > .btn-outline-primary{margin-left: 1em; width: 12em; margin-bottom: 1em; padding: 0.5em; border-color: #363062; color: #363062;}
-main > form > .btn-outline-primary:hover{background-color: #363062;}
 
 aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em;}
 aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
@@ -88,6 +85,25 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
     float: left;
     margin-right: 10px;
     font-size: 95%;
+}
+
+.auth_page{
+    padding: 2vh 0px;
+    min-height: 100vh;
+    text-align: center;
+}
+.auth_page h1{
+    max-width: 450px;
+    margin: 0px auto;
+}
+.auth_page .auth_input .form-control{
+    margin: 0px auto; width: 12em; margin-top: 1em;
+}
+.auth_page .auth_input .btn-outline-primary{
+    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062;
+}
+.auth_page .auth_input .btn-outline-primary:hover{
+    background-color: #363062; color: #F5F5F5
 }
 
 #id_add{

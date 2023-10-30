@@ -22,7 +22,7 @@
         </script>
     </head>
         <header>
-            <h1>로그인</h1>
+            <h1>청주 도서관</h1>
         </header>
         <div class="link">
             <li><a href="/member/login">로그인</a></li><li><a href="/member/addupdate">회원가입</a></li>        
@@ -43,11 +43,14 @@
         </nav>
         <aside><li><a><h3>마이페이지</h3></a><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></li></aside>
         <main>
-            <form action="/member/login" method="post" onSubmit="return checkInput(this)">
-                <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
-                <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
-                <input type="submit" class="btn btn-outline-primary" value='로그인'>
-            </form>
+            <div class = "auth_page">
+                <h1>로그인</h1>
+                <form class="auth_input" action="/member/login" method="post" onSubmit="return checkInput(this)">
+                    <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
+                    <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
+                    <input type="submit" class="btn btn-outline-primary" value='로그인'>
+                </form>
+            </div>
         </main>
         <footer>
             <h4>청주 도서관 관리</h4>
