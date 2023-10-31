@@ -20,10 +20,13 @@
         </script>
     </head>
     <body>
-        <form action="/member/login" method="post" onSubmit="return checkInput(this)">
-            <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
-            <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
-            <input type="submit" class="btn btn-outline-primary" value='로그인'>
-        </form>
+        <div class = "auth_page">
+            <h1><?=$title?></h1>
+            <form class = "auth_input" action="/member/login" method="post" onSubmit="return checkInput(this)">
+                <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
+                <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
+                <input type="submit" class="btn btn-outline-primary" value='로그인'>
+            </form>
+        </div>
     </body>
 </html>

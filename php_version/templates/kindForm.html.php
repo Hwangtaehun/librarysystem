@@ -34,8 +34,9 @@
 <body>
     <form action="/kind/addupdate" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
+        <h2><?=$title?></h2>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for = "kind_super">대분류</label><br>
+            <ul><label for = "kind_super">대분류</label>
                 <select id = "s1" name = "super" onchange='superChange(this)'>
                     <?php
                     for ($z=0; $z < sizeof($super); $z++) { 
@@ -47,7 +48,7 @@
                     }
                     ?>
                 </select><br>
-                <label for = "kind_base">중분류</label><br>
+                <label for = "kind_base">중분류</label>
                 <select id = "s2" name = "base" onchange='baseChange(this)'>
                 <?php
                 for ($z=0; $z < sizeof($base); $z++) { 
@@ -59,7 +60,7 @@
                 }
                 ?>
                 </select><br>
-                <label for = "kind_sub">소분류</label><br>
+                <label for = "kind_sub">소분류</label>
                 <select id = "s3" name = "sup">
                 <?php
                 for ($z=0; $z < sizeof($sub); $z++) { 
@@ -71,8 +72,8 @@
                 }
                 ?>
                 </select><br>
-                <label for = "kind_name">종류 이름</label><br>
-                <input type= "text" name="kind_name" id="id_name" value="<?php if(isset($row)){echo $row['kind_name'];}?>"><br>
+                <label for  ="kind_name">종류 이름</label>
+                <input class="input" type= "text" name="kind_name" id="id_name" value="<?php if(isset($row)){echo $row['kind_name'];}?>"><br>
                 <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
             </ul>
             <div class="form_class">

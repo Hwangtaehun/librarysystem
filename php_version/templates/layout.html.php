@@ -128,23 +128,23 @@
     }
     ?>
     <body>
-        <?php if(!isset($_GET['pop'])){ ?>
-        <div class="link">
-        <?php
-        if(!isset($_SESSION['mem_state'])){
-            echo '<li><a href="/member/login">로그인</a></li>';
-            echo '<li><a href="/member/addupdate">회원가입</a></li>';
-        }
-        else{
-            $name = $_SESSION['mem_name'];
-            echo '<li><a>'.$name.'님</a></li>';
-            echo '<li><a href="/member/logout">로그아웃</a></li>';
-        }
-        ?>
-        </div>
-        <?php } ?>
         <header>
-            <h1><?=$title?></h1>
+            <h1>청주 도서관</h1>
+            <?php if(!isset($_GET['pop'])){ ?>
+            <div class="link">
+            <?php
+            if(!isset($_SESSION['mem_state'])){
+                echo '<li><a href="/member/login">로그인</a>';
+                echo '<a href="/member/addupdate">회원가입</a></li>';
+            }
+            else{
+                $name = $_SESSION['mem_name'];
+                echo '<li><a>'.$name.'님 환영합니다.</a>';
+                echo '<a href="/member/logout">로그아웃</a></li>';
+            }
+            ?>
+            </div>
+            <?php } ?>
         </header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <ul class="nav nav-pills">
@@ -220,7 +220,7 @@
             }
         }
         else{
-            if($title != '회원 현황' && $title != '도서관 관리'){
+            if($title != '회원 현황' && $title != '도서관 관리' && $title != '회원 수정'){
                 if($bool){
                     echo "<aside>";
                     echo "<li><a><h3>$menu</h3></a>";

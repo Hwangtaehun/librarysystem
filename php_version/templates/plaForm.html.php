@@ -21,14 +21,15 @@
     <body>
         <form action="/etc/addupdate" method="post" onSubmit="return checkInput(this)">
             <fieldset id = form_fieldset>
+            <h2><?=$title?></h2>
             <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-                <ul><label for = "pla_id">회원아이디</label><br>
-                    <input type= "text" name="pla_id" id="id_id" value="" disabled><br>
-                    <label for = "pla_name">책이름</label><br>
-                    <input type= "text" name="pla_name" id="id_name" value="" disabled><br>
-                    <label for = "pla_date">대출날짜</label><br>
-                    <input type= "text" name="pla_date" id="id_date" value="" disabled><br>
-                    <label for = "pla_len">대출 도서관</label><br>
+                <ul><label for  = "pla_id">회원아이디</label>
+                    <input class="input" type= "text" name="pla_id" id="id_id" value="" disabled><br>
+                    <label for  = "pla_name">책이름</label>
+                    <input class="input" type= "text" name="pla_name" id="id_name" value="" disabled><br>
+                    <label for  = "pla_date">대출날짜</label>
+                    <input class="input" type= "text" name="pla_date" id="id_date" value="" disabled><br>
+                    <label for = "pla_len">대출 도서관</label>
                     <select id ="il_no_len" name="lib_no_len">
                         <?php
                         for($z = 0; $z < sizeof($lib_len); $z++){
@@ -40,7 +41,7 @@
                         }
                         ?>
                     </select><br>
-                    <label for = "pla_re">반납 도서관</label><br>
+                    <label for = "pla_re">반납 도서관</label>
                     <select id ="il_no_re" name="lib_no_re">
                         <?php
                         for($z = 0; $z < sizeof($lib_re); $z++){

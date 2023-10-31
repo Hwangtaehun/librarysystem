@@ -37,9 +37,10 @@
 <body>
     <form action="/del/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
+        <h2><?=$title?></h2>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for ="book_name">책이름</label><br>
-                <input type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_COOKIE['mat_no'.$_GET['mat_no']])){echo $_COOKIE['mat_no'.$_GET['mat_no']];}?>" readonly>
+            <ul><label for  ="book_name">책이름</label>
+                <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_COOKIE['mat_no'.$_GET['mat_no']])){echo $_COOKIE['mat_no'.$_GET['mat_no']];}?>" readonly>
                 <?php if(!isset($_GET['mat_no'])){ ?>
                     <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();">
                 <?php } ?>
@@ -50,10 +51,10 @@
                         $lib_arr[$z+1] = $lib[$z][1];
                     }
                     $value = $lib_arr[$_GET['lib_no']]; ?>
-                    <label for ="org_name">소장도서관</label><br>
+                    <label for ="org_name">소장도서관</label>
                     <input type="text" value="<?php $value ?>" readonly>
                 <?php } ?>
-                <label for ="lib_name">수신도서관</label><br>
+                <label for ="lib_name">수신도서관</label>
                 <select id ="il_no" name="lib_no_arr">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
@@ -66,9 +67,9 @@
                     ?>
                 </select><br>
                 <?php if(isset($row)){ ?>
-                <label for ="len_arr_date">도착일</label><br>
+                <label for ="len_arr_date">도착일</label>
                 <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"><br>
-                <label for ="del_app">상태</label><br>
+                <label for ="del_app">상태</label>
                 <input type="radio" name="del_app" id="id_de" value="0"> 거절
                 <input type="radio" name="del_app" id="id_ap" value="1"> 승인
                 <input type="radio" name="del_app" id="id_re" value="2"> 반송 <br>

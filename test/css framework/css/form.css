@@ -118,13 +118,13 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
 }
 
 #form_fieldset > legend{
-    padding-left: 10px;
-    border-bottom: 1px solid #000000;
+    font-size: 10px;
 }
 #form_fieldset > .form_class{
     float: right;
 }
 #form_fieldset > ul{
+    border-top: 1px solid #000000;
     border-bottom: 1px solid #000000;
 }
 #form_fieldset > ul > label{
