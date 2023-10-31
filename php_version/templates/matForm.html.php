@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel = "stylesheet" herf = "../css/form.css">
-    <title><?=$title?></title>
     <script>
         <?php
         echo 'var state = '.$_SESSION['mem_state'];

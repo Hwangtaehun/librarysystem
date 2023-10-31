@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title><?=$title?></title>
         <script>
             function checkInput(myform){
                 if(myform.user_id.value.length <= 0){
