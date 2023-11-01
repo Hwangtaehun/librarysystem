@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" href="../css/form-base.css">
     <script>
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){

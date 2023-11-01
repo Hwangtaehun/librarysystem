@@ -1,4 +1,16 @@
 <head>
+<?php
+    if($title == '도서관 현황'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/lib/research";
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = true;
+        $action = "/lib/research?title=$title&pop=true";
+    }
+?>
     <script>
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
@@ -8,17 +20,6 @@
             }
             return true;            
         }
-
-        <?php
-        if($title == '도서관 현황'){
-            $ispop = false;
-            $action = "/lib/research";
-        }
-        else{
-            $ispop = true;
-            $action = "/lib/research?title=$title&pop=true";
-        }
-        ?>
     </script>
 </head>
 <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">

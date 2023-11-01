@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset = "utf-8">
-        <link rel="stylesheet" href="../css/form.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <title><?=$title?></title>
         <script>
@@ -33,17 +32,7 @@
         } 
         else{
             $menu_arr = explode(' ', $title);
-            if(sizeof($menu_arr) == 1){
-                if($menu_arr[0] == '로그인'){
-                    $menu = '마이페이지';
-                }
-                else{
-                    $menu = '내서재';
-                }
-            }
-            else{
-                $menu = $menu_arr[0];
-            }
+            $menu = $menu_arr[0];
         }          
 
         if(isset($_SESSION['mem_state'])) {
@@ -208,7 +197,7 @@
         </nav>
         <?php
         if($state != 1){
-            if($title != '자료 현황' && $title != '도서관 관리'){
+            if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && $title != '회원가입'){
                 if($bool){
                     echo "<aside>";
                     echo "<li><a><h3>$menu</h3></a>";

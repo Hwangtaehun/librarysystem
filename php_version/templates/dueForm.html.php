@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="../css/form-base.css">
+    </head>
     <body>
         <form action="/etc/addupdate" method="post" onSubmit="return checkInput(this)">
             <fieldset id = form_fieldset>

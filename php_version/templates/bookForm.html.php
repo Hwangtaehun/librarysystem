@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="../css/form-base.css">
     <script>
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){

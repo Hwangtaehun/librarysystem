@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="../css/form-base.css">
         <script>
             function getCookie(key){
                 key = new RegExp(key + '=([^;]*)');

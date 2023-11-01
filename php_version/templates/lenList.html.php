@@ -1,4 +1,21 @@
 <head>
+    <?php
+    if($title == '대출 현황'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/len/research";
+    }
+    else if($title == '대출찾기'){
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = true;
+        $action = "/len/research?title=$title&pop=true";
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/len/research?title=$title";
+    }
+    ?>
     <script>
         var bookname = "";
         var memid = "";
@@ -59,21 +76,6 @@
             memid = name;
             document.querySelector("#id_research").value = memid+' '+bookname;
         }
-
-        <?php
-        if($title == '대출 현황'){
-            $ispop = false;
-            $action = "/len/research";
-        }
-        else if($title == '대출찾기'){
-            $ispop = true;
-            $action = "/len/research?title=$title&pop=true";
-        }
-        else{
-            $ispop = false;
-            $action = "/len/research?title=$title";
-        }
-        ?>
     </script>
 </head>
 <?php

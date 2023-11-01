@@ -1,4 +1,18 @@
 <head>
+    <?php
+    if($title == '예약 현황'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/res/research";
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = true;
+        $action = "/res/research?title=$title&pop=true";
+    }
+
+    $mem_state = $_SESSION['mem_state'];
+    ?>
     <script>
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
@@ -18,19 +32,6 @@
             document.querySelector("#id_mem").value = no;
             document.querySelector("#id_research").value = name;
         }
-
-        <?php
-        if($title == '예약 현황'){
-            $ispop = false;
-            $action = "/res/research";
-        }
-        else{
-            $ispop = true;
-            $action = "/res/research?title=$title&pop=true";
-        }
-
-        $mem_state = $_SESSION['mem_state'];
-        ?>
     </script>
 </head>
 <body>

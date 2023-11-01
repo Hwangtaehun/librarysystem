@@ -1,4 +1,18 @@
 <head>
+    <?php
+    $date = date("Y-m-d");
+
+    if($title == '자료 현황'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/mat/research";
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = true;
+        $action = "/mat/research?title=$title&pop=true";
+    }
+    ?>
     <script>
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
@@ -16,19 +30,6 @@
             }
             return true;
         }
-
-        <?php
-        $date = date("Y-m-d");
-
-        if($title == '자료 현황'){
-            $ispop = false;
-            $action = "/mat/research";
-        }
-        else{
-            $ispop = true;
-            $action = "/mat/research?title=$title&pop=true";
-        }
-        ?>
     </script>
 </head>
 <?php

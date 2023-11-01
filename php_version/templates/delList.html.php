@@ -1,4 +1,16 @@
 <head>
+    <?php
+    if($title == '상호대차찾기'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = true;
+        $action = "/del/research?title=$title&pop=true";
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = false;
+        $action = "/del/research";
+    }
+    ?>
     <script>
         var bookname = "";
         var memid = "";
@@ -55,17 +67,6 @@
             bookname = name;
             document.querySelector("#id_research").value = memid+' '+bookname;
         }
-
-        <?php
-        if($title == '상호대차찾기'){
-            $ispop = true;
-            $action = "/del/research?title=$title&pop=true";
-        }
-        else{
-            $ispop = false;
-            $action = "/del/research";
-        }
-        ?>
     </script>
 </head>
 <?php

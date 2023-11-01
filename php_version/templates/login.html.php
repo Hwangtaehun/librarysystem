@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="../css/form-noaside.css">
         <script>
             function checkInput(myform){
                 if(myform.user_id.value.length <= 0){

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="../css/form-noaside.css">
     <script>
         <?php
         if(isset($row)){

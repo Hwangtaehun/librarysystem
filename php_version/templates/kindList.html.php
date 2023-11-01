@@ -1,4 +1,16 @@
 <head>
+    <?php
+    if($title == '종류 현황'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/kind/research";
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = true;
+        $action = "/kind/research?title=$title&pop=true";
+    }
+    ?>
     <script>
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
@@ -25,15 +37,6 @@
     $sub = $sub_man->result_call();
     $basearray = $inherit1->call_result();
     $subarray = $inherit2->call_result();
-
-    if($title == '종류 현황'){
-        $ispop = false;
-        $action = "/kind/research";
-    }
-    else{
-        $ispop = true;
-        $action = "/kind/research?title=$title&pop=true";
-    }
 ?>
 <body>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">

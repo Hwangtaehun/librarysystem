@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" href="../css/form-base.css">
     <script>
         function setCookie(key, value, expiredays) {
             let todayDate = new Date();
