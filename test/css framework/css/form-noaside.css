@@ -53,7 +53,7 @@ header .link li a{
 
 nav{grid-area: nav; display: flex;}
 .navbar-collapse{
-    background-color: #F5F5F5;
+    background-color: #f8f9fa;
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active{
     background-color: #363062;
@@ -63,7 +63,7 @@ nav{grid-area: nav; display: flex;}
     background-color: #F99417;
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item{
-    background-color: #F5F5F5;
+    background-color: #FFFFFF;
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
     background-color: #4D4C7D;
