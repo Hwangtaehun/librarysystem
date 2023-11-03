@@ -1,12 +1,12 @@
 <head>
     <?php
     if($title == '상호대차찾기'){
-        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
         $ispop = true;
         $action = "/del/research?title=$title&pop=true";
     }
     else{
-        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
         $action = "/del/research";
     }
@@ -108,10 +108,13 @@
         <input type="submit" value = "검색">
     <?php } ?>
     </form>
-    <?php if(isset($result)){foreach($result as $row): ?>
-        <fieldset id="fieldset_row">
-            <div id="div_row">
-                <?php
+    <div class="container text-center">
+        <div class="row">
+        <?php if(isset($result)){foreach($result as $row): ?>
+            <div class="col">
+                <div class="card" style="width: 16rem; height: 300px;">
+                    <div class="card-body">
+                    <?php
                     if(isset($row['del_app'])){
                         $del_app = '반송';
                         if($row['del_app'] == 0){
@@ -122,61 +125,64 @@
                         }
                     }
                     
-                if($title != '상호대차도착일추가'){ ?>
-                    <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
-                    <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
-                <?php }?>
-                <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
-                <?php if(!$ispop){ ?>
-                <?=htmlspecialchars($row['mat_many'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['mat_overlap'],ENT_QUOTES,'UTF-8');?>
-                <?php } ?> 
-                <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> 
-                <?php if(!$ispop){ ?>
-                    <?php if($title != '상호대차도착일추가'){ if(isset($row['del_arr_date'])){ ?>
-                        <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?>
-                    <?php } } ?>
-                <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?>
-                <?php } ?>
-            </div>
-            <?php if($ispop){
-                    echo '<form>';
-                    $mem = "'".$row['mem_no']."'";
-                    $id = "'".$row['mem_id']."'";
-                    $state = "'".$row['mem_state']."'";
-                    $mat = "'".$row['mat_no']."'";
-                    $book = "'".$row['book_name']."'";
-                    $lib = "'".$row['lib_no_arr']."'";
-                    $del = "'".$row['del_no']."'";
-                    if($row['del_app'] == 1){
-                        echo '<input type=button value="선택" onclick="opener.parent.delValue('.$mem.','.$id.','.$state.','.$mat.','.$book.','.$lib.','.$del.'); window.close();">';
-                    }
-                } 
-                else{
-                    if ($mem_state == 1) {
-                        if($title == '상호대차 현황'){ ?>
-                            <form action="/del/delete" method="post">
-                                <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
-                                <input type="submit" value="삭제">
-                                <a href="/del/addupdate?del_no=<?=$row['del_no']?>"><input type="button" value="수정"></a>
-                  <?php }
-                        else if($title == '상호대차도착일추가'){ ?>
-                            <form action="/del/arrive" method="post">
-                                <label for ="del_arr_date">도착일</label>
-                                <input type="date" name="del_arr_date" id="il_date" value="">
-                                <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
-                                <input type="submit" value="도착일추가">
-                  <?php }
-                        else{ ?>
-                            <form action="/del/pagelent" method="post">
-                                <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
-                                <input type="submit" value="이동">
-                  <?php }
+                    if($title != '상호대차도착일추가'){ ?>
+                        회원 아이디: <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
+                        <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
+                    <?php }?>
+                    책이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                    <?php if(!$ispop){ ?>
+                    권차: <?=htmlspecialchars($row['mat_many'],ENT_QUOTES,'UTF-8');?><br>
+                    복권: <?=htmlspecialchars($row['mat_overlap'],ENT_QUOTES,'UTF-8');?><br>
+                    <?php } ?> 
+                    소장 도서관: <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
+                    수신 도서관: <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> <br>
+                    <?php if(!$ispop){ ?>
+                        <?php if($title != '상호대차도착일추가'){ if(isset($row['del_arr_date'])){ ?>
+                            도착일: <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?><br>
+                        <?php } } ?>
+                    승인 상태: <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?><br>
+                    <?php } ?>
+                <?php if($ispop){
+                        echo '<form>';
+                        $mem = "'".$row['mem_no']."'";
+                        $id = "'".$row['mem_id']."'";
+                        $state = "'".$row['mem_state']."'";
+                        $mat = "'".$row['mat_no']."'";
+                        $book = "'".$row['book_name']."'";
+                        $lib = "'".$row['lib_no_arr']."'";
+                        $del = "'".$row['del_no']."'";
+                        if($row['del_app'] == 1){
+                            echo '<input type=button value="선택" onclick="opener.parent.delValue('.$mem.','.$id.','.$state.','.$mat.','.$book.','.$lib.','.$del.'); window.close();">';
+                        }
                     } 
-                }
-            ?>
-            </form>
-        </fieldset>
+                    else{
+                        if ($mem_state == 1) {
+                            if($title == '상호대차 현황'){ ?>
+                                <form action="/del/delete" method="post">
+                                    <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
+                                    <input type="submit" value="삭제">
+                                    <a href="/del/addupdate?del_no=<?=$row['del_no']?>"><input type="button" value="수정"></a>
+                    <?php }
+                            else if($title == '상호대차도착일추가'){ ?>
+                                <form action="/del/arrive" method="post">
+                                    <label for ="del_arr_date">도착일</label>
+                                    <input type="date" name="del_arr_date" id="il_date" value="">
+                                    <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
+                                    <input type="submit" value="도착일추가">
+                    <?php }
+                            else{ ?>
+                                <form action="/del/pagelent" method="post">
+                                    <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
+                                    <input type="submit" value="이동">
+                    <?php }
+                        } 
+                    }
+                ?>
+                        </form>
+                    </div>
+                </div>
+            </div>
     <?php endforeach; }?>
+        </div>
+    </div>
 </body>

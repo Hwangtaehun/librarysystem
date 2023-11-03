@@ -11,7 +11,7 @@ body {
 
 header{grid-area: header;}
 header h1{
-    float: left;
+    float: center;
 }
 header .link {
     float:right; 
@@ -27,29 +27,7 @@ header .link li a{
     margin-left: 10px;
 }
 
-nav{grid-area: nav; display: flex; align-items: center; padding-left: 60px;}
-.bg-body-tertiary > .nav-pills > .nav-item > .active{
-    background-color: #363062;
-}
-.bg-body-tertiary > .nav-pills > .nav-item > .active:hover{
-    background-color: #F99417;
-}
-.bg-body-tertiary > .nav-pills > .dropdown > .dropdown-menu > li > .dropdown-item{
-    background-color: #F5F5F5;
-}
-.bg-body-tertiary > .nav-pills > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
-    background-color: #4D4C7D;
-    color: #F5F5F5
-}
-
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
-
-aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em;}
-aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
-aside .dropdown-item {color: #ffffff; text-decoration: none;}
-aside .dropdown-item:hover {color: #F99417;}
-aside li {line-height: 200%; display: table-row; text-align: center; font-size: 95%; background: #4D4C7D;}
-
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 
 .auth_page{

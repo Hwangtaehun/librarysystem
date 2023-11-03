@@ -105,10 +105,13 @@
         <input type="submit" value = "검색">
     <?php } ?>
     </form>
+    <div class="container text-center">
+        <div class="row">
     <?php if(isset($result)){foreach($result as $row): ?>
-        <fieldset id="fieldset_row">
-            <div id="div_row">
-                <?php
+            <div class="col">
+                <div class="card" style="width: 16rem; height: 320px;">
+                    <div class="card-body">
+                    <?php
                     if($title == '대출중자료'){
                         $date = $row['len_date'];
                         $reDate = $assist->estimateReturndate((string)$date, $row['len_ex']);
@@ -124,35 +127,36 @@
                         }
                     }
     
-                    $extend = '연장 X';
+                    $extend = 'X';
                     if($row['len_ex'] == 7){
-                        $extend = '연장 O';
+                        $extend = 'O';
                     }
 
+                    echo'<p class="card-text">';
                 if($title == '대출 현황' || $title == '대출찾기'){ ?>
-                    <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
+                    회원 아이디: <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>
-                <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?>
+                책 이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                소장 도서관: <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                대출일: <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?><br>
                 <?php if(isset($reDate)){ ?>
-                    <?=htmlspecialchars($reDate,ENT_QUOTES,'UTF-8');?>
+                    반납예정일: <?=htmlspecialchars($reDate,ENT_QUOTES,'UTF-8');?><br>
                 <?php } ?>
                 <?php if(!empty($row['len_re_date'])){ ?>
-                    <?=htmlspecialchars($row['len_re_date'],ENT_QUOTES,'UTF-8');?>
+                    반납일: <?=htmlspecialchars($row['len_re_date'],ENT_QUOTES,'UTF-8');?><br>
                 <?php } 
                 if($title == '모든대출내역'){ ?>
-                    <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?>
+                    반납 상태: <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?><br>
                 <?php }
                 else if($title == '대출 현황' || $title == '대출찾기'){ ?>
-                    <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?>
-                    <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?>
-                <?php if(!empty($row['len_memo'])){ ?>
-                    <?=htmlspecialchars($row['len_memo'],ENT_QUOTES,'UTF-8');?>
+                    반납 상태: <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?><br>
+                    대출 연장: <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?><br>
+                    <?php if(!empty($row['len_memo'])){ ?>
+                        메모: <?=htmlspecialchars($row['len_memo'],ENT_QUOTES,'UTF-8');?><br>
+                    <?php } ?>
                 <?php } ?>
-                <?php } ?> 
-            </div>
+                    </p>
             <?php if($ispop){
                     echo '<form>';
                     $mem = "'".$row['mem_id']."'";
@@ -194,11 +198,15 @@
                                 <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                                 <input type="hidden" name="len_re_st" value="1">
                                 <input type="submit" value="반납">
-                  <?php }
+                      <?php }
                     } 
                 }
             ?>
-            </form>
-        </fieldset>
+                            </form>
+                    </div>
+                </div>
+            </div>
     <?php endforeach; }?>
+        </div>
+    </div>
 </body>

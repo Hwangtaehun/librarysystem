@@ -86,8 +86,8 @@
             $menus['기타'][0][1] = '/res/list';
             $menus['기타'][1][0] = '대출장소관리';
             $menus['기타'][1][1] = '/etc/plalist';
-            $menus['기타'][1][0] = '연체관리';
-            $menus['기타'][1][1] = '/etc/duelist';
+            $menus['기타'][2][0] = '연체관리';
+            $menus['기타'][2][1] = '/etc/duelist';
         }
         else{
             $menus['내서재'][0][0] = '대출중도서';
@@ -118,8 +118,8 @@
     ?>
     <body>
         <header>
-            <h1>청주 도서관</h1>
             <?php if(!isset($_GET['pop'])){ ?>
+            <a href="/"><h1>청주 도서관</h1></a>
             <div class="link">
             <?php
             if(!isset($_SESSION['mem_state'])){
@@ -133,7 +133,9 @@
             }
             ?>
             </div>
-            <?php } ?>
+            <?php }else{
+                echo"<h1>$title</h1>";
+            }?>
         </header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">

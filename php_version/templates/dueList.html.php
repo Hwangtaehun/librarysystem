@@ -33,47 +33,53 @@ $lib_array = $assist->libraryarray($pdo);
         <input type="hidden" id="id_mem" name="mem_no" value="">
         <input type="submit" value = "검색">
     </form>
+    <div class="container text-center">
+        <div class="row">
     <?php if(isset($result)){foreach($result as $row): ?>
-        <fieldset id="fieldset_row">
-            <div id="div_row">
-                <?php
-                $kind = $row['kind_no'];
-                $symbol = $row['mat_symbol'];
-                $many = $row['mat_many'];
-                $overlap = $row['mat_overlap'];
-                $book = $kind.' '.$symbol.' '.$many.' '.$overlap;
+            <div class="col">
+                <div class="card" style="width: 16rem; height: 300px;">
+                    <div class="card-body">
+                    <?php
+                    $kind = $row['kind_no'];
+                    $symbol = $row['mat_symbol'];
+                    $many = $row['mat_many'];
+                    $overlap = $row['mat_overlap'];
+                    $book = $kind.' '.$symbol.' '.$many.' '.$overlap;
 
-                if($row['len_re_date'] == ''){
-                    $len_re_date = '없음';
-                }
-                else{
-                    $len_re_date = $row['len_re_date'];
-                }
-                if($row['due_exp'] == ''){
-                    $due_exp = '';
-                }
-                else{
-                    $due_exp = $row['due_exp'];
-                }
-                ?>
-
-                <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($book,ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($len_re_date,ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($due_exp,ENT_QUOTES,'UTF-8');?>
+                    if($row['len_re_date'] == ''){
+                        $len_re_date = '없음';
+                    }
+                    else{
+                        $len_re_date = $row['len_re_date'];
+                    }
+                    if($row['due_exp'] == ''){
+                        $due_exp = '';
+                    }
+                    else{
+                        $due_exp = $row['due_exp'];
+                    }
+                    ?>
+                    <h5 class="card-title"><?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?></h5>
+                    <p class="card-text">
+                        책이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                        소장 도서관: <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
+                        책번호: <?=htmlspecialchars($book,ENT_QUOTES,'UTF-8');?><br>
+                        대출일: <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?><br>
+                        반납일: <?=htmlspecialchars($len_re_date,ENT_QUOTES,'UTF-8');?><br>
+                        해제일: <?=htmlspecialchars($due_exp,ENT_QUOTES,'UTF-8');?><br>
+                    </p>
+                    <?php if($row['due_exp'] != ''){ ?>
+                        <form action="/etc/delete" method="post">
+                            <input type="hidden" name="due_no" value="<?=$row['due_no']?>">
+                            <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
+                            <input type="submit" value="삭제">
+                            <a href="/etc/addupdate?due_no=<?=$row['due_no']?>"><input type="button" value="수정"></a>
+                        </form>
+                    <?php } ?>
+                    </div>
+                </div>
             </div>
-            <?php if($row['due_exp'] != ''){ ?>
-            <form action="/etc/delete" method="post">
-                <input type="hidden" name="due_no" value="<?=$row['due_no']?>">
-                <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
-                <input type="submit" value="삭제">
-                <a href="/etc/addupdate?due_no=<?=$row['due_no']?>"><input type="button" value="수정"></a>
-            </form>
-            <?php } ?>
-            </fieldset>
-        </fieldset>
     <?php endforeach; } ?>
+        </div>
+    </div>
 </body>

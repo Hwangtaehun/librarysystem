@@ -47,34 +47,41 @@
         <input type="submit" value = "검색"> 
     <?php } ?>
     </form>
+    <div class="container text-center">
+        <div class="row">
     <?php if(isset($result)){foreach($result as $row): ?>
-        <fieldset id="fieldset_row">
-            <div id="div_row">
-                <?php $symbol = $row['kind_no'].' '.$row['mat_symbol'].' '.$row['mat_many'].' '.$row['mat_overlap']?>
-                <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($symbol,ENT_QUOTES,'UTF-8');?>
-                <?=htmlspecialchars($row['res_date'],ENT_QUOTES,'UTF-8');?>
+            <div class="col">
+                <div class="card" style="width: 16rem; height: 260px;">
+                    <div class="card-body">
+                    <?php $symbol = $row['kind_no'].' '.$row['mat_symbol'].' '.$row['mat_many'].' '.$row['mat_overlap']?>
+                        <p class="card-text">
+                            도서관 이름: <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                            책이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                            책번호: <?=htmlspecialchars($symbol,ENT_QUOTES,'UTF-8');?><br>
+                            예약일: <?=htmlspecialchars($row['res_date'],ENT_QUOTES,'UTF-8');?><br>
+                        </p>
+                        <?php
+                            if($ispop){
+                                echo '<form>';
+                                $mem = "'".$row['mem_no']."'";
+                                $id = "'".$row['mem_id']."'";
+                                $state = "'".$row['mem_state']."'";
+                                $mat = "'".$row['mat_no']."'";
+                                $book = "'".$row['book_name']."'";
+                                $lib = "'".$row['lib_no']."'";
+                                echo '<input type=button value="선택" onclick="opener.parent.resValue('.$mem.', '.$id.','.$state.','.$mat.','.$book.','.$lib.'); window.close();">';
+                            }
+                            else{
+                        ?>
+                        <form action="/res/delete" method="post">
+                                <input type="hidden" name="res_no" value="<?=$row['res_no']?>">
+                                <input type="submit" value="삭제">
+                        <?php } ?>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <?php
-                if($ispop){
-                    echo '<form>';
-                    $mem = "'".$row['mem_no']."'";
-                    $id = "'".$row['mem_id']."'";
-                    $state = "'".$row['mem_state']."'";
-                    $mat = "'".$row['mat_no']."'";
-                    $book = "'".$row['book_name']."'";
-                    $lib = "'".$row['lib_no']."'";
-                    echo '<input type=button value="선택" onclick="opener.parent.resValue('.$mem.', '.$id.','.$state.','.$mat.','.$book.','.$lib.'); window.close();">';
-                }
-                else{
-            ?>
-            <form action="/res/delete" method="post">
-                    <input type="hidden" name="res_no" value="<?=$row['res_no']?>">
-                    <input type="submit" value="삭제">
-            <?php } ?>
-            </form>
-            </fieldset>
-        </fieldset>
     <?php endforeach; }?>
+        </div>
+    </div>
 </body>
