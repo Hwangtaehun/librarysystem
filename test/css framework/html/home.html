@@ -4,16 +4,13 @@
         <meta charset = "utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <title>도서관 관리</title>
-        <script>
-                </script>
     </head>
         <body>
         <header>
-            <h1>청주 도서관</h1>
+                        <a href="/"><h1>청주 도서관</h1></a>
             <div class="link">
-                <li><a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a></li> 
-            </div>
-        </header>
+            <li><a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a></li>            </div>
+                    </header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">메뉴</a>
@@ -22,41 +19,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">홈</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/mat/list">자료 검색</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class='dropdown-item' href='/member/logalert'>대출중도서</a>
-                                </li>
-                                <li>
-                                    <a class='dropdown-item' href='/member/logalert'>모든대출내역</a>
-                                </li>
-                                <li>
-                                    <a class='dropdown-item' href='/member/logalert'>예약내역</a>
-                                </li>
-                                <li>
-                                    <a class='dropdown-item' href='/member/logalert'>상호대차내역</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class='dropdown-item' href='/member/logalert'>회원정보수정</a>
-                                </li>
-                                <li>
-                                    <a class='dropdown-item' href='/member/logalert'>회원탈퇴</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li>                    </ul>
                 </div>
             </div>
         </nav>
@@ -64,11 +27,50 @@
             <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="../css/form-noaside.css">
+        <link rel="stylesheet" href="../css/form-home.css">
     </head>
+    <!-- <?php
+    include_once __DIR__.'/../includes/Combobox_Manager.php';
+    include_once __DIR__.'/../includes/Assistance.php';
+    $assist = new Assistance();
+    $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", true);
+    $lib = $lib_man->result_call();
+    $mem_state = 3;
+    if(isset($_SESSION['mem_state'])){
+        $mem_state = $_SESSION['mem_state'];
+    }
+    ?> -->
     <body>
-        <h2>도서관 관리</h2>
-        <p>도서관 관리 프로그램 입니다.</p> 
+        <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
+            <div class="search">
+                <select id = "s1" name = "lib_research">
+                    <option  value = 0 > 없음 </option>
+                    <option  value = 1 > 청주청원도서관 </option>
+                    <option  value = 2 > 청주상당도서관 </option>
+                    <option  value = 3 > 청주흥덕도서관 </option>
+                    <option  value = 4 > 청주금빛도서관 </option>
+                </select>
+                <input type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+        <div class="outer">
+            <div class="inner-list">
+              <div class="inner">
+                <h2>first...</h2>
+              </div>
+              <div class="inner">
+                <h2>second...</h2>
+              </div>
+              <div class="inner">
+                <h2>third...</h2>
+              </div>
+            </div>
+        </div>
     </body>
 </html>        </main>
         <footer>

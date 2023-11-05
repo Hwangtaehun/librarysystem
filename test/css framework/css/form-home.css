@@ -8,7 +8,7 @@ body {
     grid-template-areas:
     'header header'
     'nav nav'
-    'aside main'
+    'main main'
     'footer footer';
 }
 
@@ -18,7 +18,7 @@ body {
         grid-template-areas:
         '. header header .'
         '. nav nav .'
-        '. aside main .'
+        '. main main .'
         '. footer footer .';
     }
 }
@@ -31,8 +31,7 @@ body {
         'header header'
         'nav nav'
         'main main'
-        'footer footer'
-        'aside aside';
+        'footer footer';
     }
 }
 
@@ -42,7 +41,7 @@ header h1{
     color: #F99417;
 }
 header .link {
-    float:right; 
+    float:right;
     margin-top: 15px;
     text-decoration: none;
     list-style:none;
@@ -76,12 +75,35 @@ nav{grid-area: nav; display: flex;}
 }
 
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
-
-aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em; z-index: -1;}
-aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
-aside .dropdown-item {color: #ffffff; text-decoration: none;}
-aside .dropdown-item:hover {color: #F99417;}
-aside li {line-height: 200%; display: table-row; text-align: center; font-size: 95%; background: #4D4C7D;}
+main .search {
+    margin: 0 auto;
+    position: relative;
+    width: 60vw;
+}
+main .search select{
+    position : absolute;
+    top: 1px;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    border-right-style: double;
+}
+main .search input {
+    width: 80%;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    border-left-style: double;
+    padding: 10px 12px;
+    font-size: 14px;
+    margin-left: 20%;
+}
+main .search button{
+    position : absolute;
+    width: 40px;
+    top: 2px;
+    right: 12px;
+    margin: 0;
+}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 

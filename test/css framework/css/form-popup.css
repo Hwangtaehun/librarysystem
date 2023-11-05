@@ -11,7 +11,8 @@ body {
 
 header{grid-area: header;}
 header h1{
-    float: left;
+    float: none;
+    text-align: center;
 }
 header .link {
     float:right; 

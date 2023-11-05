@@ -1,4 +1,6 @@
 body {
+    background-image : url('../img/background.jpg');
+    color: #F99417;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 55px auto 35px;
@@ -36,6 +38,7 @@ body {
 header{grid-area: header;}
 header h1{
     float: left;
+    color: #F99417;
 }
 header .link {
     float:right; 
@@ -49,6 +52,7 @@ header .link li{
 }
 header .link li a{
     margin-left: 10px;
+    color: #f91717;
 }
 
 nav{grid-area: nav; display: flex;}
@@ -121,6 +125,8 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
 }
 
 #fieldset_row {
+    background: #F5F5F5;
+    color: #000000;
     display: table; 
     width: 100%; 
     padding: 1px;
