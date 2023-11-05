@@ -7,7 +7,7 @@
     </head>
         <body>
         <header>
-                        <a href="/"><h1>청주 도서관</h1></a>
+            <a href="/"><img src="../img/footer.gif"></a>
             <div class="link">
             <li><a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a></li>            </div>
                     </header>
@@ -58,17 +58,33 @@
                 </button>
             </div>
         </form>
-        <div class="outer">
-            <div class="inner-list">
-              <div class="inner">
-                <h2>first...</h2>
-              </div>
-              <div class="inner">
-                <h2>second...</h2>
-              </div>
-              <div class="inner">
-                <h2>third...</h2>
-              </div>
+        <div class="section">
+            <input type="radio" name="slide" id="slide01" checked>
+            <input type="radio" name="slide" id="slide02">
+            <input type="radio" name="slide" id="slide03">
+            <div class="slidewrap">
+                <ul class="slidelist">
+                    <li>
+                        <a>
+                            <img src="../img/slide01.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="../img/slide02.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="../img/slide03.jpg">
+                        </a>
+                    </li>
+                </ul>
+                <ul class="slide-pagelist">
+                    <li><label for="slide01"></label></li>
+                    <li><label for="slide02"></label></li>
+                    <li><label for="slide03"></label></li>
+                </ul>
             </div>
         </div>
     </body>
