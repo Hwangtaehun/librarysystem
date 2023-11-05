@@ -1,10 +1,12 @@
-.section input[id*="slide"] {
+.section [id*="slide"] {
     display:none;
 }
+
 .section .slidewrap {
     max-width:1200px;
     margin:0 auto;
     overflow:hidden;
+    position:relative;
 }
 .section .slidelist {
     white-space:nowrap;
@@ -20,10 +22,16 @@
     display:block;
     position:relative;
 }
-.section .slidelist > li > a img {
+
+.section .slide-control {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:10;
     width:100%;
+    height:100%;
 }
-.section .slidelist label {
+.section .slide-control label {
     position:absolute;
     z-index:1;
     top:50%;
@@ -31,24 +39,34 @@
     padding:50px;
     cursor:pointer;
 }
-.section .slidelist .left {
+.section .slide-control .left {
     left:30px;
     background:url('../img/left.png') center center / 100% no-repeat;
 }
-.section .slidelist .right {
+.section .slide-control .right {
     right:30px;
     background:url('../img/right.png') center center / 100% no-repeat;
 }
-.section input[id="slide01"]:checked ~ .slidewrap .slidelist > li {
+.section .slide-control [class*="control"] {
+    display:none;
+}
+
+.section [id="slide01"]:checked ~ .slidewrap .slidelist > li {
     transform:translateX(0%);
 }
-.section input[id="slide02"]:checked ~ .slidewrap .slidelist > li {
+.section [id="slide02"]:checked ~ .slidewrap .slidelist > li {
     transform:translateX(-100%);
 }
-.section input[id="slide03"]:checked ~ .slidewrap .slidelist > li {
+.section [id="slide03"]:checked ~ .slidewrap .slidelist > li {
     transform:translateX(-200%);
 }
-.section .slide-control [class*="control"] {display: none;}
-.section [id="slide01"]:checked ~ .slidewrap .control01 {display: block;}
-.section [id="slide02"]:checked ~ .slidewrap .control02 {display: block;}
-.section [id="slide03"]:checked ~ .slidewrap .control03 {display: block;}
+
+.section [id="slide01"]:checked ~ .slidewrap .control01 {
+    display:block;
+}
+.section [id="slide02"]:checked ~ .slidewrap .control02 {
+    display:block;
+}
+.section [id="slide03"]:checked ~ .slidewrap .control03 {
+    display:block;
+}
