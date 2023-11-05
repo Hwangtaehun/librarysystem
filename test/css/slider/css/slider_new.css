@@ -49,17 +49,6 @@
     padding:50px;
     cursor:pointer;
 }
-.section .slide-control .left {
-    left:30px;
-    background:url('../img/left.png') center center / 100% no-repeat;
-}
-.section .slide-control .right {
-    right:30px;
-    background:url('../img/right.png') center center / 100% no-repeat;
-}
-.section .slide-control [class*="control"] {
-    display:none;
-}
 
 .section input[id="slide01"]:checked ~ .slidewrap .slidelist > li {
     transform:translateX(0%);
