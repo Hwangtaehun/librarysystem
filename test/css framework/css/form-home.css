@@ -1,5 +1,6 @@
 body {
     background-image : url('../img/background.jpg');
+    background-size: 100% 100%;
     color: #F99417;
     min-height: 100vh;
     display: grid;
@@ -113,14 +114,16 @@ main .section input[id*="slide"] {
     display:none;
 }
 main .section .slidewrap {
-    max-width:1024px;
-    margin:0 auto;
+    float: left;
+    min-width:200px;
+    width: 50%;
 }
 main .section .slidelist {
     white-space:nowrap;
     font-size:0;
     overflow:hidden;
     position:relative;
+    padding: 0px;
 }
 main .section .slidelist > li {
     display:inline-block;
@@ -183,7 +186,7 @@ main .section [id="slide03"]:checked ~ .slidewrap .control03 {
 
 main .slide-pagelist {
     text-align:center;
-    padding:20px;
+    padding:10px;
 }
 main .slide-pagelist > li {
     display:inline-block;
