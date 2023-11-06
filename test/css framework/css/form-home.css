@@ -208,7 +208,15 @@ main .section input[id="slide03"]:checked ~ .slidewrap .slide-pagelist > li:nth-
     background:#999;
 }
 
-footer {grid-area: footer; text-align: center; border-style: hidden;}
+footer {
+    grid-area: footer;
+    text-align: center;
+    border-style: hidden;
+}
+
+footer img {
+    height: 35px;
+}
 
 .auth_page{
     padding: 2vh 0px;
