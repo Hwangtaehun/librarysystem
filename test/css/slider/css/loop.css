@@ -56,9 +56,13 @@
 
 .slide ul{
     list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 .slide li{
     list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 .slide_pagination{
     display: flex;
