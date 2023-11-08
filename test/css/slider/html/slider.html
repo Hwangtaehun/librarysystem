@@ -22,11 +22,11 @@
             const nextBtn = document.querySelector(".slide_next_button");
             const maxSlide = slideItems.length;
             const pagination = document.querySelector(".slide_pagination");
-            const paginationItems = document.querySelectorAll(".slide_pagination > li")
+            const paginationItems = document.querySelectorAll(".slide_pagination > li");
             const startSlide = slideItems[0];
             const endSlide = slideItems[slideItems.length - 1];
             const startElem = document.createElement("div");
-            const endElem = document.createElement("div");
+            const endElem = document.createElement("div")
             let slideWidth = slide.clientWidth;
             let slideItems = document.querySelectorAll(".slide_item");
             let currSlide = 1;
@@ -36,10 +36,10 @@
 
             function nextMove() {
                 currSlide++;
-                if(currSlide <= maxSlide){
+                if (currSlide <= maxSlide) {
                     const offset = slideWidth * currSlide;
                     slideItems.forEach((i) => {
-                        i.setAttribute("style", 'left: ${-offset}px');
+                        i.setAttribute("style", `left: ${-offset}px`);
                     });
                     paginationItems.forEach((i) => i.classList.remove("active"));
                     paginationItems[currSlide - 1].classList.add("active");
@@ -47,13 +47,13 @@
                     currSlide = 0;
                     let offset = slideWidth * currSlide;
                     slideItems.forEach((i) => {
-                        i.setAttribute("style", 'transition: ${0}s; left: ${-offset}px');
+                        i.setAttribute("style", `transition: ${0}s; left: ${-offset}px`);
                     });
                     currSlide++;
                     offset = slideWidth * currSlide;
                     setTimeout(() => {
                         slideItems.forEach((i) => {
-                            i.setAttribute("style", 'transition: ${0.15}s;, left: ${-offset}px');
+                            i.setAttribute("style", `transition: ${0.15}s; left: ${-offset}px`);
                         });
                     }, 0);
                     paginationItems.forEach((i) => i.classList.remove("active"));
@@ -66,7 +66,7 @@
                 if (currSlide > 0) {
                     const offset = slideWidth * currSlide;
                     slideItems.forEach((i) => {
-                        i.setAttribute("stule", 'left: ${-offset}px');
+                        i.setAttribute("style", `left: ${-offset}px`);
                     });
                     paginationItems.forEach((i) => i.classList.remove("active"));
                     paginationItems[currSlide - 1].classList.add("active");
@@ -74,13 +74,13 @@
                     currSlide = maxSlide + 1;
                     let offset = slideWidth * currSlide;
                     slideItems.forEach((i) => {
-                        i.setAttribute("style", 'transition: ${0}s; left: ${-offset}px');
+                        i.setAttribute("style", `transition: ${0}s; left: ${-offset}px`);
                     });
                     currSlide--;
                     offset = slideWidth * currSlide;
                     setTimeout(() => {
                         slideItems.forEach((i) => {
-                            i.setAttribute("style", 'transition: ${0.15}s; left: ${-offset}px');
+                            i.setAttribute("style", `transition: ${0.15}s; left: ${-offset}px`);
                         });
                     }, 0);
                     paginationItems.forEach((i) => i.classList.remove("active"));
@@ -89,11 +89,11 @@
             }
 
             for (let i = 0; i < maxSlide; i++) {
-                if(i === 0){
-                    pagination.innerHTML += '<li class="active">•</li>';
+                if (i === 0) {
+                    pagination.innerHTML += `<li class="active">•</li>`;
                 }
-                else{
-                    pagination.innerHTML += '<li>•</li>';
+                else {
+                    pagination.innerHTML += `<li>•</li>`;
                 }
             }
 
@@ -106,12 +106,12 @@
             slideItems[0].before(endElem);
             slideItems[slideItems.length - 1].after(startElem);
             
-            slideItems = document.querySelectorAll(".slide_itme");
+            slideItems = document.querySelectorAll(".slide_item");
             slideItems.forEach((i) => {
-                i.setAttribute("style", 'left: ${-offset}px');
+                i.setAttribute("style", `left: ${-offset}px`);
             });
 
-            nextBtn.addEventListener("click", () =>{
+            nextBtn.addEventListener("click", () => {
                 nextMove();
             });
 
@@ -124,11 +124,11 @@
             });
 
             for (let i = 0; i < maxSlide; i++) {
-                paginationItems[i].addEventListener("click", () =>{
+                paginationItems[i].addEventListener("click", () => {
                     currSlide = i + 1;
                     const offset = slideWidth * currSlide;
                     slideItems.forEach((i) => {
-                        i.setAttribute("style", 'left: ${-offset}px');
+                    i.setAttribute("style", `left: ${-offset}px`);
                     });
                     paginationItems.forEach((i) => i.classList.remove("active"));
                     paginationItems[currSlide - 1].classList.add("active");
@@ -140,9 +140,9 @@
             });
             slide.addEventListener("mouseup", (e) => {
                 endPoint = e.pageX;
-                if(startPoint < endPoint){
+                if (startPoint < endPoint) {
                     prevMove();
-                } else if (startPoint > endPoint){
+                } else if (startPoint > endPoint) {
                     nextMove();
                 }
             });
@@ -150,9 +150,9 @@
             slide.addEventListener("touchstart", (e) => {
                 startPoint = e.touches[0].pageX;
             });
-            slide.addEventListener("touchend", (e) =>{
+            slide.addEventListener("touchend", (e) => {
                 endPoint = e.changedTouches[0].pageX;
-                if (startPoint < endPoint){
+                if (startPoint < endPoint) {
                     prevMove();
                 } else if (startPoint > endPoint) {
                     nextMove();
@@ -160,12 +160,12 @@
             });
 
             let loopInterval = setInterval(() => {
-                nextMove();                
+                nextMove();
             }, 3000);
 
             slide.addEventListener("mouseover", () => {
                 clearInterval(loopInterval);
-            })
+            });
 
             slide.addEventListener("mouseout", () => {
                 loopInterval = setInterval(() => {
