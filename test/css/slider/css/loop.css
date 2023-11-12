@@ -13,7 +13,7 @@
     justify-content: center;
     position: relative;
     left: 0px;
-    width: 100%;
+    width: 50%;
     height: 300px;
     flex-shrink: 0;
     transition: left 0.15s;
@@ -32,10 +32,12 @@
     cursor: pointer;
 }
 .slide_prev_button {
-    left: 10px;
+    left: 30px;
+    background:url('../img/left.png') center center / 100% no-repeat;
 }
 .slide_next_button{
-    right: 10px;
+    right: 30px;
+    background:url('../img/right.png') center center / 100% no-repeat;
 }
 
 .slide_item.item1{

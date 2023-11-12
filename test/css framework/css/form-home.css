@@ -1,5 +1,5 @@
 body {
-    background-image : url('../img/background.jpg');
+    background-image : url('../img/b3.gif');
     background-size: 100% 100%;
     color: #F99417;
     min-height: 100vh;
@@ -76,6 +76,8 @@ nav{grid-area: nav; display: flex;}
 }
 
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+
+/* 검색 */
 main .search {
     margin: 0 auto;
     position: relative;
@@ -106,109 +108,112 @@ main .search button{
     margin: 0;
 }
 
- /* 슬라이드 */
-main .section{
-    margin: 10px;
-}
-main .section input[id*="slide"] {
-    display:none;
-}
-main .section .slidewrap {
-    float: left;
-    min-width:200px;
-    width: 50%;
-}
-main .section .slidelist {
-    white-space:nowrap;
-    font-size:0;
-    overflow:hidden;
-    position:relative;
-    padding: 0px;
-}
-main .section .slidelist > li {
-    display:inline-block;
-    vertical-align:middle;
-    width:100%;
-    transition:all .5s;
-}
-main .section .slidelist > li > a {
-    display:block;
-    position:relative;
-}
-main .section .slidelist > li > a img {
-    width:100%;
-}
-main .section .slidelist label {
-    position:absolute;
-    z-index:10;
-    top:50%;
-    transform:translateY(-50%);
-    padding:50px;
-    cursor:pointer;
+main .main_context{
+    display: grid;
+    grid-template-rows: 300px auto;
+    grid-template-columns: 500px auto;
+    grid-template-areas:
+    'slider notice'
+    '. .';
 }
 
-main .section .slide-control {
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:10;
-    width:100%;
-    height:100%;
-}
-main .section .slide-control label {
-    position:absolute;
-    z-index:1;
-    top:50%;
-    transform:translateY(-50%);
-    padding:50px;
-    cursor:pointer;
+/* 슬라이드 */
+main .slide{
+    grid-area: slider;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    user-select: none;
 }
 
-main .section input[id="slide01"]:checked ~ .slidewrap .slidelist > li {
-    transform:translateX(0%);
-}
-main .section input[id="slide02"]:checked ~ .slidewrap .slidelist > li {
-    transform:translateX(-100%);
-}
-main .section input[id="slide03"]:checked ~ .slidewrap .slidelist > li {
-    transform:translateX(-200%);
-}
-
-main .section [id="slide01"]:checked ~ .slidewrap .control01 {
-    display:block;
-}
-main .section [id="slide02"]:checked ~ .slidewrap .control02 {
-    display:block;
-}
-main .section [id="slide03"]:checked ~ .slidewrap .control03 {
-    display:block;
+main .slide_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    transition: left 0.15s;
 }
 
-main .slide-pagelist {
-    text-align:center;
-    padding:10px;
+main .slide_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% - 16px);
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #cccc;
+    cursor: pointer;
 }
-main .slide-pagelist > li {
-    display:inline-block;
-    vertical-align:middle;
+main .slide_prev_button {
+    left: 30px;
+    background:url('../img/left.png') center center / 100% no-repeat;
 }
-main .slide-pagelist > li > label {
-    display:block;
-    padding:8px 30px;
-    border-radius:30px;
-    background:#ccc;
-    margin:20px 10px;
-    cursor:pointer;
+main .slide_next_button{
+    right: 30px;
+    background:url('../img/right.png') center center / 100% no-repeat;
 }
 
-main .section input[id="slide01"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(1) > label {
-    background:#999;
+main .slide_item.item1{
+    background-color: darkgoldenrod;
 }
-main .section input[id="slide02"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(2) > label {
-    background:#999;
+main .slide_item.item2{
+    background-color: aqua;
 }
-main .section input[id="slide03"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(3) > label {
-    background:#999;
+main .slide_item.item3{
+    background-color: blueviolet;
+}
+main .slide_item.item4{
+    background-color: burlywood;
+}
+main .slide_item.item5{
+    background-color: cornflowerblue;
+}
+
+main .slide ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+main .slide li{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+main .slide_pagination{
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+main .slide_pagination > li {
+    color: #7fb5ff88;
+    cursor: pointer;
+    font-size: 25px;
+}
+main .slide_pagination > li.active{
+    color: #7fb5ff;
+}
+
+main .slide_item_duplicate{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 300px;
+    flex-shrink: 0;
+    transition: left 0.15s;
 }
 
 footer {
