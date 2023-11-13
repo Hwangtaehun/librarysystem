@@ -8,8 +8,8 @@
     </head>
         <body>
         <header>
-                        <a href="/"><img src="../img/header.gif"></a>
-            <div class="link">
+            <h1>청주 도서관</h1>
+                        <div class="link">
             <li><a>root님 환영합니다.</a><a href="/member/logout">로그아웃</a></li>            </div>
                     </header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,24 +20,25 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/book/list'>책관리</a></li><li><a class='dropdown-item' href='/book/addupdate'>책추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">종류</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/kind/list'>종류관리</a></li><li><a class='dropdown-item' href='/kind/addupdate'>종류추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">도서관</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/lib/list'>도서관관리</a></li><li><a class='dropdown-item' href='/lib/addupdate'>도서관추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자료</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/mat/list'>자료관리</a></li><li><a class='dropdown-item' href='/mat/addupdate'>자료추가</a></li></ul></li><li class="nav-item"><a class="nav-link" href="/member/list">회원</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출 및 반납</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/len/list'>대출관리</a></li><li><a class='dropdown-item' href='/len/addupdate'>대출추가</a></li><li><a class='dropdown-item' href='/len/returnLent'>반납추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/del/list'>상호대차관리</a></li><li><a class='dropdown-item' href='/del/addlist'>상호대차도착일추가</a></li><li><a class='dropdown-item' href='/del/completelist'>상호대차완료내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">기타</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/res/list'>예약관리</a></li><li><a class='dropdown-item' href='/etc/plalist'>대출장소관리</a></li><li><a class='dropdown-item' href='/etc/duelist'>연체관리</a></li></ul></li>                    </ul>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/book/list'>책관리</a></li><li><a class='dropdown-item' href='/book/addupdate'>책추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">종류</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/kind/list'>종류관리</a></li><li><a class='dropdown-item' href='/kind/addupdate'>종류추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">도서관</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/lib/list'>도서관관리</a></li><li><a class='dropdown-item' href='/lib/addupdate'>도서관추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자료</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/mat/list'>자료관리</a></li><li><a class='dropdown-item' href='/mat/addupdate'>자료추가</a></li></ul></li><li class="nav-item"><a class="nav-link" href="/member/list">회원</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출 및 반납</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/len/list'>대출관리</a></li><li><a class='dropdown-item' href='/len/addupdate'>대출추가</a></li><li><a class='dropdown-item' href='/len/returnLent'>반납추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/del/list'>상호대차관리</a></li><li><a class='dropdown-item' href='/del/addlist'>상호대차도착일추가</a></li><li><a class='dropdown-item' href='/del/completelist'>상호대차완료내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">기타</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/res/list'>예약관리</a></li><li><a class='dropdown-item' href='/etc/duelist'>연체관리</a></li></ul></li>                    </ul>
                 </div>
             </div>
         </nav>
         <aside><li><a><h3>종류</h3></a><li><a class='dropdown-item' href='/kind/list'>종류관리</a></li><li><a class='dropdown-item' href='/kind/addupdate'>종류추가</a></li></li></aside>        <main>
             <head>
-    <link rel="stylesheet" href="../css/form-base.css">    <script>
-        function checkResearch(myform) {
-            if(myform.user_research.value.length <= 0){
-                alert("검색할 내용을 입력해주세요.");
-                myform.user_research.focus();
-                return false;
-            }
-            return true;            
-        }     
-    </script>
+    <link rel="stylesheet" href="../css/form-base.css">    
+        <script>
+            function checkResearch(myform) {
+                if(myform.user_research.value.length <= 0){
+                    alert("검색할 내용을 입력해주세요.");
+                    myform.user_research.focus();
+                    return false;
+                }
+                return true;            
+            }     
+        </script>
 </head>
-<body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
+<body style="background-image:url('../img/b1.gif'); background-size: 100% 192vh;">
     <form action="/kind/research" method="post" onsubmit="return checkResearch(this)">
     <label for = "kind_super">대분류</label>
     <select id = "s1" name = "super" onchange='superChange(this)'>
@@ -7383,7 +7384,7 @@
 </body>
         </main>
         <footer>
-            <img src="../img/footer.gif">
+            <h4>청주 도서관 관리</h4>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

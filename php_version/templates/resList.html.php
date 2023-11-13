@@ -48,7 +48,11 @@
     <?php } ?>
     </form>
     <div class="container text-center">
+    <?php if($ispop){ ?>
+        <div class="row">
+    <?php }else{ ?>
         <div class="row row-cols-3">
+    <?php }?>
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
                 <div class="card" style="width: 16rem; height: 260px;">
