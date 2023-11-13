@@ -1,7 +1,7 @@
 body {
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 60px auto 50px;
+    grid-template-rows: 25px auto 50px;
     grid-template-columns: auto;
     grid-template-areas:
     'header'
@@ -10,12 +10,12 @@ body {
 }
 
 header{grid-area: header;}
-header h1{
-    float: none;
-    text-align: center;
+header a img{
+    float: left;
+    height: 60px;
 }
 header .link {
-    float:right; 
+    float:right;
     margin-top: 15px;
     text-decoration: none;
     list-style:none;
@@ -26,10 +26,12 @@ header .link li{
 }
 header .link li a{
     margin-left: 10px;
+    color: #f91717;
 }
-
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+
 footer {grid-area: footer; text-align: center; border-style: hidden;}
+footer img {height: 35px;}
 
 .auth_page{
     padding: 2vh 0px;

@@ -1,5 +1,6 @@
 body {
-    background-image : url('../img/background.jpg');
+    background-image : url('../img/background.gif');
+    background-size: 100% 100%;
     color: #F99417;
     min-height: 100vh;
     display: grid;
@@ -36,12 +37,9 @@ body {
 }
 
 header{grid-area: header;}
-header h1{
-    float: left;
-    color: #F99417;
-}
+header a img{float: left; height: 60px;}
 header .link {
-    float:right; 
+    float:right;
     margin-top: 15px;
     text-decoration: none;
     list-style:none;
@@ -71,12 +69,13 @@ nav{grid-area: nav; display: flex;}
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
     background-color: #4D4C7D;
-    color: #F5F5F5
+    color: #F5F5F5;
 }
 
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
+footer img {height: 35px;}
 
 .auth_page{
     padding: 2vh 0px;
@@ -91,10 +90,13 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
     margin: 0px auto; width: 12em; margin-top: 1em;
 }
 .auth_page .auth_input .btn-outline-primary{
-    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062;
+    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062; background-color: #F5F5F5;
 }
 .auth_page .auth_input .btn-outline-primary:hover{
-    background-color: #363062; color: #F5F5F5
+    background-color: #363062; color: #F5F5F5;
+}
+.auth_page form a{
+    font-size: small; color: #f91717;
 }
 
 #id_add{
@@ -125,8 +127,6 @@ footer {grid-area: footer; text-align: center; border-style: hidden;}
 }
 
 #fieldset_row {
-    background: #F5F5F5;
-    color: #000000;
     display: table; 
     width: 100%; 
     padding: 1px;
