@@ -4,21 +4,18 @@
         <meta charset = "utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <title><?=$title?></title>
-        <script>
-        <?php
-        function makehtml($menu, $menus){
-            $m_script = '';
-            for ($i=0; $i < sizeof($menus[$menu]) ; $i++) { 
-                $m_url = $menus[$menu][$i][1];
-                $m_title = $menus[$menu][$i][0];
-                $m_script .= "<li><a class='dropdown-item' href='$m_url'>$m_title</a></li>";
-            }
-            return $m_script;
-        }
-        ?>
-        </script>
     </head>
     <?php
+    function makehtml($menu, $menus){
+        $m_script = '';
+        for ($i=0; $i < sizeof($menus[$menu]) ; $i++) { 
+            $m_url = $menus[$menu][$i][1];
+            $m_title = $menus[$menu][$i][0];
+            $m_script .= "<li><a class='dropdown-item' href='$m_url'>$m_title</a></li>";
+        }
+        return $m_script;
+    }
+    
     if(isset($_GET['pop'])){
         $bool = false;
         $state = 3;
@@ -119,7 +116,7 @@
     <body>
         <header>
             <?php if(!isset($_GET['pop'])){ ?>
-            <a href="/"><h1>청주 도서관</h1></a>
+            <a href="/"><img src="../img/header.gif"></a>
             <div class="link">
             <?php
             if(!isset($_SESSION['mem_state'])){
@@ -235,7 +232,7 @@
             <?= $outString ?>
         </main>
         <footer>
-            <h4>청주 도서관 관리</h4>
+            <img src="../img/footer.gif">
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

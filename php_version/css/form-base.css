@@ -1,4 +1,7 @@
 body {
+    background-image : url('../img/background.gif');
+    background-size: 100% 100%;
+    color: #F99417;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 55px auto 35px;
@@ -35,12 +38,13 @@ body {
 }
 
 header{grid-area: header;}
+header a img{float: left; height: 60px;}
 header h1{
     float: left;
     color: #000000;
 }
 header .link {
-    float:right; 
+    float:right;
     margin-top: 15px;
     text-decoration: none;
     list-style:none;
@@ -51,6 +55,7 @@ header .link li{
 }
 header .link li a{
     margin-left: 10px;
+    color: #f91717;
 }
 
 nav{grid-area: nav; display: flex;}
@@ -81,6 +86,7 @@ aside .dropdown-item:hover {color: #F99417;}
 aside li {line-height: 200%; display: table-row; text-align: center; font-size: 95%; background: #4D4C7D;}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
+footer img {height: 35px;}
 
 .auth_page{
     padding: 2vh 0px;
