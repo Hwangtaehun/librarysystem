@@ -73,6 +73,7 @@ nav{grid-area: nav; display: flex;}
 }
 
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+main .card .card-body .card-text{margin: revert;}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}

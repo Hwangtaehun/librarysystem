@@ -38,7 +38,7 @@
     $basearray = $inherit1->call_result();
     $subarray = $inherit2->call_result();
 ?>
-<body>
+<body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
     <label for = "kind_super">대분류</label>
     <select id = "s1" name = "super" onchange='superChange(this)'>

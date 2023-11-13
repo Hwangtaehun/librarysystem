@@ -1,9 +1,19 @@
 <head>
     <?php
     $date = date("Y-m-d");
+    $mem_state = 3;
+    if(isset($_SESSION['mem_state'])){
+        $mem_state = $_SESSION['mem_state'];
+    }
 
     if($title == '자료 현황'){
-        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        if($mem_state == 1){
+            echo '<link rel="stylesheet" href="../css/form-base.css">';
+            
+        }
+        else{
+            echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        }
         $ispop = false;
         $action = "/mat/research";
     }
@@ -38,10 +48,6 @@
     $assist = new Assistance();
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", true);
     $lib = $lib_man->result_call();
-    $mem_state = 3;
-    if(isset($_SESSION['mem_state'])){
-        $mem_state = $_SESSION['mem_state'];
-    }
 ?>
 <body>
     <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
@@ -59,7 +65,7 @@
         <input type="submit" value = "검색">
     </form>
     <div class="container text-center">
-        <div class="row">
+        <div class="row row-cols-3">
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
                 <div class="card" style="width: 16rem; height: 300px;">

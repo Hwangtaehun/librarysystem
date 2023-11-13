@@ -24,7 +24,8 @@
             <form class = "auth_input" action="/member/login" method="post" onSubmit="return checkInput(this)">
                 <input class="form-control" type="text" name="user_id" id="user_id" value="" placeholder="아이디">
                 <input class="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호">
-                <input type="submit" class="btn btn-outline-primary" value='로그인'>
+                <input type="submit" class="btn btn-outline-primary" value='로그인'><br>
+                <a href="/member/addupdate">아직 회원이 아니신가요?</a>
             </form>
         </div>
     </body>

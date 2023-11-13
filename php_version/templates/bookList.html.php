@@ -28,7 +28,7 @@
         <input type="submit" value = "검색">
     </form>
     <div class="container text-center">
-        <div class="row">
+        <div class="row row-cols-3">
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
                 <div class="card" style="width: 16rem; height: 260px;">

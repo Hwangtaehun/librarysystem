@@ -18,7 +18,7 @@
 
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkbk","width=400,height=200");
+            window.open(url,"chkbk","width=300,height=200");
         }
 
         function matValue(no, name){
