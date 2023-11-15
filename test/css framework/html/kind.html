@@ -39,16 +39,18 @@
 </head>
 <body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
     <form action="/kind/research" method="post" onsubmit="return checkResearch(this)">
-    <label for = "kind_super">대분류</label>
-    <select id = "s1" name = "super" onchange='superChange(this)'>
-        <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 100 > 철학 </option><option value = 200 > 종교 </option><option value = 300 > 사회과학 </option><option value = 400 > 자연과학 </option><option value = 500 > 기술과학 </option><option value = 600 > 예술 </option><option value = 700 > 언어 </option><option value = 800 > 문학 </option><option value = 900 > 역사 </option>    </select>
-    <label for = "kind_base">중분류</label>
-    <select id = "s2" name = "base" onchange='baseChange(this)'>
-        <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 010 > 도서관,서지학 </option><option value = 020 > 문헌정보학 </option><option value = 030 > 백화사전 </option><option value = 040 > 강연집,수필집,연설문집 </option><option value = 050 > 일반 연속간행물 </option><option value = 060 > 일반학회,단체,협회,기관 </option><option value = 070 > 신문,언론,저널리즘 </option><option value = 080 > 일반전집,총서 </option><option value = 090 > 향토자료 </option>    </select>
-    <label for = "kind_sub">소분류</label>
-    <select id = "s3" name = "sup">
-        <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 001 > 지식 및 학문 일반 </option><option value = 003 > 이론 체계 및 시스템 </option><option value = 004 > 컴퓨터과학 </option><option value = 005 > 프로그래밍, 프로그램, 데이터 </option>    </select>
-    <input type="submit" value = "검색">
+        <div class="sel">
+            <label for = "kind_super">대분류</label>
+            <select id = "s1" name = "super" onchange='superChange(this)'>
+                <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 100 > 철학 </option><option value = 200 > 종교 </option><option value = 300 > 사회과학 </option><option value = 400 > 자연과학 </option><option value = 500 > 기술과학 </option><option value = 600 > 예술 </option><option value = 700 > 언어 </option><option value = 800 > 문학 </option><option value = 900 > 역사 </option>    </select>
+            <label for = "kind_base">중분류</label>
+            <select id = "s2" name = "base" onchange='baseChange(this)'>
+                <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 010 > 도서관,서지학 </option><option value = 020 > 문헌정보학 </option><option value = 030 > 백화사전 </option><option value = 040 > 강연집,수필집,연설문집 </option><option value = 050 > 일반 연속간행물 </option><option value = 060 > 일반학회,단체,협회,기관 </option><option value = 070 > 신문,언론,저널리즘 </option><option value = 080 > 일반전집,총서 </option><option value = 090 > 향토자료 </option>    </select>
+            <label for = "kind_sub">소분류</label>
+            <select id = "s3" name = "sup">
+                <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 001 > 지식 및 학문 일반 </option><option value = 003 > 이론 체계 및 시스템 </option><option value = 004 > 컴퓨터과학 </option><option value = 005 > 프로그래밍, 프로그램, 데이터 </option>    </select>
+            <input type="submit" value = "검색">
+        </div>
     </form>
         <fieldset id="fieldset_row">
         <div id="div_row">

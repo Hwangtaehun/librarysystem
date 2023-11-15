@@ -73,7 +73,64 @@ nav{grid-area: nav; display: flex;}
 }
 
 main{grid-area: main; padding-left: 10px; margin-top: 1em;}
-main .card .card-body .card-text{margin: revert;}
+
+main .sel { 
+    margin-bottom: 10px; 
+}
+main .sel select {
+    height: 30px;
+}
+main .sel button{
+    position : absolute;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    background: white;
+}
+
+main .search {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+main .search select{
+    position : absolute;
+    top: 1px;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    border-right-style: double;
+}
+main .search input {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    border-left-style: double;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+main .search button{
+    position : absolute;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background: white;
+}
+main .search #inbt{
+    right: 1px;
+}
+main .search .mem{
+    width: 80px;
+}
+
+main .card {
+    margin-bottom: 10px;
+}
+main .card .card-body .card-text{
+    margin: revert;
+}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}

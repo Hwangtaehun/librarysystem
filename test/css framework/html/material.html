@@ -47,10 +47,16 @@
 </head>
 <body>
     <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
-        <select id = "s1" name = "lib_research">
-            <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>        </select>
-        <input type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
-        <input type="submit" value = "검색">
+        <div class="search">
+            <select id = "s1" name = "lib_research">
+                <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>        </select>
+            <input class="lib" type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+            <button type="submit" class="btn btn-outline-secondary" id="inbt">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
     </form>
     <div class="container text-center">
         <div class="row row-cols-3">
