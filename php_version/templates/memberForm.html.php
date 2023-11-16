@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/form-noaside.css">
+    <?php
+    if(isset($_SESSION['mem_state'])){
+        $state = $_SESSION['mem_state'];
+
+        if($state != 1){
+            echo '<link rel="stylesheet" href="../css/form-base.css">';
+        }
+        else{
+            echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        }
+    }else{
+        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+    }
+    ?>
     <script>
         <?php
         if(isset($row)){

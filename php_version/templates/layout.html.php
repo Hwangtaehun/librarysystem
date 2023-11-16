@@ -206,6 +206,9 @@
             if($state != 1){
                 if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && $title != '회원가입'){
                     if($not_pop){
+                        if($menu != '마이페이지'){
+                            $menu = '내서재';
+                        }
                         echo "<aside>";
                         echo "<li><a><h3>$menu</h3></a>";
                         $script = makehtml($menu, $menus);
