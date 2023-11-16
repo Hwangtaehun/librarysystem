@@ -38,7 +38,7 @@
     <?php if($mem_state == 1){ ?>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
         <input type="text" name="user_research" id="id_research" value = "" readonly>
-        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();"></a>
+        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();">
         <input type="hidden" id="id_mem" name="mem_no" value="">
         <input type="submit" value = "검색">
     <?php }else{ ?>

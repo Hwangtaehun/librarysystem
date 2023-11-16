@@ -29,7 +29,7 @@ $lib_array = $assist->libraryarray($pdo);
 <body>
     <form action="/etc/dueresearch" method="post" onsubmit="return checkResearch(this)">
         <input type="text" name="user_research" id="id_research" value = "" readonly>
-        <input type="button" id="ie_research" value="회원찾기" onclick="checkdue();"></a>
+        <input type="button" id="ie_research" value="회원찾기" onclick="checkdue();">
         <input type="hidden" id="id_mem" name="mem_no" value="">
         <input type="submit" value = "검색">
     </form>

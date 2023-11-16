@@ -96,8 +96,8 @@
             <option value=1>회원id</option>
             <option value=2>자료이름</option>
         </select>
-        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();"></a>
-        <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();"></a>
+        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();">
+        <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();">
         <input type="text" name="user_research" id="id_research" value = "" readonly>
         <input type="hidden" id="id_mem" name="mem_no" value="">
         <input type="hidden" id="id_mat" name="mat_no" value="">

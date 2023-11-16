@@ -43,7 +43,7 @@ $lib_array = $assist->libraryarray($pdo);
 <body>
     <form action="/etc/plaresearch" method="post" onsubmit="return checkResearch(this)">
         <input type="text" name="user_research" id="id_research" value = "" readonly>
-        <input type="button" id="ie_research" value="대출찾기" onclick="checklen();"></a>
+        <input type="button" id="ie_research" value="대출찾기" onclick="checklen();">
         <input type="hidden" id="id_len" name="len_no" value="">
         <input type="submit" value = "검색">
     </form>

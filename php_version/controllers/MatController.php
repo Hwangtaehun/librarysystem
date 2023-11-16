@@ -47,6 +47,11 @@ class MatController{
         return $str_num;
     }
 
+    private function basic_sql(){
+        $this->sql = "SELECT * FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no LEFT JOIN reservation ON material.mat_no = reservation.mat_no 
+        WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
+    }
+
     public function list(){
         if(isset($_SESSION['mem_state'])){
             $mem_state = $_SESSION['mem_state'];
@@ -56,8 +61,7 @@ class MatController{
         }
         
         if($mem_state != 1){
-            $this->sql = "SELECT * FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no LEFT JOIN reservation ON material.mat_no = reservation.mat_no 
-                WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
+            $this->basic_sql();
             $sql = $this->sql.$this->sort;
         }
         else{
@@ -87,6 +91,11 @@ class MatController{
     public function research(){
         $in = '';
         $ispop = false;
+
+        if(!isset($_SESSION['mem_state'])){
+            $this->basic_sql();
+        }
+
         if(isset($_GET['title'])){
             $title = $_GET['title'];
             $ispop = true;
@@ -94,11 +103,6 @@ class MatController{
         else{
             $title = '자료 현황';
             $ispop = false;
-        }
-
-        if(!isset($_SESSION['mem_state'])){
-            $this->sql = "SELECT * FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no LEFT JOIN reservation ON material.mat_no = reservation.mat_no 
-                WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
         }
 
         $value = '%'.$_POST['user_research'].'%';
