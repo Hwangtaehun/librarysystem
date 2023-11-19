@@ -40,43 +40,45 @@
 ?>
 <body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
-    <label for = "kind_super">대분류</label>
-    <select id = "s1" name = "super" onchange='superChange(this)'>
-        <?php
-            for ($z=0; $z < sizeof($super); $z++) { 
-                $no[$z] = $super[$z][0];
-                $name[$z] = $super[$z][1];
-            }
-            for ($z=0; $z < sizeof($super); $z++) { 
-                echo "<option value = $no[$z] > $name[$z] </option>";
-            }
-        ?>
-    </select>
-    <label for = "kind_base">중분류</label>
-    <select id = "s2" name = "base" onchange='baseChange(this)'>
-        <?php
-            for ($z=0; $z < sizeof($base); $z++) { 
-                $no[$z] = $base[$z][0];
-                $name[$z] = $base[$z][1];
-            }
-            for ($z=0; $z < sizeof($base); $z++) { 
-                echo "<option value = $no[$z] > $name[$z] </option>";
-            }
-        ?>
-    </select>
-    <label for = "kind_sub">소분류</label>
-    <select id = "s3" name = "sup">
-        <?php
-            for ($z=0; $z < sizeof($sub); $z++) { 
-                $no[$z] = $sub[$z][0];
-                $name[$z] = $sub[$z][1];
-            }
-            for ($z=0; $z < sizeof($sub); $z++) { 
-                echo "<option value = $no[$z] > $name[$z] </option>";
-            }
-        ?>
-    </select>
-    <input type="submit" value = "검색">
+        <div class="sel">
+            <label for = "kind_super">대분류</label>
+            <select id = "s1" name = "super" onchange='superChange(this)'>
+                <?php
+                    for ($z=0; $z < sizeof($super); $z++) { 
+                        $no[$z] = $super[$z][0];
+                        $name[$z] = $super[$z][1];
+                    }
+                    for ($z=0; $z < sizeof($super); $z++) { 
+                        echo "<option value = $no[$z] > $name[$z] </option>";
+                    }
+                ?>
+            </select>
+            <label for = "kind_base">중분류</label>
+            <select id = "s2" name = "base" onchange='baseChange(this)'>
+                <?php
+                    for ($z=0; $z < sizeof($base); $z++) { 
+                        $no[$z] = $base[$z][0];
+                        $name[$z] = $base[$z][1];
+                    }
+                    for ($z=0; $z < sizeof($base); $z++) { 
+                        echo "<option value = $no[$z] > $name[$z] </option>";
+                    }
+                ?>
+            </select>
+            <label for = "kind_sub">소분류</label>
+            <select id = "s3" name = "sup">
+                <?php
+                    for ($z=0; $z < sizeof($sub); $z++) { 
+                        $no[$z] = $sub[$z][0];
+                        $name[$z] = $sub[$z][1];
+                    }
+                    for ($z=0; $z < sizeof($sub); $z++) { 
+                        echo "<option value = $no[$z] > $name[$z] </option>";
+                    }
+                ?>
+            </select>
+            <input type="submit" value = "검색">
+        </div>
     </form>
     <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">

@@ -37,14 +37,26 @@
 <body>
     <?php if($mem_state == 1){ ?>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
-        <input type="text" name="user_research" id="id_research" value = "" readonly>
-        <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();">
-        <input type="hidden" id="id_mem" name="mem_no" value="">
-        <input type="submit" value = "검색">
+        <div class="search">
+            <input type="button" class="srbt" id="ie_research" value="회원찾기" onclick="checkmem();">
+            <input type="text" name="user_research" id="id_research" value = "" readonly>
+            <input type="hidden" id="id_mem" name="mem_no" value="">
+            <button type="submit" class="btn btn-outline-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
     <?php }else{ ?>
-        <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
-        <input type="text" name="user_research" id="id_research" value = "" placeholder="책이름을 입력하세요.">
-        <input type="submit" value = "검색"> 
+    <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+        <div class="search">
+            <input type="text" name="user_research" id="id_research" value = "" placeholder="책이름을 입력하세요.">
+            <button type="submit" class="btn btn-outline-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
     <?php } ?>
     </form>
     <div class="container text-center">

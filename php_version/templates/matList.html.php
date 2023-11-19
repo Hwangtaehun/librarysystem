@@ -50,19 +50,25 @@
     $lib = $lib_man->result_call();
 ?>
 <body>
-    <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
-        <select id = "s1" name = "lib_research">
-            <?php
-            for($z = 0; $z < sizeof($lib); $z++){
-                $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
-            }
-            for($z = 0;$z < sizeof($lib); $z++){
-                echo "<option  value = $no[$z] > $name[$z] </option>";
-            }
-            ?>
-        </select>
-        <input type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
-        <input type="submit" value = "검색">
+    <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+        <div class="search">
+            <select id = "s1" name = "lib_research">
+                <?php
+                for($z = 0; $z < sizeof($lib); $z++){
+                    $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
+                }
+                for($z = 0;$z < sizeof($lib); $z++){
+                    echo "<option  value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+            </select>
+            <input class="lib" type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+            <button type="submit" class="btn btn-outline-secondary" id="inbt">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
     </form>
     <div class="container text-center">
     <?php if($ispop){ ?>
