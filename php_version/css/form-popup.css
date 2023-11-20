@@ -47,6 +47,9 @@ main .sel {
 main .sel select{
     height: 30px;
 }
+main .search .srbt{
+    width: 80px;
+}
 main .card .card-body .card-text{
     margin: revert;
 }

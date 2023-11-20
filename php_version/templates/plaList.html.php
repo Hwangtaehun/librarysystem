@@ -23,7 +23,7 @@
 
         function checklen() {
             url = "/etc/lenpop";
-            window.open(url,"chkbk","width=400,height=200");
+            window.open(url,"chkbk","width=310,height=445");
         }
 
         function lenValue(no, mem, mat, date){

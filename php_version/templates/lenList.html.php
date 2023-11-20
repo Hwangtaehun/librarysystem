@@ -53,12 +53,12 @@
 
         function checkmem() {
             url = "/len/mempop";
-            window.open(url,"chkbk","width=400,height=200");
+            window.open(url,"chkbk","width=310,height=445");
         }
 
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkbk","width=400,height=200");
+            window.open(url,"chkbk","width=310,height=445");
         }
 
         function changeDate(){

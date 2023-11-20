@@ -72,7 +72,7 @@
             if(userid)
             {
                 url = "/member/idCheck?userid="+userid;
-                window.open(url,"chkid","width=400,height=200");
+                window.open(url,"chkid","width=310,height=445");
             } else {
                 alert("아이디를 입력하세요.");
             }

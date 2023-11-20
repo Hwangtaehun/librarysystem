@@ -12,7 +12,7 @@
 
         function checkdue() {
             url = "/etc/mempop";
-            window.open(url,"chkbk","width=400,height=200");
+            window.open(url,"chkbk","width=310,height=445");
         }
 
         function memValue(no, name, state){

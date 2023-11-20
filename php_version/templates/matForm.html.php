@@ -25,12 +25,12 @@
 
         function checkbook() {
             url = "/mat/bookpop";
-            window.open(url,"chkbk","width=300,height=200");
+            window.open(url,"chkbk","width=310,height=445");
         }
 
         function checkkind() {
             url = "/mat/kindpop";
-            window.open(url,"chkbk","width=300,height=200");
+            window.open(url,"chkbk","width=310,height=445");
         }
 
         function bookValue(no, name, aut){

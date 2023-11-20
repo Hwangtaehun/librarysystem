@@ -28,22 +28,22 @@
 
         function checkmem() {
             url = "/len/mempop";
-            window.open(url,"chkme","width=300,height=200");
+            window.open(url,"chkme","width=310,height=445");
         }
 
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkma","width=300,height=200");
+            window.open(url,"chkma","width=310,height=445");
         }
 
         function checkdel() {
             url = "/len/delpop";
-            window.open(url,"chkde","width=300,height=200");
+            window.open(url,"chkde","width=310,height=445");
         }
 
         function checkres() { //reservation의 template을 완성후 사용해보기
             url = "/len/respop";
-            window.open(url,"chkde","width=300,height=200");
+            window.open(url,"chkde","width=310,height=445");
         }
 
         function memValue(no, name, state){

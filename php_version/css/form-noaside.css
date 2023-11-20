@@ -123,7 +123,7 @@ main .search button{
 main .search #inbt{
     right: 1px;
 }
-main .search .mem{
+main .search .srbt{
     width: 80px;
 }
 
@@ -139,7 +139,6 @@ footer img {height: 35px;}
 
 .auth_page{
     padding: 2vh 0px;
-    min-height: 100vh;
     text-align: center;
 }
 .auth_page h1{
