@@ -41,6 +41,7 @@ class ProcessManager{
     $dueTable = new TableManager($pdo, 'overdue', 'due_no');
     $plaTable = new TableManager($pdo, 'place', 'pla_no');
     $delTable = new TableManager($pdo, 'delivery', 'del_no');
+    $notTable = new TableManager($pdo, 'notification', 'not_no');
     
     if($this->m_uri == '' || $this->m_uri == 'index.php'){
       $this->m_uri = 'member/home';
@@ -51,7 +52,7 @@ class ProcessManager{
     $className = ucfirst($uris[0]).'Controller';
     //echo '$className = '.$className.' $funcName = '.$funcName.'<br>';
     include __DIR__.'/../controllers/'.$className.'.php';
-    $controller = new $className($libTable, $bookTable, $kindTable, $memTable, $matTable, $resTable, $lenTable, $dueTable, $plaTable, $delTable);
+    $controller = new $className($libTable, $bookTable, $kindTable, $memTable, $matTable, $resTable, $lenTable, $dueTable, $plaTable, $delTable, $notTable);
     $page = $controller->$funcName();
     
     return $page;

@@ -1,6 +1,9 @@
 <?php
 session_start();
 class MatController{
+    private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
+    private $sort = "ORDER BY book.book_name";
+    private $popSql;
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -11,12 +14,10 @@ class MatController{
     private $dueTable;
     private $plaTable;
     private $delTable;
-    private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
-    private $popSql;
-    private $sort = "ORDER BY book.book_name";
+    private $notTable;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
-                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
     {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
@@ -28,6 +29,7 @@ class MatController{
         $this->dueTable = $dueTable;
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
+        $this->notTable = $notTable;
     }
 
     private function book_count(array $param){

@@ -1,6 +1,9 @@
 <?php
 session_start();
 class EtcController{
+    private $sql = "SELECT * FROM overdue, lent, material, member, book WHERE overdue.len_no = lent.len_no AND lent.mat_no = material.mat_no 
+                    AND lent.mem_no = member.mem_no AND material.book_no = book.book_no";
+    private $sort = " ORDER BY mem_id";
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -11,12 +14,10 @@ class EtcController{
     private $dueTable;
     private $plaTable;
     private $delTable;
-    private $sql = "SELECT * FROM overdue, lent, material, member, book WHERE overdue.len_no = lent.len_no AND lent.mat_no = material.mat_no 
-                    AND lent.mem_no = member.mem_no AND material.book_no = book.book_no";
-    private $sort = " ORDER BY mem_id";
+    private $notTable;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
-                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
     {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
@@ -28,6 +29,7 @@ class EtcController{
         $this->dueTable = $dueTable;
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
+        $this->notTable = $notTable;
     }
 
     public function duelist(){

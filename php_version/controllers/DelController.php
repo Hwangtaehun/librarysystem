@@ -2,6 +2,9 @@
 include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class DelController{
+    private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
+                    AND material.book_no = book.book_no";
+    private $sort = "ORDER BY book.book_name";
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -12,13 +15,11 @@ class DelController{
     private $dueTable;
     private $plaTable;
     private $delTable;
+    private $notTable;
     private $assist;
-    private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
-                    AND material.book_no = book.book_no";
-    private $sort = "ORDER BY book.book_name";
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
-                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
     {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
@@ -30,6 +31,7 @@ class DelController{
         $this->dueTable = $dueTable;
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
+        $this->notTable = $notTable;
         $this->assist = new Assistance();
     }
 

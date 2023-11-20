@@ -14,9 +14,10 @@ class ResController{
     private $dueTable;
     private $plaTable;
     private $delTable;
+    private $notTable;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
-                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable)
+                                TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
     {
         $this->libTable = $libTable;
         $this->bookTable = $bookTable;
@@ -28,6 +29,7 @@ class ResController{
         $this->dueTable = $dueTable;
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
+        $this->notTable = $notTable;
     }
 
     public function list(){
