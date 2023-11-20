@@ -1,0 +1,1 @@
+SELECT * FROM [TABLE] WHERE LIMIT 시작번호,개수

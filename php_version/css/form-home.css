@@ -81,7 +81,8 @@ main{grid-area: main; padding-left: 10px; margin-top: 1em;}
 main .search {
     margin: 0 auto;
     position: relative;
-    width: 55vw;
+    width: 80%;
+    margin-bottom: 10px;
 }
 main .search select{
     position : absolute;

@@ -1,4 +1,6 @@
 body {
+    background-image : url('../img/pop_bg.jpg');
+    color: #F99417;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 25px auto 50px;
@@ -40,6 +42,9 @@ main .search{
 main .search input {
     height: 40px;
     width: 80%;
+}
+main .search button {
+    background-color: #FFFFFF;
 }
 main .sel {
     margin-bottom: 5px;
