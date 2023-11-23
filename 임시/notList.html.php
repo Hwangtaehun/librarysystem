@@ -1,5 +1,6 @@
 <head>
     <script>
+        var cnt = 1;
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -10,6 +11,13 @@
         }
     </script>
 </head>
+<?php
+$state = 2;
+
+if(isset($_SESSION['mem_state'])){
+    $state = $_SESSION['mem_state'];
+}
+?>
 <body>
     <form action="/not/research" method="post" onsubmit="return checkResearch(this)">
         <div class="search">
@@ -23,6 +31,7 @@
     </form>
     <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">
+        <?php if($state == 1){ ?>
         <div id="div_row">
             <?=htmlspecialchars($row['not_no'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
@@ -37,6 +46,15 @@
                 <input type="submit" value="삭제">
                 <a href="/not/addupdate?not_no=<?=$row['not_no']?>"><input type="button" value="수정"></a>
         </form>
+        <?php }else{ ?>
+        <div id="div_row">
+            <script>
+                document.write(cnt+":");
+                cnt++;
+            </script>
+            <a href="/not/addupdate?not_no=<?=$row['not_no']?>"><?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?></a>
+        </div>
+        <?php } ?>
     </fieldset>
     <?php endforeach; }?>
 </body>
