@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/form-base.css">
+    <?php
+    $state = 2;
+    $today = date("Y-m-d");
+
+    if(isset($_SESSION['mem_state'])){
+        $state = $_SESSION['mem_state'];
+    }
+
+    if($state == 1){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+    }else{
+        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+    }
+    ?>
     <script>
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
@@ -14,36 +27,14 @@
                 myform.id_author.focus();
                 return false;
             }
-            if(myform.id_publish.value.length <= 0){
-                alert("출판사를 입력하세요.");
-                myform.id_publish.focus();
-                return false;
-            }
-            if(myform.id_year.value.length <= 0){
-                alert("출판년도를 입력하세요.");
-                myform.id_year.focus();
-                return false;
-            }
-            if(myform.id_price.value.length <= 0){
-                alert("가격을 입력하세요.");
-                myform.id_price.focus();
-                return false;
-            }
             return true;
         }
     </script>
 </head>
-<?php
-$state = 2;
-$today = date("Y-m-d");
-
-if(isset($_SESSION['mem_state'])){
-    $state = $_SESSION['mem_state'];
-}
-?>
 <body>
-    <form action="/book/addupdate" method="post" onSubmit="return checkInput(this)">
+    <form action="/book/addupdate" method="post" onSubmit="return checkInput(this)" enctype="multipart/form-data">
         <fieldset id = form_fieldset>
+        <?php if($state == 1){ ?>
         <h2><?=$title?></h2>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for  = "not_name">제목</label>
@@ -53,7 +44,9 @@ if(isset($_SESSION['mem_state'])){
                 <label for  = "not_close">종료일시</label>
                 <input type="date" name="not_op_date" id="id_op_date" value="<?php if(isset($row)){echo $row['not_cl_date'];}?>"><br>
                 <label for  = "not_detail">내용</label><br>
-                <input class="input" type= "text" name="not_detail" id="id_detail" value="<?php if(isset($row)){echo $row['not_detail'];}?>"><br>
+                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10">
+                    <?php if(isset($row)){echo $row['not_detail'];}?>
+                </textarea><br>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckBan">
                     <label class="form-check-label" for="flexCheckBan">
@@ -84,6 +77,18 @@ if(isset($_SESSION['mem_state'])){
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
             </div>
+        <?php }else{?>
+            <ul><label for  = "not_name">제목</label>
+                <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"><br>
+                <label for  = "not_detail">내용</label><br>
+                <input type="image" src="<?php if(isset($row)){echo $row['not_pop_url'];}?>" width="100%"><br>
+                <input class="input" type= "text" name="not_detail" id="id_detail" value="<?php if(isset($row)){echo $row['not_detail'];}?>"><br>
+            </ul>
+            <div class="form_class">
+                <input type="button" value="이전" onclick="javascript:history.back()">
+                <a href="/not/list"><input type="button" value="목록"></a>
+            </div>
+        <?php } ?>
         </fieldset>
     </form>
     <script>
