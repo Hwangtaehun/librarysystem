@@ -48,7 +48,8 @@
     </script>
 </head>
 <body>
-    <form action="result.php" method="post" onSubmit="return checkInput(this)" enctype="multipart/form-data">
+    <button onclick="check_bt(this)">모두 선택</button>
+    <form action="result.php" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
         <h2><?=$title?></h2>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
@@ -59,7 +60,7 @@
                 <label for  = "not_close">종료일시</label>
                 <input type="date" name="not_op_date" id="id_op_date" value=""><br>
                 <label for  = "not_detail">내용</label><br>
-                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10"></textarea><br>
+                <input class="context" type= "text" name="not_detail" id="id_context" value=""><br>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckBan" onclick="ban_box(this)">
                     <label class="form-check-label" for="flexCheckBan">
@@ -127,6 +128,14 @@
             }else{
                 pu_id.focus();
             }
+        }
+
+        function check_bt(button) {
+            const ck_ban = document.getElementById('flexCheckBan');
+            const ck_pop = document.getElementById('flexCheckPop');
+
+            ck_ban.checked = true;
+            ck_pop.checked = true;
         }
     </script>
 </body>
