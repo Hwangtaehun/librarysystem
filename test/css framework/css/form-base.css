@@ -144,7 +144,12 @@ main .card .card-body .card-text{
     margin: revert;
 }
 
-aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em; z-index: -1;}
+main .context {
+    width: 100%;
+    height: 250px;
+}
+
+aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em; z-index: 1;}
 aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
 aside .dropdown-item {color: #ffffff; text-decoration: none;}
 aside .dropdown-item:hover {color: #F99417;}

@@ -30,7 +30,7 @@ class NotController{
         $this->notTable = $notTable;
     }
 
-    private function img_uplode(array $file, string $key_name, int $cnt){
+    private function img_uplode($file, $key_name, $cnt){
         $split = explode("_", $key_name);
         $filename = $split[1].$cnt;
         $tempFile = $file[$key_name]['tmp_name'];
@@ -76,6 +76,16 @@ class NotController{
         }
     }
 
+    private function delete_img($key_no, $key_name, $img_name){
+        $sql = "WHERE `not_no` LIKE $key_no";
+        $stmt = $this->notTable->whereSQL($sql);
+        $row = $stmt->fetch();
+        $existing_img = $row[$key_name];
+        if($existing_img != $img_name){
+            unlink($existing_img);
+        }
+    }
+
     public function list(){
         $title = '공지사항 현황';
         if(isset($_GET['title'])){
@@ -95,7 +105,7 @@ class NotController{
         }
 
         $value = '%'.$_POST['user_research'].'%';
-        $sql = "WHERE `notification` LIKE '$value' ".$this->sort;
+        $sql = "WHERE `not_name` LIKE '$value' ".$this->sort;
         $stmt = $this->notTable->whereSQL($sql);
         $result = $stmt->fetchAll();
 
@@ -103,6 +113,10 @@ class NotController{
     }
 
     public function delete(){
+        if($_POST['not_det_url'] != ''){
+            unlink($_POST['not_det_url']);
+        }
+
         if($_POST['not_pop_url'] != ''){
             unlink($_POST['not_pop_url']);
         }
@@ -121,15 +135,27 @@ class NotController{
                 $tmp_sql = "SELECT * FROM `notification`";
                 $temp_result = $this->notTable->get_result($tmp_sql);
                 $cnt = $temp_result->rowCount();
+
+                if($_POST['not_det_url'] == ''){
+                    $_POST['not_det_url'] = $this->img_uplode($_FILES, 'not_det_url', $cnt);
+                }
                 if(isset($_POST['not_ban_url'])){
                     $_POST['not_ban_url'] = $this->img_uplode($_FILES, 'not_ban_url', $cnt);
                 }
                 if(isset($_POST['not_pop_url'])){
                     $_POST['not_pop_url'] = $this->img_uplode($_FILES, 'not_pop_url', $cnt);
                 }
+                
                 $this->notTable->insertData($_POST);
             }
             else{
+                $this->delete_img($_POST['not_no'], 'not_det_url', $_POST['not_det_url']);
+                $this->delete_img($_POST['not_no'], 'not_ban_url', $_POST['not_ban_url']);
+                $this->delete_img($_POST['not_no'], 'not_pop_url', $_POST['not_pop_url']);
+
+                if($_POST['not_det_url'] == ''){
+                    $_POST['not_det_url'] = $this->img_uplode($_FILES, 'not_det_url', $_POST['not_no']);
+                }
                 if(isset($_POST['not_ban_url'])){
                     $_POST['not_ban_url'] = $this->img_uplode($_FILES, 'not_ban_url', $_POST['not_no']);
                 }
@@ -144,12 +170,12 @@ class NotController{
             $row = $this->notTable->selectID($_GET['not_no']);
             $title2 = ' 수정';
             $title = '공지사항'.$title2;
-            return ['tempName'=>'bookForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
+            return ['tempName'=>'notForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
         else{
             $title2 = ' 입력';
             $title = '공지사항'.$title2;
-            return ['tempName'=>'bookForm.html.php', 'title'=>$title, 'title2'=>$title2];
+            return ['tempName'=>'notForm.html.php', 'title'=>$title, 'title2'=>$title2];
         }
     }
 }

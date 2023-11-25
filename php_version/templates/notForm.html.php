@@ -3,7 +3,6 @@
 <head>
     <?php
     $state = 2;
-    $today = date("Y-m-d");
 
     if(isset($_SESSION['mem_state'])){
         $state = $_SESSION['mem_state'];
@@ -24,7 +23,7 @@
             }
             if(myform.id_detail.length <= 0){
                 alert("내용을 입력하세요.");
-                myform.id_author.focus();
+                myform.id_detail.focus();
                 return false;
             }
             return true;
@@ -32,7 +31,7 @@
     </script>
 </head>
 <body>
-    <form action="/book/addupdate" method="post" onSubmit="return checkInput(this)" enctype="multipart/form-data">
+    <form action="/not/addupdate" method="post" onSubmit="return checkInput(this)" enctype="multipart/form-data">
         <fieldset id = form_fieldset>
         <?php if($state == 1){ ?>
         <h2><?=$title?></h2>
@@ -40,15 +39,15 @@
             <ul><label for  = "not_name">제목</label>
                 <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"><br>
                 <label for  = "not_open">시작일시</label>
-                <input type="date" name="not_op_date" id="id_op_date" value="<?php if(isset($row)){echo $row['not_op_date'];}else{$today;}?>"><br>
+                <input type="date" name="not_op_date" id="id_op_date" value="<?php if(isset($row)){echo $row['not_op_date'];}?>">
                 <label for  = "not_close">종료일시</label>
-                <input type="date" name="not_op_date" id="id_op_date" value="<?php if(isset($row)){echo $row['not_cl_date'];}?>"><br>
+                <input type="date" name="not_cl_date" id="id_cl_date" value="<?php if(isset($row)){echo $row['not_cl_date'];}?>"><br>
                 <label for  = "not_detail">내용</label><br>
-                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10">
-                    <?php if(isset($row)){echo $row['not_detail'];}?>
-                </textarea><br>
+                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10"><?php if(isset($row)){echo $row['not_detail'];}?></textarea><br>
+                <label for  = "not_det_url">내용 이미지</label>
+                <input class="input" type= "file" name="not_det_url" id="id_det" value=""><br>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckBan">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckBan" onclick="ban_box(this)">
                     <label class="form-check-label" for="flexCheckBan">
                         배너
                     </label>
@@ -56,7 +55,7 @@
                 <label for  = "not_ban_url">배너이미지</label>
                 <input class="input" type= "file" name="not_ban_url" id="id_ban" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>" disabled><br>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckPop">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckPop" onclick="pop_box(this)">
                     <label class="form-check-label" for="flexCheckPop">
                         팝업
                     </label>
@@ -64,11 +63,11 @@
                 <label for  = "not_pop_url">팝업이미지</label>
                 <input class="input" type= "file" name="not_pop_url" id="id_pop" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>" disabled><br>
                 <label for  = "not_pop_x">팝업 좌측 위치</label>
-                <input class="input" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled><br>
+                <input class="input" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled>
                 <label for  = "not_pop_y">팝업 상단 위치</label>
                 <input class="input" type= "number" name="not_pop_y" id="id_pop_y" value="<?php if(isset($row)){echo $row['not_pop_y'];}?>" disabled><br>
                 <label for  = "not_pop_wid">팝업 넓이</label>
-                <input class="input" type= "number" name="not_pop_wid" id="id_pop_wid" value="<?php if(isset($row)){echo $row['not_pop_wid'];}?>" disabled><br>
+                <input class="input" type= "number" name="not_pop_wid" id="id_pop_wid" value="<?php if(isset($row)){echo $row['not_pop_wid'];}?>" disabled>
                 <label for  = "not_pop_hei">팝업 높이</label>
                 <input class="input" type= "number" name="not_pop_hei" id="id_pop_hei" value="<?php if(isset($row)){echo $row['not_pop_hei'];}?>" disabled><br>
                 <input type="hidden" name="not_no" value="<?php if(isset($row)){echo $row['not_no'];}?>">
@@ -81,7 +80,7 @@
             <ul><label for  = "not_name">제목</label>
                 <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"><br>
                 <label for  = "not_detail">내용</label><br>
-                <input type="image" src="<?php if(isset($row)){echo $row['not_pop_url'];}?>" width="100%"><br>
+                <input type="image" src="<?php if(isset($row)){echo $row['not_det_url'];}?>" width="100%"><br>
                 <input class="input" type= "text" name="not_detail" id="id_detail" value="<?php if(isset($row)){echo $row['not_detail'];}?>"><br>
             </ul>
             <div class="form_class">
