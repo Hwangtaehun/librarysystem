@@ -153,7 +153,7 @@ class kindController{
             }
         }
         if(isset($_GET['kind_no'])){
-            $row = $this->kindTable->selectID($_GET['mem_no']);
+            $row = $this->kindTable->selectID($_GET['kind_no']);
             $title2 = ' 수정';
             $title = '종류'.$title2;
             return ['tempName'=>'kindForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];

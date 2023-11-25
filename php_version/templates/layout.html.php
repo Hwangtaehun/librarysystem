@@ -52,6 +52,10 @@
         
             
         if($state == 1){
+            $menus['공지사항'][0][0] = '공지사항관리';
+            $menus['공지사항'][0][1] = '/not/list';
+            $menus['공지사항'][1][0] = '공지사항추가';
+            $menus['공지사항'][1][1] = '/not/addupdate';
             $menus['책'][0][0] = '책관리';
             $menus['책'][0][1] = '/book/list';
             $menus['책'][1][0] = '책추가';
@@ -147,6 +151,11 @@
                     echo '<ul class="navbar-nav">';
                         echo '<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>';
                         if($state == 1){
+                            echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">공지사항</a>';
+                            echo '<ul class="dropdown-menu">';
+                            $script = makehtml('공지사항', $menus);
+                            echo $script;
+                            echo '</ul></li>';
                             echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a>';
                             echo '<ul class="dropdown-menu">';
                             $script = makehtml('책', $menus);
@@ -185,6 +194,7 @@
                             echo '</ul></li>';
                         }
                         else{
+                            echo '<li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li>';
                             echo '<li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li>';
                             echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>';
                             echo '<ul class="dropdown-menu">';
@@ -204,7 +214,7 @@
         }
         if(!isset($_GET['pop'])){
             if($state != 1){
-                if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && $title != '회원가입'){
+                if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && $title != '회원가입' && $title != '공지사항 현황'){
                     if($not_pop){
                         if($menu != '마이페이지'){
                             $menu = '내서재';
