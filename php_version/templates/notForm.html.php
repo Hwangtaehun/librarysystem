@@ -9,10 +9,10 @@
     }
 
     if($state == 1){
-        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        //echo '<link rel="stylesheet" href="../css/form-base.css">';
     }else{
         $title = '공지사항 내용';
-        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        //echo '<link rel="stylesheet" href="../css/form-noaside.css">';
     }
     ?>
     <script>
@@ -46,7 +46,8 @@
                 <label for  = "not_detail">내용</label><br>
                 <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10"><?php if(isset($row)){echo $row['not_detail'];}?></textarea><br>
                 <label for  = "not_det_url">내용 이미지</label>
-                <input class="input" type= "file" name="not_det_url" id="id_det" value=""><br>
+                <input class="input" type= "file" name="not_det_url" id="id_det" value="<?php if(isset($row)){echo $row['not_det_url'];}?>">
+                <input type="hidden" name="not_det_url" value="<?php if(isset($row)){echo $row['not_det_url'];}?>"><br>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckBan" onclick="ban_box(this)">
                     <label class="form-check-label" for="flexCheckBan">
@@ -54,7 +55,8 @@
                     </label>
                 </div>
                 <label for  = "not_ban_url">배너이미지</label>
-                <input class="input" type= "file" name="not_ban_url" id="id_ban" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>" disabled><br>
+                <input class="input" type= "file" name="not_ban_url" id="id_ban" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>" disabled>
+                <input type="hidden" name="not_ban_url" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>"><br>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckPop" onclick="pop_box(this)">
                     <label class="form-check-label" for="flexCheckPop">
@@ -62,7 +64,8 @@
                     </label>
                 </div>
                 <label for  = "not_pop_url">팝업이미지</label>
-                <input class="input" type= "file" name="not_pop_url" id="id_pop" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>" disabled><br>
+                <input class="input" type= "file" name="not_pop_url" id="id_pop" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>" disabled>
+                <input type="hidden" name="not_pop_url" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>"><br>
                 <label for  = "not_pop_x">팝업 좌측 위치</label>
                 <input class="input" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled>
                 <label for  = "not_pop_y">팝업 상단 위치</label>

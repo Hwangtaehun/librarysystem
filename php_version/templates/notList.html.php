@@ -47,12 +47,11 @@
             <?=htmlspecialchars($row['not_pop_hei'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_pop_x'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_pop_y'],ENT_QUOTES,'UTF-8');?>
-            <input type="hidden" name="not_pop_url" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>">
-            <input type="hidden" name="not_ban_url" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>">
         </div>
         <form action="/not/delete" method="post">
-                <input type="submit" value="삭제">
-                <a href="/not/addupdate?not_no=<?=$row['not_no']?>"><input type="button" value="수정"></a>
+            <input type="hidden" name="not_no" value="<?=$row['not_no']?>">
+            <input type="submit" value="삭제">
+            <a href="/not/addupdate?not_no=<?=$row['not_no']?>"><input type="button" value="수정"></a>
         </form>
         <?php }else{ ?>
         <div id="div_row">
