@@ -30,7 +30,29 @@ class NotController{
         $this->notTable = $notTable;
     }
 
-    private function img_uplode($file, $key_name, $cnt){
+    private function img_manage(array $post, array $file){
+        $cnt = $post['not_no'];
+
+        if($post['not_no'] == ''){
+            $tmp_sql = "SELECT * FROM `notification`";
+            $temp_result = $this->notTable->get_result($tmp_sql);
+            (string)$cnt = $temp_result->rowCount() + 1;
+        }
+
+        if($post['not_det_url'] != ''){
+            $post['not_det_url'] = $this->img_uplode($file, 'not_det_url', $cnt);
+        }
+        if($post['not_ban_url'] != ''){
+            $post['not_ban_url'] = $this->img_uplode($file, 'not_ban_url', $cnt);
+        }
+        if($post['not_pop_url'] != ''){
+            $post['not_pop_url'] = $this->img_uplode($file, 'not_pop_url', $cnt);
+        }
+
+        return $post;
+    }
+
+    private function img_uplode(array $file, string $key_name, string $cnt){
         $split = explode("_", $key_name);
         $filename = $split[1].$cnt;
         $tempFile = $file[$key_name]['tmp_name'];
@@ -46,7 +68,6 @@ class NotController{
             case 'bmp':
             case 'png':
                 $extStatus = true;
-                $filename .= '.'.$fileExt;
                 break;
             default:
                 echo "<script>alert('이미지 전용 확장자(jpg, bmp, gif, png)외에는 사용이 불가합니다.')</script>";
@@ -56,7 +77,13 @@ class NotController{
         echo '$filename = '.$filename.'<br>';
         if($fileType == 'image'){
             if($extStatus){
-                $resFile = "../img/not/$filename";
+                $split = explode("_", $key_name);
+                $foldername = '../img/not/'.$cnt.'/'.$split[1].'/';
+                if (!file_exists($foldername)) {
+                    mkdir($foldername, 0777, true);
+                }
+                
+                $resFile = "$foldername{$file[$key_name]['name']}";
                 $imageUpload = move_uploaded_file($tempFile, $resFile);
                 
                 if($imageUpload == true){
@@ -76,14 +103,21 @@ class NotController{
         }
     }
 
-    private function delete_img($key_no, $key_name, $img_name){
-        $sql = "WHERE `not_no` LIKE $key_no";
-        $stmt = $this->notTable->whereSQL($sql);
-        $row = $stmt->fetch();
-        $existing_img = $row[$key_name];
-        if($existing_img != $img_name){
-            unlink($existing_img);
+    private function delete_img($path) {
+        $dirs = dir($path);
+
+        while(false !== ($entry = $dirs->read())) {
+            if(($entry != '.') && ($entry != '..')) {            
+                if(is_dir($path.'/'.$entry)) {
+                    delete_img($path.'/'.$entry);
+                } else {
+                    @unlink($path.'/'.$entry);
+                }
+            }
         }
+
+        $dirs->close();
+        @rmdir($path);
     }
 
     public function list(){
@@ -113,17 +147,8 @@ class NotController{
     }
 
     public function delete(){
-        if($_POST['not_det_url'] != ''){
-            unlink($_POST['not_det_url']);
-        }
-
-        if($_POST['not_pop_url'] != ''){
-            unlink($_POST['not_pop_url']);
-        }
-
-        if($_POST['not_ban_url'] != ''){
-            unlink($_POST['not_ban_url']);
-        }
+        $path = '../img/not/'.$_POST['not_no'];
+        $this->delete_img($path);
 
         $this->notTable->deleteData($_POST['not_no']);
         header('location: /not/list');
@@ -132,36 +157,14 @@ class NotController{
     public function addupdate(){
         if(isset($_POST['not_no'])) {
             if($_POST['not_no'] == ''){
-                $tmp_sql = "SELECT * FROM `notification`";
-                $temp_result = $this->notTable->get_result($tmp_sql);
-                $cnt = $temp_result->rowCount();
-
-                if($_POST['not_det_url'] == ''){
-                    $_POST['not_det_url'] = $this->img_uplode($_FILES, 'not_det_url', $cnt);
-                }
-                if(isset($_POST['not_ban_url'])){
-                    $_POST['not_ban_url'] = $this->img_uplode($_FILES, 'not_ban_url', $cnt);
-                }
-                if(isset($_POST['not_pop_url'])){
-                    $_POST['not_pop_url'] = $this->img_uplode($_FILES, 'not_pop_url', $cnt);
-                }
-                
+                $_POST = $this->img_manage($_POST, $_FILES);
                 $this->notTable->insertData($_POST);
             }
             else{
-                $this->delete_img($_POST['not_no'], 'not_det_url', $_POST['not_det_url']);
-                $this->delete_img($_POST['not_no'], 'not_ban_url', $_POST['not_ban_url']);
-                $this->delete_img($_POST['not_no'], 'not_pop_url', $_POST['not_pop_url']);
+                $path = '../img/not/'.$_POST['not_no'];
+                $this->delete_img($path);
 
-                if($_POST['not_det_url'] == ''){
-                    $_POST['not_det_url'] = $this->img_uplode($_FILES, 'not_det_url', $_POST['not_no']);
-                }
-                if(isset($_POST['not_ban_url'])){
-                    $_POST['not_ban_url'] = $this->img_uplode($_FILES, 'not_ban_url', $_POST['not_no']);
-                }
-                if(isset($_POST['not_pop_url'])){
-                    $_POST['not_pop_url'] = $this->img_uplode($_FILES, 'not_pop_url', $_POST['not_no']);
-                }
+                $_POST =  $this->img_manage($_POST, $_FILES);
                 $this->notTable->updateData($_POST);
             }
             header('location: /not/list');
