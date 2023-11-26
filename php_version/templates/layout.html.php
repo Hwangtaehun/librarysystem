@@ -214,7 +214,8 @@
         }
         if(!isset($_GET['pop'])){
             if($state != 1){
-                if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && $title != '회원가입' && $title != '공지사항 현황'){
+                if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' 
+                    && $title != '회원가입' && $title != '공지사항 현황' && $title != '공지사항 수정'){
                     if($not_pop){
                         if($menu != '마이페이지'){
                             $menu = '내서재';

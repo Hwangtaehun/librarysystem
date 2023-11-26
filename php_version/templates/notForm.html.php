@@ -11,6 +11,7 @@
     if($state == 1){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
     }else{
+        $title = '공지사항 내용';
         echo '<link rel="stylesheet" href="../css/form-noaside.css">';
     }
     ?>
@@ -77,11 +78,14 @@
                 <input type= "reset" value='지우기'>
             </div>
         <?php }else{?>
+            <h2><?=$title?></h2>
             <ul><label for  = "not_name">제목</label>
-                <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"><br>
+                <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>" readonly><br>
                 <label for  = "not_detail">내용</label><br>
                 <input type="image" src="<?php if(isset($row)){echo $row['not_det_url'];}?>" width="100%"><br>
-                <input class="input" type= "text" name="not_detail" id="id_detail" value="<?php if(isset($row)){echo $row['not_detail'];}?>"><br>
+                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10" readonly>
+<?php if(isset($row)){echo $row['not_detail'];}?>
+                </textarea><br>
             </ul>
             <div class="form_class">
                 <input type="button" value="이전" onclick="javascript:history.back()">
