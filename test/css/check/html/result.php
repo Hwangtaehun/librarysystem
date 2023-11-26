@@ -5,9 +5,8 @@
         <title>Form Tag 사용</title>
     </head>
     <?php
-    function img_uplode($file, $key_name, $cnt){
-        $split = explode("_", $key_name);
-        $filename = $split[1].$cnt;
+    function img_uplode(array $file, string $key_name, int $cnt){
+        echo '$cnt의 타입 = '.gettype($cnt).'<br>';
         $tempFile = $file[$key_name]['tmp_name'];
         $fileTypeExt = explode("/", $file[$key_name]['type']);
         $fileType = $fileTypeExt[0];
@@ -21,17 +20,21 @@
             case 'bmp':
             case 'png':
                 $extStatus = true;
-                $filename .= '.'.$fileExt;
                 break;
             default:
                 echo "이미지 전용 확장자(jpg, bmp, gif, png)외에는 사용이 불가합니다."; 
                 exit;
                 break;
         }
-        echo '$filename = '.$filename.'<br>';
         if($fileType == 'image'){
             if($extStatus){
-                $resFile = "../img/$filename";
+                $split = explode("_", $key_name);
+                $foldername = '../img/not/'.$cnt.'/'.$split[1].'/';
+                if (!file_exists($foldername)) {
+                    mkdir($foldername, 0777, true);
+                }
+
+                $resFile = "$foldername{$file[$key_name]['name']}";
                 $imageUpload = move_uploaded_file($tempFile, $resFile);
                 
                 if($imageUpload == true){
@@ -56,7 +59,14 @@
     <body>
         <h2>입력 내용 확인</h2>
         <?php
+            print_r($_POST);
+            echo '<br>';
             print_r($_FILES);
+            echo '<br>';
+            echo '$_POST의 타입 = '.gettype($_POST).'<br>';
+            echo '$_FILES의 타입 = '.gettype($_FILES).'<br>';
+            $check = $_POST['not_pop_x'];
+            echo '$check의 타입 = '.gettype($check).'<br>';
             
             $_POST['not_pop_url'] = img_uplode($_FILES, 'not_pop_url', 1);
             $_POST['not_ban_url'] = img_uplode($_FILES, 'not_ban_url', 1);
