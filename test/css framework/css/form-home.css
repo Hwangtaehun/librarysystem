@@ -164,6 +164,8 @@ main .slide_next_button{
 
 main .slide_item.item1{
     background-color: darkgoldenrod;
+    /* background-image: url('../img/배너이미지.png');
+    background-size: 100% 100%; */
 }
 main .slide_item.item2{
     background-color: aqua;
