@@ -33,9 +33,10 @@ class MemberController{
 
     public function home(){
         $sort = "ORDER BY not_no DESC";
-        $sql = "WHERE `not_cl_date` > '$this->today' $sort";
+        $sql = "WHERE `not_op_date` >= '$this->today' AND `not_cl_date` > '$this->today' $sort";
+        $sql1 = "WHERE `not_op_date` >= '$this->today' $sort";
         $result = $this->notTable->whereSQL($sql);
-        $result1 = $this->notTable->whereSQL($sort);
+        $result1 = $this->notTable->whereSQL($sql1);
         $title = '도서관 관리';
         return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1];
     }

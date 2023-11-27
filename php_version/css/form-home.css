@@ -203,6 +203,7 @@ main .slide_item_duplicate{
 
 main .board{
     grid-area: board;
+    margin: 10px;
 }
 main .board h3{
     text-align: center;

@@ -43,10 +43,12 @@
             <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_op_date'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_cl_date'],ENT_QUOTES,'UTF-8');?>
-            <?=htmlspecialchars($row['not_pop_wid'],ENT_QUOTES,'UTF-8');?>
-            <?=htmlspecialchars($row['not_pop_hei'],ENT_QUOTES,'UTF-8');?>
-            <?=htmlspecialchars($row['not_pop_x'],ENT_QUOTES,'UTF-8');?>
-            <?=htmlspecialchars($row['not_pop_y'],ENT_QUOTES,'UTF-8');?>
+            <?php if(isset($row['not_pop_url'])){ ?>
+                <?=htmlspecialchars($row['not_pop_wid'],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($row['not_pop_hei'],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($row['not_pop_x'],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($row['not_pop_y'],ENT_QUOTES,'UTF-8');?>
+            <?php } ?>
         </div>
         <form action="/not/delete" method="post">
             <input type="hidden" name="not_no" value="<?=$row['not_no']?>">
@@ -57,7 +59,7 @@
         <div id="div_row">
             <a class="http" href="/not/addupdate?not_no=<?=$row['not_no']?>">
                 <script>
-                    document.write(cnt+"번째 ");
+                    document.write(cnt+" | ");
                     cnt++;
                 </script>
                 <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
