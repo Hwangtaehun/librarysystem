@@ -55,11 +55,14 @@
         </form>
         <?php }else{ ?>
         <div id="div_row">
-            <script>
-                document.write(cnt+":");
-                cnt++;
-            </script>
-            <a href="/not/addupdate?not_no=<?=$row['not_no']?>"><?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?></a>
+            <a class="http" href="/not/addupdate?not_no=<?=$row['not_no']?>">
+                <script>
+                    document.write(cnt+"번째 ");
+                    cnt++;
+                </script>
+                <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
+                <?=htmlspecialchars($row['not_op_date'],ENT_QUOTES,'UTF-8');?>
+            </a>
         </div>
         <?php } ?>
     </fieldset>

@@ -2,6 +2,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="../css/form-home.css">
+        <script>
+            var cnt = 1;
+        </script>
     </head>
     <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
@@ -37,14 +40,31 @@
         </form>
         <div class="main_context">
             <div class="slide slide_wrap">
-                <div class="slide_item item1">1</div>
-                <div class="slide_item item2">2</div>
-                <div class="slide_item item3">3</div>
-                <div class="slide_item item4">4</div>
-                <div class="slide_item item5">5</div>
+            <?php if(isset($result)){foreach($result as $row): ?>
+                <div><a href="/not/addupdate?not_no=<?=$row['not_no']?>">
+                    <img src="<?php if(isset($row)){echo '.'.$row['not_ban_url'];}?>" width="100%">
+                </a></div>
+            <?php endforeach; }?>
                 <div class="slide_prev_button slide_button"></div>
                 <div class="slide_next_button slide_button"></div>
                 <ul class="slide_pagination"></ul>
+            </div>
+            <div class="board">
+                <h3>공지사항</h3>
+                <fieldset id="fieldset_row">
+                <?php if(isset($result1)){foreach($result1 as $row): ?>
+                    <div id="div_row">
+                        <a class="http" href="/not/addupdate?not_no=<?=$row['not_no']?>">
+                            <script>
+                                document.write(cnt+"번째 ");
+                                cnt++;
+                            </script>
+                            <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
+                            <?=htmlspecialchars($row['not_op_date'],ENT_QUOTES,'UTF-8');?>
+                        </a>
+                    </div>
+                <?php endforeach; }?>
+                </fieldset>
             </div>
         </div>
         <script>

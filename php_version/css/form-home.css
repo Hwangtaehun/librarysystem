@@ -114,7 +114,7 @@ main .main_context{
     grid-template-rows: 300px auto;
     grid-template-columns: 500px auto;
     grid-template-areas:
-    'slider notice'
+    'slider board'
     '. .';
 }
 
@@ -162,22 +162,6 @@ main .slide_next_button{
     background:url('../img/right.png') center center / 100% no-repeat;
 }
 
-main .slide_item.item1{
-    background-color: darkgoldenrod;
-}
-main .slide_item.item2{
-    background-color: aqua;
-}
-main .slide_item.item3{
-    background-color: blueviolet;
-}
-main .slide_item.item4{
-    background-color: burlywood;
-}
-main .slide_item.item5{
-    background-color: cornflowerblue;
-}
-
 main .slide ul{
     list-style-type: none;
     padding: 0;
@@ -215,6 +199,13 @@ main .slide_item_duplicate{
     height: 300px;
     flex-shrink: 0;
     transition: left 0.15s;
+}
+
+main .board{
+    grid-area: board;
+}
+main .board h3{
+    text-align: center;
 }
 
 footer {
@@ -286,6 +277,10 @@ footer img {
     display: table-cell;
     float: left;
     max-width: 732px;
+}
+#div_row .http{
+    color: #000000;
+    text-decoration: none;
 }
 
 #fieldset_row > form{

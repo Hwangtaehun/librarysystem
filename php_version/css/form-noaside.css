@@ -203,6 +203,11 @@ footer img {height: 35px;}
     max-width: 732px;
 }
 
+#div_row .http{
+    color: #F99417;
+    text-decoration: none;
+}
+
 #fieldset_row > form{
     display: table-cell;
     text-align: right; 

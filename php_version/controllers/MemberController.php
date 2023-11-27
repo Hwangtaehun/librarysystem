@@ -1,6 +1,7 @@
 <?php
 session_start();
 class MemberController{
+    private $today;
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -27,11 +28,16 @@ class MemberController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
+        $this->today = date('Y-m-d', time());
     }
 
     public function home(){
+        $sort = "ORDER BY not_no DESC";
+        $sql = "WHERE `not_cl_date` > '$this->today' $sort";
+        $result = $this->notTable->whereSQL($sql);
+        $result1 = $this->notTable->whereSQL($sort);
         $title = '도서관 관리';
-        return ['tempName'=>'home.html.php', 'title'=>$title];
+        return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1];
     }
 
     public function list(){
