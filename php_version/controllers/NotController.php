@@ -179,14 +179,10 @@ class NotController{
                 $this->notTable->updateData($_POST);
             }
             else{
-                print_r($_POST);
-                echo '<br>';
-                print_r($_FILES);
-                echo '<br>';
-                // $_POST =  $this->img_manage($_POST, $_FILES);
-                // $this->notTable->updateData($_POST);
+                $_POST =  $this->img_manage($_POST, $_FILES);
+                $this->notTable->updateData($_POST);
             }
-            //header('location: /not/list');
+            header('location: /not/list');
         }
         if(isset($_GET['not_no'])){
             $row = $this->notTable->selectID($_GET['not_no']);
