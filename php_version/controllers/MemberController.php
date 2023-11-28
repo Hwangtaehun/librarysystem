@@ -33,8 +33,8 @@ class MemberController{
 
     public function home(){
         $sort = "ORDER BY not_no DESC";
-        $sql = "WHERE `not_op_date` >= '$this->today' AND `not_cl_date` > '$this->today' $sort";
-        $sql1 = "WHERE `not_op_date` >= '$this->today' $sort";
+        $sql = "WHERE `not_op_date` <= '$this->today' AND `not_cl_date` > '$this->today' $sort"; //배너
+        $sql1 = "WHERE `not_op_date` <= '$this->today' $sort"; //공지사항 게시판
         $result = $this->notTable->whereSQL($sql);
         $result1 = $this->notTable->whereSQL($sql1);
         $title = '도서관 관리';
