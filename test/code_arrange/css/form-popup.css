@@ -1,0 +1,128 @@
+body {
+    background-image : url('../img/pop_bg.jpg');
+    color: #F99417;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 25px auto 50px;
+    grid-template-columns: auto;
+    grid-template-areas:
+    'header'
+    'main'
+    'footer';
+}
+
+header{grid-area: header;}
+header a img{
+    float: left;
+    height: 60px;
+}
+header .link {
+    float:right;
+    margin-top: 15px;
+    text-decoration: none;
+    list-style:none;
+}
+header .link li{
+    margin-right: 10px;
+    font-size: 95%;
+}
+header .link li a{
+    margin-left: 10px;
+    color: #f91717;
+}
+
+main{
+    grid-area: main; 
+    padding-left: 10px; 
+    margin-top: 1em;
+}
+main .search{
+    margin-bottom: 5px;
+}
+main .search input {
+    height: 40px;
+    width: 80%;
+}
+main .search button {
+    background-color: #FFFFFF;
+}
+main .sel {
+    margin-bottom: 5px;
+}
+main .sel select{
+    height: 30px;
+}
+main .search .srbt{
+    width: 80px;
+}
+main .card .card-body .card-text{
+    margin: revert;
+}
+
+footer {grid-area: footer; text-align: center; border-style: hidden;}
+footer img {height: 35px;}
+
+.auth_page{
+    padding: 2vh 0px;
+    min-height: 100vh;
+    text-align: center;
+}
+.auth_page h1{
+    max-width: 450px;
+    margin: 0px auto;
+}
+.auth_page .auth_input .form-control{
+    margin: 0px auto; width: 12em; margin-top: 1em;
+}
+.auth_page .auth_input .btn-outline-primary{
+    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062;
+}
+.auth_page .auth_input .btn-outline-primary:hover{
+    background-color: #363062; color: #F5F5F5
+}
+
+#id_add{
+    width: 30%;
+}
+#id_detail{
+    width: 40%;
+}
+
+#form_fieldset > legend{
+    font-size: 10px;
+}
+#form_fieldset > .form_class{
+    float: right;
+}
+#form_fieldset > ul{
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+#form_fieldset > ul > label{
+    width: 110px;
+    margin-bottom: 10px;
+}
+#form_fieldset > ul > .input{
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+#fieldset_row {
+    display: table; 
+    width: 100%; 
+    padding: 1px;
+    border: 1px groove #000000;
+}
+
+#div_row {
+    display: table-cell;
+    float: left;
+    max-width: 732px;
+}
+
+#fieldset_row > form{
+    display: table-cell;
+    text-align: right; 
+    float: right;
+}
