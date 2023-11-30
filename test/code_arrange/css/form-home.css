@@ -201,6 +201,7 @@ main .slide_item_duplicate{
     transition: left 0.15s;
 }
 
+/*내용*/
 main .board{
     display: flex;
     flex-direction: column;
@@ -218,13 +219,23 @@ main .board > #board_context{
     border-style: solid;
     background-color: #F5F5F5;
 }
-main .board #board_context #fieldset_row{
+main .board #board_context #board_row{
     background: #F5F5F5;
     color: #000000;
-    display: table; 
+    display: flex;
+    flex-direction: row;
     width: 100%; 
     padding: 1px;
     border-bottom: 1px groove #000000;
+}
+
+main .board #board_context #board_row * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+main .board #board_context #board_row #board_title{
+    margin: 0 auto;
 }
 
 footer {
@@ -237,64 +248,6 @@ footer img {
     height: 35px;
 }
 
-.auth_page{
-    padding: 2vh 0px;
-    min-height: 100vh;
-    text-align: center;
-}
-.auth_page h1{
-    max-width: 450px;
-    margin: 0px auto;
-}
-.auth_page .auth_input .form-control{
-    margin: 0px auto; width: 12em; margin-top: 1em;
-}
-.auth_page .auth_input .btn-outline-primary{
-    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062;
-}
-.auth_page .auth_input .btn-outline-primary:hover{
-    background-color: #363062; color: #F5F5F5
-}
-
-#id_add{
-    width: 30%;
-}
-#id_detail{
-    width: 40%;
-}
-
-#form_fieldset > legend{
-    font-size: 10px;
-}
-#form_fieldset > .form_class{
-    float: right;
-}
-#form_fieldset > ul{
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-}
-#form_fieldset > ul > label{
-    width: 110px;
-    margin-bottom: 10px;
-}
-#form_fieldset > ul > .input{
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid #000000;
-}
-
-#div_row {
-    display: table-cell;
-    float: left;
-    max-width: 732px;
-}
-#div_row .http{
-    color: #000000;
-    text-decoration: none;
-}
-
-#fieldset_row > form{
-    display: table-cell;
-    text-align: right; 
-    float: right;
+.http {
+    text-decoration-line: none;
 }
