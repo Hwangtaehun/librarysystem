@@ -47,6 +47,7 @@
                 <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10"><?php if(isset($row)){echo $row['not_detail'];}?></textarea><br>
                 <label for  = "not_det_url">내용 이미지</label>
                 <input class="input" type= "file" name="not_det_url" id="id_det" value="">
+                <input type="text" id="file_det" value="<?php if(isset($row)){echo $row['not_det_url'];}?>">
                 <input type="hidden" name="not_det_url" value="<?php if(isset($row)){echo $row['not_det_url'];}?>"><br>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckBan" onclick="ban_box(this)">
@@ -56,6 +57,7 @@
                 </div>
                 <label for  = "not_ban_url">배너이미지</label>
                 <input class="input" type= "file" name="not_ban_url" id="id_ban" value="" disabled>
+                <input type="text" id="file_ban" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>">
                 <input type="hidden" name="not_ban_url" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>"><br>
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckPop" onclick="pop_box(this)">
@@ -65,6 +67,7 @@
                 </div>
                 <label for  = "not_pop_url">팝업이미지</label>
                 <input class="input" type= "file" name="not_pop_url" id="id_pop" value="" disabled>
+                <input type="text" id="file_pop" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>">
                 <input type="hidden" name="not_pop_url" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>"><br>
                 <label for  = "not_pop_x">팝업 좌측 위치</label>
                 <input class="input" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled>
@@ -78,7 +81,7 @@
             </ul>
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
-                <input type= "reset" value='지우기'>
+                <input type= "reset" value="지우기">
             </div>
         <?php }else{?>
             <h2><?=$title?></h2>

@@ -45,8 +45,10 @@
                     <img src="<?php if(isset($row)){echo '.'.$row['not_ban_url'];}?>" width="100%">
                 </a></div>
             <?php endforeach; }?>
-                <div class="slide_prev_button slide_button"></div>
-                <div class="slide_next_button slide_button"></div>
+                <div class="slide_tool">
+                    <div class="slide_prev_button slide_button"></div>
+                    <div class="slide_next_button slide_button"></div>
+                </div>
                 <ul class="slide_pagination"></ul>
             </div>
             <div class="board">

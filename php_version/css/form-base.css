@@ -149,6 +149,15 @@ main .context {
     height: 300px;
 }
 
+main input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
 aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em; z-index: 1;}
 aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
 aside .dropdown-item {color: #ffffff; text-decoration: none;}

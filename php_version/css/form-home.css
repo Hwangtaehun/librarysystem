@@ -141,24 +141,31 @@ main .slide_item{
     transition: left 0.15s;
 }
 
+main .slide_tool{
+    position: absolute;
+    top: calc(100% - 32px);
+    right: 0px;
+    width: 60px;
+    height: 32px;
+    background-color: #F99417;
+}
 main .slide_button{
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: calc(50% - 16px);
+    top: calc(100% - 32px);
     width: 32px;
     height: 32px;
     border-radius: 100%;
-    background-color: #cccc;
     cursor: pointer;
 }
 main .slide_prev_button {
-    left: 30px;
+    right: 25px;
     background:url('../img/left.png') center center / 100% no-repeat;
 }
 main .slide_next_button{
-    right: 30px;
+    right: 5px;
     background:url('../img/right.png') center center / 100% no-repeat;
 }
 
@@ -240,6 +247,6 @@ footer img {
 
 #fieldset_row > form{
     display: table-cell;
-    text-align: right; 
+    text-align: justify; 
     float: right;
 }
