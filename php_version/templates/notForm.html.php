@@ -197,7 +197,6 @@
         // 파일 업로드 했을때 변경사항
         // 내용 이미지
         document.getElementById('id_det').addEventListener('change', function(e){
-            alert("이벤트 발생");
             if(document.getElementById('id_det').value != ''){
                 document.getElementById('file_det').value = document.getElementById('id_det').value;
             }

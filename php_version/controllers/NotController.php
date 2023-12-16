@@ -32,9 +32,13 @@ class NotController{
 
     private function img_manage(array $post, array $file){
         $cnt = $post['not_no'];
+
+        print_r($file);
         
-        if($file['not_det_url'] != ''){
-            if($post['not_det_url'] != $file['not_det_url']){
+        if($file['not_det_url']['name'] != ''){
+            $temp_url = explode("/", $post['not_det_url']);
+            $not_del_url = end($temp_url);
+            if($not_del_url != $file['not_det_url']['name']){
                 $path = './img/not/'.$cnt.'/det';
                 if (file_exists($path)){
                     $this->delete_img($path);
@@ -42,8 +46,10 @@ class NotController{
                 $post['not_det_url'] = $this->img_uplode($file, 'not_det_url', $cnt);
             }
         }
-        if($file['not_ban_url'] != ''){
-            if($post['not_ban_url'] != $file['not_ban_url']){
+        if($file['not_ban_url']['name'] != ''){
+            $temp_url = explode("/", $post['not_ban_url']);
+            $not_ban_url = end($temp_url);
+            if($not_ban_url != $file['not_ban_url']['name']){
                 $path = './img/not/'.$cnt.'/ban';
                 if (file_exists($path)){
                     $this->delete_img($path);
@@ -51,8 +57,10 @@ class NotController{
                 $post['not_ban_url'] = $this->img_uplode($file, 'not_ban_url', $cnt);
             }
         }
-        if($file['not_pop_url'] != ''){
-            if($post['not_pop_url'] != $file['not_pop_url']){
+        if($file['not_pop_url']['name'] != ''){
+            $temp_url = explode("/", $post['not_pop_url']);
+            $not_pop_url = end($temp_url);
+            if($not_pop_url != $file['not_pop_url']['name']){
                 $path = './img/not/'.$cnt.'/pop';
                 if (file_exists($path)){
                     $this->delete_img($path);
@@ -60,7 +68,7 @@ class NotController{
                 $post['not_pop_url'] = $this->img_uplode($file, 'not_pop_url', $cnt);
             }
         }
-        return $post;
+        return $post;   
     }
 
     private function img_uplode(array $file, string $key_name, string $cnt){
