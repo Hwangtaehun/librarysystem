@@ -3,10 +3,12 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //회원 상태
         <?php
         echo 'var state = '.$_SESSION['mem_state'];
         ?>
 
+        //필수 정보 입력 확인
         function checkInput(myform) {
             if(state == 2){
                 alert("정지된 계정입니다.");
@@ -23,28 +25,22 @@
             return true;
         }
 
+        //책 팝업창 띄우는 함수
         function checkbook() {
             url = "/mat/bookpop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
-        function checkkind() {
-            url = "/mat/kindpop";
-            window.open(url,"chkbk","width=310,height=445");
-        }
-
+        //팝업창에 받은 내용 입력
         function bookValue(no, name, aut){
             document.querySelector("#id_book").value = no;
             document.querySelector("#ib_name").value = name;
             document.querySelector("#ib_author").value = aut;
         }
-
-        function kindValue(no){
-            document.querySelector("#id_kind").value = no;
-        }
     </script>
 </head>
 <?php
+    //선택창을 불러오는 함수
     include_once __DIR__.'/../includes/Combobox_Manager.php';
     include_once __DIR__.'/../includes/Combobox_Inheritance.php';
 
@@ -133,6 +129,7 @@
     </form>
     <script>
         <?php
+        //도서관 번호
         if(isset($row['lib_no'])){
             $lib_no = $row['lib_no'];
             echo "var lib_no = $lib_no;";
@@ -142,6 +139,7 @@
         <?php    
         }
 
+        //종류 번호 받아서 대분류, 중분류, 소분류 조절하기
         if(isset($row['kind_no'])){
             $kind_no = $row['kind_no'];
             $temp = (int)$kind_no / 100;

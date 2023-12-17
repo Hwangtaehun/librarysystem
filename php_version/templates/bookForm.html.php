@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //필수 입력했는지 확인 하는 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
                 alert("책이름을 입력하세요.");

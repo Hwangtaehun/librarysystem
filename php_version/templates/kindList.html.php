@@ -1,5 +1,6 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '종류 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -12,6 +13,7 @@
     }
     ?>
     <script>
+        // 검색 내용이 있는 없는지 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -26,6 +28,7 @@
     include_once __DIR__.'/../includes/Combobox_Manager.php';
     include_once __DIR__.'/../includes/Combobox_Inheritance.php';
 
+    // 모든 분류 객체 생성
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", true);
     $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", true);
     $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
@@ -38,6 +41,7 @@
     $basearray = $inherit1->call_result();
     $subarray = $inherit2->call_result();
 ?>
+<!-- 종류 배경 추가 -->
 <body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
         <div class="sel">
@@ -102,6 +106,7 @@
     </fieldset>
     <?php endforeach; }?>
     <script>
+        // 대분류 선택이 바뀌었는데 중분류, 소분류 바뀌게 하는 함수
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray); ?>;
             var target = document.querySelector("#s2");
@@ -123,6 +128,7 @@
             }
         }
 
+        // 중분류 선택이 바뀌었을때, 소분류 바뀌게 하는 함수
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
             var target = document.querySelector("#s3");

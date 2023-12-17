@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //필수 입력을 확인 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
                 alert("종류이름을 입력하세요.");
@@ -81,6 +82,7 @@
         </fieldset>
     </form>
     <script>
+        // 대분류 선택이 바뀌었는데 중분류, 소분류 바뀌게 하는 함수
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray); ?>;
             var target = document.querySelector("#s2");
@@ -102,6 +104,7 @@
             }
         }
 
+        // 중분류 선택이 바뀌었을때, 소분류 바뀌게 하는 함수
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
             var target = document.querySelector("#s3");

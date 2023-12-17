@@ -7,6 +7,7 @@
         $mem_state = $_SESSION['mem_state'];
         ?>
 
+        // 필수 입력 확인하는 함수
         function checkInput(myform) {
             if(myform.ib_name.value.length <= 0){
                 alert("책 정보를 찾아주세요.");
@@ -16,11 +17,13 @@
             return true;
         }
 
+        //자료검색 팝업창 생성
         function checkmat() {
             url = "/len/matpop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //팝업창에 찾은 내용을 웹페이지에게 넘기는 함수
         function matValue(no, name){
             document.querySelector("#id_mem").value = no;
             document.querySelector("#ib_name").value = name;
@@ -39,6 +42,7 @@
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for  ="book_name">책이름</label>
                 <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_COOKIE['mat_no'.$_GET['mat_no']])){echo $_COOKIE['mat_no'.$_GET['mat_no']];}?>" readonly>
+                <!-- 수정할때만 생성 -->
                 <?php if(!isset($_GET['mat_no'])){ ?>
                     <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();">
                 <?php } ?>
@@ -64,6 +68,7 @@
                     }
                     ?>
                 </select><br>
+                <!-- 수정할때만 생성 -->
                 <?php if(isset($row)){ ?>
                 <label for ="len_arr_date">도착일</label>
                 <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"><br>
@@ -86,6 +91,7 @@
 </body>
 <script>
     <?php
+    //도착 도서관 값 할당하는 함수
     if(isset($row['lib_no_arr'])){
         echo "const li = document.querySelector('#il_no');";
         $lib_no = $row['lib_no_arr'];
@@ -93,6 +99,7 @@
         echo "li.value = lib_no;";
     }
 
+    //라디오 버튼 값 할당하는 함수
     if(isset($row['del_app'])){ ?>
         const de = document.querySelector('#id_de');
         const ap = document.querySelector('#id_ap');

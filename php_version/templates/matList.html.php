@@ -1,11 +1,14 @@
 <head>
     <?php
+    //오늘날짜 변수
     $date = date("Y-m-d");
+    //회원 상태
     $mem_state = 3;
     if(isset($_SESSION['mem_state'])){
         $mem_state = $_SESSION['mem_state'];
     }
 
+    //css 조정
     if($title == '자료 현황'){
         if($mem_state == 1){
             echo '<link rel="stylesheet" href="../css/form-base.css">';
@@ -24,6 +27,7 @@
     }
     ?>
     <script>
+        //검색 내용 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -33,6 +37,7 @@
             return true;            
         }
 
+        //예약가능 확인 함수
         function checkRes(myform){
             if(myform.id_state.value != '예약가능'){
                 alert("예약이 불가능합니다.");
@@ -113,7 +118,7 @@
                                     $mat_overlap = $row['mat_overlap'];
                                 }
                             }
-                            else if($title == '상세검색' ||  $title == '자료찾기'){
+                            else if($title == '상세 검색' ||  $title == '자료 찾기'){
                                 $o_many = $row['mat_many'];
                                 $o_overlap = $row['mat_overlap'];
                                 if((string)$o_many == '0'){
@@ -143,6 +148,7 @@
                             <?php }?> 
                             </p>
                         <?php
+                            //팝업창 실행
                             if($ispop){
                                 echo '<form>';
                                 $name = "'".$row['book_name']."'";

@@ -18,6 +18,7 @@
     }
     ?>
     <body>
+        <!-- 검색창 -->
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
@@ -38,7 +39,9 @@
                 </button>
             </div>
         </form>
+        <!-- 메인 내용 -->
         <div class="main_context">
+            <!-- 슬라이드 배너 -->
             <div class="slide slide_wrap">
             <?php if(isset($result)){foreach($result as $row): ?>
                 <div><a href="/not/addupdate?not_no=<?=$row['not_no']?>">
@@ -51,6 +54,7 @@
                 </div>
                 <ul class="slide_pagination"></ul>
             </div>
+            <!-- 게시판 내용 -->
             <div class="board">
                 <h3>공지사항</h3>
                 <fieldset id="fieldset_row">
@@ -70,6 +74,7 @@
             </div>
         </div>
         <script>
+            // 슬라이드 배너 사용하는 스크립트
             const slide = document.querySelector(".slide");
             let slideWidth = slide.clientWidth;
 
@@ -229,6 +234,7 @@
                     nextMove();
                 }, 3000);
             });
+            //참고 사이트: https://devinus.tistory.com/48
         </script>
     </body>
 </html>

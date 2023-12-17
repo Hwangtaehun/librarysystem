@@ -1,6 +1,7 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //검색어 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -10,11 +11,13 @@
             return true;            
         }
 
+        //회원 팝업창 띄우는 함수
         function checkdue() {
             url = "/etc/mempop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //팝업창 찾은 내용 검색창에 입력
         function memValue(no, name, state){
             document.querySelector("#id_mem").value = no;
             document.querySelector("#id_research").value = name;
@@ -46,18 +49,21 @@ $lib_array = $assist->libraryarray($pdo);
                 <div class="card" style="width: 16rem; height: 300px;">
                     <div class="card-body">
                     <?php
+                    //도서번호 변환
                     $kind = $row['kind_no'];
                     $symbol = $row['mat_symbol'];
                     $many = $row['mat_many'];
                     $overlap = $row['mat_overlap'];
                     $book = $kind.' '.$symbol.' '.$many.' '.$overlap;
 
+                    //반납일 날짜
                     if($row['len_re_date'] == ''){
                         $len_re_date = '없음';
                     }
                     else{
                         $len_re_date = $row['len_re_date'];
                     }
+                    //연체 날짜
                     if($row['due_exp'] == ''){
                         $due_exp = '';
                     }
