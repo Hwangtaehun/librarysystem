@@ -1,15 +1,23 @@
 <?php
 class BookSymbol{
+	//초성
     private $cho = array("ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ");
+	//중성
 	private $joong = array("ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ");
+	//종성
 	private $jong = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 	
+	//작가 이름
     private $author_symbol;
+	//영어권에서는 성을 마지막 붙기 때문에 확인하기위한 변수
 	private $lastauthor_exist;
 	
     public function __construct(String $author){
         $this->lastauthor_exist = false;
+		//공백 단위로 잘라서 배열로 만들기
 		$author_array = explode(' ', $author);
+
+		//배열이 만들어 지면 성이 뒤에 있다고 생각해서 lastauthor_exist로 함
 		if(sizeof($author_array) > 1){
 			$this->lastauthor_exist = true;
 		}
@@ -17,6 +25,7 @@ class BookSymbol{
 		$this->inital($author_array);
     }
 
+	//오류 발생할시 확인하기 위해서 출력함수 제작
 	private function print(array $array){
 		for ($i = 0; $i < sizeof($array); $i++) { 
 			echo '배열 ['.$i.'] = '.$array[$i].'<br>';
@@ -27,6 +36,7 @@ class BookSymbol{
 		$num = 0;
 		$author_char_array = [];
 		
+		//작가 이름이 영어 자체인지 아니면 작가 이름이 영어+한글인지 확인하기 위해서 영어 마디가 몇개인지 확인
 		while($this->english_check($author_array[$num])) {
 			if(sizeof($author_array)-1 == $num) {
 				break;
@@ -35,6 +45,7 @@ class BookSymbol{
 		}
 		
 		if($num > 0) {
+			//한국어 분이 존재하면 char로 형변환
 			if($this->korean_check($author_array[$num])) {
 				$author_char_array = $this->stringTochar($author_array[$num]);
 			}
@@ -63,10 +74,12 @@ class BookSymbol{
 		}
 	}
 	
+	//한글있는 확인
 	private function korean_check(String $str) {
 		return preg_match("/[\xA1-\xFE][\xA1-\xFE]/", $str);
 	}
 	
+	//알파벳있는지 확인
 	private function english_check(String $str) {
 		$character = explode( '.', $str );
 		
@@ -78,6 +91,7 @@ class BookSymbol{
 		}
 	}
 	
+	//영어권에서 이름+성을 성+이름으로 변경 또는 처음 이름+중간 이름+성을 성+중간 이름+처음 이름으로 변경
 	private function sequence_change(array $str) {
 		$temp = $str[sizeof($str)-1];
 		$str[sizeof($str)-1] = $str[0];
@@ -86,6 +100,7 @@ class BookSymbol{
 		return $str;
 	}
 	
+	//한글 -> 로마자 표기법하는 방법을 역으로 이용
 	private function englishTokorean(String $str) {
 		$result = "";
 		$result_array = [];
@@ -430,6 +445,7 @@ class BookSymbol{
 		return $result_array;
 	}
 	
+	//낱자를 글자로 변환하는 함수이지만 우리가 필요한 글자는 앞에 있는 한글자이므로 한글자만 변환
 	private function first_word(array $str) {
 		$num = 0;
 		$cho_num = 99;
@@ -490,6 +506,7 @@ class BookSymbol{
 		return $result_array;
 	}
 	
+	//string을 char로 변환하는 함수
 	private function stringTochar(String $str) {
 		$array = [];
 		for ($i = 0; $i < mb_strlen($str,"UTF-8"); $i++) {
@@ -499,6 +516,7 @@ class BookSymbol{
 		$result_array = [];
 		
 		$str_result = $array[0];
+		//두번째 글자는 낱자로 변환해서 숫자로 변환해야 하므로 따로 지역변수에 저장
 		$uniVal = $array[1];
 		//echo '$str_result = '.$str_result.', $uniVal = '.$uniVal.'<br>';
 		$str_result = $str_result.$this->separate_character($uniVal);
@@ -645,6 +663,7 @@ class BookSymbol{
 		}
 	}
 
+	//유니코드 문자 포인트 가져오기
 	private function ord8($c) {
 		$len = strlen($c);
 		if($len <= 0) return false;
@@ -657,10 +676,12 @@ class BookSymbol{
 		return false;
 	}
 	
+	//글자를 낱자로 변환
 	public function separate_character($uniVal) {
 		$result = "";
 
 		for ($i=0; $i<mb_strlen($uniVal, 'UTF-8'); $i++) {
+			//낱자를 불리하기위해서 글자를 숫자로 변환
 			$code = $this->ord8(mb_substr($uniVal, $i, 1, 'UTF-8')) - 44032;
 			if ($code > -1 && $code < 11172) {
 				$temp = $code / 588;
@@ -675,10 +696,6 @@ class BookSymbol{
 		}
 		trim($result);
 		return $result;
-	}
-	
-	public function call_symbol() {
-		return $this->author_symbol;
 	}
 }
 ?>

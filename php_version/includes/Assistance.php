@@ -64,6 +64,7 @@ class Assistance{
 		return $bool;
 	}
 	
+	//쿼리 결과가 없는지 확인
 	public function resultempty_check(PDOStatement $rs) {
 		$bool = false;
 		
@@ -80,18 +81,8 @@ class Assistance{
 
 		return $bool;
 	}
-	
-	public function mat_manyZeroCheck(String $mat_many) {
-		if($mat_many === "0") {
-			$result = '';
-		}
-		else {
-			$result = $mat_many.' ';
-		}
-		
-		return $result;
-	}
 
+	//반납 날짜 계산
 	public function estimateReturndate(string $lentdate, int $extend) {
 		$period = 15;
 
@@ -101,24 +92,7 @@ class Assistance{
 		return $date;
 	}
 
-	public function removeSymbol(string $str) {
-		$str_array = [];
-		
-		if($this->isInteger($str)) {
-			$str_fianl = "";
-			return $str_fianl;
-		}
-		
-		$str_fianl = "";
-		$str_array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
-		
-		for($i = 2; $i < sizeof($str_array); $i++) {
-			$str_fianl += $str_array[$i];
-		}
-
-		return $str_fianl;
-	}
-
+	//도서관 이름 배열 만들기
 	public function libraryarray(PDO $pdo){
         $num = 1;
 		$sql = "SELECT * FROM `library`";
