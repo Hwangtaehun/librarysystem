@@ -158,12 +158,12 @@
                                         <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
                                 <?php }else if($mem_state == 3){}else{ ?>
                                 <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
-                                        <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
+                                        <input type="hidden" name="mat_no" value="<?=$row['12']?>">
                                         <input type="hidden" name="mem_no" value="<?=$_SESSION['mem_no']?>">
                                         <input type="hidden" name="res_date" value="<?=$date?>">
                                         <input type="hidden" id="id_state" value="<?=$res_state?>">
                                         <input type="submit" value="예약">
-                                        <a href="/mat/delpop?mat_no=<?=$row['mat_no']?>"><input type="button" value="상호대차"></a>
+                                        <a href="/mat/delpop?mat_no=<?=$row['12']?>"><input type="button" value="상호대차"></a>
                                 <?php } ?>
                         <?php } ?>
                         </form>

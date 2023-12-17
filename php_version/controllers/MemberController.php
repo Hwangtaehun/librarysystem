@@ -31,6 +31,7 @@ class MemberController{
         $this->today = date('Y-m-d', time());
     }
 
+    //홈화면 함수
     public function home(){
         $sort = "ORDER BY not_no DESC";
         $sql = "WHERE `not_op_date` <= '$this->today' AND `not_cl_date` > '$this->today' $sort"; //배너
@@ -50,6 +51,7 @@ class MemberController{
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색 함수
     public function research(){
         $value = $_POST['user_research'];
         $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value'";
@@ -88,15 +90,19 @@ class MemberController{
         
     }
 
+    //로그아숫 함수
     public function logout(){
+        //색션 삭제
         $_SESSION = [];
         header('location: /');
     }
 
+    //로그인 필요하면 알림
     public function logalert(){
         echo "<script>alert('로그인을 해주세요.'); location.href='/member/login';</script>";
     }
 
+    //중복아이디인지 확인하는 함수
     public function idCheck(){
         $mem_id= $_GET["userid"];
         $where = "WHERE `mem_id` = '$mem_id'";
@@ -113,6 +119,7 @@ class MemberController{
         }
     }
 
+    //회원 탈퇴 함수
     public function memdel(){
         $mem_no = $_GET['mem_no'];
         echo "<script>var msg = '정말로 회원 탈퇴 하시겠습니까?';";

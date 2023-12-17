@@ -32,6 +32,7 @@ class MatController{
         $this->notTable = $notTable;
     }
 
+    //중복된 책인 있는 확인하는 함수
     private function book_count(array $param){
         $str_num = "c.";
         $lib_no = $param['lib_no'];
@@ -49,6 +50,7 @@ class MatController{
         return $str_num;
     }
 
+    //관리자 계정이 아니면 SQL를 변동하는 함수
     private function basic_sql(){
         $this->sql = "SELECT * FROM library, book, material LEFT JOIN lent ON material.mat_no = lent.mat_no LEFT JOIN reservation ON material.mat_no = reservation.mat_no 
         WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
@@ -76,6 +78,7 @@ class MatController{
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수
     public function poplist(){
         $title = $_GET['title'];
         if($title == '상세 검색'){
@@ -90,6 +93,7 @@ class MatController{
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색할때 사용하는 함수
     public function research(){
         $in = '';
         $ispop = false;
@@ -201,7 +205,7 @@ class MatController{
         }
     }
 
-    //ResController 생성후 제작-정지 계정 제한 및 자료확인 함수 html.php에서 만들기
+    //예약 추가하는 함수
     public function resadd(){
         $mat_no = $_POST['mat_no'];
         $mem_no = $_SESSION['mem_no'];
@@ -219,32 +223,19 @@ class MatController{
         }
     }
 
+    //책 검색 팝업창을 불러오는 함수 
     public function bookpop(){
-        // $result = $this->bookTable->selectAll();
-        // $title = '책검색';
-        // return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result];
         echo "<script>location.href='/book/list?title=책검색&pop=true';</script>";
     }
 
-    // public function kindpop(){
-    //     // $result = $this->kindTable->selectAll();
-    //     // $title = '종류검색';
-    //     // return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
-    //     echo "<script>location.href='/kind/list?title=종류검색&pop=true';</script>";
-    // }
-
+    //자료 상세 검색 팝업창을 불러오는 함수
     public function matpop(){
-        // $result = $this->matTable->selectAll();
-        // $title = '상세 검색';
-        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
         echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
 
     }
 
+    //상호대차 팝업창을 불러오는 함수
     public function delpop(){
-        // $result = $this->matTable->selectID($_POST['mat_no']);
-        // $title = '상호대차';
-        // return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
         $mat_no = $_GET['mat_no'];
         $m_sql = $this->sql."AND material.mat_no = $mat_no";
         $stmt = $this->matTable->joinSQL($m_sql);

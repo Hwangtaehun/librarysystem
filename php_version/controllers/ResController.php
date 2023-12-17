@@ -48,6 +48,7 @@ class ResController{
         return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색
     public function research(){
         if($_SESSION['mem_state'] == 1){
             $value = $_POST['mem_no'];
@@ -97,16 +98,8 @@ class ResController{
         }
     }
 
+    //회원 찾기 팝업창으로 띄우는 함수
     public function mempop(){
-        // if(isset($_POST['user_research'])){
-        //     $value= $_POST['user_research'];
-        //     $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
-        //     $stmt = $this->memTable->whereSQL($where);
-        //     $result = $stmt->fetchAll();
-        //     $title = '회원찾기';
-        //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
-        // }
-        setcookie('pop', 'true');
         echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 }
