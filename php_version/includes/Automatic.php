@@ -11,6 +11,7 @@ class Automatic {
 		$this->delreturn();
 	}
 	
+	//연체 관리 함수
 	private function overdue_manager() {
 		$sql = "SELECT * FROM lent WHERE len_re_date is NULL";
 		$result = $this->pdo->query($sql);
@@ -20,9 +21,13 @@ class Automatic {
 		if($num != 0) {	
 			try {
 				while($row = $result->fetchObject()) {
+					//반납 추정일
 					$str_estimate_date = $this->estimateReturndate($row->len_date, $row->len_re_st);
+					//문자에서 날짜 형변환 
 					$estimate_date = strtotime($str_estimate_date);
 					$today = strtotime($this->str_today);
+
+					//반납 추정일이 지났으면 회원계정을 정지 계정으로 변환
 					if($estimate_date < $today ) {
 						$len_no_array[$count] = $row->len_no;
 						$count++;
@@ -31,6 +36,7 @@ class Automatic {
 					}
 				}
 
+				//연체 테이블에 삽입
 				for($i = 0; $i < $count; $i++) {
 					$sql = "SELECT * FROM overdue WHERE len_no = $len_no_array[$i]";
 					$result = $this->pdo->query($sql);
@@ -49,7 +55,9 @@ class Automatic {
 		}
 	}
 	
+	//연체 해제 함수
 	private function clearmember() {
+		//연체 해제일 지났을때
 		$sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp <= '$this->str_today'";
 		$result = $this->pdo->query($sql);
 		$result->setFetchMode(PDO::FETCH_NUM);//null값 때문에 사용
@@ -58,12 +66,14 @@ class Automatic {
 		if($num != 0) {
 			try {
 				$num = 0;
+				//해제할 회원과 연체 테이블 배열로 저장
 				while($row = $result->fetchObject()) {
 					$mem_no[$num] = $row->mem_no;
 					$due_no[$num] = $row->due_no;
 					$num++;
 				}
-
+				
+				//회원을 상태를 0으로 바꾸고 연체 테이블 삭제
 				for($i = 0; $i < $num; $i++) {
 					$sql = "UPDATE member SET mem_state = 0 WHERE mem_no = $mem_no[$i]";
 					$this->pdo->exec($sql);
@@ -84,6 +94,7 @@ class Automatic {
 		}
 	}
 
+	//상호대차 도서 반송 함수
 	private function delreturn(){
 		$date = date("Y-m-d", strtotime($this->str_today.'-4 days'));
 		$sql = "SELECT `del_no` FROM `delivery` WHERE len_no IS NULL AND `del_arr_date` < '$date'";
@@ -109,6 +120,7 @@ class Automatic {
 		}
 	}
 	
+	//반납일 예정일 만드는 함수
 	private function estimateReturndate(string $lentdate, int $extend) {
 		$period = 15;
 
