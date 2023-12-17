@@ -6,6 +6,7 @@
         <title><?=$title?></title>
     </head>
     <?php
+    //url 주소 만드는 함수
     function makehtml($menu, $menus){
         $m_script = '';
         for ($i=0; $i < sizeof($menus[$menu]) ; $i++) { 
@@ -15,13 +16,14 @@
         }
         return $m_script;
     }
-    
+    //팝업창 인지 확인
     if(isset($_GET['pop'])){
         $not_pop = false;
     }
     else{
         $not_pop = true;
-
+        
+        //회원 상태 확인
         if(isset($_SESSION['mem_state'])) {
             $state = $_SESSION['mem_state'];
         }
@@ -50,7 +52,7 @@
             $menu = '기타';
         }
         
-            
+        //관리 상태 매뉴 이름 및 url 생성    
         if($state == 1){
             $menus['공지사항'][0][0] = '공지사항관리';
             $menus['공지사항'][0][1] = '/not/list';
@@ -92,6 +94,7 @@
             $menus['기타'][2][1] = '/etc/duelist';
         }
         else{
+        //관리자 상태를 제외 모든 상태 이름과 url생성
             $menus['내서재'][0][0] = '대출중도서';
             $menus['내서재'][1][0] = '모든대출내역';
             $menus['내서재'][2][0] = '예약내역';

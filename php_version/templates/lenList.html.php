@@ -1,5 +1,6 @@
 <head>
     <?php
+    //css 확인 함수
     if($title == '대출 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -20,6 +21,7 @@
         var bookname = "";
         var memid = "";
         
+        //검색 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -29,48 +31,57 @@
             return true;            
         }
 
+        //선택한 검색별 선택하면 변화하는 함수
         function changeSelect(){
             var value = document.querySelector("#s1").value;
             const mem = document.querySelector("#ie_research");
             const mat = document.querySelector("#ia_research");
             if(value == '1'){
+                //회원만 검색
                 document.querySelector("#id_research").value = "";
                 document.querySelector("#id_mat").value = "";
                 mem.disabled=false;
                 mat.disabled=true;   
             }
             else if(value == '2'){
+                //자료만 검색
                 document.querySelector("#id_research").value = "";
                 document.querySelector("#id_mem").value = "";
                 mem.disabled=true;
                 mat.disabled=false;
             }
             else{
+                //회원+자료 검색
                 mem.disabled=false;
                 mat.disabled=false;
             }
         }
 
+        //회원 검색 팝업창
         function checkmem() {
             url = "/len/mempop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //자료 검색 팝업창
         function checkmat() {
             url = "/len/matpop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //현재날짜변경
         function changeDate(){
             document.querySelector("#il_date").value = date("Y-m-d");
         }
 
+        //자료 팝업창에 검색한 내용 입력
         function matValue(no, name){
             document.querySelector("#id_mat").value = no;
             bookname = name;
             document.querySelector("#id_research").value = memid+' '+bookname;
         }
 
+        //회원 팝업창에 검색한 내용 입력
         function memValue(no, name, state){
             document.querySelector("#id_mem").value = no;
             memid = name;

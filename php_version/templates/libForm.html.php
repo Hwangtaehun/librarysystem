@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //필수 입력 내용 확인하는 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
                 alert("이름을 입력하세요.");
@@ -21,12 +22,6 @@
             }
             return true;
         }
-        <?php
-        if(isset($_COOKIE)){
-            $zip = $_COOKIE['zip'];
-            $add = $_COOKIE['add'];
-        }
-        ?>
     </script>
 </head>
 <body>

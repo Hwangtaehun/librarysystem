@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="../css/form-noaside.css">
         <script>
+            //아이디, 비밀번호 입력했는지 확인
             function checkInput(myform){
                 if(myform.user_id.value.length <= 0){
                     alert("아이디를 입력하세요.");

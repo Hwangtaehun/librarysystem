@@ -1,5 +1,6 @@
 <head>
 <?php
+    //css따라 선택
     if($title == '도서관 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -12,6 +13,7 @@
     }
 ?>
     <script>
+        //검색 내용 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");

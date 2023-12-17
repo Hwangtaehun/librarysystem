@@ -7,6 +7,7 @@
         echo 'var state = '.$_SESSION['mem_state'];
         ?>
 
+        //필수입력 확인
         function checkInput(myform) {
             if(myform.im_id.value.length <= 0){
                 alert("아이디를 찾아주세요.");
@@ -26,37 +27,44 @@
             return true;
         }
 
+        //회원 팝업창
         function checkmem() {
             url = "/len/mempop";
             window.open(url,"chkme","width=310,height=445");
         }
 
+        //자료 팝업창
         function checkmat() {
             url = "/len/matpop";
             window.open(url,"chkma","width=310,height=445");
         }
 
+        //상호대차 팝업창
         function checkdel() {
             url = "/len/delpop";
             window.open(url,"chkde","width=310,height=445");
         }
 
+        //예약 팝업창
         function checkres() { //reservation의 template을 완성후 사용해보기
             url = "/len/respop";
             window.open(url,"chkde","width=310,height=445");
         }
 
+        //회원 팝업창 내용 받아오기
         function memValue(no, name, state){
             document.querySelector("#id_mem").value = no;
             document.querySelector("#im_id").value = name;
             document.querySelector("#id_sta").value = state;
         }
 
+        //자료 팝업창 내용 받아오기
         function matValue(no, name){
             document.querySelector("#id_mat").value = no;
             document.querySelector("#ib_name").value = name;
         }
 
+        //상호대차 팝업창 내용 받아오기
         function delValue(mem, id, state, mat, book, lib, del){
             document.querySelector("#id_mem").value = mem;
             document.querySelector("#im_id").value = id;
@@ -67,6 +75,7 @@
             document.querySelector("#id_del").value = del;
         }
 
+        //예약 내용 받아오기
         function resValue(mem, id, state, mat, book, lib){
             document.querySelector("#id_mem").value = mem;
             document.querySelector("#im_id").value = id;
@@ -153,6 +162,7 @@
     </form>
     <script>
     <?php
+    //라디오 버튼 제어 함수
     if(isset($row)){
         $len_ex = $row['len_ex'];
         $len_re_st = $row['len_re_st'];
