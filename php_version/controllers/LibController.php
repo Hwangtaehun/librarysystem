@@ -38,6 +38,7 @@ class LibController{
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색
     public function research(){
         $value = '%'.$_POST['user_research'].'%';
         $where = "WHERE lib_name LIKE '$value'";

@@ -39,6 +39,7 @@ class kindController{
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색
     public function research(){
         $value = $_POST['sup'];
         if($_POST['sup'] == 0){
@@ -61,6 +62,7 @@ class kindController{
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //중분류 종류번호 생성 및 소분류 종류번호 생성
     private function makeKey(String $str, bool $bool) {
         $assist = new Assistance();
         $text = "중분류";

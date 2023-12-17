@@ -35,6 +35,7 @@ class LenController{
         $this->assist = new Assistance();
     }
 
+    //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
     private function reservationCheck(){
         $rs = false;
 
@@ -77,6 +78,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //로그인한 회원의 현재 대출 목록 출력
     public function memLent(){
         $mem_no = $_SESSION['mem_no'];
         $this->sql = $this->sql."AND lent.mem_no = $mem_no AND lent.len_re_st = 0";
@@ -87,6 +89,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //로그인한 회원의 모든 대출 목록 출력
     public function memAllLent(){
         $mem_no = $_SESSION['mem_no'];
         $this->sql = $this->sql."AND lent.mem_no = $mem_no";
@@ -97,6 +100,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //반납 목록
     public function returnLent(){
         $this->sql = $this->sql."AND lent.len_re_st = 0";
         $sql = $this->sql.$this->sort;
@@ -106,6 +110,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색
     public function research(){
         $title = '대출 현황';
         
@@ -141,6 +146,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //대출 번호로 팝업창 확인
     public function listlen(){
         $title = '대출 현황';
         $value = $_GET['len_no'];
@@ -192,7 +198,7 @@ class LenController{
                         $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
                         $this->dueTable->delupdateSQL($sql);
                     }
-                }//위치변경
+                }
                 $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 'len_re_date'=>$_POST['len_re_date'], 
                           'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
                 if(isset($_POST['len_re_date'])){
@@ -219,6 +225,7 @@ class LenController{
         }
     }
 
+    //반납 추가할 때 사용하는 함수
     public function returnadd(){
         $lib_no = $_POST['lib_no'];
         $mat_no = $_POST['mat_no'];
@@ -256,31 +263,23 @@ class LenController{
         header('location: /len/returnLent');
     }
 
+    //회원 팝업창 열기
     public function mempop(){
-        // $result = $this->memTable->selectAll();
-        // $title = '회원찾기';
-        // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
         echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 
+    //자료 팝업창 열기
     public function matpop(){
-        // $result = $this->matTable->selectAll();
-        // $title = '자료찾기';
-        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
         echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
     }
 
+    //상호대차 팝업창 열기
     public function delpop(){
-        // $result = $this->delTable->selectAll();
-        // $title = '상호대차';
-        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
         echo "<script>location.href='/del/list?title=상호대차찾기&pop=true';</script>";
     }
 
+    //예약 팝업창 열기
     public function respop(){
-        // $result = $this->resTable->selectAll();
-        // $title = '예약찾기';
-        // return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
         echo "<script>location.href='/res/list?title=예약찾기&pop=true';</script>";
     }
 }

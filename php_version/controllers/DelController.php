@@ -35,6 +35,7 @@ class DelController{
         $this->assist = new Assistance();
     }
 
+    //기본 목록 출력
     public function list(){
         $mem_state = $_SESSION['mem_state'];
         if($mem_state == 1){
@@ -54,6 +55,7 @@ class DelController{
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //상호대차 완료 목록 출력
     public function completelist(){
         $this->sql = $this->sql." AND delivery.len_no IS NOT NULL ";
         $sql = $this->sql.$this->sort;
@@ -63,6 +65,7 @@ class DelController{
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //상호대차 도착일 추가
     public function addlist(){
         $this->sql = $this->sql." AND delivery.del_arr_date IS NULL AND delivery.del_app = 1 ";
         $sql = $this->sql.$this->sort;
@@ -72,6 +75,7 @@ class DelController{
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //검색
     public function research(){
         $title = '상호대차 현황';
 
@@ -116,10 +120,11 @@ class DelController{
         header('location: /del/list');
     }
 
-    //MatController 생성후 작성 ->completeButtonListener
     public function addupdate(){
         if(isset($_POST['del_no'])) {
             $result = $this->matTable->selectID($_POST['mat_no']);
+
+            //배송지와 소유지가 같으면 경고 메시지
             if($_POST['lib_no_arr'] == $result['lib_no']){
                     echo "<script>alert('자료가 있는 도서관과 배송되는 도서관이 같습니다'); history.back();</script>";
             }
@@ -151,7 +156,6 @@ class DelController{
             $sql = $this->sql." AND `del_no` = $del_no";
             $stmt = $this->delTable->joinSQL($sql);
             $row =  $stmt->fetch();
-            //$row = $this->delTable->selectID($_GET['del_no']);
             $title2 = ' 수정';
             $title = '상호대차'.$title2;
             return ['tempName'=>'delForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
@@ -168,63 +172,28 @@ class DelController{
         }
     }
 
+    //'상호대차도착일추가'할때 사용
     public function arrive(){
-        // $mat_no = $_POST['mat_no'];
-        // $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
-        // $result = $this->delTable->whereSQL($where);
-
-        // if($this->assist->resultempty_check($result)){
-        //     echo "<script>alert('상호대차로 신청된 자료가 아닙니다.')</script>";
-        // }
-        // else if($this->assist->dateformat_check($_POST['lib_no_arr'])){
-        //     echo "<script>alert('날짜형식이 잘못되었습니다.')</script>";
-        // }
-        // else{
-        //     $this->delTable->updateData($_POST);
-        //     header('location: /del/list');
-        // }
         $this->delTable->updateData($_POST);
         header('location: /del/list');
     }
 
+    //회원 팝업창 열기
     public function mempop(){
-        // if(isset($_POST['user_research'])){
-        //     $value= $_POST['user_research'];
-        //     $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
-        //     $stmt = $this->memTable->whereSQL($where);
-        //     $result = $stmt->fetchAll();
-        //     $title = '회원찾기';
-        //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
-        // }
         echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 
-    //MatController 생성후 작성
+    //자료 검색 팝업창 열기
     public function matpop(){
-        // if(isset($_POST['user_research'])){
-        //     $value= $_POST['user_research'];
-        //     $where = "WHERE `book_name` = '$value'";
-        //     $stmt = $this->memTable->whereSQL($where);
-        //     $result = $stmt->fetchAll();
-        //     $title = '자료찾기';
-        //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
-        // }
         echo "<script>location.href='/mat/poplist?title=자료찾기&pop=true';</script>";
     }
 
+    //자료 상세검색 팝업창 열기
     public function matlibpop(){
-        // if(isset($_POST['user_research'])){
-        //     $value= $_POST['user_research'];
-        //     $where = "WHERE `book_name` = '$value'";
-        //     $stmt = $this->memTable->whereSQL($where);
-        //     $result = $stmt->fetchAll();
-        //     $title = '상세검색';
-        //     return['tempName'=>'matList.html.php', 'title'=>$title, 'result'=>$result];
-        // }
         echo "<script>location.href='/mat/poplist?title=상세검색&pop=true';</script>";
     }
 
-    //LentController 생성후 작성
+    //대출 팝업창 열기
     public function pagelent(){
         $len_no = $_POST['len_no'];
         echo "<script>location.href='/len/listlen?len_no=$len_no'</script>";
