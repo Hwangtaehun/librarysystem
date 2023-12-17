@@ -1,5 +1,6 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '상호대차찾기'){
         echo '<link rel="stylesheet" href="../css/form-popup.css">';
         $ispop = true;
@@ -15,6 +16,7 @@
         var bookname = "";
         var memid = "";
         
+        //검색 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.delgth <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -24,10 +26,12 @@
             return true;            
         }
 
+        //검색 선택 함수
         function changeSelect(){
             var value = document.querySelector("#s1").value;
             const mem = document.querySelector("#ie_research");
             const mat = document.querySelector("#ia_research");
+            //1은 회원, 2는 자료, 이외에는 회원와 자료 검색
             if(value == '1'){
                 document.querySelector("#id_research").value = "";
                 document.querySelector("#id_mat").value = "";
@@ -46,22 +50,26 @@
             }
         }
 
+        //회원 팝업창 띄우는 함수
         function checkmem() {
             url = "/len/mempop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //자료 팝업창 띄우는 함수 
         function checkmat() {
             url = "/len/matpop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //회원 팝업창에 받아온 내용 가져오기
         function memValue(no, name, state){
             document.querySelector("#id_mem").value = no;
             memid = name;
             document.querySelector("#id_research").value = memid+' '+bookname;
         }
 
+        //자료 팝업창에 받아온 내용 가져오기
         function matValue(no, name){
             document.querySelector("#id_mat").value = no;
             bookname = name;

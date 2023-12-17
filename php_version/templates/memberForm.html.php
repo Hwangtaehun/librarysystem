@@ -2,6 +2,7 @@
 <html>
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if(isset($_SESSION['mem_state'])){
         $state = $_SESSION['mem_state'];
 
@@ -25,6 +26,7 @@
         }
         ?>
 
+        //필수 내용 확인 함수
         function checkInput(myform) {
             if(check == false){
                 alert("아이디 중복체크를 해주세요.");
@@ -65,6 +67,7 @@
             return true;
         }
 
+        //아이디 중복 확인 함수
         function checkid() {
             check = false;
             var userid = document.querySelector("#id_id").value;
@@ -78,11 +81,13 @@
             }
         }
 
+        //아이디 중복 초기화
         function checkReset() {
             check = false;
             document.querySelector("#id_id").readOnly = false;
         }
 
+        //아이디 중복 활성화
         function decide() {
             check = true;
             document.querySelector("#id_id").readOnly = true;
@@ -90,6 +95,7 @@
             document.querySelector("#id_check").setAttribute("onclick", "change()");
         }
 
+        //아이디 중복 비활성화
         function change() {
             check = false;
             document.querySelector("#id_id").readOnly = false;
@@ -129,6 +135,7 @@
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+        //아이디 체크확인
         if(check){
             decide();
         }

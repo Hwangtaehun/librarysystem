@@ -8,6 +8,7 @@
         $state = $_SESSION['mem_state'];
     }
 
+    // 웹페이지 맞는 css설정
     if($state == 1){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
     }else{
@@ -16,6 +17,7 @@
     }
     ?>
     <script>
+        //필수 내용 확인하는 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
                 alert("제목을 입력하세요.");
@@ -127,6 +129,8 @@
             if(isset($row['not_pop_url'])){
                 $pop = true;
             }
+
+            //url마지막 내용만 확인
             $det_url = explode("/", $row['not_det_url']);
             $ban_url = explode("/", $row['not_ban_url']);
             $pop_url = explode("/", $row['not_pop_url']);
@@ -141,6 +145,7 @@
             echo "tp_id.value = '$end';";
         }
 
+        //정보가 있으면 활성화되도록 변환
         if($ban){
     ?>
             cb_id.checked = true;
@@ -161,7 +166,7 @@
     <?php        
         }
     ?>
-
+        //배너 체크 활성화/비활성화
         function ban_box(checkbox) {
             bu_id.disabled = checkbox.checked ? false : true;
             tb_id.disabled = checkbox.checked ? false : true;
@@ -174,6 +179,7 @@
             }
         }
 
+        //팝업 체크 활성화/비활성화
         function pop_box(checkbox) {
             pu_id.disabled = checkbox.checked ? false : true;
             tp_id.disabled = checkbox.checked ? false : true;

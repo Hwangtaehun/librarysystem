@@ -1,5 +1,6 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '예약 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -14,6 +15,7 @@
     $mem_state = $_SESSION['mem_state'];
     ?>
     <script>
+        //검색 내용 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -23,11 +25,13 @@
             return true;            
         }
 
+        //회원 팝업창 띄우는 함수
         function checkmem() {
             url = "/len/mempop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //회원 팝업창 내용을 가져오는 함수
         function memValue(no, name, state){
             document.querySelector("#id_mem").value = no;
             document.querySelector("#id_research").value = name;

@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="../css/form-base.css">
         <script>
+            //쿠키 받는 함수
             function getCookie(key){
                 key = new RegExp(key + '=([^;]*)');
                 return key.test(document.cookie) ? unescape(RegExp.$1) : '';
@@ -62,13 +63,16 @@
     </body>
     <script>
         <?php
+        //대출 장소
         echo "const li_len = document.querySelector('#il_no_len');";
         $lib_no_len = $row['lib_no_len'];
         echo "var lib_no_len = $lib_no_len;";
         echo "li_len.value = lib_no_len;";
 
+        //반납 장소
         echo "const li_re = document.querySelector('#il_no_re');";
         $lib_no_re = $row['lib_no_re'];
+        //대출 반납하면 false, 대출 중은 ture
         if($lib_no_re == ''){
             $lib_no_re = 0;
             echo "li_re.disabled = true;";

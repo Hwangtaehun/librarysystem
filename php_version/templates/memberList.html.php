@@ -1,5 +1,6 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '회원 현황'){
         echo '<link rel="stylesheet" href="../css/form-noaside.css">';
         $ispop = false;
@@ -12,6 +13,7 @@
     }
     ?>
     <script>
+        //검색 내용확인하는 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
