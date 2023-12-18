@@ -141,7 +141,7 @@
             $end = end($ban_url);
             echo "tb_id.value = '$end';";
             
-            $end = end($ban_url);
+            $end = end($pop_url);
             echo "tp_id.value = '$end';";
         }
 
