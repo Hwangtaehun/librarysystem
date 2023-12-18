@@ -169,7 +169,9 @@
                                         <input type="hidden" name="res_date" value="<?=$date?>">
                                         <input type="hidden" id="id_state" value="<?=$res_state?>">
                                         <input type="submit" value="예약">
-                                        <a href="/mat/delpop?mat_no=<?=$row['12']?>"><input type="button" value="상호대차"></a>
+                                        <a href="/mat/delpop?mat_no=<?=$row['12']?>" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                            <input type="button" value="상호대차">
+                                        </a>
                                 <?php } ?>
                         <?php } ?>
                         </form>

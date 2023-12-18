@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/form-base.css">
+<?php
+    if($title == '상호대차 신청'){
+        echo '<link rel="stylesheet" href="../css/form-popup.css">';
+        $ispop = true;
+    }
+    else{
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+    }
+    ?>
+    
     <script>
         <?php
         $mem_state = $_SESSION['mem_state'];
@@ -38,7 +48,9 @@
 <body>
     <form action="/del/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
+        <?php if(!$ispop){?>
         <h2><?=$title?></h2>
+        <?php } ?>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for  ="book_name">책이름</label>
                 <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_COOKIE['mat_no'.$_GET['mat_no']])){echo $_COOKIE['mat_no'.$_GET['mat_no']];}?>" readonly>
