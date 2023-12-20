@@ -237,13 +237,7 @@ class MatController{
     //상호대차 팝업창을 불러오는 함수
     public function delpop(){
         $mat_no = $_GET['mat_no'];
-        $m_sql = $this->sql."AND material.mat_no = $mat_no";
-        $stmt = $this->matTable->joinSQL($m_sql);
-        $row = $stmt->fetch();
-        $lib_no = $row['lib_no'];
-        $book_name = $row['book_name'];
-        setcookie('mat_no'.$mat_no, $book_name);
-        echo "<script>location.href='/del/addupdate?mat_no=$mat_no&lib_no=$lib_no&pop=true';</script>";
+        echo "<script>location.href='/del/addupdate?mat_no=$mat_no&pop=true';</script>";
     }
 }
 ?>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php
+    <?php
     if($title == '상호대차 신청'){
         echo '<link rel="stylesheet" href="../css/form-popup.css">';
         $ispop = true;
@@ -38,6 +38,12 @@
             document.querySelector("#id_mem").value = no;
             document.querySelector("#ib_name").value = name;
         }
+
+        //쿠키 받는 함수
+        function getCookie(key){
+            key = new RegExp(key + '=([^;]*)');
+            return key.test(document.cookie) ? unescape(RegExp.$1) : '';
+        }
     </script>
 </head>
 <?php
@@ -53,20 +59,20 @@
         <?php } ?>
         <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
             <ul><label for  ="book_name">책이름</label>
-                <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}else if(isset($_COOKIE['mat_no'.$_GET['mat_no']])){echo $_COOKIE['mat_no'.$_GET['mat_no']];}?>" readonly>
+                <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}elseif(isset($m_row)){echo $m_row['book_name'];}?>" readonly>
                 <!-- 수정할때만 생성 -->
                 <?php if(!isset($_GET['mat_no'])){ ?>
                     <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();">
                 <?php } ?>
                 <br>
-                <?php if(isset($_GET['lib_no'])) {
+                <?php if(isset($m_row['lib_no'])) {
                     $lib_arr[0] = '없음';
                     for ($z=0; $z < sizeof($lib); $z++) { 
                         $lib_arr[$z+1] = $lib[$z][1];
                     }
-                    $value = $lib_arr[$_GET['lib_no']]; ?>
+                    $value = $lib_arr[$m_row['lib_no']];?>
                     <label for ="org_name">소장도서관</label>
-                    <input type="text" value="<?php $value ?>" readonly>
+                    <input type="text" value="<?php echo $value; ?>" readonly>
                 <?php } ?>
                 <label for ="lib_name">수신도서관</label>
                 <select id ="il_no" name="lib_no_arr">
@@ -127,7 +133,6 @@
         else{
             echo "re.checked = true;";
         }
-    }?>
-        
+    }?>    
 </script>
 </html>

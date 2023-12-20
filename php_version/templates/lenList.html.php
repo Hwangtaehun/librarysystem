@@ -220,7 +220,7 @@
                                         echo "<option  value = $no[$z] > $name[$z] </option>";
                                     }
                                     ?>
-                                </select>
+                                </select><br>
                                 <label for ="len_re_date">반납일</label>
                                 <input type="date" name="len_re_date" id="il_date" value="">
                                 <input type="hidden" name="len_no" value="<?=$row['len_no']?>">

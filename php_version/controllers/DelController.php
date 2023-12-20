@@ -137,7 +137,7 @@ class DelController{
                 if($_POST['del_no'] == ''){
                     $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
                     $this->delTable->insertData($param);
-                    
+                    echo "<script>window.close();</script>";
                 }
                 else{
                     $mat_no = $_POST['mat_no'];
@@ -169,7 +169,11 @@ class DelController{
             $title2 = ' 신청';
             $title = '상호대차'.$title2;
             if(isset($_GET['mat_no'])){
-                return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2, 'mat_no'=>$_GET['mat_no']];
+                $mat_no = $_GET['mat_no'];
+                $sql = "SELECT * FROM library, book, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND material.mat_no = $mat_no";
+                $stmt = $this->delTable->joinSQL($sql);
+                $m_row =  $stmt->fetch();
+                return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2, 'm_row'=>$m_row];
             }
             else{
                 return ['tempName'=>'delForm.html.php', 'title'=>$title, 'title2'=>$title2];

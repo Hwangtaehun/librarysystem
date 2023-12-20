@@ -77,7 +77,7 @@
                 <label for  = "not_pop_x">팝업 좌측 위치</label>
                 <input class="input number" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled>
                 <label for  = "not_pop_y">팝업 상단 위치</label>
-                <input class="input number" type= "number" name="not_pop_y" id="id_pop_y" value="<?php if(isset($row)){echo $row['not_pop_y'];}?>" disabled><br>
+                <input class="input number" type= "number" name="not_pop_y" id="id_pop_y" value="<?php if(isset($row)){echo $row['not_pop_y'];}?>" disabled>
                 <label for  = "not_pop_wid">팝업 넓이</label>
                 <input class="input number" type= "number" name="not_pop_wid" id="id_pop_wid" value="<?php if(isset($row)){echo $row['not_pop_wid'];}?>" disabled>
                 <label for  = "not_pop_hei">팝업 높이</label>
