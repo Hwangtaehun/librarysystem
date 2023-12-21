@@ -43,7 +43,8 @@ class MemberController{
     }
 
     public function list(){
-        $result = $this->memTable->selectAll();
+        $where = "WHERE `mem_state` NOT LIKE 1";
+        $result = $this->memTable->whereSQL($where);
         $title = '회원 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
@@ -54,7 +55,7 @@ class MemberController{
     //검색 함수
     public function research(){
         $value = $_POST['user_research'];
-        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value'";
+        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value' AND `mem_state` NOT LIKE 1";
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $title = '회원 현황';

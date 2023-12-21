@@ -219,7 +219,7 @@ class MatController{
             header('location: /mat/list');
         }
         else{
-            echo "<script>alert('다른 회원분이 예약했습니다.')</script>";
+            echo "<script>alert('다른 회원분이 예약했습니다.');</script>";
         }
     }
 
@@ -236,8 +236,14 @@ class MatController{
 
     //상호대차 팝업창을 불러오는 함수
     public function delpop(){
-        $mat_no = $_GET['mat_no'];
-        echo "<script>location.href='/del/addupdate?mat_no=$mat_no&pop=true';</script>";
+        $mem_state = $_SESSION['mem_state'];
+        if($mem_state == 0){
+            $mat_no = $_GET['mat_no'];
+            echo "<script>location.href='/del/addupdate?mat_no=$mat_no&pop=true';</script>";
+        }
+        else{
+            echo "<script>alert('현재 계정은 상호대차 예약이 불가능합니다.');window.close();</script>";
+        }
     }
 }
 ?>

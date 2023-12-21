@@ -99,7 +99,6 @@ class EtcController{
             return ['tempName'=>'plaForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
         else if(isset($_GET['due_no'])){
-            // $row = $this->dueTable->selectID($_GET['due_no']);
             $due_no = $_GET['due_no'];
             $sql = $this->sql." AND overdue.due_no = $due_no";
             $stmt = $this->delTable->joinSQL($sql);

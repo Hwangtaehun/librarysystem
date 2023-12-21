@@ -86,7 +86,7 @@
                 <div class="card" style="width: 16rem; height: 300px;">
                     <div class="card-body">
                             <?php
-                            if($title = '자료 현황'){
+                            if($title == '자료 현황'){
                                 if($mem_state != 1){
                                     $state = $row['len_re_st'];
                                     $res = $row['res_no'];

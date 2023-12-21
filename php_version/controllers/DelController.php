@@ -88,16 +88,7 @@ class DelController{
         }
 
         $value = '%'.$_POST['user_research'].'%';
-        if(isset($_POST['lib_research'])){
-            if($_POST['lib_research'] != 0){
-                $lib_no = $_POST['lib_research'];
-                $sql = $this->sql." AND book.book_name LIKE '$value' AND library.lib_no = $lib_no";
-            }
-            else{
-                $sql = $this->sql." AND book.book_name LIKE '$value'";
-            }
-        }
-        else if($_SESSION['mem_state'] == 1){
+        if($_SESSION['mem_state'] == 1){
             if($_POST['mem_no'] == ''){
                 $mat_no = $_POST['mat_no'];
                 $sql = $this->sql." AND delivery.mat_no = $mat_no";
