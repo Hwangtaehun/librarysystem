@@ -33,8 +33,6 @@ class NotController{
     //이미지 업로드 전체적으로 관리하는 함수
     private function img_manage(array $post, array $file){
         $cnt = $post['not_no'];
-
-        print_r($file);
         
         if($file['not_det_url']['name'] != ''){
             $temp_url = explode("/", $post['not_det_url']);
