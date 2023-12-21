@@ -697,5 +697,10 @@ class BookSymbol{
 		trim($result);
 		return $result;
 	}
+
+	//값을 가져오기
+	public function call_symbol() {
+		return $this->author_symbol;
+	}
 }
 ?>

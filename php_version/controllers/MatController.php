@@ -144,7 +144,7 @@ class MatController{
         $lib_no = $_POST['lib_no'];
         $book_no = $_POST['book_no'];
         $this->matTable->deleteData($_POST['mat_no']);
-        if($_POST['mat_overlap' != 'c.1']){
+        if($_POST['mat_overlap'] != 'c.1'){
             $mat_overlap = $this->book_count($_POST);
             $sql = "UPDATE `material` SET `mat_overlap` = '$mat_overlap' WHERE `lib_no` = $lib_no  AND `book_no` = $book_no";
             $this->matTable->delupdateSQL($sql);
@@ -193,7 +193,6 @@ class MatController{
             $sql = $this->sql."AND material.mat_no = $mat_no";
             $stmt = $this->matTable->joinSQL($sql);
             $row = $stmt->fetch();
-            //$row = $this->matTable->selectID($_GET['mat_no']);
             $title2 = ' 수정';
             $title = '자료'.$title2;
             return ['tempName'=>'matForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];

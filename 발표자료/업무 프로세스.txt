@@ -4,13 +4,79 @@
 ->"/classes/ProcessManager.php -> $ps에 ProcessManager()객체 생성 -> run()함수 실행 -> /../classes/TableManager.php -> 모든 데이터베이스 있는 모든 테이블 생성 -> outPage()함수 실행 -> /templates/layout.html.php를 가져옵니다."
 layout.html.php 진행 방향
 팝업창인지부터 확인(20줄~22줄)->회원 상태 확인(27줄~32줄)->$title특수사항(34줄~46줄)->$menu특수사항(48줄~53줄)->매뉴 배열생성(56줄~121줄)->매뉴 배열을 이용해서 매뉴와 사이드 매뉴 생성
-공지사항 방향(NotController.php)
 
+공지사항 테이블 방향(NotController.php)
+게시판형은 list()함수를 이용해서 띄움, 등록과 수정은 addupdate()함수를 이용해서 띄움
 공지사항 검색
+research()사용해서 검색창에 있는 내용('user_research')를 가져와서 sql로 만들고 결과를 모두 화면에 띄움
+공지사항 추가
+addupdate()사용해서 $_POST에 등록된 내용을 가지고 insertData()를 이용해서 notification테이블 자료 추가->자료 추가된 not_no를 찾기->"img_manage()사용해서 이미지 파일이 존재하면 not_no이름의 디렉토리 존재하면 delete_img()를 사용해서 삭제->'img_uplodae()사용해서 이미지 형식 확인하고 확장자가 등록가능 확장자인지 확인한 후 not_no이름의 디렉토리 생성해서 이미지 저장하고 이미지 저장경로를 $_POST 리턴 받음'->$_POST에 알맞는 url에 저장경로를 삽입"->updateData()사용해서 변경
+공지사항 수정
+addupdate()사용해서 "img_manage()사용해서 이미지 파일이 존재하면 not_no이름의 디렉토리 존재하면 delete_img()를 사용해서 삭제->'img_uplodae()사용해서 이미지 형식 확인하고 확장자가 등록가능 확장자인지 확인한 후 not_no이름의 디렉토리 생성해서 이미지 저장하고 이미지 저장경로를 $_POST 리턴 받음'->$_POST에 알맞는 url에 저장경로를 삽입"->updateData()사용해서 변경
+공지사항 삭제
+delete()사용-> delete_img()사용해서 ./img/not/$_POST['not_no']에 경로에 있는 모든 디렉토리 삭제->deleteData()를 이용해서 데이터베이스 자료 삭제
 
-책 팝업창
+책 테이블 방향(BookController.php)
+게시판형은 list()함수를 이용해서 띄움, 등록과 수정은 addupdate()함수를 이용해서 띄움, 책 팝업창도 동일
+책 검색
+research()사용해서 $_POST['user_research']를 값을 받아와서 $where변수를 만들고 모든 결과를 모두 화면에 띄움
+책 삽입
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 insertData를 이용해서 book테이블 자료 추가
+책 수정
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 updateData를 이용해서 book테이블 자료 수정
+책 삭제
+delete()사용해서 $_POST['book_no']가지고 deleteData()를 이용해서 book테이블 자료 삭제
+
+종류 테이블 방향(KindController.php)
+게시판형은 list()함수를 이용해서 띄움, 등록과 수정은 addupdate()함수를 이용해서 띄움
+종류 검색
+research()사용해서 소분류선택박스, 중분류선택박스, 대분류선택박스를 통해서 $where를 이용해서 모든 결과를 화면에 띄운다.
+종류 추가
+addupdate()사용해서 $_POST['sup']이 0이면 $_POST['base']를 사용하고 아니면 $_POST['sup']을 이용-> makekey()에서 소수점이 존재하지 않으면 .1 또는 .다음번호를 kind_no와 $_POST['kind_name]'을 가지고 insertData를 이용해서 kind테이블 자료 추가
+종류 수정
+addupdate()사용해서 $_POST['sup']이 0이면 $_POST['base']를 사용하고 아니면 $_POST['sup']을 이용-> makekey()에서 소수점이 존재하지 않으면 .1 또는 .다음번호를 kind_no와 $_POST['kind_name]'을 가지고 updateData를 이용해서 kind테이블 자료 수정
+종류 삭제
+delete()사용해서 $_POST['kind_no']가지고 deleteData()를 이용해서 kind테이블 자료 삭제
+
+도서관 테이블 방향(LibController.php)
+게시판형은 list()함수를 이용해서 띄움, 등록과 수정은 addupdate()함수를 이용해서 띄움
+도서관 검색
+research()사용해서 $_POST['user_research']를 값을 받아와서 $where변수를 만들고 모든 결과를 모두 화면에 띄움
+도서관 삽입
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 insertData를 이용해서 book테이블 자료 추가
+도서관 수정
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 updateData를 이용해서 book테이블 자료 수정
+도서관 삭제
+delete()사용해서 $_POST['book_no']가지고 deleteData()를 이용해서 book테이블 자료 삭제
+
+자료 테이블 방향(MatController.php)
+게시판형은 session에 저장된 mem_state에 값과 list()함수를 이용해서 띄움, 등록과 수정은 addupdate()함수를 이용해서 띄움, 자료 팝업창은 poplist()함수를 이용해서 띄움
+자료 검색
+research()사용해서 먼저 색션확인(101~103)하고 $_GET['title']이 있는 확인하고 있으면 $title의 값 변경과 $ispop=true 없으면 $ispop=false(105~112)하고 $_POST['user_research']값을 이용해서 책을 찾고 선택박스 통해서 선택된 도서관 정보를 가지고 자료를 검색 결과를 화면에 띄움
+자료 삽입 및 수정 공통 사항
+addupdate()사용-> "BookSymbol 객체를 생성 작가이름을 공백단위로 잘라서 배열로 저장하고 공백이 있으면 영어이름,  공백이 없으면 한글이름으로 설정하고 영어이름이면 $lastauthor_exist=true로 설정 -> inital()사용해서 영어가 있는지 확인하고 영어가 존재하면 한글이 존재하는 확인(40~45줄)하고 한글이 존재하면 stringTochar()함수 사용 아니면 sequence_change()함수 사용하고 englishTokorean()함수 사용해서 영어를 한글로 바꿔주고 stringTochar(47~59줄), 배열크기가 2이상이면 sequence_change()함수 사용하고 stringTochar()함수 사용(60~65줄)이외에는 바로 stringTochar()사용(67~69줄)->stringTochar()에서 한글자씩 배열로 저장하고 첫번째글자를 그대로 사용하고 두번째글자는 초성,중성,종성으로 분리하고 $result_array배열로 내용저장(510~526줄)->finish_sysmbol를 이용해서 도서기호 만듦->call_symbol()함수이용해서 addupdata()값을 사용됨"->권차 등록->"book_count()를 이용->$_POST['lib_no'], $_POST['book_no']를 이용해서  이 정보와 같은 책의 개수 세고 개수 값으로 c.개수값으로 만듦"
+자료 삽입
+위에 공통상항을 진행한후에 insertData()를 이용해서 material테이블 자료 추가
+자료 수정
+위에 공통상항을 진행한후에 updateData()를 이용해서 material테이블 자료 수정
+자료 삭제
+delete()사용해서 $_POST['mat_no']가지고 deleteData()를 이용해서 material테이블 자료 삭제-> "$_POST['mat_overlap']가 'c.1'이 아니면 book_count()를 이용->$_POST['lib_no'], $_POST['book_no']를 이용해서  이 정보와 같은 책의 개수 세고 개수 값으로 c.개수값으로 만듦" ->도서관 번호와 책 번호의 정보 같은 모든 자료들을 바꾸어줍니다.
+예약 추가
+$_POST['mat_no']를 이용해서 예약도서가 있는 지 확인하고 존재하면 경과 메시지 없으면 $_POST['mat_no']과 $_SESSION['mem_no']를 이용해서 reservation테이블 자료 추가
+
+회원 테이블 방향 
 회원 팝업창
-자료 팝업창
+
+대출 테이블 방향
+대출 팝업창
+
+상호대차 테이블 방향
 상호대차팝업창
+
+예약 테이블 방향
 예약팝업창
+
+대출장소 테이블 방향
+
+연체관리 테이블 방향
 
