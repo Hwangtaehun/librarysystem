@@ -12,7 +12,7 @@
 12. 반납추가 쿼리 수정
 13. NotController.php list() 개시 날짜 된것만 보여주기
 14. MatController.php research() 책이 존재하지 안으면 경고메시지 나옴
-15. kind 페이지 분리
-16. gif 정지(^)
-17. 홈화면 메뉴 넣기
-18. 외래키 casade 사용했는지 확인
+15. DelController.php 134~136줄 내용 삭제
+16. kind 페이지 분리
+17. gif 정지(^)
+18. 홈화면 메뉴 넣기

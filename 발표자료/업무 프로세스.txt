@@ -62,21 +62,65 @@ addupdate()사용-> "BookSymbol 객체를 생성 작가이름을 공백단위로
 자료 삭제
 delete()사용해서 $_POST['mat_no']가지고 deleteData()를 이용해서 material테이블 자료 삭제-> "$_POST['mat_overlap']가 'c.1'이 아니면 book_count()를 이용->$_POST['lib_no'], $_POST['book_no']를 이용해서  이 정보와 같은 책의 개수 세고 개수 값으로 c.개수값으로 만듦" ->도서관 번호와 책 번호의 정보 같은 모든 자료들을 바꾸어줍니다.
 예약 추가
-$_POST['mat_no']를 이용해서 예약도서가 있는 지 확인하고 존재하면 경과 메시지 없으면 $_POST['mat_no']과 $_SESSION['mem_no']를 이용해서 reservation테이블 자료 추가
+resadd()함수를 이용해서 $_POST['mat_no']를 이용해서 예약도서가 있는 지 확인하고 존재하면 경과 메시지 없으면 $_POST['mat_no']과 $_SESSION['mem_no']를 이용해서 reservation테이블 자료 추가
 
-회원 테이블 방향 
-회원 팝업창
+회원 테이블 방향(MemberController.php)
+게시판형은 list()함수를 이용해서 띄움, 등록과 수정은 addupdate()함수를 이용해서 띄움, 자료 팝업창은 list()함수를 이용해서 띄움, home()함수를 이용해서 띄움, login()함수를 이용해서 띄움, 회원가입과 회원수정은 addupdate()함수 이용해서 띄움
+회원 검색
+research()함수를 이용해서 검색창에 입력내용을 $_POST['user_research']받아와서 이름, 아이디가 일치하는 내용을 찾아서 모든 결과 같을 출력합니다.
+회원 등록
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 insertData를 이용해서 member테이블 자료 추가
+회원 수정
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 updateData를 이용해서 member테이블 자료 수정
+회원 삭제
+회원자 계정이면 memdel()함수를 이용해서 자료 삭제, 관리자 계정이면 delete()함수를 이용해서 자료 삭제
 
-대출 테이블 방향
-대출 팝업창
+대출 테이블 방향(LenController.php)
+'대출현황'은 list(), '회원 대출중자료'는 memLent(), '회원 모든대출자료'는 memAllLent(), '반납추가'는 returnLent(), '대출 팝업창'는 listlen()으로 출력, '대출 수정'과 '대출 추가'는 addupdate()이용해서 화면 출력 
+대출 등록
+addupdate()사용->"reservationCheck()함수 이용해서 다른 회원이 예약한 도서인지 확인합니다. 만약 다른 회원이 예약한 도서면 알림메시지와 함께 대출 등록이 불가능"-> 오늘 날짜, 회원기본키, 대출기본키 이용해서 insertdata()이용해서 대출 테이블 자료 추가하고 방금 생성된 자료 대출 기본키를 찾고 상호대차 통해서 대출할 경우 상호대차 테이블에 대출 기본키를 updateData()를 이용해서 수정하고 선택박스에 선택한 $_POST['lib_no']를 이용해서 place 테이블에 insertData()해서 자료 추가
+대출 수정
+addupdate()사용해서 반납에서 미반납또는 기타로 변경되면 대출 장소와 연체 테이블에서 lib_no_re=null, due_exp=null 값을 delupdataSQL()함수를 이용해서 수정합니다. 반납 날짜가 존재하면 $param에 행렬을 추가하고 updateData()이용해서 수정합니다.
+반납 등록
+returnadd()이용해서 현재날짜, 도서관 기본키, 자료 기본키, 대출 기본키를 이용해서 updateData를 이용해서 대출 테이블 상태를 반납 상태로 변경하고 delupdataSQL()이용해서 반납 장소를 대출 장소 테이블 null에서 도서관 기본키로 수정합니다. 자료 기본키를 이용해서 소장 도서관을 찾고 도서관 기본키와 소장 도서관 키가 다르면 insertData()이용해서 del_app을 2로 해서 상호대차 테이블에 자료를 추가-> 대출 기본키를 이용해서 연체가 있는 확인 "resultempty_check()이용해서 결과 값이 없는 확인"-> 결과 값이 존재하면 updataData()를 이용해서 해제일을 추가해줍니다.
+대출 삭제
+delete()사용해서 delupdataSQL()이용해서 대출 장소 테이블 자료 삭제, deleteData()이용해서 lent 테이블 자료 삭제
 
-상호대차 테이블 방향
-상호대차팝업창
+상호대차 테이블 방향(DelController.php)
+'상호대차 완료'는 completelist(), '상호대차 도착일'는 addlist(), 이외에는 mem_state 섹션 정보와 list()이용해서 화면 출력, '상호대차 추가' 및 '상호대차 수정'는 addupdate()이용해서 화면 출력 
+상호대차 검색
+research()를 이용해서 관리자 계정이면 선택박스에 선택에 따라서 회원, 자료, 회원+자료를 통해서 나온 모든 결과를 출력 또는 일반 계정이면 책 제목만 검색
+상호대차 추가
+$_POST['mat_no']를 통해서 도서관 외래키를 가져오 상호대차로 보낼 도서관과 도서관 외래키 같으면 경고 메시지를 보내고 다르면 추가를 진행 $_POST['mem_no'], $_POST['mat_no']를 이용해서 insertData() 사용해서 delivery 테이블에 자료 추가
+상호대차 수정
+$_POST['mat_no']를 통해서 도서관 외래키를 가져오 상호대차로 보낼 도서관과 도서관 외래키 같으면 경고 메시지를 보내고 다르면 수정을 진행 $_POST['lib_arr_date']내용이 없으면 $_POST['lib_arr_date']제외한 모든 내용 수정 있으면 모든 내용 수정
+상호대차 삭제
+delete()사용해서 $_POST['del_no']가지고 deleteData()를 이용해서 delivery 테이블 자료 삭제
 
-예약 테이블 방향
-예약팝업창
+예약 테이블 방향(ResController.php)
+게시판형 및 예약팝업창은 list()를 이용, 예약관리와 예약추가화면은 addupdate()이용
+예약 검색
+research()를 이용해서 관리자계정이면 회원 정보로 예약 검색, 그 외에는 책이름으로 예약 검색 되고 모든 결과를 화면에 출력
+예약 등록
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 insertData를 이용해서 reservation테이블 자료 추가
+예약 수정
+addupdate()사용해서 $_POST에 가져온 내용을 가지고 updateData를 이용해서 reservation테이블 자료 추가
+예약 삭제
+delete()를 사용해서 deleteData()이용해 reservation테이블 자료 삭제
 
-대출장소 테이블 방향
+대출장소 테이블 방향(EtcController.php)
+대출장소 관리 화면 출력은 plalist()함수 이용
+대출장소 검색
+plaresearch()함수 이용해서 검색
+대출장소 수정
+addupdate()함수로 수정, updateData()이용해서 place테이블 자료 수정
 
-연체관리 테이블 방향
+연체관리 테이블 방향(EtcController.php)
+연체 관리 화면 출력은 duelist()함수 이용
+연체 검색
+dueresearch()함수 이용해서 검색
+연체 수정
+addupdate()함수로 수정, updateData()이용해서 overdue테이블 자료 수정
+연체 삭제
+delete()함수로 삭제, deleteData()이용해서 overdue테이블 자료 삭제,  updateData()이용해서 회원 상태 수정
 

@@ -199,11 +199,14 @@ class LenController{
                         $this->dueTable->delupdateSQL($sql);
                     }
                 }
-                $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 'len_re_date'=>$_POST['len_re_date'], 
-                          'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
-                if(isset($_POST['len_re_date'])){
+                
+                if(!isset($_POST['len_re_date'])){
                     $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                               'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
+                }
+                else{
+                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
+                    'len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
                 }
                 $this->lenTable->updateData($param);
                 header('location: /len/list');
