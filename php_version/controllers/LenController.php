@@ -67,6 +67,24 @@ class LenController{
         return $rs;
     }
 
+    private function sqlList(string $title){
+        if($title == '대출 현황'){
+            $sql = $this->sql.$this->sort;
+        }
+        else if($title == '반납 추가'){
+            $this->sql = $this->sql."AND lent.len_re_st = 0";
+        }
+        else{
+            $mem_no = $_SESSION['mem_no'];
+            if($title == '대출중자료'){
+                $this->sql = $this->sql."AND lent.mem_no = $mem_no AND lent.len_re_st = 0";
+            }
+            else{
+                $this->sql = $this->sql."AND lent.mem_no = $mem_no";
+            }
+        }
+    }
+
     public function list(){
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);

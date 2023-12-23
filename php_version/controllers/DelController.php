@@ -35,43 +35,67 @@ class DelController{
         $this->assist = new Assistance();
     }
 
-    //기본 목록 출력
-    public function list(){
-        $mem_state = $_SESSION['mem_state'];
-        if($mem_state == 1){
-            $this->sql = $this->sql." AND NOT member.mem_state = 1 ";
+    //게시판형마다 다른 sql 필요해서 정리
+    private function sqlList(string $title){
+        if($title == '상호대차 완료 현황'){
+            $this->sql = $this->sql." AND delivery.len_no IS NOT NULL ";
+        }
+        else if($title == '상호대차 도착일 추가'){
+            $this->sql = $this->sql." AND delivery.del_arr_date IS NULL AND delivery.del_app = 1 ";
         }
         else{
-            $mem_no = $_SESSION['mem_no'];
-            $this->sql = $this->sql." AND member.mem_no LIKE $mem_no ";
+            //팝업창 확인
+            if(isset($_GET['pop'])){
+                if($_GET['pop'] == true){
+                    $this->sql = $this->sql."AND len_no IS NULL AND del_arr_date IS NOT NULL ";
+                }
+            }
+            else{
+                $mem_state = $_SESSION['mem_state'];
+                if($mem_state == 1){
+                    $this->sql = $this->sql." AND NOT member.mem_state = 1 ";
+                }
+                else{
+                    $mem_no = $_SESSION['mem_no'];
+                    $this->sql = $this->sql." AND member.mem_no LIKE $mem_no ";
+                }
+            }
         }
-        $sql = $this->sql.$this->sort;
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
+    }
+
+    //기본 목록 출력
+    public function list(){
         $title = '상호대차 현황';
+        
+        //팝업창 일때
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
+
+        $this->sqlList($title);
+        $sql = $this->sql.$this->sort;
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
     //상호대차 완료 목록 출력
     public function completelist(){
-        $this->sql = $this->sql." AND delivery.len_no IS NOT NULL ";
+        $title = '상호대차 완료 현황';
+        $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '상호대차 완료 현황';
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
     //상호대차 도착일 추가
     public function addlist(){
-        $this->sql = $this->sql." AND delivery.del_arr_date IS NULL AND delivery.del_app = 1 ";
+        $title = '상호대차 도착일 추가';
+        $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '상호대차 도착일 추가';
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -86,6 +110,8 @@ class DelController{
         if(isset($_POST['title'])){
             $title = $_POST['title'];
         }
+
+        $this->sqlList($title);
 
         $value = '%'.$_POST['user_research'].'%';
         if($_SESSION['mem_state'] == 1){
@@ -131,11 +157,6 @@ class DelController{
                     echo "<script>window.close();</script>";
                 }
                 else{
-                    $mat_no = $_POST['mat_no'];
-                    $where = "WHERE mat_no = $mat_no AND len_no IS NULL";
-                    $stmt = $this->delTable->whereSQL($where);
-                    $result = $stmt->fetch();
-    
                     if($_POST['lib_arr_date'] == ''){
                         $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
                         $this->delTable->updateData($param);

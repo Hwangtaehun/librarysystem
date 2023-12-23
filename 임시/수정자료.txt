@@ -5,14 +5,15 @@
 5.  지우기 버튼은 value값 삭제하게 만들기=>수정필요없음
 6.  DelController.php부분 수정하기(o)
 7.  assistence.php에 있는 Symobol remove 작동되게하기(o)
-8.  회원 퀴리 수정(관리자 안보이게)(O)
-9.  kindController.php 추가 다시 실행해보기
-10. 상호대차찾기에 완료 내역은 안보이게 하기
-11. 상호대차 도착일 추가=> 완전 수정
+8.  회원 퀴리 수정(관리자 안보이게)(o)
+9.  kindController.php 추가 다시 실행해보기(o)
+10. 상호대차찾기에 완료 내역은 안보이게 하기(o)
+11. 상호대차 도착일 추가=> 완전 수정(o)
 12. 반납추가 쿼리 수정
 13. NotController.php list() 개시 날짜 된것만 보여주기
 14. MatController.php research() 책이 존재하지 안으면 경고메시지 나옴
 15. DelController.php 134~136줄 내용 삭제
 16. kind 페이지 분리
 17. gif 정지(^)
-18. 홈화면 메뉴 넣기
+18. 상호대차 승인 일괄 관리 시스템 만들기
+19. 홈화면 메뉴 넣기

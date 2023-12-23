@@ -157,7 +157,7 @@
                         }
                     }
                     
-                    if($title != '상호대차도착일추가'){ ?>
+                    if($title != '상호대차 도착일 추가'){ ?>
                         회원 아이디: <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
                         <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                     <?php }?>
@@ -169,7 +169,7 @@
                     소장 도서관: <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
                     수신 도서관: <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> <br>
                     <?php if(!$ispop){ ?>
-                        <?php if($title != '상호대차도착일추가'){ if(isset($row['del_arr_date'])){ ?>
+                        <?php if($title != '상호대차 도착일 추가'){ if(isset($row['del_arr_date'])){ ?>
                             도착일: <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?><br>
                         <?php } } ?>
                     승인 상태: <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?><br>
@@ -195,7 +195,7 @@
                                     <input type="submit" value="삭제">
                                     <a href="/del/addupdate?del_no=<?=$row['del_no']?>"><input type="button" value="수정"></a>
                     <?php }
-                            else if($title == '상호대차도착일추가'){ ?>
+                            else if($title == '상호대차 도착일 추가'){ ?>
                                 <form action="/del/arrive" method="post">
                                     <label for ="del_arr_date">도착일</label>
                                     <input type="date" name="del_arr_date" id="il_date" value="">

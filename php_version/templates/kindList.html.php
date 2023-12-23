@@ -100,6 +100,7 @@
         ?>
         <form action="/kind/delete" method="post">
                 <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
                 <a href="/kind/addupdate?kind_no=<?=$row['kind_no']?>"><input type="button" value="수정"></a>
         </form>
         <?php } ?>
