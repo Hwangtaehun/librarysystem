@@ -16,6 +16,7 @@
         }
         return $m_script;
     }
+    
     //팝업창 인지 확인
     if(isset($_GET['pop'])){
         $not_pop = false;

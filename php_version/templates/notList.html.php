@@ -44,8 +44,12 @@
         <div id="div_row">
             <?=htmlspecialchars($row['not_no'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
+            <?php if(isset($row['not_op_date'])){ ?>
             <?=htmlspecialchars($row['not_op_date'],ENT_QUOTES,'UTF-8');?>
+            <?php }
+            if(isset($row['not_op_date'])){ ?>
             <?=htmlspecialchars($row['not_cl_date'],ENT_QUOTES,'UTF-8');?>
+            <?php }?>
             <?php if(isset($row['not_pop_url'])){ ?>
                 <?=htmlspecialchars($row['not_pop_wid'],ENT_QUOTES,'UTF-8');?>
                 <?=htmlspecialchars($row['not_pop_hei'],ENT_QUOTES,'UTF-8');?>

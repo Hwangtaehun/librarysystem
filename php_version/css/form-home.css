@@ -1,7 +1,7 @@
 body {
     background-image : url('../img/background.gif');
     background-size: 100% 100%;
-    color: #F99417;
+    color: #F5F5F5;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 55px auto 35px;
@@ -75,7 +75,11 @@ nav{grid-area: nav; display: flex;}
     color: #F5F5F5
 }
 
-main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+main{
+    grid-area: main; 
+    padding-left: 10px; 
+    margin-top: 1em;
+}
 
 /* 검색 */
 main .search {
@@ -213,6 +217,7 @@ main .board{
     margin: 10px;
 }
 main .board h3{
+    color: #F99417;
     text-align: center;
 }
 
