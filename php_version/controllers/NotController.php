@@ -1,7 +1,6 @@
 <?php
 session_start();
 class NotController{
-    private $sort = "ORDER BY not_no DESC";
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -13,6 +12,8 @@ class NotController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $today;
+    private $sort = "ORDER BY not_no DESC";
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -28,6 +29,7 @@ class NotController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
+        $this->today = date("Y-m-d");
     }
 
     //이미지 업로드 전체적으로 관리하는 함수
@@ -149,13 +151,25 @@ class NotController{
         @rmdir($path);
     }
 
-    public function list(){
-        $title = '공지사항 현황';
-        if(isset($_GET['title'])){
-            $title = $_GET['title'];
+    private function sqlList(){
+        $sql = '';
+        $mem_state = 2;
+
+        if(isset($_SESSION['mem_state'])){
+            $mem_state = $_SESSION['mem_state'];
+        }
+        
+        if($mem_state != 1){
+            $sql = "WHERE `not_op_date` <= '$this->today' AND `not_cl_date` >= '$this->today' ";
         }
 
-        $stmt = $this->notTable->whereSQL($this->sort);
+        return $sql;
+    }
+
+    public function list(){
+        $title = '공지사항 현황';
+        $sql = $this->sqlList().$this->sort;
+        $stmt = $this->notTable->whereSQL($sql);
         $result = $stmt->fetchAll();
 
         return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result];
@@ -163,12 +177,9 @@ class NotController{
 
     public function research(){
         $title = '공지사항 현황';
-        if(isset($_GET['title'])){
-            $title = $_GET['title'];
-        }
 
         $value = '%'.$_POST['user_research'].'%';
-        $sql = "WHERE `not_name` LIKE '$value' ".$this->sort;
+        $sql = $this->sqlList()."AND `not_name` LIKE '$value' ".$this->sort;
         $stmt = $this->notTable->whereSQL($sql);
         $result = $stmt->fetchAll();
 

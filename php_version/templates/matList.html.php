@@ -27,16 +27,6 @@
     }
     ?>
     <script>
-        //검색 내용 확인 함수
-        function checkResearch(myform) {
-            if(myform.user_research.value.length <= 0){
-                alert("검색할 내용을 입력해주세요.");
-                myform.user_research.focus();
-                return false;
-            }
-            return true;            
-        }
-
         //예약가능 확인 함수
         function checkRes(myform){
             if(myform.id_state.value != '예약가능'){
@@ -55,7 +45,7 @@
     $lib = $lib_man->result_call();
 ?>
 <body>
-    <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+    <form action="<?php echo $action; ?>" method="post">
         <div class="search">
             <select id = "s1" name = "lib_research">
                 <?php

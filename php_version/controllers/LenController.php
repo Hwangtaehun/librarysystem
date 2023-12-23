@@ -164,7 +164,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
-    ////대출 정보로 이동하는 함수
+    //대출 정보로 이동하는 함수
     public function listlen(){
         $title = '대출 현황';
         $value = $_GET['len_no'];

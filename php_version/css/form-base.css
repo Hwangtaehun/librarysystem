@@ -1,7 +1,7 @@
 body {
     background-image : url('../img/background.gif');
     background-size: 100% 100%;
-    color: #F99417;
+    color: #F5F5F5;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 55px auto 35px;
@@ -146,6 +146,9 @@ main .card .card-body .card-text{
 }
 
 /*추가, 수정 페이지 디자인*/
+#form_fieldset{
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
 #form_fieldset > legend{
     font-size: 10px;
 }
@@ -212,6 +215,7 @@ footer img {height: 35px;}
     width: 100%; 
     padding: 1px;
     border: 1px groove #000000;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 #fieldset_row > form{
     display: table-cell;

@@ -119,13 +119,20 @@ class MatController{
             $in .= $m_row[$i][0].', ';
         }
         $in = rtrim($in, ', ');
-
+        
         $lib_no = $_POST['lib_research'];
-        if($lib_no == 0){
-            $where = "AND book.book_no IN ($in)";
+        if(sizeof($m_row) == 0){
+            if($lib_no != 0){
+                $where = "AND library.lib_no LIKE $lib_no";
+            }
         }
         else{
-            $where = "AND library.lib_no LIKE $lib_no AND book.book_no IN ($in)";
+            if($lib_no == 0){
+                $where = "AND book.book_no IN ($in)";
+            }
+            else{
+                $where = "AND library.lib_no LIKE $lib_no AND book.book_no IN ($in)";
+            }
         }
         
         if($ispop){
