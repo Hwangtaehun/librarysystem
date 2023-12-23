@@ -67,11 +67,9 @@ class LenController{
         return $rs;
     }
 
+    //대출 게시판형마다 다른 sql 필요해서 정리 단. 대출 현황과 대출찾기는 제외
     private function sqlList(string $title){
-        if($title == '대출 현황'){
-            $sql = $this->sql.$this->sort;
-        }
-        else if($title == '반납 추가'){
+        if($title == '반납 추가'){
             $this->sql = $this->sql."AND lent.len_re_st = 0";
         }
         else{
@@ -98,33 +96,31 @@ class LenController{
 
     //로그인한 회원의 현재 대출 목록 출력
     public function memLent(){
-        $mem_no = $_SESSION['mem_no'];
-        $this->sql = $this->sql."AND lent.mem_no = $mem_no AND lent.len_re_st = 0";
+        $title = '대출중자료';
+        $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '대출중자료';
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
     //로그인한 회원의 모든 대출 목록 출력
     public function memAllLent(){
-        $mem_no = $_SESSION['mem_no'];
-        $this->sql = $this->sql."AND lent.mem_no = $mem_no";
+        $title = '모든대출내역';
+        $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '모든대출내역';
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
     //반납 목록
     public function returnLent(){
-        $this->sql = $this->sql."AND lent.len_re_st = 0";
+        $title = '반납 추가';
+        $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '반납 추가';
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
@@ -140,6 +136,10 @@ class LenController{
             $title = $_POST['title'];
         }
         
+        if($title != '대출 현황' && $title != '대출찾기'){
+            $this->sqlList($title);
+        }
+
         if($_SESSION['mem_state'] == 1){
             if($_POST['mem_no'] == ''){
                 $mat_no = $_POST['mat_no'];
@@ -164,7 +164,7 @@ class LenController{
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
     }
 
-    //대출 번호로 팝업창 확인
+    ////대출 정보로 이동하는 함수
     public function listlen(){
         $title = '대출 현황';
         $value = $_GET['len_no'];

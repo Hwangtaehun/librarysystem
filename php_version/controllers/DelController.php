@@ -113,7 +113,6 @@ class DelController{
 
         $this->sqlList($title);
 
-        $value = '%'.$_POST['user_research'].'%';
         if($_SESSION['mem_state'] == 1){
             if($_POST['mem_no'] == ''){
                 $mat_no = $_POST['mat_no'];
@@ -130,6 +129,7 @@ class DelController{
             }
         }
         else{
+            $value = '%'.$_POST['user_research'].'%';
             $sql = $this->sql." AND book.book_name LIKE '$value'";
         }
         $stmt = $this->delTable->joinSQL($sql);
@@ -214,7 +214,7 @@ class DelController{
         echo "<script>location.href='/mat/poplist?title=상세검색&pop=true';</script>";
     }
 
-    //대출 팝업창 열기
+    //대출 정보로 이동
     public function pagelent(){
         $len_no = $_POST['len_no'];
         echo "<script>location.href='/len/listlen?len_no=$len_no'</script>";
