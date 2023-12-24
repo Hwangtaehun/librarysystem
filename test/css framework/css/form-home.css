@@ -1,7 +1,7 @@
 body {
     background-image : url('../img/background.gif');
     background-size: 100% 100%;
-    color: #F99417;
+    color: #F5F5F5;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 55px auto 35px;
@@ -75,7 +75,11 @@ nav{grid-area: nav; display: flex;}
     color: #F5F5F5
 }
 
-main{grid-area: main; padding-left: 10px; margin-top: 1em;}
+main{
+    grid-area: main; 
+    padding-left: 10px; 
+    margin-top: 1em;
+}
 
 /* 검색 */
 main .search {
@@ -114,7 +118,7 @@ main .main_context{
     grid-template-rows: 300px auto;
     grid-template-columns: 500px auto;
     grid-template-areas:
-    'slider notice'
+    'slider board'
     '. .';
 }
 
@@ -141,43 +145,32 @@ main .slide_item{
     transition: left 0.15s;
 }
 
+main .slide_tool{
+    position: absolute;
+    top: calc(100% - 32px);
+    right: 0px;
+    width: 60px;
+    height: 32px;
+    background-color: #F99417;
+}
 main .slide_button{
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: calc(50% - 16px);
+    top: calc(100% - 32px);
     width: 32px;
     height: 32px;
     border-radius: 100%;
-    background-color: #cccc;
     cursor: pointer;
 }
 main .slide_prev_button {
-    left: 30px;
+    right: 25px;
     background:url('../img/left.png') center center / 100% no-repeat;
 }
 main .slide_next_button{
-    right: 30px;
+    right: 5px;
     background:url('../img/right.png') center center / 100% no-repeat;
-}
-
-main .slide_item.item1{
-    background-color: darkgoldenrod;
-    /* background-image: url('../img/배너이미지.png');
-    background-size: 100% 100%; */
-}
-main .slide_item.item2{
-    background-color: aqua;
-}
-main .slide_item.item3{
-    background-color: blueviolet;
-}
-main .slide_item.item4{
-    background-color: burlywood;
-}
-main .slide_item.item5{
-    background-color: cornflowerblue;
 }
 
 main .slide ul{
@@ -219,6 +212,15 @@ main .slide_item_duplicate{
     transition: left 0.15s;
 }
 
+main .board{
+    grid-area: board;
+    margin: 10px;
+}
+main .board h3{
+    color: #F99417;
+    text-align: center;
+}
+
 footer {
     grid-area: footer;
     text-align: center;
@@ -227,52 +229,6 @@ footer {
 
 footer img {
     height: 35px;
-}
-
-.auth_page{
-    padding: 2vh 0px;
-    min-height: 100vh;
-    text-align: center;
-}
-.auth_page h1{
-    max-width: 450px;
-    margin: 0px auto;
-}
-.auth_page .auth_input .form-control{
-    margin: 0px auto; width: 12em; margin-top: 1em;
-}
-.auth_page .auth_input .btn-outline-primary{
-    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062;
-}
-.auth_page .auth_input .btn-outline-primary:hover{
-    background-color: #363062; color: #F5F5F5
-}
-
-#id_add{
-    width: 30%;
-}
-#id_detail{
-    width: 40%;
-}
-
-#form_fieldset > legend{
-    font-size: 10px;
-}
-#form_fieldset > .form_class{
-    float: right;
-}
-#form_fieldset > ul{
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-}
-#form_fieldset > ul > label{
-    width: 110px;
-    margin-bottom: 10px;
-}
-#form_fieldset > ul > .input{
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid #000000;
 }
 
 #fieldset_row {
@@ -289,9 +245,13 @@ footer img {
     float: left;
     max-width: 732px;
 }
+#div_row .http{
+    color: #000000;
+    text-decoration: none;
+}
 
 #fieldset_row > form{
     display: table-cell;
-    text-align: right; 
+    text-align: justify; 
     float: right;
 }

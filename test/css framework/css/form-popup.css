@@ -56,71 +56,24 @@ main .search .srbt{
     width: 80px;
 }
 main .card .card-body .card-text{
-    margin: revert;
+    margin-bottom: 5px;
 }
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}
 
-.auth_page{
-    padding: 2vh 0px;
-    min-height: 100vh;
-    text-align: center;
-}
-.auth_page h1{
-    max-width: 450px;
-    margin: 0px auto;
-}
-.auth_page .auth_input .form-control{
-    margin: 0px auto; width: 12em; margin-top: 1em;
-}
-.auth_page .auth_input .btn-outline-primary{
-    margin: 0px auto; width: 12em; margin-top: 1em; padding: 0.5em; border-color: #363062; color: #363062;
-}
-.auth_page .auth_input .btn-outline-primary:hover{
-    background-color: #363062; color: #F5F5F5
-}
-
-#id_add{
-    width: 30%;
-}
-#id_detail{
-    width: 40%;
-}
-
-#form_fieldset > legend{
-    font-size: 10px;
-}
-#form_fieldset > .form_class{
-    float: right;
-}
-#form_fieldset > ul{
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-}
-#form_fieldset > ul > label{
-    width: 110px;
-    margin-bottom: 10px;
-}
-#form_fieldset > ul > .input{
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid #000000;
-}
-
+/*목록*/
 #fieldset_row {
     display: table; 
     width: 100%; 
     padding: 1px;
     border: 1px groove #000000;
 }
-
 #div_row {
     display: table-cell;
     float: left;
     max-width: 732px;
 }
-
 #fieldset_row > form{
     display: table-cell;
     text-align: right; 

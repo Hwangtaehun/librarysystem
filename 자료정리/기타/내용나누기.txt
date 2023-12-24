@@ -1,1 +1,4 @@
 SELECT * FROM [TABLE] WHERE LIMIT 시작번호,개수
+PHP 소수점 올림: ceil([숫자]);
+PHP 소수점 버림: floor([숫자]);
+종류 개수:912
