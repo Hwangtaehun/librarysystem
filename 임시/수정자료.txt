@@ -2,19 +2,18 @@
 2.  반납추가 배치 수정 (o)
 3.  상호대차 등록 cookies->다른방법 사용(o)
 4.  상호대차 insert sql를 다시 만들기(o)
-5.  지우기 버튼은 value값 삭제하게 만들기=>수정필요없음
-6.  DelController.php부분 수정하기(o)
-7.  assistence.php에 있는 Symobol remove 작동되게하기(o)
-8.  회원 퀴리 수정(관리자 안보이게)(o)
-9.  kindController.php 추가 다시 실행해보기(o)
-10. 상호대차찾기에 완료 내역은 안보이게 하기(o)
-11. 상호대차 도착일 추가=> 완전 수정(o)
-12. 반납추가 쿼리 수정(o)
-13. NotController.php list() 개시 날짜 된것만 보여주기(o)
-14. MatController.php research() 검색어 없으면 해당 도서관 자료 보여주기(o)
-15. DelController.php 134~136줄 내용 삭제(o)
-16. gif 정지(o)
-17. kind 페이지 분리
-18. 공지사항 내용 추가하기
-19. 상호대차 승인 일괄 관리 시스템 만들기
-20. 홈화면 메뉴 넣기
+5.  DelController.php부분 수정하기(o)
+6.  assistence.php에 있는 Symobol remove 작동되게하기(o)
+7.  회원 퀴리 수정(관리자 안보이게)(o)
+8.  kindController.php 추가 다시 실행해보기(o)
+9. 상호대차찾기에 완료 내역은 안보이게 하기(o)
+10. 상호대차 도착일 추가=> 완전 수정(o)
+11. 반납추가 쿼리 수정(o)
+12. NotController.php list() 개시 날짜 된것만 보여주기(o)
+13. MatController.php research() 검색어 없으면 해당 도서관 자료 보여주기(o)
+14. DelController.php 134~136줄 내용 삭제(o)
+15. gif 정지(o)
+16. kind 페이지 분리
+17. 공지사항 내용 추가하기(내용이미지, 배너이미지, 팝업이미지)
+18. 상호대차 승인 일괄 관리 시스템 만들기
+19. 홈화면 메뉴 넣기
