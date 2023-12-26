@@ -58,7 +58,10 @@ header .link li a{
     color: #f91717;
 }
 
-nav{grid-area: nav; display: flex;}
+nav{
+    grid-area: nav; 
+    display: flex;
+}
 .navbar-collapse{
     background-color: #f8f9fa;
 }
@@ -80,7 +83,7 @@ nav{grid-area: nav; display: flex;}
 main{
     grid-area: main; 
     padding-left: 10px; 
-    margin-top: 1em; 
+    margin-top: 0.5em; 
 }
 
 main .sel { 
@@ -142,7 +145,7 @@ main .card {
     margin-bottom: 10px;
 }
 main .card .card-body .card-text{
-    margin: revert;
+    margin-bottom: 5px;
 }
 
 /*추가, 수정 페이지 디자인*/
@@ -192,11 +195,35 @@ main .context {
     height: 300px;
 }
 
-aside{grid-area: aside; float:left; position: sticky; top: 0; max-height: 180px; margin-top: 1em; z-index: 1;}
-aside h3 {color: #000000; text-decoration: none; background: #F99417; width: 140px;}
-aside .dropdown-item {color: #ffffff; text-decoration: none;}
-aside .dropdown-item:hover {color: #F99417;}
-aside li {line-height: 200%; display: table-row; text-align: center; font-size: 95%; background: #4D4C7D;}
+aside{
+    grid-area: aside; 
+    float:left; 
+    position: sticky; 
+    top: 0; 
+    max-height: 180px; 
+    margin-top: 0.5em; 
+    z-index: 1;
+}
+aside h3 {
+    color: #000000; 
+    text-decoration: none; 
+    background: #F99417; 
+    width: 140px;
+}
+aside .dropdown-item {
+    color: #ffffff; 
+    text-decoration: none;
+}
+aside .dropdown-item:hover {
+    color: #F99417;
+}
+aside li {
+    line-height: 200%; 
+    display: table-row; 
+    text-align: center; 
+    font-size: 95%; 
+    background: #4D4C7D;
+}
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}

@@ -21,7 +21,10 @@
                 return false;
             }
             return true;            
-        }     
+        }
+        <?php
+        echo $count;
+        ?>     
     </script>
 </head>
 <?php
@@ -106,6 +109,7 @@
         <?php } ?>
     </fieldset>
     <?php endforeach; }?>
+    <?php echo $page; ?>
     <script>
         // 대분류 선택이 바뀌었는데 중분류, 소분류 바뀌게 하는 함수
         function superChange(e){
