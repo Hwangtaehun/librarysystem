@@ -1,0 +1,6 @@
+body {font-family: 휴먼옛체, 굴림, sans-serif; font-size:small;}
+label, input, select, textarea{float: left; margin-left: 1em; width: 10em; margin-botton: 1em; padding: 0.5em;}
+
+label {clear: left; padding: 0; margin: 0;}
+input[type="submit"]{clear: left;}
+form {overflow: auto; background-color: orange; padding: 0.5em;}

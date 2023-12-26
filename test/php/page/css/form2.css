@@ -1,0 +1,5 @@
+h1, h4, #content1 {text-align: center; border-width: 3px; border-style: double; 
+                   background-color: #ffeeaa; width: 500px; margin-bottom: 5px;
+                   margin-left: 5px; padding-top: 5px; padding-bottom: 5px; clear: left;}
+
+h4, #content1 { background-color: #ccccdd; text-align: left;}
