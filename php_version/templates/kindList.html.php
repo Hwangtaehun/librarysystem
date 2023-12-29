@@ -118,23 +118,23 @@
             var value = e.value;
 
             if(e.value === "0"){
-                e.value = "000";
+                value = "000";
             }
 
             target.innerHTML = "";
-            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+            for(var i = 0; i < stepCategoryJsonArray[value].length; i++){
                 var opt = document.createElement('option');
-                opt.value = stepCategoryJsonArray[e.value][i][0];
-                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                opt.value = stepCategoryJsonArray[value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[value][i][1];
                 target.appendChild(opt);
             }
             var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
             var target = document.querySelector("#s3");
             target.innerHTML = "";
-            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+            for(var i = 0; i < stepCategoryJsonArray[value].length; i++){
                 var opt = document.createElement('option');
-                opt.value = stepCategoryJsonArray[e.value][i][0];
-                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                opt.value = stepCategoryJsonArray[value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[value][i][1];
                 target.appendChild(opt);
             }
         }
@@ -146,14 +146,14 @@
             var value = e.value;
 
             if(e.value === "0"){
-                e.value = "000";
+                value = "000";
             }
             
             target.innerHTML = "";
-            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+            for(var i = 0; i < stepCategoryJsonArray[value].length; i++){
                 var opt = document.createElement('option');
-                opt.value = stepCategoryJsonArray[e.value][i][0];
-                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                opt.value = stepCategoryJsonArray[value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[value][i][1];
                 target.appendChild(opt);
             }
         }
