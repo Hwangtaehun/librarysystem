@@ -14,7 +14,6 @@ class kindController{
     private $delTable;
     private $notTable;
     private $assist;
-    private $listnum = 19;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -34,18 +33,24 @@ class kindController{
     }
 
     public function list(){
-        $where = ' ';
-        $m_result = $this->kindTable->selectAll();
-        $total_cnt = sizeof($m_result);
-        $where = $this->assist->pagesql($where);
-        $result = $this->kindTable->whereSQL($where);
         $title = '종류 현황';
-        $page = $this->assist->pagemanager($total_cnt, '없음');
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
+
+        $where = '';
+        $result = $this->kindTable->selectAll();
+        $total_cnt = sizeof($result);
+        
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->kindTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagination = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagination'=>$page];
     }
 
     //검색
     public function research(){
+        $title = '종류 현황';
+        
         if(isset($_POST['sup'])){
             $value = $_POST['sup'];
             if($value === '0'){
@@ -66,7 +71,7 @@ class kindController{
             $value = $_GET['value'];
         }
 
-        $where = ' ';
+        $where = '';
         if($value != '없음'){
             $where = "WHERE `kind_no` LIKE '$value'";
         }
@@ -79,9 +84,9 @@ class kindController{
             $stmt = $this->kindTable->whereSQL($where);
             $result = $stmt->fetchAll();
         }
-        $title = '종류 현황';
         $page = $this->assist->pagemanager($total_cnt, $value);
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
+        
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagination'=>$page];
     }
 
     //중분류 종류번호 생성 및 소분류 종류번호 생성

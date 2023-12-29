@@ -126,6 +126,10 @@ class Assistance{
         return $lib_array;
     }
 
+    public function listchange(int $num){
+        $this->listnum = $num;
+    }
+
     //page번호 달기 만들기위한 html제작
 	public function pagemanager(int $total_cnt, string $value){
         $pagenum = 19;
@@ -228,7 +232,7 @@ class Assistance{
 
         $limit = "LIMIT $page,$this->listnum";
 
-        if($where == ' '){
+        if($where == ''){
             $where = $limit;
         }else{
             $where = $where.$limit;

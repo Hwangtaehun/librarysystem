@@ -43,7 +43,7 @@
     <?php }?>
         <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 260px;">
+                <div class="card" style="width: 16rem; height: 175px;">
                     <div class="card-body">
                     <?php
                         $m_state = $row['mem_state'];

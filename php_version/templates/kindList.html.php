@@ -21,10 +21,7 @@
                 return false;
             }
             return true;            
-        }
-        <?php
-        echo $count;
-        ?>     
+        } 
     </script>
 </head>
 <?php
@@ -44,8 +41,7 @@
     $basearray = $inherit1->call_result();
     $subarray = $inherit2->call_result();
 ?>
-<!-- 종류 배경 추가 -->
-<body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
+<body>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
         <div class="sel">
             <label for = "kind_super">대분류</label>
@@ -109,7 +105,7 @@
         <?php } ?>
     </fieldset>
     <?php endforeach; }?>
-    <?php echo $page; ?>
+    <?php if(isset($pagination)){echo $pagination;}?>
     <script>
         // 대분류 선택이 바뀌었는데 중분류, 소분류 바뀌게 하는 함수
         function superChange(e){

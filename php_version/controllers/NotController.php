@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class NotController{
     private $libTable;
@@ -12,6 +13,7 @@ class NotController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $assist;
     private $today;
     private $sort = "ORDER BY not_no DESC";
 
@@ -29,6 +31,7 @@ class NotController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
+        $this->assist = new Assistance();
         $this->today = date("Y-m-d");
     }
 
@@ -168,22 +171,46 @@ class NotController{
 
     public function list(){
         $title = '공지사항 현황';
-        $sql = $this->sqlList().$this->sort;
-        $stmt = $this->notTable->whereSQL($sql);
-        $result = $stmt->fetchAll();
 
-        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result];
+        $where = $this->sqlList().$this->sort;
+        $stmt = $this->notTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        if($total_cnt > 1){
+            $where = $this->assist->pagesql($where);
+            $stmt = $this->notTable->whereSQL($where);
+            $result = $stmt->fetchAll(); 
+        }
+        $page = $this->assist->pagemanager($total_cnt, "없음");
+
+        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
     }
 
     public function research(){
         $title = '공지사항 현황';
+        $value = '';
 
-        $value = '%'.$_POST['user_research'].'%';
-        $sql = $this->sqlList()."AND `not_name` LIKE '$value' ".$this->sort;
-        $stmt = $this->notTable->whereSQL($sql);
+        if(isset($_POST['user_research'])){
+            $value = '%'.$_POST['user_research'].'%';
+        }
+        
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+        }
+        
+        $where = $this->sqlList()."AND `not_name` LIKE '$value' ".$this->sort;
+        $stmt = $this->notTable->whereSQL($where);
         $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+        if($total_cnt > 1){
+            $where = $this->assist->pagesql($where);
+            $stmt = $this->notTable->whereSQL($where);
+            $result = $stmt->fetchAll();
+        }
+        $page = $this->assist->pagemanager($total_cnt, $value);
 
-        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result];
+        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
     }
 
     public function delete(){
