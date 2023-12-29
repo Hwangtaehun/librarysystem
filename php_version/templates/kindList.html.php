@@ -115,6 +115,12 @@
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray); ?>;
             var target = document.querySelector("#s2");
+            var value = e.value;
+
+            if(e.value === "0"){
+                e.value = "000";
+            }
+
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');
@@ -137,6 +143,12 @@
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
             var target = document.querySelector("#s3");
+            var value = e.value;
+
+            if(e.value === "0"){
+                e.value = "000";
+            }
+            
             target.innerHTML = "";
             for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
                 var opt = document.createElement('option');

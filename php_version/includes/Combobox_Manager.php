@@ -25,7 +25,7 @@ class Combobox_Manager {
 			}
 
 			if($nothing){
-				$this->result[0] = array(0, '없음');
+				$this->result[0] = array('0', '없음');
 				for ($i= 0; $i < $count ; $i++) { 
 					$this->result[$i+1] = array($this->pri[$i], $this->name[$i]);
 				}

@@ -13,6 +13,7 @@ class kindController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $assist;
     private $listnum = 19;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
@@ -29,124 +30,17 @@ class kindController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-    }
-
-    private function pagemanager(int $total_cnt, string $value){
-        $pagenum = 19;
-        $outStr= '';
-
-        if(20 < $total_cnt){
-            $total_pages = floor($total_cnt/$this->listnum);
-            $sp_pg = ceil($total_pages/$pagenum);
-
-            if(isset($_GET['sup_pg'])){
-                $sup_pg = $_GET['sup_pg'];
-            }
-            else{
-                $sup_pg = 0;
-            }
-
-            if(isset($_GET['page'])){
-                $m_page = $_GET['page'];
-            }
-            else{
-                $m_page = 1;
-            }
-            
-            if($value == '없음'){           
-                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
-                if($sup_pg != 0){
-                    $go_pg = $sup_pg - 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Previous"> 
-                                <span aria-hidden="true">&laquo;</span> </a> </li>';
-                }
-                for ($i=0; $i < 19 ; $i++) { 
-                    $num = $i + 1;
-                    $go_pg = $sup_pg;
-                    $page = $sup_pg * 19 + $num;
-
-                    if($page <= $total_pages){
-                        if($page < 10){
-                            $str_num = '0'.$page;
-                        }else{
-                            $str_num = strval($page);
-                        }
-
-                        $start_num = ($page - 1) * $this->listnum + 1;
-                        
-                        $outStr .= '<li class="page-item"><a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$start_num.'">'.$str_num.'</a></li>';
-                    }
-                }
-
-                if($sup_pg != $sp_pg-1){
-                    $go_pg = $sup_pg + 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Next"> 
-                                <span aria-hidden="true">&raquo;</span> </a> </li>';
-                }
-
-                $outStr .= '</ul> </ul> </div> </div>';
-            }else{
-                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
-                if($sup_pg != 0){
-                    $go_pg = $sup_pg - 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Previous"> 
-                                <span aria-hidden="true">&laquo;</span> </a> </li>';
-                }
-                for ($i=0; $i < 19 ; $i++) { 
-                    $num = $i + 1;
-                    $go_pg = $sup_pg;
-                    $page = $sup_pg * 19 + $num;
-
-                    if($page <= $total_pages){
-                        if($page < 10){
-                            $str_num = '0'.$page;
-                        }else{
-                            $str_num = strval($page);
-                        }
-
-                        $start_num = ($page - 1) * $this->listnum + 1;
-                        $outStr .= '<li class="page-item"><a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.'">'.$str_num.'</a></li>';
-                    }
-                }
-
-                if($sup_pg != $sp_pg-1){
-                    $go_pg = $sup_pg + 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Next"> 
-                                <span aria-hidden="true">&raquo;</span> </a> </li>';
-                }
-
-                $outStr .= '</ul> </ul> </div> </div>';
-            }
-        }
-        return $outStr;
-    }
-
-    private function pagesql(string $value){
-        if(isset($_GET['page'])){
-            $page = $_GET['page'];
-        }
-        else{
-            $page = 1;
-        }
-
-        $limit = "LIMIT $page,$this->listnum";
-
-        if($value == '없음'){
-            $where = $limit;
-        }else{
-            $where = "WHERE `kind_no` LIKE '$value'".$limit;
-        }
-
-        return $where;
+        $this->assist = new Assistance();
     }
 
     public function list(){
+        $where = ' ';
         $m_result = $this->kindTable->selectAll();
         $total_cnt = sizeof($m_result);
-        $where = $this->pagesql('없음');
+        $where = $this->assist->pagesql($where);
         $result = $this->kindTable->whereSQL($where);
         $title = '종류 현황';
-        $page = $this->pagemanager($total_cnt, '없음');
+        $page = $this->assist->pagemanager($total_cnt, '없음');
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
     }
 
@@ -154,9 +48,9 @@ class kindController{
     public function research(){
         if(isset($_POST['sup'])){
             $value = $_POST['sup'];
-            if($value == 0){
-                if($_POST['base'] == 0){
-                    if($_POST['super'] == 0){
+            if($value === '0'){
+                if($_POST['base'] === '0'){
+                    if($_POST['super'] === '0'){
                         $value = '없음';
                     }else{
                         $array = mb_str_split($_POST['super'], $split_length = 1, $encoding = "utf-8");
@@ -180,19 +74,19 @@ class kindController{
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $where = $this->pagesql($value);
-        $stmt = $this->kindTable->whereSQL($where);
-        $result = $stmt->fetchAll();
+        if($total_cnt > 1){
+            $where = $this->assist->pagesql($where);
+            $stmt = $this->kindTable->whereSQL($where);
+            $result = $stmt->fetchAll();
+        }
         $title = '종류 현황';
-        $page = $this->pagemanager($total_cnt, $value);
+        $page = $this->assist->pagemanager($total_cnt, $value);
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
     }
 
     //중분류 종류번호 생성 및 소분류 종류번호 생성
     private function makeKey(String $str, bool $bool) {
-        $assist = new Assistance();
         $text = "중분류";
-        
         if($bool) {
             $array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
             $final_position = $array[2];
@@ -211,11 +105,11 @@ class kindController{
             $num = $result->rowCount();
             $text = $row[$num-1][0];
 
-            if($assist->isInteger($text)) {
+            if($this->assist->isInteger($text)) {
                 $text=$text.".1";
             }
             else {
-                if($assist->isFloat($text)) {
+                if($this->assist->isFloat($text)) {
                     $str_array = explode( '.', $text );
                     $num = (int)$str_array[1];
                     $num++;
