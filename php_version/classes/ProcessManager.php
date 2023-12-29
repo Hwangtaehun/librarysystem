@@ -20,9 +20,7 @@ class ProcessManager{
   
   //실행
   public function run(){
-    //echo 'run 실행<br>';
     $page = $this->makePage();
-    //echo  $page['title'].'<br>';
     if(isset($page['title'])){
       $title = $page['title'];
       $outString = $this->outPage($page);

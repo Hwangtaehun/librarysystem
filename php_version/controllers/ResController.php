@@ -47,18 +47,16 @@ class ResController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        if($total_cnt > 1){
-            $sql = $this->assist->pagesql($sql);
-            $stmt = $stmt = $this->resTable->joinSQL($sql);
-            $result = $stmt->fetchAll();
-        }
-        $page = $this->assist->pagemanager($total_cnt, '없음');
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $stmt = $this->resTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
         
         $title = '예약 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
+        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     //검색
@@ -93,19 +91,17 @@ class ResController{
         }
 
         $total_cnt = sizeof($result);
-        if($total_cnt > 1){
-            $sql = $this->assist->pagesql($sql);
-            $stmt = $this->resTable->joinSQL($sql);
-            $result = $stmt->fetchAll();
-        }
-        $page = $this->assist->pagemanager($total_cnt, $value);
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->resTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
 
         $title = '예약 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
 
-        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
+        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     public function delete(){

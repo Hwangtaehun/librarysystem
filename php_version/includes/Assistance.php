@@ -161,19 +161,18 @@ class Assistance{
                                 <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for ($i=0; $i < 19 ; $i++) { 
-                    $num = $i + 1;
                     $go_pg = $sup_pg;
-                    $page = $sup_pg * 19 + $num;
+                    $page = $sup_pg * 19 + $i;
 
-                    if($page <= $total_pages){
-                        if($page < 10){
-                            $str_num = '0'.$page;
+                    if($page <= $total_pages - 1){
+                        $num = $page + 1;
+                        if($num < 10){
+                            $str_num = '0'.$num;
                         }else{
-                            $str_num = strval($page);
+                            $str_num = strval($num);
                         }
 
-                        $start_num = ($page - 1) * $this->listnum + 1;
-                        
+                        $start_num = $page * $this->listnum;
                         $outStr .= '<li class="page-item"><a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$start_num.'">'.$str_num.'</a></li>';
                     }
                 }
@@ -193,18 +192,18 @@ class Assistance{
                                 <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for ($i=0; $i < 19 ; $i++) { 
-                    $num = $i + 1;
                     $go_pg = $sup_pg;
-                    $page = $sup_pg * 19 + $num;
+                    $page = $sup_pg * 19 + $i;
 
-                    if($page <= $total_pages){
-                        if($page < 10){
-                            $str_num = '0'.$page;
+                    if($page <= $total_pages - 1){
+                        $num = $page + 1;
+                        if($num < 10){
+                            $str_num = '0'.$num;
                         }else{
                             $str_num = strval($page);
                         }
 
-                        $start_num = ($page - 1) * $this->listnum + 1;
+                        $start_num = $page * $this->listnum;
                         $outStr .= '<li class="page-item"><a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.'">'.$str_num.'</a></li>';
                     }
                 }
@@ -227,10 +226,10 @@ class Assistance{
             $page = $_GET['page'];
         }
         else{
-            $page = 1;
+            $page = 0;
         }
 
-        $limit = "LIMIT $page,$this->listnum";
+        $limit = " LIMIT $page,$this->listnum";
 
         if($where == ''){
             $where = $limit;

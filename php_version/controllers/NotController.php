@@ -177,14 +177,12 @@ class NotController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        if($total_cnt > 1){
-            $where = $this->assist->pagesql($where);
-            $stmt = $this->notTable->whereSQL($where);
-            $result = $stmt->fetchAll(); 
-        }
-        $page = $this->assist->pagemanager($total_cnt, "없음");
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->notTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, "없음");
 
-        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
+        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result,'$pagi'=>$pagi];
     }
 
     public function research(){
@@ -203,14 +201,12 @@ class NotController{
         $stmt = $this->notTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        if($total_cnt > 1){
-            $where = $this->assist->pagesql($where);
-            $stmt = $this->notTable->whereSQL($where);
-            $result = $stmt->fetchAll();
-        }
-        $page = $this->assist->pagemanager($total_cnt, $value);
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->notTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
 
-        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result, 'page'=>$page];
+        return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     public function delete(){

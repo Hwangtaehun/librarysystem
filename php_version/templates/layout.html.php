@@ -248,7 +248,8 @@
         } 
         ?>
         <main>
-            <?= $outString ?>
+            <?= $outString  ?>
+            <?php if(isset($page['pagi'])){echo $page['pagi'];}?>
         </main>
         <footer>
             <img src="../img/footer.gif">

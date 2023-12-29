@@ -105,7 +105,6 @@
         <?php } ?>
     </fieldset>
     <?php endforeach; }?>
-    <?php if(isset($pagination)){echo $pagination;}?>
     <script>
         // 대분류 선택이 바뀌었는데 중분류, 소분류 바뀌게 하는 함수
         function superChange(e){

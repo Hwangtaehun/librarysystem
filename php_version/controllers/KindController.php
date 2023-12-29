@@ -42,9 +42,9 @@ class kindController{
         $where = $this->assist->pagesql($where);
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagination = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
 
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagination'=>$page];
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     //검색
@@ -79,14 +79,13 @@ class kindController{
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        if($total_cnt > 1){
-            $where = $this->assist->pagesql($where);
-            $stmt = $this->kindTable->whereSQL($where);
-            $result = $stmt->fetchAll();
-        }
-        $page = $this->assist->pagemanager($total_cnt, $value);
         
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagination'=>$page];
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->kindTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     //중분류 종류번호 생성 및 소분류 종류번호 생성
