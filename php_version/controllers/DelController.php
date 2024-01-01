@@ -33,6 +33,7 @@ class DelController{
         $this->delTable = $delTable;
         $this->notTable = $notTable;
         $this->assist = new Assistance();
+        $this->assist->listchange(6);
     }
 
     //게시판형마다 다른 sql 필요해서 정리
@@ -76,27 +77,50 @@ class DelController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //상호대차 완료 목록 출력
     public function completelist(){
         $title = '상호대차 완료 현황';
+
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+        
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //상호대차 도착일 추가
     public function addlist(){
         $title = '상호대차 도착일 추가';
+
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+        
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //검색
@@ -113,28 +137,67 @@ class DelController{
 
         $this->sqlList($title);
 
-        if($_SESSION['mem_state'] == 1){
-            if($_POST['mem_no'] == ''){
-                $mat_no = $_POST['mat_no'];
-                $sql = $this->sql." AND delivery.mat_no = $mat_no";
-            }
-            else if($_POST['mat_no'] == ''){
-                $mem_no = $_POST['mem_no'];
-                $sql = $this->sql." AND delivery.mem_no = $mem_no";
+        if(isset($_POST)){
+            if($_SESSION['mem_state'] == 1){
+                if($_POST['mem_no'] == ''){
+                    $mat_no = $_POST['mat_no'];
+                    $sql = $this->sql." AND delivery.mat_no = $mat_no";
+                    $value = "mat_no=$mat_no";
+                }
+                else if($_POST['mat_no'] == ''){
+                    $mem_no = $_POST['mem_no'];
+                    $sql = $this->sql." AND delivery.mem_no = $mem_no";
+                    $value = "mem_no=$mem_no";
+                }
+                else{
+                    $mem_no = $_POST['mem_no'];
+                    $mat_no = $_POST['mat_no'];
+                    $sql = $this->sql." AND delivery.mat_no = $mat_no AND delivery.mem_no = $mem_no";
+                    $value = "mat_no=$mat_no,mem_no=$mem_no";
+                }
             }
             else{
-                $mem_no = $_POST['mem_no'];
-                $mat_no = $_POST['mat_no'];
-                $sql = $this->sql." AND delivery.mat_no = $mat_no AND delivery.mem_no = $mem_no";
+                $book_name = '%'.$_POST['user_research'].'%';
+                $sql = $this->sql." AND book.book_name LIKE '$book_name'";
+                $value = "book_name=$book_name";
             }
         }
-        else{
-            $value = '%'.$_POST['user_research'].'%';
-            $sql = $this->sql." AND book.book_name LIKE '$value'";
+        
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+            $key_array = explode(",",$value);
+            if(sizeof($key_array) != 1){
+                $mat = explode("=",$key_array[0]);
+                $mem = explode("=",$key_array[1]);
+                $mat_no = $mat[1];
+                $mem_no = $mem[1];
+                $sql = $this->sql." AND delivery.mat_no = $mat_no AND delivery.mem_no = $mem_no";
+            }
+            else{
+                $key_array = explode("=",$value);
+                if($key_array[0] == "mat_no"){
+                    $mat_no = $key_array[1];
+                    $sql = $this->sql." AND delivery.mat_no = $mat_no";
+                }else if($key_array[0] == "mem_no"){
+                    $mem_no = $key_array[1];
+                    $sql = $this->sql." AND delivery.mem_no = $mem_no";
+                }
+                else{
+                    $book_name = $key_array[1];
+                    $sql = $this->sql." AND book.book_name LIKE '$book_name'";
+                }
+            }
         }
+        
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     public function delete(){
