@@ -30,22 +30,47 @@ class LibController{
         $this->delTable = $delTable;
         $this->notTable = $notTable;
         $this->assist = new Assistance();
+        $this->assist->listchange(9);
     }
 
     public function list(){
-        $result = $this->libTable->selectAll();
         $title = '도서관 현황';
-        return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result];
+
+        $where = '';
+        $result = $this->libTable->selectAll();
+        $total_cnt = sizeof($result);
+
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->libTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        
+        return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //검색
     public function research(){
-        $value = '%'.$_POST['user_research'].'%';
+        $title = '도서관 현황';
+
+        if(isset($_POST)){
+            $value = '%'.$_POST['user_research'].'%';
+        }
+
+        if(isset($_GET)){
+            $value = $_GET['value'];
+        }
+        
         $where = "WHERE lib_name LIKE '$value'";
         $stmt = $this->libTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $title = '도서관 현황';
-        return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->libTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
+        return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     public function delete(){

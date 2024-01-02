@@ -33,6 +33,7 @@ class LenController{
         $this->delTable = $delTable;
         $this->notTable = $notTable;
         $this->assist = new Assistance();
+        $this->assist->listchange(6);
     }
 
     //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
@@ -84,34 +85,58 @@ class LenController{
     }
 
     public function list(){
-        $sql = $this->sql.$this->sort;
-        $stmt = $this->lenTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
         $title = '대출 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+
+        $sql = $this->sql.$this->sort;
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //로그인한 회원의 현재 대출 목록 출력
     public function memLent(){
         $title = '대출중자료';
+
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //로그인한 회원의 모든 대출 목록 출력
     public function memAllLent(){
         $title = '모든대출내역';
+
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //반납 목록
@@ -121,7 +146,14 @@ class LenController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //검색
@@ -140,28 +172,68 @@ class LenController{
             $this->sqlList($title);
         }
 
-        if($_SESSION['mem_state'] == 1){
-            if($_POST['mem_no'] == ''){
-                $mat_no = $_POST['mat_no'];
-                $sql = $this->sql." AND lent.mat_no = $mat_no";
-            }
-            else if($_POST['mat_no'] == ''){
-                $mem_no = $_POST['mem_no'];
-                $sql = $this->sql." AND lent.mem_no = $mem_no";
+        if(isset($_POST)){
+            if($_SESSION['mem_state'] == 1){
+                if($_POST['mem_no'] == ''){
+                    $mat_no = $_POST['mat_no'];
+                    $sql = $this->sql." AND lent.mat_no = $mat_no";
+                    $value = "mat_no=$mat_no";
+                }
+                else if($_POST['mat_no'] == ''){
+                    $mem_no = $_POST['mem_no'];
+                    $sql = $this->sql." AND lent.mem_no = $mem_no";
+                    $value = "mem_no=$mem_no";
+                }
+                else{
+                    $mem_no = $_POST['mem_no'];
+                    $mat_no = $_POST['mat_no'];
+                    $sql = $this->sql." AND lent.mat_no = $mat_no AND lent.mem_no = $mem_no";
+                    $value = "mat_no=$mat_no,mem_no=$mem_no";
+                }
             }
             else{
-                $mem_no = $_POST['mem_no'];
-                $mat_no = $_POST['mat_no'];
-                $sql = $this->sql." AND lent.mat_no = $mat_no AND lent.mem_no = $mem_no";
+                $book_name = '%'.$_POST['user_research'].'%';
+                $sql = $this->sql." AND book.book_name LIKE '$book_name'";
+                $value = "book_name=$book_name";
             }
         }
-        else{
-            $value = '%'.$_POST['user_research'].'%';
-            $sql = $this->sql." AND book.book_name LIKE '$value'";
+
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+            $key_array = explode(",",$value);
+            if(sizeof($key_array) != 1){
+                $mat = explode("=",$key_array[0]);
+                $mem = explode("=",$key_array[1]);
+                $mat_no = $mat[1];
+                $mem_no = $mem[1];
+                $sql = $this->sql." AND lent.mat_no = $mat_no AND lent.mem_no = $mem_no";
+            }
+            else{
+                $key_array = explode("=",$value);
+                if($key_array[0] == "mat_no"){
+                    $mat_no = $key_array[1];
+                    $sql = $this->sql." AND lent.mat_no = $mat_no";
+                }else if($key_array[0] == "mem_no"){
+                    $mem_no = $key_array[1];
+                    $sql = $this->sql." AND lent.mem_no = $mem_no";
+                }
+                else{
+                    $book_name = $key_array[1];
+                    $sql = $this->sql." AND book.book_name LIKE '$book_name'";
+                }
+            }
         }
+        
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->lenTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+
+        return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //대출 정보로 이동하는 함수

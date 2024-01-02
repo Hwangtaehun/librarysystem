@@ -1,9 +1,11 @@
 <?php
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class MatController{
     private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
     private $sort = "ORDER BY book.book_name";
     private $popSql;
+    private $assist;
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -30,6 +32,8 @@ class MatController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
+        $this->assist = new Assistance();
+        $this->assist->listchange(6);
     }
 
     //중복된 책인 있는 확인하는 함수
@@ -57,6 +61,8 @@ class MatController{
     }
 
     public function list(){
+        $title = '자료 현황';
+
         if(isset($_SESSION['mem_state'])){
             $mem_state = $_SESSION['mem_state'];
         }
@@ -74,8 +80,14 @@ class MatController{
         
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '자료 현황';
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->matTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수
@@ -90,7 +102,14 @@ class MatController{
         $sql = $this->popSql.$this->sort;
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->matTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //검색할때 사용하는 함수
@@ -111,27 +130,53 @@ class MatController{
             $ispop = false;
         }
 
-        $value = '%'.$_POST['user_research'].'%';
-        $where = "WHERE book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
-        $m_result = $this->bookTable->whereSQL($where);
-        $m_row = $m_result->fetchAll();
-        for ($i=0; $i < sizeof($m_row); $i++) { 
-            $in .= $m_row[$i][0].', ';
-        }
-        $in = rtrim($in, ', ');
-        
-        $lib_no = $_POST['lib_research'];
-        if(sizeof($m_row) == 0){
-            if($lib_no != 0){
-                $where = "AND library.lib_no LIKE $lib_no";
+        if(isset($_POST)){
+            $value = '%'.$_POST['user_research'].'%';
+            $where = "WHERE book.book_name LIKE '$value' OR book.book_author LIKE '$value' OR book.book_publish LIKE '$value'";
+            $m_result = $this->bookTable->whereSQL($where);
+            $m_row = $m_result->fetchAll();
+            for ($i=0; $i < sizeof($m_row); $i++) { 
+                $in .= $m_row[$i][0].', ';
             }
-        }
-        else{
-            if($lib_no == 0){
-                $where = "AND book.book_no IN ($in)";
+            $in = rtrim($in, ', ');
+            
+            $lib_no = $_POST['lib_research'];
+            if(sizeof($m_row) == 0){
+                if($lib_no != 0){
+                    $where = "AND library.lib_no LIKE $lib_no";
+                    $value = "lib_no=$lib_no";
+                }
             }
             else{
+                if($lib_no == 0){
+                    $where = "AND book.book_no IN ($in)";
+                    $value = "in=$in";
+                }
+                else{
+                    $where = "AND library.lib_no LIKE $lib_no AND book.book_no IN ($in)";
+                    $value = "lib_no=$lib_no,in=$in";
+                }
+            }
+        }
+
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+            $key_array = explode(",",$value);
+            if(sizeof($key_array) != 1){
+                $lib_array = explode("=", $key_array[0]);
+                $in_array = explode("=", $key_array[1]);
+                $lib_no = $lib_array[1];
+                $in = $in_array[1];
                 $where = "AND library.lib_no LIKE $lib_no AND book.book_no IN ($in)";
+            }else{
+                $key_array = explode("=",$value);
+                if($key_array[0] == "lib_no"){
+                    $lib_no = $key_array[1];
+                    $where = "AND library.lib_no LIKE $lib_no";
+                }else{
+                    $in = $key_array[1];
+                    $where = "AND book.book_no IN ($in)";
+                }
             }
         }
         
@@ -144,7 +189,14 @@ class MatController{
         
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result];
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->matTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+
+        return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     public function delete(){

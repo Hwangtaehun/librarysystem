@@ -197,6 +197,7 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 

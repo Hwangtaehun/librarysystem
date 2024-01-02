@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class MemberController{
     private $today;
@@ -13,6 +14,7 @@ class MemberController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -29,6 +31,8 @@ class MemberController{
         $this->delTable = $delTable;
         $this->notTable = $notTable;
         $this->today = date('Y-m-d', time());
+        $this->assist = new Assistance();
+        $this->assist->listchange(9);
     }
 
     //홈화면 함수
@@ -43,26 +47,50 @@ class MemberController{
     }
 
     public function list(){
-        $where = "WHERE `mem_state` NOT LIKE 1";
-        $result = $this->memTable->whereSQL($where);
         $title = '회원 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+
+        $where = "WHERE `mem_state` NOT LIKE 1";
+        $stmt = $this->memTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->memTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        
+        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //검색 함수
     public function research(){
-        $value = $_POST['user_research'];
-        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value' AND `mem_state` NOT LIKE 1";
-        $stmt = $this->memTable->whereSQL($where);
-        $result = $stmt->fetchAll();
         $title = '회원 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
+
+        if(isset($_POST)){
+            $value = $_POST['user_research'];
+        }
+
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+        }
+
+        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value' AND `mem_state` NOT LIKE 1";
+        $stmt = $this->memTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->memTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
+        return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     public function login(){

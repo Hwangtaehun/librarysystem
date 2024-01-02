@@ -44,7 +44,7 @@ class kindController{
         $result = $stmt->fetchAll();
         $pagi = $this->assist->pagemanager($total_cnt, '없음');
 
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //검색
@@ -67,7 +67,9 @@ class kindController{
                     $value = $array[0].$array[1].'_'; 
                 }
             }
-        }else if(isset($_GET['value'])){
+        }
+        
+        if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
 
@@ -85,7 +87,7 @@ class kindController{
         $result = $stmt->fetchAll();
         $pagi = $this->assist->pagemanager($total_cnt, $value);
         
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
     //중분류 종류번호 생성 및 소분류 종류번호 생성

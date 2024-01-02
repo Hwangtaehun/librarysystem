@@ -34,10 +34,12 @@ class EtcController{
 
     //연체 페이지 불러오는 함수
     public function duelist(){
+        $title = '연체 현황';
+        
         $sql= $this->sql.$this->sort;
         $stmt = $this->dueTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '연체 현황';
+        
         return ['tempName'=>'dueList.html.php','title'=>$title,'result'=>$result];
     }
 
