@@ -1,0 +1,3 @@
+html매뉴얼: https://developer.mozilla.org/en-US/docs/Learn/HTML
+html간단한 테스트: https://jsbin.com/josadaceya/edit?html,css,output
+최신형식으로 변환: https://validator.w3.org/#validate_by_input

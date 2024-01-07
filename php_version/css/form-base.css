@@ -148,6 +148,24 @@ main .card .card-body .card-text{
     margin-bottom: 5px;
 }
 
+/*테이블 시작*/
+.table_menu{
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table_menu th{
+    padding: 10px;
+}
+
+.table_menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+/*테이블 끝*/
+
 /*추가, 수정 페이지 디자인*/
 #form_fieldset{
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
