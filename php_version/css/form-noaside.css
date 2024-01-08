@@ -26,7 +26,7 @@ body {
 
 @media (max-width: 668px){
     body {
-        grid-template-rows: 60px 55px auto 35px 0px;
+        grid-template-rows: 60px 55px auto 35px;
         grid-template-columns: 140px auto;
         grid-template-areas:
         'header header'
@@ -143,26 +143,38 @@ main .context {
     height: 300px;
 }
 
-/*테이블 시작*/
-.table_menu{
-    display: table;
-    margin: 0 auto;
-    text-align: center;
+footer {
+    grid-area: footer; 
+    text-align: center; 
+    border-style: hidden;
 }
 
-.table_menu th{
+footer img {
+    height: 35px;
+}
+
+/*테이블 시작*/
+footer .table_menu{
+    display: table;
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+}
+
+footer .table_menu table{
+    margin: 0 auto;
+}
+
+footer .table_menu table td{
     padding: 10px;
 }
 
-.table_menu a{
+footer .table_menu a{
     color: #FFFFFF;
     text-decoration: none;
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 /*테이블 끝*/
-
-footer {grid-area: footer; text-align: center; border-style: hidden;}
-footer img {height: 35px;}
 
 /* 로그인 */
 .auth_page{

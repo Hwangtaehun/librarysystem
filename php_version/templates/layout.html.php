@@ -250,19 +250,21 @@
         <main>
             <?= $outString  ?>
             <?php if(isset($page['pagi'])){echo $page['pagi'];}?>
-            
+        </main>
+        <footer>
+            <img src="../img/footer.gif">
             <?php
             if($not_pop){
                 echo "<div class='table_menu'><table>";
                 if($state == 1){
                     echo "<tr><th>공지사항</th> <th>책</th> <th>종류</th> <th>도서관</th> <th>자료</th> <th>대출</th> <th>상호대차</th> <th>기타</th></tr>";
                     $num = 0;
-                    echo '<tr><th><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></th><th><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></th>';
+                    echo '<tr><td><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></td><td><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['종류'][$num][1].'">'.$menus['종류'][$num][0].'</a></td><td><a href="'.$menus['도서관'][$num][1].'">'.$menus['도서관'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
                     $num =  1;
-                    echo '<tr><th><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></th><th><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></th>';
+                    echo '<tr><td><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></td><td><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['종류'][$num][1].'">'.$menus['종류'][$num][0].'</a></td><td><a href="'.$menus['도서관'][$num][1].'">'.$menus['도서관'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
@@ -279,9 +281,6 @@
                 echo "</table></div>";
             }
             ?>
-        </main>
-        <footer>
-            <img src="../img/footer.gif">
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
