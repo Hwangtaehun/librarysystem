@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang = "en">
     <head>
         <meta charset = "utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -125,17 +125,19 @@
     <body>
         <header>
             <?php if(!isset($_GET['pop'])){ ?>
-            <a href="/"><img src="../img/header.gif"></a>
+            <a href="/">
+                <img src="../img/header.gif" alt="">
+            </a>
             <div class="link">
             <?php
             if(!isset($_SESSION['mem_state'])){
-                echo '<li><a href="/member/login">로그인</a>';
-                echo '<a href="/member/addupdate">회원가입</a></li>';
+                echo '<a href="/member/login">로그인</a>';
+                echo '<a href="/member/addupdate">회원가입</a>';
             }
             else{
                 $name = $_SESSION['mem_name'];
-                echo '<li><a>'.$name.'님 환영합니다.</a>';
-                echo '<a href="/member/logout">로그아웃</a></li>';
+                echo '<a>'.$name.'님 환영합니다.</a>';
+                echo '<a href="/member/logout">로그아웃</a>';
             }
             ?>
             </div>
@@ -252,7 +254,7 @@
             <?php if(isset($page['pagi'])){echo $page['pagi'];}?>
         </main>
         <footer>
-            <img src="../img/footer.gif">
+            <img src="../img/footer.gif" alt="">
             <?php
             if($not_pop){
                 echo "<div class='table_menu'><table>";

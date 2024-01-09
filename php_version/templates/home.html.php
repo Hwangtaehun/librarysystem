@@ -45,7 +45,7 @@
             <div class="slide slide_wrap">
             <?php if(isset($result)){foreach($result as $row): ?>
                 <div><a href="/not/addupdate?not_no=<?=$row['not_no']?>">
-                    <img src="<?php if(isset($row)){echo '.'.$row['not_ban_url'];}?>" width="100%">
+                    <img src="<?php if(isset($row)){echo '.'.$row['not_ban_url'];}?>" alt="" style="width:100%;">
                 </a></div>
             <?php endforeach; }?>
                 <div class="slide_tool">
