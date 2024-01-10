@@ -226,24 +226,21 @@
                         if($menu != '마이페이지'){
                             $menu = '내서재';
                         }
-                        echo "<aside>";
-                        echo "<li><a><h3>$menu</h3></a>";
+                        echo "<aside><menu><li><h3>$menu</h3></li>";
                         $script = makehtml($menu, $menus);
                         echo $script;    
-                        echo "</li>";
-                        echo "</aside>";
+                        echo "</menu></aside>";
                     }
                 }
             }
             else{
                 if($title != '회원 현황' && $title != '도서관 관리' && $title != '회원 수정'){
                     if($not_pop){
-                        echo "<aside>";
-                        echo "<li><a><h3>$menu</h3></a>";
+                        echo "";
+                        echo "<aside><menu><li><h3>$menu</h3></li>";
                         $script = makehtml($menu, $menus);
                         echo $script;    
-                        echo "</li>";
-                        echo "</aside>";
+                        echo "</menu></aside>";
                     }
                 }
             }

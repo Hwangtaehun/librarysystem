@@ -208,6 +208,10 @@ aside{
     margin-top: 0.5em; 
     z-index: 1;
 }
+aside menu{
+    margin: 0;
+    padding: 0;
+}
 aside h3 {
     color: #000000; 
     text-decoration: none; 
