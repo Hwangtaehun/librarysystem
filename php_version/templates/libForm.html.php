@@ -28,20 +28,21 @@
     <form action="/lib/addupdate" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
         <h2><?=$title?></h2>
-        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for  = "lib_name">이름</label>
-                <input class="input" type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"><br>
-                <label for  = "lib_id">설립일</label>
-                <input type = "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"><br>
-                <label for  = "lib_zip">주소</label>
-                <input class="input" type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" placeholder="우편번호" readonly>
-                <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
-                <label for = "mem_add"></label>
-                <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly><br>
-                <label for = "mem_add"></label>
-                <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"><br>
-                <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
+        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
+            <ul>
+                <li><label for  = "id_name">이름</label>
+                    <input class="input" type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"></li>
+                <li><label for  = "id_date">설립일</label>
+                    <input type = "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"></li>
+                <li><label for  = "id_detail">주소</label>
+                    <input class="input" type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" placeholder="우편번호" readonly>
+                    <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
+                <li><label></label>
+                    <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly></li>
+                <li><label></label>
+                    <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"></li>
             </ul>
+            <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>

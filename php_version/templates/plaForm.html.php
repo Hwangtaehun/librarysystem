@@ -21,39 +21,40 @@
         <form action="/etc/addupdate" method="post" onSubmit="return checkInput(this)">
             <fieldset id = form_fieldset>
             <h2><?=$title?></h2>
-            <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-                <ul><label for  = "pla_id">회원아이디</label>
-                    <input class="input" type= "text" name="pla_id" id="id_id" value="" disabled><br>
-                    <label for  = "pla_name">책이름</label>
-                    <input class="input" type= "text" name="pla_name" id="id_name" value="" disabled><br>
-                    <label for  = "pla_date">대출날짜</label>
-                    <input class="input" type= "text" name="pla_date" id="id_date" value="" disabled><br>
-                    <label for = "pla_len">대출 도서관</label>
-                    <select id ="il_no_len" name="lib_no_len">
-                        <?php
-                        for($z = 0; $z < sizeof($lib_len); $z++){
-                            $no[$z] = $lib_len[$z][0]; 
-                            $name[$z] = $lib_len[$z][1];
-                        }
-                        for($z = 0;$z < sizeof($lib_len); $z++){
-                            echo "<option  value = $no[$z] > $name[$z] </option>";
-                        }
-                        ?>
-                    </select><br>
-                    <label for = "pla_re">반납 도서관</label>
-                    <select id ="il_no_re" name="lib_no_re">
-                        <?php
-                        for($z = 0; $z < sizeof($lib_re); $z++){
-                            $no[$z] = $lib_re[$z][0]; 
-                            $name[$z] = $lib_re[$z][1];
-                        }
-                        for($z = 0;$z < sizeof($lib_re); $z++){
-                            echo "<option  value = $no[$z] > $name[$z] </option>";
-                        }
-                        ?>
-                    </select><br>
-                    <input type="hidden" name="pla_no" value="<?php if(isset($row)){echo $row['pla_no'];}?>">
+            <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
+                <ul>
+                    <li><label for  = "id_id">회원아이디</label>
+                        <input class="input" type= "text" name="pla_id" id="id_id" value="" disabled></li>
+                    <li><label for  = "id_name">책이름</label>
+                        <input class="input" type= "text" name="pla_name" id="id_name" value="" disabled></li>
+                    <li><label for  = "id_date">대출날짜</label>
+                        <input class="input" type= "text" name="pla_date" id="id_date" value="" disabled></li>
+                    <li><label for = "il_no_len">대출 도서관</label>
+                        <select id ="il_no_len" name="lib_no_len">
+                            <?php
+                            for($z = 0; $z < sizeof($lib_len); $z++){
+                                $no[$z] = $lib_len[$z][0]; 
+                                $name[$z] = $lib_len[$z][1];
+                            }
+                            for($z = 0;$z < sizeof($lib_len); $z++){
+                                echo "<option  value = $no[$z] > $name[$z] </option>";
+                            }
+                            ?>
+                        </select></li>
+                    <li><label for = "il_no_re">반납 도서관</label>
+                        <select id ="il_no_re" name="lib_no_re">
+                            <?php
+                            for($z = 0; $z < sizeof($lib_re); $z++){
+                                $no[$z] = $lib_re[$z][0]; 
+                                $name[$z] = $lib_re[$z][1];
+                            }
+                            for($z = 0;$z < sizeof($lib_re); $z++){
+                                echo "<option  value = $no[$z] > $name[$z] </option>";
+                            }
+                            ?>
+                        </select></li>
                 </ul>
+                <input type="hidden" name="pla_no" value="<?php if(isset($row)){echo $row['pla_no'];}?>">
                 <div class="form_class">
                     <input type= "submit" value="<?=$title2 ?>">
                     <input type= "reset" value='지우기'>

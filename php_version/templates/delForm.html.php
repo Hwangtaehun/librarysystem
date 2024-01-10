@@ -57,49 +57,49 @@
         <?php if(!$ispop){?>
         <h2><?=$title?></h2>
         <?php } ?>
-        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for  ="book_name">책이름</label>
-                <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}elseif(isset($m_row)){echo $m_row['book_name'];}?>" readonly>
+        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
+            <ul>
+                <li><label for  ="ib_name">책이름</label>
+                    <input class="input" type="text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}elseif(isset($m_row)){echo $m_row['book_name'];}?>" readonly>
                 <!-- 수정할때만 생성 -->
                 <?php if(!isset($_GET['mat_no'])){ ?>
                     <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();">
-                <?php } ?>
-                <br>
-                <?php if(isset($m_row['lib_no'])) {
+                <?php } ?></li>
+                <li><?php if(isset($m_row['lib_no'])) {
                     $lib_arr[0] = '없음';
                     for ($z=0; $z < sizeof($lib); $z++) { 
                         $lib_arr[$z+1] = $lib[$z][1];
                     }
                     $value = $lib_arr[$m_row['lib_no']];?>
-                    <label for ="org_name">소장도서관</label>
+                    <label>소장도서관</label>
                     <input type="text" value="<?php echo $value; ?>" readonly>
                 <?php } ?>
-                <label for ="lib_name">수신도서관</label>
-                <select id ="il_no" name="lib_no_arr">
-                    <?php
-                    for($z = 0; $z < sizeof($lib); $z++){
-                        $no[$z] = $lib[$z][0]; 
-                        $name[$z] = $lib[$z][1];
-                    }
-                    for($z = 0;$z < sizeof($lib); $z++){
-                        echo "<option  value = $no[$z] > $name[$z] </option>";
-                    }
-                    ?>
-                </select><br>
+                    <label for ="il_no">수신도서관</label>
+                    <select id ="il_no" name="lib_no_arr">
+                        <?php
+                        for($z = 0; $z < sizeof($lib); $z++){
+                            $no[$z] = $lib[$z][0]; 
+                            $name[$z] = $lib[$z][1];
+                        }
+                        for($z = 0;$z < sizeof($lib); $z++){
+                            echo "<option  value = $no[$z] > $name[$z] </option>";
+                        }
+                        ?>
+                    </select></li>
                 <!-- 수정할때만 생성 -->
                 <?php if(isset($row)){ ?>
-                <label for ="len_arr_date">도착일</label>
-                <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"><br>
-                <label for ="del_app">상태</label>
-                <input type="radio" name="del_app" id="id_de" value="0"> 거절
-                <input type="radio" name="del_app" id="id_ap" value="1"> 승인
-                <input type="radio" name="del_app" id="id_re" value="2"> 반송 <br>
+                <li><label for ="id_arr_date">도착일</label>
+                    <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"></li>
+                <li><label>상태</label>
+                    <input type="radio" name="del_app" id="id_de" value="0"> 거절
+                    <input type="radio" name="del_app" id="id_ap" value="1"> 승인
+                    <input type="radio" name="del_app" id="id_re" value="2"> 반송</li>
                 <?php }?> 
-                <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
-                <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}else if($mem_state == 0){echo $_SESSION['mem_no'];}?>">
-                <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}else if(isset($_GET['mat_no'])){echo $_GET['mat_no'];}?>">
-                <input type="hidden" name="del_no" value="<?php if(isset($row)){echo $row['del_no'];}?>">
             </ul>
+            <input type="hidden" name="len_no" value="<?php if(isset($row)){echo $row['len_no'];}?>">
+            <input type="hidden" id="id_mem" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}else if($mem_state == 0){echo $_SESSION['mem_no'];}?>">
+            <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}else if(isset($_GET['mat_no'])){echo $_GET['mat_no'];}?>">
+            <input type="hidden" name="del_no" value="<?php if(isset($row)){echo $row['del_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
                 <input type= "reset" value='지우기'>

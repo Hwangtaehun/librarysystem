@@ -38,67 +38,65 @@
         <fieldset id = form_fieldset>
         <?php if($state == 1){ ?>
         <h2><?=$title?></h2>
-        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for  = "not_name">제목</label>
-                <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"><br>
-                <label for  = "not_open">시작일시</label>
-                <input type="date" name="not_op_date" id="id_op_date" value="<?php if(isset($row)){echo $row['not_op_date'];}?>">
-                <label for  = "not_close">종료일시</label>
-                <input type="date" name="not_cl_date" id="id_cl_date" value="<?php if(isset($row)){echo $row['not_cl_date'];}?>"><br>
-                <label for  = "not_detail">내용</label><br>
-                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10"><?php if(isset($row)){echo $row['not_detail'];}?></textarea><br>
-                <label for  = "not_det_url">내용 이미지</label>
-                <input type= "file" name="not_det_url" id="id_det" value="">
-                <input class="input file_name" type= "text" id="file_det" value="" readonly>
-                <label class="lb" for="id_det">파일찾기</label>
-                <input type="hidden" name="not_det_url" value="<?php if(isset($row)){echo $row['not_det_url'];}?>"><br>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckBan" onclick="ban_box(this)">
-                    <label class="form-check-label" for="flexCheckBan">
-                        배너
-                    </label>
-                </div>
-                <label for  = "not_ban_url">배너이미지</label>
-                <input type= "file" name="not_ban_url" id="id_ban" value="" disabled>
-                <input class="input file_name" type="text" id="file_ban" value="" readonly disabled>
-                <label class="lb" for="id_ban">파일찾기</label>
-                <input type="hidden" name="not_ban_url" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>"><br>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckPop" onclick="pop_box(this)">
-                    <label class="form-check-label" for="flexCheckPop">
-                        팝업
-                    </label>
-                </div>
-                <label for  = "not_pop_url">팝업이미지</label>
-                <input type= "file" name="not_pop_url" id="id_pop" value="" disabled>
-                <input class="input file_name" type="text" id="file_pop" value="" readonly disabled>
-                <label class="lb" for="id_pop">파일찾기</label>
-                <input type="hidden" name="not_pop_url" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>"><br>
-                <label for  = "not_pop_x">팝업 좌측 위치</label>
-                <input class="input number" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled>
-                <label for  = "not_pop_y">팝업 상단 위치</label>
-                <input class="input number" type= "number" name="not_pop_y" id="id_pop_y" value="<?php if(isset($row)){echo $row['not_pop_y'];}?>" disabled>
-                <label for  = "not_pop_wid">팝업 넓이</label>
-                <input class="input number" type= "number" name="not_pop_wid" id="id_pop_wid" value="<?php if(isset($row)){echo $row['not_pop_wid'];}?>" disabled>
-                <label for  = "not_pop_hei">팝업 높이</label>
-                <input class="input number" type= "number" name="not_pop_hei" id="id_pop_hei" value="<?php if(isset($row)){echo $row['not_pop_hei'];}?>" disabled><br>
-                <input type="hidden" name="not_no" value="<?php if(isset($row)){echo $row['not_no'];}?>">
+        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
+            <ul>
+                <li><label for  = "id_name">제목</label>
+                    <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"></li>
+                <li><label for  = "id_op_date">시작일시</label>
+                    <input type="date" name="not_op_date" id="id_op_date" value="<?php if(isset($row)){echo $row['not_op_date'];}?>">
+                    <label for  = "id_cl_date">종료일시</label>
+                    <input type="date" name="not_cl_date" id="id_cl_date" value="<?php if(isset($row)){echo $row['not_cl_date'];}?>"></li>
+                <li><label for  = "id_context">내용</label></li>
+                <li><textarea class="context" name="not_detail" id="id_context" cols="30" rows="10"><?php if(isset($row)){echo $row['not_detail'];}?></textarea></li>
+                <li><label for  = "id_det">내용 이미지</label>
+                    <input type= "file" name="not_det_url" id="id_det" value="">
+                    <input class="input file_name" type= "text" id="file_det" value="" readonly>
+                    <label class="lb" for="id_det">파일찾기</label>
+                    <input type="hidden" name="not_det_url" value="<?php if(isset($row)){echo $row['not_det_url'];}?>"></li>
+                <li><div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckBan" onclick="ban_box(this)">
+                        <label class="form-check-label" for="flexCheckBan">배너</label>
+                    </div>
+                    <label for  = "id_ban">배너이미지</label>
+                    <input type= "file" name="not_ban_url" id="id_ban" value="" disabled>
+                    <input class="input file_name" type="text" id="file_ban" value="" readonly disabled>
+                    <label class="lb" for="id_ban">파일찾기</label>
+                    <input type="hidden" name="not_ban_url" value="<?php if(isset($row)){echo $row['not_ban_url'];}?>"></li>
+                <li><div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckPop" onclick="pop_box(this)">
+                        <label class="form-check-label" for="flexCheckPop">팝업</label>
+                    </div>
+                    <label for  = "id_pop">팝업이미지</label>
+                    <input type= "file" name="not_pop_url" id="id_pop" value="" disabled>
+                    <input class="input file_name" type="text" id="file_pop" value="" readonly disabled>
+                    <label class="lb" for="id_pop">파일찾기</label>
+                    <input type="hidden" name="not_pop_url" value="<?php if(isset($row)){echo $row['not_pop_url'];}?>"></li>
+                <li><label for  = "id_pop_x">팝업 좌측 위치</label>
+                    <input class="input number" type= "number" name="not_pop_x" id="id_pop_x" value="<?php if(isset($row)){echo $row['not_pop_x'];}?>" disabled>
+                    <label for  = "id_pop_y">팝업 상단 위치</label>
+                    <input class="input number" type= "number" name="not_pop_y" id="id_pop_y" value="<?php if(isset($row)){echo $row['not_pop_y'];}?>" disabled>
+                    <label for  = "id_pop_wid">팝업 넓이</label>
+                    <input class="input number" type= "number" name="not_pop_wid" id="id_pop_wid" value="<?php if(isset($row)){echo $row['not_pop_wid'];}?>" disabled>
+                    <label for  = "id_pop_hei">팝업 높이</label>
+                    <input class="input number" type= "number" name="not_pop_hei" id="id_pop_hei" value="<?php if(isset($row)){echo $row['not_pop_hei'];}?>" disabled></li>
             </ul>
+            <input type="hidden" name="not_no" value="<?php if(isset($row)){echo $row['not_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value="지우기">
             </div>
         <?php }else{?>
             <h2><?=$title?></h2>
-            <ul><label for  = "not_name">제목</label>
-                <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>" readonly><br>
-                <label for  = "not_detail">내용</label><br>
-                <a href="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>">
-                    <img src="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>" width="75%">
-                </a><br>
-                <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10" readonly>
-<?php if(isset($row)){echo $row['not_detail'];}?>
-                </textarea><br>
+            <ul>
+                <li><label for  = "id_name">제목</label>
+                    <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>" readonly></li>
+                <li><label for  = "id_context">내용</label></li>
+                <li><a href="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>">
+                    <img src="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>" alt="" style="width:75%">
+                    </a></li>
+                <li><textarea class="context" name="not_detail" id="id_context" cols="30" rows="10" readonly>
+                    <?php if(isset($row)){echo $row['not_detail'];}?>
+                    </textarea></li>
             </ul>
             <div class="form_class">
                 <input type="button" value="이전" onclick="javascript:history.back()">
