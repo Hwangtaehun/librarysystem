@@ -241,13 +241,26 @@ main .quickmenu h2{
     margin: 10px;
 }
 
-main .quickmenu .quick{
+main .quick{
     height: 120px;
     width: 120px;
     margin: 15px auto;
     border-style: outset;
     border-radius: 25px 25px 25px 25px;
     background-color: #F5F5F5;
+}
+
+main .quick img{
+    display: block;
+    margin: auto auto;
+    width: 90%;
+    height: 95%;
+}
+
+main .quick h5{
+    margin-top: 7px;
+    text-align: center;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
 footer {

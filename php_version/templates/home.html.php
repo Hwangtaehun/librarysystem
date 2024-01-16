@@ -16,6 +16,10 @@
     if(isset($_SESSION['mem_state'])){
         $mem_state = $_SESSION['mem_state'];
     }
+
+    if(isset($_SESSION['mem_no'])){
+        $mem_no = $_SESSION['mem_no'];
+    }
     ?>
     <body>
         <!-- 검색창 -->
@@ -71,6 +75,43 @@
                     </div>
                 <?php endforeach; }?>
                 </fieldset>
+            </div>
+        </div>
+        <div class="quickmenu">
+            <div id="context">
+                <h2>자주찾는 메뉴</h2>
+                <h5>필요한 정보를<br>
+                    빠르게 찾아보세요.</h5>
+            </div>
+            <div class="quick" id="menu1">
+                <a href="<?php echo "/not/list"; ?>">
+                    <img src="../img/icon/not.png" alt="">
+                </a>
+                <h6><?php if($mem_state == 1){echo "공지사항관리";}else{echo "공지사항";} ?></h6>
+            </div>
+            <div class="quick" id="menu2">
+                <a href="<?php if($mem_state == 1){echo "/member/list";}else if($mem_state == 3){echo "/member/logalert";}else{echo "/member/addupdate?mem_no='.$mem_no";} ?>">
+                    <img src="../img/icon/mem.png" alt="">
+                </a>
+                <h6><?php if($mem_state == 1){echo "회원";}else{echo "회원정보수정";} ?></h6>
+            </div>
+            <div class="quick" id="menu3">
+                <a href="<?php if($mem_state == 1){echo "/len/list";}else{echo "/len/memLent";} ?>">
+                    <img src="../img/icon/lent.png" alt="">
+                </a>
+                <h6><?php if($mem_state == 1){echo "대출관리";}else{echo "대출중도서";} ?></h6>
+            </div>
+            <div class="quick" id="menu4">
+                <a href="<?php echo "/res/list"; ?>">
+                    <img src="../img/icon/res.png" alt="">
+                </a>
+                <h6><?php if($mem_state == 1){echo "예약관리";}else{echo "예약내역";} ?></h6>
+            </div>
+            <div class="quick" id="menu5">
+                <a href="<?php echo "/del/list" ?>">
+                    <img src="../img/icon/del.png" alt="">
+                </a>
+                <h6><?php if($mem_state == 1){echo "상호대차관리";}else{echo "상호대차내역";} ?></h6>
             </div>
         </div>
         <script>
