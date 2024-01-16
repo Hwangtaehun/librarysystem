@@ -26,7 +26,7 @@ body {
 
 @media (max-width: 668px){
     body {
-        grid-template-rows: 60px 55px auto 35px 0px;
+        grid-template-rows: 60px 55px auto 35px;
         grid-template-columns: 140px auto;
         grid-template-areas:
         'header header'
@@ -37,8 +37,12 @@ body {
     }
 }
 
-header{grid-area: header;}
-header a img{float: left; height: 60px;}
+header{
+    grid-area: header;
+}
+header a img{
+    float: left; height: 60px;
+}
 header h1{
     float: left;
     color: #000000;
@@ -49,18 +53,15 @@ header .link {
     text-decoration: none;
     list-style:none;
 }
-header .link li{
-    margin-right: 10px;
+header .link a{
+    margin: 5px;
     font-size: 95%;
-}
-header .link li a{
-    margin-left: 10px;
     color: #f91717;
 }
 
 nav{
-    grid-area: nav; 
-    display: flex;
+    grid-area: nav;
+    z-index: 2;
 }
 .navbar-collapse{
     background-color: #f8f9fa;
@@ -152,7 +153,7 @@ main .card .card-body .card-text{
 #form_fieldset{
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
-#form_fieldset > legend{
+#form_fieldset > fieldset{
     font-size: 10px;
 }
 #form_fieldset > .form_class{
@@ -162,11 +163,14 @@ main .card .card-body .card-text{
     border-top: 1px solid #000000;
     border-bottom: 1px solid #000000;
 }
-#form_fieldset > ul > label{
+#form_fieldset > ul > li{
+    list-style: none;
+}
+#form_fieldset > ul > li > label{
     width: 110px;
     margin-bottom: 10px;
 }
-#form_fieldset > ul > .input{
+#form_fieldset > ul > li > .input{
     margin-bottom: 10px;
     border: none;
     border-bottom: 1px solid #000000;
@@ -204,6 +208,10 @@ aside{
     margin-top: 0.5em; 
     z-index: 1;
 }
+aside menu{
+    margin: 0;
+    padding: 0;
+}
 aside h3 {
     color: #000000; 
     text-decoration: none; 
@@ -225,8 +233,37 @@ aside li {
     background: #4D4C7D;
 }
 
-footer {grid-area: footer; text-align: center; border-style: hidden;}
-footer img {height: 35px;}
+footer {
+    grid-area: footer; 
+    text-align: center; 
+    border-style: hidden;
+}
+
+footer img {
+    height: 35px;
+}
+
+/*테이블 메뉴*/
+footer .table_menu{
+    display: table;
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+}
+
+footer .table_menu table{
+    margin: 0 auto;
+}
+
+footer .table_menu table td{
+    padding: 10px;
+}
+
+footer .table_menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
 
 /* 주소 */
 #id_add{

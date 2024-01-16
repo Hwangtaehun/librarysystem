@@ -139,12 +139,17 @@ class MatController{
                 $in .= $m_row[$i][0].', ';
             }
             $in = rtrim($in, ', ');
-            
+
             $lib_no = $_POST['lib_research'];
             if(sizeof($m_row) == 0){
-                if($lib_no != 0){
-                    $where = "AND library.lib_no LIKE $lib_no";
-                    $value = "lib_no=$lib_no";
+                if($value == '%%'){
+                    if($lib_no != 0){
+                        $where = "AND library.lib_no LIKE $lib_no";
+                        $value = "lib_no=$lib_no";
+                    }
+                }
+                else{
+                    return ['tempName'=>'matList.html.php','title'=>$title,'pagi'=>''];
                 }
             }
             else{

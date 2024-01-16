@@ -1,6 +1,6 @@
 body {
     background-image : url('../img/pop_bg.jpg');
-    color: #F99417;
+    color: #F5F5F5;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 25px auto 50px;
@@ -22,12 +22,9 @@ header .link {
     text-decoration: none;
     list-style:none;
 }
-header .link li{
-    margin-right: 10px;
+header .link a{
+    margin: 5px;
     font-size: 95%;
-}
-header .link li a{
-    margin-left: 10px;
     color: #f91717;
 }
 

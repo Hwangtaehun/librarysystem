@@ -26,7 +26,7 @@ body {
 
 @media (max-width: 668px){
     body {
-        grid-template-rows: 60px 55px auto 35px 0px;
+        grid-template-rows: 60px 55px auto 35px;
         grid-template-columns: 140px auto;
         grid-template-areas:
         'header header'
@@ -47,22 +47,22 @@ header .link {
     text-decoration: none;
     list-style:none;
 }
-header .link li{
-    margin-right: 10px;
+header .link a{
+    margin: 5px;
     font-size: 95%;
-}
-header .link li a{
-    margin-left: 10px;
     color: #f91717;
 }
 
-nav{grid-area: nav; display: flex;}
+nav{
+    grid-area: nav;
+    z-index: 2;
+}
 .navbar-collapse{
     background-color: #f8f9fa;
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active{
     background-color: #363062;
-    color: #F5F5F5
+    color: #F5F5F5;
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active:hover{
     background-color: #F99417;
@@ -72,7 +72,7 @@ nav{grid-area: nav; display: flex;}
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
     background-color: #4D4C7D;
-    color: #F5F5F5
+    color: #F5F5F5;
 }
 
 main{
@@ -120,6 +120,17 @@ main .main_context{
     grid-template-areas:
     'slider board'
     '. .';
+}
+
+@media (max-width: 1020px){
+    main .main_context{
+        display: grid;
+        grid-template-rows: 300px auto;
+        grid-template-columns: auto 500px auto;
+        grid-template-areas:
+        '. slider .'
+        '. board .';
+    }
 }
 
 /* 슬라이드 */
@@ -221,6 +232,24 @@ main .board h3{
     text-align: center;
 }
 
+main .quickmenu{
+    display: flex;
+    height: 150px;
+}
+
+main .quickmenu h2{
+    margin: 10px;
+}
+
+main .quickmenu .quick{
+    height: 120px;
+    width: 120px;
+    margin: 15px auto;
+    border-style: outset;
+    border-radius: 25px 25px 25px 25px;
+    background-color: #F5F5F5;
+}
+
 footer {
     grid-area: footer;
     text-align: center;
@@ -229,6 +258,28 @@ footer {
 
 footer img {
     height: 35px;
+}
+
+/*테이블 메뉴*/
+footer .table_menu{
+    display: table;
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+}
+
+footer .table_menu table{
+    margin: 0 auto;
+}
+
+footer .table_menu table td{
+    padding: 10px;
+}
+
+footer .table_menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
 #fieldset_row {

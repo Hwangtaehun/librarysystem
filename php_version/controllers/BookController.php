@@ -66,7 +66,7 @@ class BookController{
             $value = $_GET['value'];
         }
         
-        $where = "WHERE book_name LIKE '$value'";
+        $where = "WHERE book_name LIKE '$value' OR book_author LIKE '$value' OR book_publish LIKE '$value'";
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
