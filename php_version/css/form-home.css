@@ -224,6 +224,7 @@ main .slide_item_duplicate{
 }
 
 main .board{
+    background-color: #F5F5F5;
     grid-area: board;
     margin: 10px;
 }
