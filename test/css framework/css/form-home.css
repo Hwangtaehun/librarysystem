@@ -224,6 +224,7 @@ main .slide_item_duplicate{
 }
 
 main .board{
+    background-color: #F5F5F5;
     grid-area: board;
     margin: 10px;
 }
@@ -257,7 +258,7 @@ main .quick img{
     height: 95%;
 }
 
-main .quick h5{
+main .quick h6{
     margin-top: 7px;
     text-align: center;
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
@@ -318,4 +319,82 @@ footer .table_menu a{
     display: table-cell;
     text-align: justify; 
     float: right;
+}
+
+/*달력*/
+
+.header {
+    display: flex;
+    font-size: 48px;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 12px;
+    margin: 12px 24px 12px 24px;
+    border-bottom: 2px solid #aaaaaa;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.prevBtn{
+    background:url('../img/left.png') center center / 100% no-repeat;
+    height: 96px;
+    width: 96px;
+    border:none;
+}
+
+.nextBtn{
+    background:url('../img/right.png') center center / 100% no-repeat;
+    height: 96px;
+    width: 96px;
+    border:none;
+}
+
+.main {
+    display: flex;
+    background-color: rgba(122, 133, 255, 0.4);
+    flex-direction: column;
+    margin: 12px 24px 0px 24px;
+}
+
+.daies {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.dates {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.date, .day{
+    text-align: center;
+    width: calc(100%/7);
+    padding: 16px 0 16px 0;
+    box-sizing: border-box;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+.date:nth-child(7n),
+.day:nth-child(7n) {
+    color: #4491DB;
+}
+
+.date:nth-child(7n+1),
+.day:nth-child(7n+1) {
+    color: #DB4455;
+}
+
+.today {
+    border: 2px solid #EFBBCF !important;
+}
+
+.cloud {
+    filter:opacity(50%)
 }

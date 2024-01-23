@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang = "en">
     <head>
@@ -14,8 +13,7 @@
             <div class="link">
             <a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a>            </div>
                     </header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        
-        <main>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
             <!doctype html>
 <html>
     <head>
@@ -68,39 +66,128 @@
         </div>
         <div class="quickmenu">
             <div id="context">
-                <h2>자주찾는 메뉴</h2><br>
+                <h2>자주찾는 메뉴</h2>
+                <h5>필요한 정보를<br>
+                    빠르게 찾아보세요.</h5>
             </div>
             <div class="quick" id="menu1">
-                <a href="">
+                <a href="/not/list">
                     <img src="../img/icon/not.png" alt="">
                 </a>
-                <h5>공지사항</h5>
+                <h6>공지사항</h6>
             </div>
             <div class="quick" id="menu2">
-                <a href="">
+                <a href="/member/logalert">
                     <img src="../img/icon/mem.png" alt="">
                 </a>
-                <h5>회원</h5>
+                <h6>회원정보수정</h6>
             </div>
             <div class="quick" id="menu3">
-                <a href="">
+                <a href="/len/memLent">
                     <img src="../img/icon/lent.png" alt="">
                 </a>
-                <h5>대출</h5>
+                <h6>대출중도서</h6>
             </div>
             <div class="quick" id="menu4">
-                <a href="">
+                <a href="/res/list">
                     <img src="../img/icon/res.png" alt="">
                 </a>
-                <h5>예약</h5>
+                <h6>예약내역</h6>
             </div>
             <div class="quick" id="menu5">
-                <a href="">
+                <a href="/del/list">
                     <img src="../img/icon/del.png" alt="">
                 </a>
-                <h5>상호대차</h5>
+                <h6>상호대차내역</h6>
             </div>
         </div>
+        <div class="calender">
+            <div class="header">
+              <button class="prevBtn" onclick="prevCal()"></button>
+              <div class="title">
+                <div class="yearTitle"></div>
+                <div>년</div>
+                <div class="monthTitle"></div>
+                <div>월</div>
+              </div>
+              <button class="nextBtn" onclick="nextCal()"></button>
+            </div>
+            <div class="main">
+              <div class="daies">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+              </div>
+              <div class="dates"></div>
+            </div>
+          </div>
+        <script>
+            let CDate = new Date();
+            let today = new Date();
+
+            buildCalender();
+
+            function buildCalender(){
+                let size_pre = 0;
+                let size_next = 0;
+                let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
+                let thisFirst = new Date(CDate.getFullYear(), CDate.getMonth(), 1);
+                let thisLast = new Date(CDate.getFullYear(), CDate.getMonth() + 1, 0);
+                document.querySelector(".yearTitle").innerHTML = CDate.getFullYear();
+                document.querySelector(".monthTitle").innerHTML = CDate.getMonth() + 1;
+                let dates = [];
+
+                if(thisFirst.getDay()!=0){
+                    size_pre = thisFirst.getDay();
+                    for(let i = 0; i < thisFirst.getDay(); i++){
+                        dates.unshift(prevLast.getDate()-i);
+                    }
+                }
+
+                for(let i = 1; i <= thisLast.getDate(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 1; i <= 13 - thisLast.getDay(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 0; i < 42; i++){
+                    if(dates[i-1] > dates[i]){
+                        size_next = i;
+                    }
+                }
+
+                let htmlDates = '';
+                for(let i = 0; i < 42; i++){
+                    if(today.getDate()==dates[i] && today.getMonth()==CDate.getMonth() && today.getFullYear()==CDate.getFullYear()){
+                        htmlDates += `<div class="date today">${dates[i]}</div>`;
+                    }
+                    else if(i < size_pre || size_next <= i){
+                        htmlDates += `<div class="date cloud">${dates[i]}</div>`;
+                    }
+                    else{
+                        htmlDates += `<div class="date">${dates[i]}</div>`;
+                    }
+                }
+                
+                document.querySelector(".dates").innerHTML = htmlDates;
+            }
+
+            function prevCal(){
+                CDate.setMonth(CDate.getMonth()-1);
+                buildCalender();
+            }
+
+            function nextCal(){
+                CDate.setMonth(CDate.getMonth()+1);
+                buildCalender();
+            }
+        </script>
         <script>
             // 슬라이드 배너 사용하는 스크립트
             const slide = document.querySelector(".slide");
