@@ -28,7 +28,8 @@
                 <select id = "s1" name = "lib_research">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
-                        $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
+                        $no[$z] = $lib[$z][0]; 
+                        $name[$z] = $lib[$z][1];
                     }
                     for($z = 0;$z < sizeof($lib); $z++){
                         echo "<option  value = $no[$z] > $name[$z] </option>";
@@ -112,6 +113,43 @@
                     <img src="../img/icon/del.png" alt="">
                 </a>
                 <h6><?php if($mem_state == 1){echo "상호대차관리";}else{echo "상호대차내역";} ?></h6>
+            </div>
+        </div>
+        <div class="calender">
+            <div class="header">
+              <div class="select">
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) window.open(this.value);">
+                <?php
+                    for($z = 1; $z < sizeof($lib); $z++){
+                        $no[$z] = $lib[$z][0]; 
+                        $name[$z] = $lib[$z][1];
+                    }
+                    for($z = 1;$z < sizeof($lib); $z++){
+                        echo "<option  value = /member/home?lib_no=$no[$z] > $name[$z] </option>";
+                    }
+                ?>               
+                </select>
+              </div>
+              <button class="prevBtn" onclick="prevCal()"></button>
+              <div class="title">
+                <div class="yearTitle"></div>
+                <div>년</div>
+                <div class="monthTitle"></div>
+                <div>월</div>
+              </div>
+              <button class="nextBtn" onclick="nextCal()"></button>
+            </div>
+            <div class="main">
+              <div class="daies">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+              </div>
+              <div class="dates"></div>
             </div>
         </div>
         <script>
@@ -276,6 +314,72 @@
                 }, 3000);
             });
             //참고 사이트: https://devinus.tistory.com/48
+        </script>
+        <script>
+            //달력 스크립트
+            let CDate = new Date();
+            let today = new Date();
+
+            buildCalender();
+
+            function buildCalender(){
+                let rest = 8;
+                let size_pre = 0;
+                let size_next = 0;
+                let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
+                let thisFirst = new Date(CDate.getFullYear(), CDate.getMonth(), 1);
+                let thisLast = new Date(CDate.getFullYear(), CDate.getMonth() + 1, 0);
+                document.querySelector(".yearTitle").innerHTML = CDate.getFullYear();
+                document.querySelector(".monthTitle").innerHTML = CDate.getMonth() + 1;
+                let dates = [];
+
+                if(thisFirst.getDay()!=0){
+                    size_pre = thisFirst.getDay();
+                    for(let i = 0; i < thisFirst.getDay(); i++){
+                        dates.unshift(prevLast.getDate()-i);
+                    }
+                }
+
+                for(let i = 1; i <= thisLast.getDate(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 1; i <= 13 - thisLast.getDay(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 0; i < 42; i++){
+                    if(dates[i-1] > dates[i]){
+                        size_next = i;
+                    }
+                }
+
+                let htmlDates = '';
+                for(let i = 0; i < 42; i++){
+                    if(i < size_pre || size_next <= i){
+                        htmlDates += `<div class="date cloud">${dates[i]}</div>`;
+                    }
+                    else if(i % 7 == rest){
+                        htmlDates += `<div class="date break">${dates[i]}</div>`;
+                    }
+                    else{
+                        htmlDates += `<div class="date">${dates[i]}</div>`;
+                    }
+                }
+                
+                document.querySelector(".dates").innerHTML = htmlDates;
+            }
+
+            function prevCal(){
+                CDate.setMonth(CDate.getMonth()-1);
+                buildCalender();
+            }
+
+            function nextCal(){
+                CDate.setMonth(CDate.getMonth()+1);
+                buildCalender();
+            }
+            //참고 사이트: https://cl0clam.tistory.com/5
         </script>
     </body>
 </html>

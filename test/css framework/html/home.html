@@ -27,7 +27,8 @@
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
-                    <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                </select>
+                    <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                
+                </select>
                 <input type="text" name="user_research" id="id_research" value = "" placeholder="도서 이름을 입력해주세요.">
                 <button type="submit" class="btn btn-outline-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -103,6 +104,14 @@
         </div>
         <div class="calender">
             <div class="header">
+              <div class="select">
+                <select id = "s2" name = "lib_select">
+                    <option  value = 1 > 청주청원도서관 </option>
+                    <option  value = 2 > 청주상당도서관 </option>
+                    <option  value = 3 > 청주흥덕도서관 </option>
+                    <option  value = 4 > 청주금빛도서관 </option>                
+                </select>
+              </div>
               <button class="prevBtn" onclick="prevCal()"></button>
               <div class="title">
                 <div class="yearTitle"></div>
@@ -124,7 +133,7 @@
               </div>
               <div class="dates"></div>
             </div>
-          </div>
+        </div>
         <script>
             let CDate = new Date();
             let today = new Date();
@@ -132,6 +141,7 @@
             buildCalender();
 
             function buildCalender(){
+                let rest = 8;
                 let size_pre = 0;
                 let size_next = 0;
                 let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
@@ -164,11 +174,11 @@
 
                 let htmlDates = '';
                 for(let i = 0; i < 42; i++){
-                    if(today.getDate()==dates[i] && today.getMonth()==CDate.getMonth() && today.getFullYear()==CDate.getFullYear()){
-                        htmlDates += `<div class="date today">${dates[i]}</div>`;
-                    }
-                    else if(i < size_pre || size_next <= i){
+                    if(i < size_pre || size_next <= i){
                         htmlDates += `<div class="date cloud">${dates[i]}</div>`;
+                    }
+                    else if(i % 7 == rest){
+                        htmlDates += `<div class="date break">${dates[i]}</div>`;
                     }
                     else{
                         htmlDates += `<div class="date">${dates[i]}</div>`;

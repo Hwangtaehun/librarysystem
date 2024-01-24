@@ -62,7 +62,7 @@ nav{
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active{
     background-color: #363062;
-    color: #F5F5F5;
+    color: #F5F5F5
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active:hover{
     background-color: #F99417;
@@ -72,7 +72,7 @@ nav{
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
     background-color: #4D4C7D;
-    color: #F5F5F5;
+    color: #F5F5F5
 }
 
 main{
@@ -224,44 +224,12 @@ main .slide_item_duplicate{
 }
 
 main .board{
-    background-color: #F5F5F5;
     grid-area: board;
     margin: 10px;
 }
 main .board h3{
     color: #F99417;
     text-align: center;
-}
-
-main .quickmenu{
-    display: flex;
-    height: 150px;
-}
-
-main .quickmenu h2{
-    margin: 10px;
-}
-
-main .quick{
-    height: 120px;
-    width: 120px;
-    margin: 15px auto;
-    border-style: outset;
-    border-radius: 25px 25px 25px 25px;
-    background-color: #F5F5F5;
-}
-
-main .quick img{
-    display: block;
-    margin: auto auto;
-    width: 90%;
-    height: 95%;
-}
-
-main .quick h6{
-    margin-top: 7px;
-    text-align: center;
-    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
 footer {
@@ -321,7 +289,27 @@ footer .table_menu a{
     float: right;
 }
 
-/*달력*/
+:root {
+    --bg-color: #F6F6F6;
+    --line-color: #aaaaaa;
+    --sat-color: #FFE2E2;
+    --sun-color: #FFC7C7;
+    --today-color: #EFBBCF;
+    --font: 'Raleway';
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--bg-color);
+    font-family: var(--font);
+}
+
+button {
+    font-family: var(--font);
+    border:none;
+    height: 32px;;
+}
 
 .header {
     display: flex;
@@ -330,71 +318,47 @@ footer .table_menu a{
     align-items: center;
     padding-bottom: 12px;
     margin: 12px 24px 12px 24px;
-    border-bottom: 2px solid #aaaaaa;
+    border-bottom: 2px solid var(--line-color);
 }
 
 .title {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.prevBtn{
-    background:url('../img/left.png') center center / 100% no-repeat;
-    height: 96px;
-    width: 96px;
-    border:none;
-}
-
-.nextBtn{
-    background:url('../img/right.png') center center / 100% no-repeat;
-    height: 96px;
-    width: 96px;
-    border:none;
-}
-
 .main {
     display: flex;
-    background-color: rgba(122, 133, 255, 0.4);
     flex-direction: column;
     margin: 12px 24px 0px 24px;
 }
-
 .daies {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
-
 .dates {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
-
 .date, .day{
     text-align: center;
     width: calc(100%/7);
     padding: 16px 0 16px 0;
     box-sizing: border-box;
-    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
-
 .date:nth-child(7n),
 .day:nth-child(7n) {
-    color: #4491DB;
+    background-color: var(--sat-color);
+    color: blue;
 }
-
 .date:nth-child(7n+1),
 .day:nth-child(7n+1) {
-    color: #DB4455;
+    background-color: var(--sun-color);
+    color: red;
 }
-
 .today {
-    border: 2px solid #EFBBCF !important;
-}
-
-.cloud {
-    filter:opacity(50%)
+    border: 2px solid var(--today-color) !important;
 }
