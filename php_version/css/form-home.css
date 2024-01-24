@@ -253,6 +253,7 @@ main .quickmenu h2{
 }
 
 main .quickmenu h5{
+    margin: 10px;
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
