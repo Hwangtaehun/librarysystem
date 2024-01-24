@@ -124,8 +124,18 @@
                         $no[$z] = $lib[$z][0]; 
                         $name[$z] = $lib[$z][1];
                     }
+
+                    $lib_no = 1;
+                    if(isset($_GET['lib_no'])){
+                        $lib_no = $_GET['lib_no'];
+                    }
+
                     for($z = 1;$z < sizeof($lib); $z++){
-                        echo "<option  value = /member/home?lib_no=$no[$z] > $name[$z] </option>";
+                        if($lib_no == $z){
+                            echo "<option  value = /member/home?lib_no=$no[$z] selected> $name[$z] </option>";
+                        }else{
+                            echo "<option  value = /member/home?lib_no=$no[$z] > $name[$z] </option>";
+                        }
                     }
                 ?>               
                 </select>
