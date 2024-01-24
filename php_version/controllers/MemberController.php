@@ -37,13 +37,23 @@ class MemberController{
 
     //홈화면 함수
     public function home(){
+        //공지사항
         $sort = "ORDER BY not_no DESC";
         $sql = "WHERE `not_op_date` <= '$this->today' AND `not_cl_date` > '$this->today' $sort"; //배너
         $sql1 = "WHERE `not_op_date` <= '$this->today' $sort"; //공지사항 게시판
         $result = $this->notTable->whereSQL($sql);
         $result1 = $this->notTable->whereSQL($sql1);
+
+        //휴일요일
+        $id = 1;
+        if(isset($_GET['lib_no'])){
+            $id = $_GET['lib_no'];
+        }
+        $row = $this->libTable->selectID($id);
+        $close = $row['lib_close'];
+
         $title = '도서관 관리';
-        return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1];
+        return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'close'=>$close];
     }
 
     public function list(){

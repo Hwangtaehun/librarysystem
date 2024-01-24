@@ -118,7 +118,7 @@
         <div class="calender">
             <div class="header">
               <div class="select">
-                <select id = "s2" name = "lib_select" onchange = "if(this.value) window.open(this.value);">
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
                 <?php
                     for($z = 1; $z < sizeof($lib); $z++){
                         $no[$z] = $lib[$z][0]; 
@@ -319,11 +319,15 @@
             //달력 스크립트
             let CDate = new Date();
             let today = new Date();
+            let rest = 8;
+
+            <?php
+            echo "rest = $close;";
+            ?>
 
             buildCalender();
 
             function buildCalender(){
-                let rest = 8;
                 let size_pre = 0;
                 let size_next = 0;
                 let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
