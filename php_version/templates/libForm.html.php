@@ -41,6 +41,15 @@
                     <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly></li>
                 <li><label></label>
                     <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"></li>
+                <li><label>닫는 날짜</label>
+                    <input type="radio" name="lib_close" id="id_sun" value="0"> 일요일
+                    <input type="radio" name="lib_close" id="id_mon" value="1"> 월요일
+                    <input type="radio" name="lib_close" id="id_tue" value="2"> 화요일
+                    <input type="radio" name="lib_close" id="id_wed" value="3"> 수요일
+                    <input type="radio" name="lib_close" id="id_thu" value="4"> 목요일
+                    <input type="radio" name="lib_close" id="id_fri" value="5"> 금요일
+                    <input type="radio" name="lib_close" id="id_sat" value="6"> 토요일
+                    <input type="radio" name="lib_close" id="id_null" value="7"> 없음</li>
             </ul>
             <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
             <div class="form_class">
@@ -98,6 +107,49 @@
                 }
             }).open();
         }
+
+        const sun = document.querySelector('#id_sun');
+        const mon = document.querySelector('#id_mon');
+        const tue = document.querySelector('#id_tue');
+        const wed = document.querySelector('#id_wed');
+        const thu = document.querySelector('#id_thu');
+        const fri = document.querySelector('#id_fri');
+        const sat = document.querySelector('#id_sat');
+        const noting = document.querySelector('#id_null');
+        
+    <?php
+    $lib_close = 7;
+    
+    if(isset($row['lib_close'])){ 
+        $lib_close = $row['lib_close'];
+    }
+
+    if($lib_close == 0){
+        echo "sun.checked = true;";
+    }
+    else if($lib_close == 1){
+        echo "mon.checked = true;";
+    }
+    else if($lib_close == 2){
+        echo "tue.checked = true;";
+    }
+    else if($lib_close == 3){
+        echo "wed.checked = true;";
+    }
+    else if($lib_close == 4){
+        echo "thu.checked = true;";
+    }
+    else if($lib_close == 5){
+        echo "fri.checked = true;";
+    }
+    else if($lib_close == 6){
+        echo "sat.checked = true;";
+    }
+    else{
+        echo "noting.checked = true;";
+    }
+    ?>
+
     </script>
 </body>
 </html>

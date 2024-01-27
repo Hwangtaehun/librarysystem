@@ -40,7 +40,37 @@
     <?php }else{ ?>
         <div class="row row-cols-3">
     <?php }?>
-<?php if(isset($result)){foreach($result as $row): ?>
+<?php if(isset($result)){foreach($result as $row): 
+        if(isset($row['lib_close'])){
+            $close = '없음';
+            switch ($row['lib_close']) {
+                case 0:
+                    $close = '일요일';
+                    break;
+                case 1:
+                    $close = '월요일';
+                    break;
+                case 2:
+                    $close = '화요일';
+                    break;
+                case 3:
+                    $close = '수요일';
+                    break;
+                case 4:
+                    $close = '목요일';
+                    break;  
+                case 5:
+                    $close = '금요일';
+                    break;
+                case 6:
+                    $close = '월요일';
+                    break;
+                default:
+                    $close = '연중무휴';
+                    break;
+            }
+        }
+?>
         <div class="col">
             <div class="card" style="width: 16rem; height: 200px;">
                 <div class="card-body">
@@ -50,6 +80,7 @@
                 <p class="card-text">
                     설립일: <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?><br>
                     주소: <?=htmlspecialchars($row['lib_add'],ENT_QUOTES,'UTF-8');?><br>
+                    쉬는날: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
                 </p>
                 <?php
                     if($ispop){

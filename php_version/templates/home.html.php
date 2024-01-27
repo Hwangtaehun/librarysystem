@@ -132,9 +132,9 @@
 
                     for($z = 1;$z < sizeof($lib); $z++){
                         if($lib_no == $z){
-                            echo "<option  value = /member/home?lib_no=$no[$z] selected> $name[$z] </option>";
+                            echo "<option  value='/member/home?lib_no=$no[$z]' selected> $name[$z] </option>";
                         }else{
-                            echo "<option  value = /member/home?lib_no=$no[$z] > $name[$z] </option>";
+                            echo "<option  value='/member/home?lib_no=$no[$z]' > $name[$z] </option>";
                         }
                     }
                 ?>               
@@ -329,7 +329,7 @@
             //달력 스크립트
             let CDate = new Date();
             let today = new Date();
-            let rest = 8;
+            let rest = 7;
 
             <?php
             echo "rest = $close;";
