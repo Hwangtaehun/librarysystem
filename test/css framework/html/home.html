@@ -27,8 +27,7 @@
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
-                    <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                
-                </select>
+                    <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                </select>
                 <input type="text" name="user_research" id="id_research" value = "" placeholder="도서 이름을 입력해주세요.">
                 <button type="submit" class="btn btn-outline-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -105,11 +104,8 @@
         <div class="calender">
             <div class="header">
               <div class="select">
-                <select id = "s2" name = "lib_select">
-                    <option  value = 1 > 청주청원도서관 </option>
-                    <option  value = 2 > 청주상당도서관 </option>
-                    <option  value = 3 > 청주흥덕도서관 </option>
-                    <option  value = 4 > 청주금빛도서관 </option>                
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
+                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option>               
                 </select>
               </div>
               <button class="prevBtn" onclick="prevCal()"></button>
@@ -134,70 +130,6 @@
               <div class="dates"></div>
             </div>
         </div>
-        <script>
-            let CDate = new Date();
-            let today = new Date();
-
-            buildCalender();
-
-            function buildCalender(){
-                let rest = 8;
-                let size_pre = 0;
-                let size_next = 0;
-                let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
-                let thisFirst = new Date(CDate.getFullYear(), CDate.getMonth(), 1);
-                let thisLast = new Date(CDate.getFullYear(), CDate.getMonth() + 1, 0);
-                document.querySelector(".yearTitle").innerHTML = CDate.getFullYear();
-                document.querySelector(".monthTitle").innerHTML = CDate.getMonth() + 1;
-                let dates = [];
-
-                if(thisFirst.getDay()!=0){
-                    size_pre = thisFirst.getDay();
-                    for(let i = 0; i < thisFirst.getDay(); i++){
-                        dates.unshift(prevLast.getDate()-i);
-                    }
-                }
-
-                for(let i = 1; i <= thisLast.getDate(); i++){
-                    dates.push(i);
-                }
-
-                for(let i = 1; i <= 13 - thisLast.getDay(); i++){
-                    dates.push(i);
-                }
-
-                for(let i = 0; i < 42; i++){
-                    if(dates[i-1] > dates[i]){
-                        size_next = i;
-                    }
-                }
-
-                let htmlDates = '';
-                for(let i = 0; i < 42; i++){
-                    if(i < size_pre || size_next <= i){
-                        htmlDates += `<div class="date cloud">${dates[i]}</div>`;
-                    }
-                    else if(i % 7 == rest){
-                        htmlDates += `<div class="date break">${dates[i]}</div>`;
-                    }
-                    else{
-                        htmlDates += `<div class="date">${dates[i]}</div>`;
-                    }
-                }
-                
-                document.querySelector(".dates").innerHTML = htmlDates;
-            }
-
-            function prevCal(){
-                CDate.setMonth(CDate.getMonth()-1);
-                buildCalender();
-            }
-
-            function nextCal(){
-                CDate.setMonth(CDate.getMonth()+1);
-                buildCalender();
-            }
-        </script>
         <script>
             // 슬라이드 배너 사용하는 스크립트
             const slide = document.querySelector(".slide");
@@ -360,6 +292,73 @@
                 }, 3000);
             });
             //참고 사이트: https://devinus.tistory.com/48
+        </script>
+        <script>
+            //달력 스크립트
+            let CDate = new Date();
+            let today = new Date();
+            let rest = 7;
+
+            rest = 5;
+            buildCalender();
+
+            function buildCalender(){
+                let size_pre = 0;
+                let size_next = 0;
+                let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
+                let thisFirst = new Date(CDate.getFullYear(), CDate.getMonth(), 1);
+                let thisLast = new Date(CDate.getFullYear(), CDate.getMonth() + 1, 0);
+                document.querySelector(".yearTitle").innerHTML = CDate.getFullYear();
+                document.querySelector(".monthTitle").innerHTML = CDate.getMonth() + 1;
+                let dates = [];
+
+                if(thisFirst.getDay()!=0){
+                    size_pre = thisFirst.getDay();
+                    for(let i = 0; i < thisFirst.getDay(); i++){
+                        dates.unshift(prevLast.getDate()-i);
+                    }
+                }
+
+                for(let i = 1; i <= thisLast.getDate(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 1; i <= 13 - thisLast.getDay(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 0; i < 42; i++){
+                    if(dates[i-1] > dates[i]){
+                        size_next = i;
+                    }
+                }
+
+                let htmlDates = '';
+                for(let i = 0; i < 42; i++){
+                    if(i < size_pre || size_next <= i){
+                        htmlDates += `<div class="date cloud">${dates[i]}</div>`;
+                    }
+                    else if(i % 7 == rest){
+                        htmlDates += `<div class="date break">${dates[i]}</div>`;
+                    }
+                    else{
+                        htmlDates += `<div class="date">${dates[i]}</div>`;
+                    }
+                }
+                
+                document.querySelector(".dates").innerHTML = htmlDates;
+            }
+
+            function prevCal(){
+                CDate.setMonth(CDate.getMonth()-1);
+                buildCalender();
+            }
+
+            function nextCal(){
+                CDate.setMonth(CDate.getMonth()+1);
+                buildCalender();
+            }
+            //참고 사이트: https://cl0clam.tistory.com/5
         </script>
     </body>
 </html>                    </main>

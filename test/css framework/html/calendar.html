@@ -27,6 +27,22 @@
           </div>
         </div>
         <script>
+            var xhr = new XMLHttpRequest();
+            var url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?'; /*URL*/
+            var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'9w2R3ZT8bsi3XMGwmm9tHlU1t27lPUZYjDLFHKi700HokF/CnB4w5mDKIAAB+mofzatSUls54oYcNcRLD11aww=='; /*Service Key*/
+            queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+            queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+            queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent('2024'); /**/
+            queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent('03'); /**/
+            xhr.open('GET', url + queryParams);
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
+                }
+            };
+
+            xhr.send('');
+
             let CDate = new Date();
             let today = new Date();
 
