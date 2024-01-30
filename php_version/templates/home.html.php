@@ -29,7 +29,11 @@
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
                         $no[$z] = $lib[$z][0]; 
-                        $name[$z] = $lib[$z][1];
+                        if($lib[$z][1] == '없음'){
+                            $name[$z] = '전체';
+                        }else{
+                            $name[$z] = $lib[$z][1];
+                        }
                     }
                     for($z = 0;$z < sizeof($lib); $z++){
                         echo "<option  value = $no[$z] > $name[$z] </option>";
@@ -385,11 +389,13 @@
             }
 
             function prevCal(){
+                CDate.setDate(1)
                 CDate.setMonth(CDate.getMonth()-1);
                 buildCalender();
             }
 
             function nextCal(){
+                CDate.setDate(1)
                 CDate.setMonth(CDate.getMonth()+1);
                 buildCalender();
             }

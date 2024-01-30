@@ -50,7 +50,12 @@
             <select id = "s1" name = "lib_research">
                 <?php
                 for($z = 0; $z < sizeof($lib); $z++){
-                    $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
+                    $no[$z] = $lib[$z][0]; 
+                    if($lib[$z][1] == '없음'){
+                        $name[$z] = '전체';
+                    }else{
+                        $name[$z] = $lib[$z][1];
+                    }
                 }
                 for($z = 0;$z < sizeof($lib); $z++){
                     echo "<option  value = $no[$z] > $name[$z] </option>";
