@@ -125,8 +125,8 @@ main .main_context{
 @media (max-width: 1020px){
     main .main_context{
         display: grid;
-        grid-template-rows: 300px 300px;
-        grid-template-columns: auto 500px auto;
+        grid-template-rows: 450px 450px;
+        grid-template-columns: auto 750px auto;
         grid-template-areas:
         '. slider .'
         '. board .';
@@ -253,6 +253,7 @@ main .quickmenu h2{
 }
 
 main .quickmenu h5{
+    margin: 10px;
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 

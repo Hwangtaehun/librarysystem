@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <link rel="stylesheet" href="../css/form-home.css">      
+        <link rel="stylesheet" href="../css/form-home.css">
+        <script>
+            
+        </script>      
     </head>
     <body>
         <div class="calender">
@@ -31,15 +34,14 @@
         <script>
             let CDate = new Date();
             let today = new Date();
-            let holiday = new Array(); 
+            var holiday = []; 
 
             buildCalender();
-
-            for (let index = 0; index < holiday.length; index++) {
-                alert('holiday['+ index + ']' + holiday[i]);
-            }
+            alert("3번째"+holiday[0]);
 
             function dataCalender(m_year, m_month){
+                holiday = [];
+
                 if(Number(m_month) < 10){
                     m_month = '0' + m_month;
                 }
@@ -51,9 +53,11 @@
                 queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(m_month); /**/
                 //alert(url + queryParams);
                 xhr.open('GET', url + queryParams);
+                alert("open 실행");
 
                 xhr.onreadystatechange = function () {
                     if (this.readyState == 4) {
+                        alert("if문 실행");
                         //alert('nBody: '+this.responseText);
                         let index = 0;
                         let str = this.responseText
@@ -63,12 +67,20 @@
                             let date = str.substr(index, 8); 
                             //alert(date);
                             //alert(Number(date.substr(6, 2)));
-                            holiday.push(Number(date.substr(6, 2)));
+                            let price = Number(date.substr(6, 2));
+                            holiday.push(price);
+                            // for (let index = 0; index < holiday.length; index++) {
+                            //     alert('holiday['+ index + '] = ' + holiday[index]);
+                            // }
                         }
+                        alert("1번째"+holiday[0]);
                     }
                 };
+                alert("onreadystatechange 실행");
+                alert("2번째"+holiday[0]);
 
                 xhr.send('');
+                alert("send 실행");
             }
 
             function buildCalender(){
