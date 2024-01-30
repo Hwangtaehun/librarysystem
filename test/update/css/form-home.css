@@ -62,7 +62,7 @@ nav{
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active{
     background-color: #363062;
-    color: #F5F5F5
+    color: #F5F5F5;
 }
 .navbar-collapse > .navbar-nav > .nav-item > .active:hover{
     background-color: #F99417;
@@ -72,7 +72,7 @@ nav{
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
     background-color: #4D4C7D;
-    color: #F5F5F5
+    color: #F5F5F5;
 }
 
 main{
@@ -125,7 +125,7 @@ main .main_context{
 @media (max-width: 1020px){
     main .main_context{
         display: grid;
-        grid-template-rows: 300px auto;
+        grid-template-rows: 300px 300px;
         grid-template-columns: auto 500px auto;
         grid-template-areas:
         '. slider .'
@@ -224,12 +224,58 @@ main .slide_item_duplicate{
 }
 
 main .board{
+    background-color: rgba(135, 135, 135, 0.5);
     grid-area: board;
     margin: 10px;
+    margin-bottom: 0px;
 }
+
+@media (max-width: 1020px){
+    main .board{
+        margin: 0px;
+        margin-top: 10px;
+    }
+}
+
 main .board h3{
     color: #F99417;
     text-align: center;
+}
+
+main .quickmenu{
+    display: flex;
+    height: 150px;
+}
+
+main .quickmenu h2{
+    margin: 10px;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .quickmenu h5{
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .quick{
+    height: 120px;
+    width: 120px;
+    margin: 15px auto;
+    border-style: outset;
+    border-radius: 25px 25px 25px 25px;
+    background-color: #F5F5F5;
+}
+
+main .quick img{
+    display: block;
+    margin: auto auto;
+    width: 90%;
+    height: 95%;
+}
+
+main .quick h6{
+    margin-top: 7px;
+    text-align: center;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
 footer {
@@ -287,4 +333,93 @@ footer .table_menu a{
     display: table-cell;
     text-align: justify; 
     float: right;
+}
+
+/*달력*/
+.lib{
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    display: flex;
+    font-size: 48px;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 12px;
+    margin: 12px 24px 12px 24px;
+    border-bottom: 2px solid #aaaaaa;
+}
+
+.select select{
+    border-radius: 4px;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.prevBtn{
+    background:url('../img/left.png') center center / 100% no-repeat;
+    height: 96px;
+    width: 96px;
+    border:none;
+}
+
+.nextBtn{
+    background:url('../img/right.png') center center / 100% no-repeat;
+    height: 96px;
+    width: 96px;
+    border:none;
+}
+
+.main {
+    display: flex;
+    background-color: rgba(122, 133, 255, 0.4);
+    flex-direction: column;
+    margin: 12px 24px 0px 24px;
+}
+
+.daies {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.dates {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.date, .day{
+    text-align: center;
+    width: calc(100%/7);
+    padding: 16px 0 16px 0;
+    box-sizing: border-box;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+.date:nth-child(7n),
+.day:nth-child(7n) {
+    color: #4491DB;
+}
+
+.date:nth-child(7n+1),
+.day:nth-child(7n+1) {
+    color: #DB4455;
+}
+
+.cloud {
+    filter:opacity(0%);
+}
+
+.break{
+    background-color: rgba(255, 255, 0, 0.9);
+    border-radius:200%;
 }

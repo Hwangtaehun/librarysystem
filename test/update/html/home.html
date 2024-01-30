@@ -1,5 +1,6 @@
+
 <!doctype html>
-<html lang="en"> <!-- 수정 -->
+<html lang = "en">
     <head>
         <meta charset = "utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -7,17 +8,15 @@
     </head>
         <body>
         <header>
-            <a href="/">
+                        <a href="/">
                 <img src="../img/header.gif" alt="">
-            </a> <!-- 수정 -->
+            </a>
             <div class="link">
-                <a href="/member/login">로그인</a>
-                <a href="/member/addupdate">회원가입</a>            
-            </div><!-- 수정 -->
+            <a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a>            </div>
                     </header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
             <!doctype html>
-<html>  
+<html>
     <head>
         <link rel="stylesheet" href="../css/form-home.css">
         <script>
@@ -43,7 +42,7 @@
             <!-- 슬라이드 배너 -->
             <div class="slide slide_wrap">
                             <div><a href="/not/addupdate?not_no=1">
-                    <img src="../img/not/1/ban/배너이미지.png" alt="" style="width:100%;"> <!-- 수정 -->
+                    <img src="../img/not/1/ban/배너이미지.png" alt="" style="width:100%;">
                 </a></div>
                             <div class="slide_tool">
                     <div class="slide_prev_button slide_button"></div>
@@ -64,6 +63,72 @@
                             환영합니다                            2023-11-27                        </a>
                     </div>
                                 </fieldset>
+            </div>
+        </div>
+        <div class="quickmenu">
+            <div id="context">
+                <h2>자주찾는 메뉴</h2>
+                <h5>필요한 정보를<br>
+                    빠르게 찾아보세요.</h5>
+            </div>
+            <div class="quick" id="menu1">
+                <a href="/not/list">
+                    <img src="../img/icon/not.png" alt="">
+                </a>
+                <h6>공지사항</h6>
+            </div>
+            <div class="quick" id="menu2">
+                <a href="/member/logalert">
+                    <img src="../img/icon/mem.png" alt="">
+                </a>
+                <h6>회원정보수정</h6>
+            </div>
+            <div class="quick" id="menu3">
+                <a href="/len/memLent">
+                    <img src="../img/icon/lent.png" alt="">
+                </a>
+                <h6>대출중도서</h6>
+            </div>
+            <div class="quick" id="menu4">
+                <a href="/res/list">
+                    <img src="../img/icon/res.png" alt="">
+                </a>
+                <h6>예약내역</h6>
+            </div>
+            <div class="quick" id="menu5">
+                <a href="/del/list">
+                    <img src="../img/icon/del.png" alt="">
+                </a>
+                <h6>상호대차내역</h6>
+            </div>
+        </div>
+        <div class="calender">
+            <div class="header">
+              <div class="select">
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
+                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option><option  value='/member/home?lib_no=5' > 청주시립도서관 </option><option  value='/member/home?lib_no=6' > 청주오창도서관 </option>               
+                </select>
+              </div>
+              <button class="prevBtn" onclick="prevCal()"></button>
+              <div class="title">
+                <div class="yearTitle"></div>
+                <div>년</div>
+                <div class="monthTitle"></div>
+                <div>월</div>
+              </div>
+              <button class="nextBtn" onclick="nextCal()"></button>
+            </div>
+            <div class="main">
+              <div class="daies">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+              </div>
+              <div class="dates"></div>
             </div>
         </div>
         <script>
@@ -229,45 +294,78 @@
             });
             //참고 사이트: https://devinus.tistory.com/48
         </script>
+        <script>
+            //달력 스크립트
+            let CDate = new Date();
+            let today = new Date();
+            let rest = 7;
+
+            rest = 5;
+            buildCalender();
+
+            function buildCalender(){
+                let size_pre = 0;
+                let size_next = 0;
+                let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
+                let thisFirst = new Date(CDate.getFullYear(), CDate.getMonth(), 1);
+                let thisLast = new Date(CDate.getFullYear(), CDate.getMonth() + 1, 0);
+                document.querySelector(".yearTitle").innerHTML = CDate.getFullYear();
+                document.querySelector(".monthTitle").innerHTML = CDate.getMonth() + 1;
+                let dates = [];
+
+                if(thisFirst.getDay()!=0){
+                    size_pre = thisFirst.getDay();
+                    for(let i = 0; i < thisFirst.getDay(); i++){
+                        dates.unshift(prevLast.getDate()-i);
+                    }
+                }
+
+                for(let i = 1; i <= thisLast.getDate(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 1; i <= 13 - thisLast.getDay(); i++){
+                    dates.push(i);
+                }
+
+                for(let i = 0; i < 42; i++){
+                    if(dates[i-1] > dates[i]){
+                        size_next = i;
+                    }
+                }
+
+                let htmlDates = '';
+                for(let i = 0; i < 42; i++){
+                    if(i < size_pre || size_next <= i){
+                        htmlDates += `<div class="date cloud">${dates[i]}</div>`;
+                    }
+                    else if(i % 7 == rest){
+                        htmlDates += `<div class="date break">${dates[i]}</div>`;
+                    }
+                    else{
+                        htmlDates += `<div class="date">${dates[i]}</div>`;
+                    }
+                }
+                
+                document.querySelector(".dates").innerHTML = htmlDates;
+            }
+
+            function prevCal(){
+                CDate.setMonth(CDate.getMonth()-1);
+                buildCalender();
+            }
+
+            function nextCal(){
+                CDate.setMonth(CDate.getMonth()+1);
+                buildCalender();
+            }
+            //참고 사이트: https://cl0clam.tistory.com/5
+        </script>
     </body>
 </html>                    </main>
         <footer>
             <img src="../img/footer.gif" alt="">
-            <div class='table_menu'>
-                <table>
-                    <tr>
-                        <th>공지사항</th> 
-                        <th>자료 검색</th> 
-                        <th>내서재</th> 
-                        <th>마이페이지</th>
-                    </tr>
-                    <tr>
-                        <td><a href="/not/list">공지사항</a></td>
-                        <td><a href="/mat/list">자료검색</a></td>
-                        <td><a href="/member/logalert">대출중도서</a></td>
-                        <td><a href="/member/logalert">회원정보수정</a></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a href="/member/logalert">모든대출내역</a></td>
-                        <td><a href="/member/logalert">회원탈퇴</a></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a href="/member/logalert">예약내역</a></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a href="/member/logalert">상호대차내역</a></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>        
-        </footer>
+            <div class='table_menu'><table><tr><th>공지사항</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/member/logalert">대출중도서</a></td><td><a href="/member/logalert">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">모든대출내역</a></td><td><a href="/member/logalert">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/member/logalert">상호대차내역</a></td><td></td></tr></table></div>        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

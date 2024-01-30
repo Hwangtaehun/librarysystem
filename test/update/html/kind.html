@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>종류 현황</title>
+    </head>
+    <body>
+        <header>
+            <a href="/">
+                <img src="../img/header.gif">
+            </a>
+            <div class="link">
+            <li><a>root님 환영합니다.</a><a href="/member/logout">로그아웃</a></li>            </div>
+        </header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid">
+            <a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">공지사항</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/not/list'>공지사항관리</a></li><li><a class='dropdown-item' href='/not/addupdate'>공지사항추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/book/list'>책관리</a></li><li><a class='dropdown-item' href='/book/addupdate'>책추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">종류</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/kind/list'>종류관리</a></li><li><a class='dropdown-item' href='/kind/addupdate'>종류추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">도서관</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/lib/list'>도서관관리</a></li><li><a class='dropdown-item' href='/lib/addupdate'>도서관추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자료</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/mat/list'>자료관리</a></li><li><a class='dropdown-item' href='/mat/addupdate'>자료추가</a></li></ul></li><li class="nav-item"><a class="nav-link" href="/member/list">회원</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출 및 반납</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/len/list'>대출관리</a></li><li><a class='dropdown-item' href='/len/addupdate'>대출추가</a></li><li><a class='dropdown-item' href='/len/returnLent'>반납추가</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/del/list'>상호대차관리</a></li><li><a class='dropdown-item' href='/del/addlist'>상호대차도착일추가</a></li><li><a class='dropdown-item' href='/del/completelist'>상호대차완료내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">기타</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/res/list'>예약관리</a></li><li><a class='dropdown-item' href='/etc/plalist'>대출장소관리</a></li><li><a class='dropdown-item' href='/etc/duelist'>연체관리</a></li></ul></li></ul></div></div>
+        </nav>
+        <aside>
+            <li><a><h3>종류</h3></a>
+                <li><a class='dropdown-item' href='/kind/list'>종류관리</a></li>
+                <li><a class='dropdown-item' href='/kind/addupdate'>종류추가</a></li>
+            </li>
+        </aside>        
+        <main>
+            <head>
+    <link rel="stylesheet" href="../css/form-base.css">   
+    <script>
+        // 검색 내용이 있는 없는지 확인
+        function checkResearch(myform) {
+            if(myform.user_research.value.length <= 0){
+                alert("검색할 내용을 입력해주세요.");
+                myform.user_research.focus();
+                return false;
+            }
+            return true;            
+        }
+    </script>
+</head>
+<!-- 종류 배경 추가 -->
+<body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
+    <form action="/kind/research" method="post" onsubmit="return checkResearch(this)">
+        <div class="sel">
+            <label for = "kind_super">대분류</label>
+            <select id = "s1" name = "super" onchange='superChange(this)'>
+                <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 100 > 철학 </option><option value = 200 > 종교 </option><option value = 300 > 사회과학 </option><option value = 400 > 자연과학 </option><option value = 500 > 기술과학 </option><option value = 600 > 예술 </option><option value = 700 > 언어 </option><option value = 800 > 문학 </option><option value = 900 > 역사 </option>            </select>
+            <label for = "kind_base">중분류</label>
+            <select id = "s2" name = "base" onchange='baseChange(this)'>
+                <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 010 > 도서관,서지학 </option><option value = 020 > 문헌정보학 </option><option value = 030 > 백화사전 </option><option value = 040 > 강연집,수필집,연설문집 </option><option value = 050 > 일반 연속간행물 </option><option value = 060 > 일반학회,단체,협회,기관 </option><option value = 070 > 신문,언론,저널리즘 </option><option value = 080 > 일반전집,총서 </option><option value = 090 > 향토자료 </option>            </select>
+            <label for = "kind_sub">소분류</label>
+            <select id = "s3" name = "sup">
+                <option value = 0 > 없음 </option><option value = 000 > 총류 </option><option value = 001 > 지식 및 학문 일반 </option><option value = 003 > 이론 체계 및 시스템 </option><option value = 004 > 컴퓨터과학 </option><option value = 005 > 프로그래밍, 프로그램, 데이터 </option>            </select>
+            <input type="submit" value = "검색">
+        </div>
+    </form>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            001            지식 및 학문 일반        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="001">
+                <a href="/kind/addupdate?kind_no=001"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            003            이론 체계 및 시스템        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="003">
+                <a href="/kind/addupdate?kind_no=003"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            004            컴퓨터과학        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="004">
+                <a href="/kind/addupdate?kind_no=004"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            005            프로그래밍, 프로그램, 데이터        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="005">
+                <a href="/kind/addupdate?kind_no=005"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            010            도서관,서지학        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="010">
+                <a href="/kind/addupdate?kind_no=010"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            011            저작        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="011">
+                <a href="/kind/addupdate?kind_no=011"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            012            필사본, 판본, 제본        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="012">
+                <a href="/kind/addupdate?kind_no=012"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            013            출판 및 판매        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="013">
+                <a href="/kind/addupdate?kind_no=013"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            014            개인서지 및 목록        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="014">
+                <a href="/kind/addupdate?kind_no=014"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            015            국가별 서지 및 목록        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="015">
+                <a href="/kind/addupdate?kind_no=015"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            016            주제별 서지 및 목록        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="016">
+                <a href="/kind/addupdate?kind_no=016"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            017            특수서지 및 목록        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="017">
+                <a href="/kind/addupdate?kind_no=017"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            018            일반서지 및 목록        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="018">
+                <a href="/kind/addupdate?kind_no=018"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            019            장서목록        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="019">
+                <a href="/kind/addupdate?kind_no=019"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            020            문헌정보학        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="020">
+                <a href="/kind/addupdate?kind_no=020"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            021            도서관 행정 및 재정        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="021">
+                <a href="/kind/addupdate?kind_no=021"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            022            도서관 건축 및 설비        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="022">
+                <a href="/kind/addupdate?kind_no=022"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            023            도서관 경영, 관리        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="023">
+                <a href="/kind/addupdate?kind_no=023"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            024            수서, 정리 및 보존        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="024">
+                <a href="/kind/addupdate?kind_no=024"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <fieldset id="fieldset_row">
+        <div id="div_row">
+            025            도서관 봉사 및 활동        </div>
+                <form action="/kind/delete" method="post">
+                <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="025">
+                <a href="/kind/addupdate?kind_no=025"><input type="button" value="수정"></a>
+        </form>
+            </fieldset>
+        <div class="page">
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">01</a></li>
+                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                    <li class="page-item"><a class="page-link" href="#">04</a></li>
+                    <li class="page-item"><a class="page-link" href="#">05</a></li>
+                    <li class="page-item"><a class="page-link" href="#">06</a></li>
+                    <li class="page-item"><a class="page-link" href="#">07</a></li>
+                    <li class="page-item"><a class="page-link" href="#">08</a></li>
+                    <li class="page-item"><a class="page-link" href="#">09</a></li>
+                    <li class="page-item"><a class="page-link" href="#">10</a></li>
+                    <li class="page-item"><a class="page-link" href="#">11</a></li>
+                    <li class="page-item"><a class="page-link" href="#">12</a></li>
+                    <li class="page-item"><a class="page-link" href="#">13</a></li>
+                    <li class="page-item"><a class="page-link" href="#">14</a></li>
+                    <li class="page-item"><a class="page-link" href="#">15</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <li class="page-item"><a class="page-link" href="#">17</a></li>
+                    <li class="page-item"><a class="page-link" href="#">18</a></li>
+                    <li class="page-item"><a class="page-link" href="#">19</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <script>
+        const pages = document.querySelector(".page");
+        const result_total = 912;
+        const view_num = 20;
+        const show_button = 5;
+        const max_page = Math.ceil(result_total / view_num);
+        let current_pg = 1;
+
+        const makePage = (id) => {
+            const page = document.createElement("button");
+
+        }
+    </script>
+</body>
+        </main>
+        <footer>
+            <img src="../img/footer.gif">
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
