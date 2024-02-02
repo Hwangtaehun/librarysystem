@@ -217,4 +217,8 @@
     <?php endforeach; }?>
         </div>
     </div>
+    <script>
+        const date = document.querySelector('#il_date');
+        date.value = new Date().toISOString().substring(0, 10);
+    </script>
 </body>

@@ -260,7 +260,7 @@ class DelController{
     //'상호대차도착일추가'할때 사용
     public function arrive(){
         $this->delTable->updateData($_POST);
-        header('location: /del/list');
+        echo "<script>history.back();</script>";
     }
 
     //회원 팝업창 열기
