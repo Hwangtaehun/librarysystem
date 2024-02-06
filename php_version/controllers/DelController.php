@@ -216,8 +216,13 @@ class DelController{
             }
             else{
                 if($_POST['del_no'] == ''){
-                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
-                    $this->delTable->insertData($param);
+                    $mem_no = $_POST['mem_no'];
+                    if($this->assist->rentpossible($mem_no, $this->memTable, $this->lenTable)){
+                        $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
+                        $this->delTable->insertData($param);
+                    }else{
+                        echo "<script>alert('대출가능수를 초과했습니다.');</script>";
+                    }
                     echo "<script>window.close();</script>";
                 }
                 else{
