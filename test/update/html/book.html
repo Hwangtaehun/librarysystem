@@ -77,6 +77,7 @@
 
                             $( "p" ).empty();
                             $("#pages").empty();
+
                             if(total_page.toFixed() != 0){
                                 var length = 10;
 
@@ -143,6 +144,16 @@
                         }
                     }
                 });
+
+                $(".page-link").click(function(){
+                    page_num = $(this).val();
+                    $.ajax({
+                        method: "GET",
+                        url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
+                        data: { query : search_name },
+                        headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
+                    })
+                })
             });              
         </script>
     </body>
