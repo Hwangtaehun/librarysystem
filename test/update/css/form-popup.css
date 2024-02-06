@@ -1,6 +1,6 @@
 body {
     background-image : url('../img/pop_bg.jpg');
-    color: #F5F5F5;
+    color: #F5F5F5 !important;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 25px auto 50px;
@@ -54,6 +54,10 @@ main .search .srbt{
 }
 main .card .card-body .card-text{
     margin-bottom: 5px;
+}
+
+main #pages #page{
+    display: flex;
 }
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}

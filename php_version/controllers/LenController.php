@@ -257,10 +257,10 @@ class LenController{
     public function addupdate(){
         if(isset($_POST['len_no'])) {
             if($_POST['len_no'] == ''){
-                if($this->reservationCheck()){
+                $mem_no = $_POST['mem_no'];
+                if($this->reservationCheck() && $this->assist->rentpossible($mem_no, $this->memTable, $this->lenTable)){
                     $today = date("Y-m-d");
                     $mat_no = $_POST['mat_no'];
-                    $mem_no = $_POST['mem_no'];
                     $param = ['mat_no'=>$mat_no, 'mem_no'=>$mem_no, 'len_ex'=>$_POST['len_ex'], 'len_date'=>$today];
                     $this->lenTable->insertData($param);
                     $sql = "WHERE `mat_no` = $mat_no AND `mem_no` = $mem_no AND `len_date` = '$today'";

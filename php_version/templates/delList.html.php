@@ -101,10 +101,26 @@
     <?php }else if($title == '상호대차 도착일 추가'){ ?>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
         <div class="search">
+            <select id = "s1" name = "lib_research">
+                <?php
+                for($z = 0; $z < sizeof($lib); $z++){
+                    $no[$z] = $lib[$z][0]; 
+                    if($lib[$z][1] == '없음'){
+                        $name[$z] = '전체';
+                    }else{
+                        $name[$z] = $lib[$z][1];
+                    }
+                }
+                for($z = 0;$z < sizeof($lib); $z++){
+                    echo "<option  value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+            </select>
             <input type="button" id="ia_research" class="srbt" value="자료찾기" onclick="checkmat();">
             <input type="text" name="user_research" id="id_research" value = "" readonly>
             <input type="hidden" id="id_mem" name="mem_no" value="">
             <input type="hidden" id="id_mat" name="mat_no" value="">
+            <input type="hidden" id="id_lib" name="lib_no" value="">
             <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
             <button type="submit" class="btn btn-outline-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

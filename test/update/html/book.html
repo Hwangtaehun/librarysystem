@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="../css/form-popup.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>책 검색</title>
+    </head>
+    <body>
+        <header>
+            <h1>책 찾기</h1>
+        </header>
+        <main>
+            <div class="search">
+                <input id = "bookname" value="" type = "text">
+                <button id = "search"> 검색 </button>
+            </div>
+            <p></p>
+            <div id = "pages">
+                <nav aria-label="Page navigation example"> 
+                    <ul class="pagination">
+                    <li class="page-item">
+                        <a id = "previous" class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <div id="page">
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    </div>
+                    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">7</a></li>
+                    <li class="page-item"><a class="page-link" href="#">8</a></li>
+                    <li class="page-item"><a class="page-link" href="#">9</a></li>
+                    <li class="page-item"><a class="page-link" href="#">10</a></li> -->
+                    <li class="page-item">
+                        <a id="next" class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    </ul>
+                </nav>
+            </div>
+        </main>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+        </script>
+        <script>
+            var search_name;
+            var page_num = 1;
+            var total_page;
+            var sub_page = 1;
+            var last_sub_page = total_page / 10;
+
+            $(document).ready(function(){
+                $("#search").click(function(){
+                    search_name = $("#bookname").val();
+                    $.ajax({
+                        method: "GET",
+                        url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
+                        data: { query : search_name },
+                        headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
+                    })
+                        .done(function (msg) {
+                            var cnt = msg.meta.total_count;
+                            
+                            total_page = cnt / 10;
+
+                            if(total_page > 100){
+                                total_page = 100;
+                            }
+
+                            $( "p" ).empty();
+                            $("#pages").empty();
+                            if(total_page.toFixed() != 0){
+                                var length = 10;
+
+                                $("#pages").append("<nav aria-label='Page navigation example'>");
+                                $("#pages").append("<ul class='pagination'>");
+                                $("#pages").append("<li class='page-item'>");
+                                $("#pages").append("<a id = 'previous' class='page-link' href='#' aria-label='Previous'>");
+                                $("#pages").append("<span aria-hidden='true'>&laquo;</span>");
+                                $("#pages").append("</a></li>");
+                                $("#pages").append("<div id='page'>");
+                                $("#pages").append("</div>");
+                                $("#pages").append("<li class='page-item'>");
+                                $("#pages").append("<a id='next' class='page-link' href='#' aria-label='Next'>");
+                                $("#pages").append("<span aria-hidden='true'>&raquo;</span>");
+                                $("#pages").append("</a></li></ul></nav>");
+                                    
+                                if(last_sub_page == sub_page || last_sub_page == 0){
+                                    length = total_page % 10;
+                                }
+
+                                 for(let j = 1;  j <= length; j++){
+                                    var value = (sub_page - 1) * 10 + j;
+                                    $("#page").append("<li class='page-item'><a class='page-link' href='#'>"+ value +"</a></li>");
+                                }
+                            }
+
+                            for (let i = 0; i < cnt; i++) {
+                                $( "p" ).append( "<strong>" + msg.documents[i].title + "</strong>" );
+                                $( "p" ).append( "<img src = '" + msg.documents[i].thumbnail + "'</src>" ); 
+                            }
+                        });
+                });
+
+                $("#next").click(function(){
+                    var length = 10;
+
+                    if(sub_page != total_page.toFixed()){
+                        sub_page += 1;
+
+                        if(last_sub_page == sub_page || last_sub_page == 0){
+                            length = total_page % 10;
+                        }
+
+                        for(let j = 1;  j <= length; j++){
+                            var value = (sub_page - 1) * 10 + j;
+                            $("#page").append("<li class='page-item'><a class='page-link' href='#'>"+ value +"</a></li>");
+                        }
+                    }
+                });
+
+                $("#previous").click(function(){
+                    var length = 10;
+
+                    if(sub_page != 1){
+                        sub_page += 1;
+
+                        if(last_sub_page == sub_page || last_sub_page == 0){
+                            length = total_page % 10;
+                        }
+
+                        for(let j = 1;  j <= length; j++){
+                            var value = (sub_page - 1) * 10 + j;
+                            $("#page").append("<li class='page-item'><a class='page-link' href='#'>"+ value +"</a></li>");
+                        }
+                    }
+                });
+            });              
+        </script>
+    </body>
+</html>

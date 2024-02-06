@@ -239,5 +239,20 @@ class Assistance{
 
         return $where;
     }
+
+    public function rentpossible($mem_no, $memTable, $lenTable){
+        $result = $memTable->selectID($mem_no);
+        $mem_lent = $result['mem_lent'];
+
+        $where = "WHERE `mem_no` = $mem_no AND `len_re_date` IS NULL";
+        $rs = $lenTable->whereSQL($where);
+        $num = $rs->rowCount();
+
+        if($num > $mem_lent){
+            return false;
+        }
+
+        return true;
+    }
 }
 ?>
