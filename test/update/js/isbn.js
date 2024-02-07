@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link rel="stylesheet" href="../css/form-popup.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../js/jquery.twbsPagination.min.js"></script>
-        <title>책 검색</title>
-    </head>
-    <body>
-        <header>
-            <h1>책 찾기</h1>
-        </header>
-        <main>
-            <div class="search">
-                <input id = "bookname" value="" type = "text">
-                <button id = "search"> 검색 </button>
-            </div>
-            <p></p>
-            <div class="container">
-                <ul class="pagination" id="pagination"></ul>
-            </div>
-        </main>
-        <!-- <script src="../js/isbn.js"></script> -->
-        <script>
             var search_name;
             var page_num = 1;
             var totalPages;
@@ -47,7 +22,6 @@
                             }
 
                             $( "p" ).empty();
-                            $("#pagination").empty();
 
                             for (let i = 0; i < 10; i++) {
                                 $( "p" ).append( "<strong>" + msg.documents[i].title + "</strong>" );
@@ -87,6 +61,3 @@
                         });
                 });
             });
-        </script>
-    </body>
-</html>

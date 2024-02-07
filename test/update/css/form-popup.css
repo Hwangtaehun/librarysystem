@@ -56,10 +56,6 @@ main .card .card-body .card-text{
     margin-bottom: 5px;
 }
 
-main #pages #page{
-    display: flex;
-}
-
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}
 
