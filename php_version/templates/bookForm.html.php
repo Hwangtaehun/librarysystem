@@ -3,6 +3,16 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //책 입력값 받아오는 값
+        function isbnValue(no, name, author, publish, year, price){
+            document.querySelector("#id_id").value = no;
+            document.querySelector("#id_name").value = name;
+            document.querySelector("#id_author").value = author;
+            document.querySelector("#id_publish").value = publish;
+            document.querySelector("#id_year").value = year;
+            document.querySelector("#id_price").value = price;
+        }
+
         //필수 입력했는지 확인 하는 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
@@ -51,7 +61,7 @@
                 <li><label for  = "id_price">가격</label>
                     <input class="input" type= "text" name="book_price" id="id_price" value="<?php if(isset($row)){echo $row['book_price'];}?>"></li>
             </ul>
-            <input type="hidden" name="book_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
+            <input type="hidden" id="id_id" name="book_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>

@@ -40,8 +40,14 @@ main .search input {
     height: 40px;
     width: 80%;
 }
+main #kakao input{
+    width: 90%;
+}
 main .search button {
     background-color: #FFFFFF;
+    margin-bottom: 5px;
+    height: 40px;
+    width: 40px;
 }
 main .sel {
     margin-bottom: 5px;
@@ -54,6 +60,23 @@ main .search .srbt{
 }
 main .card .card-body .card-text{
     margin-bottom: 5px;
+}
+
+main .context .card{
+    display: flex;
+    flex-direction: row;
+    width: 28rem;
+    margin: auto;
+    margin-bottom: 5px;
+}
+main .context .card input{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+main .context .card img{
+    margin: 0 auto;
+    width: 180px;
 }
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
