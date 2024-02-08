@@ -16,22 +16,29 @@
         <ul class="pagination" id="pagination"></ul>
     </nav> -->
 </div>
+<button id = "search"> 검색 </button>
 <script type="text/javascript">
-    $(function () {
-        window.pagObj = $('#pagination').twbsPagination({
-            totalPages: 35,
-            visiblePages: 10,
-            prev: "‹", // Previous Button Label
-            next: "›", // Next Button Label
-            first: '«', // First Button Label
-            last: '»', // Last Button Label
-            onPageClick: function (event, page) {
-                console.info(page + ' (from options)');
-            }
-        }).on('page', function (event, page) {
-            console.info(page + ' (from event listening)');
+    $(document).ready(function(){
+        $("#search").click(function(){
+            $("#pagination").empty();
+            $(function () {
+                window.pagObj = $('#pagination').twbsPagination({
+                    totalPages: 35,
+                    visiblePages: 10,
+                    prev: "‹", // Previous Button Label
+                    next: "›", // Next Button Label
+                    first: '«', // First Button Label
+                    last: '»', // Last Button Label
+                    onPageClick: function (event, page) {
+                        console.info(page + ' (from options)');
+                    }
+                }).on('page', function (event, page) {
+                    console.info(page + ' (from event listening)');
+                });
+            });
         });
     });
+    
 </script>
 </body>
 </html>
