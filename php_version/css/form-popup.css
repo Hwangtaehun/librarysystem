@@ -1,6 +1,6 @@
 body {
     background-image : url('../img/pop_bg.jpg');
-    color: #F5F5F5;
+    color: #F5F5F5 !important;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 25px auto 50px;
@@ -40,8 +40,14 @@ main .search input {
     height: 40px;
     width: 80%;
 }
+main #kakao input{
+    width: 90%;
+}
 main .search button {
     background-color: #FFFFFF;
+    margin-bottom: 5px;
+    height: 40px;
+    width: 40px;
 }
 main .sel {
     margin-bottom: 5px;
@@ -49,12 +55,33 @@ main .sel {
 main .sel select{
     height: 30px;
 }
+
 main .search .srbt{
     width: 80px;
 }
 main .card .card-body .card-text{
     margin-bottom: 5px;
 }
+
+main .context .card{
+    display: flex;
+    flex-direction: row;
+    width: 28rem;
+    height: 260px;
+    margin: auto;
+    margin-bottom: 5px;
+}
+main .context .card input{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+main .context .card img{
+    margin: 0 auto;
+    width: 180px;
+}
+
+
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}

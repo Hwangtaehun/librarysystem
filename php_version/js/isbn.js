@@ -29,12 +29,12 @@ var search_name;
                         $(".context").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
                                             + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
                                             + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                                            + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +", " + v_url + "); window.close();'> </div> </div>" );
+                                            + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
                     }else{
                         $(".context").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
                                             + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
                                             + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                                            + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +", " + v_url + "); window.close();'> </div> </div>" );
+                                            + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
                     }
                 }
             }
