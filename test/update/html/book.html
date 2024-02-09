@@ -2,12 +2,11 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="../css/form-popup.css">
-        <link rel="stylesheet" href="../css/pagination.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <!-- <script src="../js/jquery.twbsPagination.min.js"></script> -->
-        <script src="../js/pagination.js"></script>
+        <script src="../js/jquery.twbsPagination.min.js"></script>
         <title>책 검색</title>
+        <script defer src="../js/isbn.js"></script>
     </head>
     <body>
         <header>
@@ -23,208 +22,124 @@
                 </button>
             </div>
             <div class="container text-center">
-                <div class="context row row-cols-2"> 
-                    <!-- <div class="card">
-                        <img src="https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1339560%3Ftimestamp%3D20221107234418" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div> -->
-                </div>
+                <div class="context row row-cols-2"> </div>
             </div>
             <div class="container">
-                <section>
-                    <ul class="pagination" id="pagination"></ul>
-                </section>
+                <ul class="pagination" id="pagination"></ul>
             </div>
         </main>
-        <!-- <script src="../js/isbn.js"></script> -->
         <script>
-            var search_name;
-            var page_num = 1;
-            var totalPages;
+            // var search_name;
+            // var page_num = 1;
+            // var totalPages;
+            // var first = true;
+            // var url = location.href;
 
-            $(document).ready(function(){
-                $("#search").click(function(){
-                    search_name = $("#bookname").val();
-                    $.ajax({
-                        method: "GET",
-                        url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
-                        data: { query : search_name },
-                        headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
-                    })
-                        .done(function (msg) {
-                            var cnt = msg.meta.total_count;
+            // function make_card(msg) {
+            //     for (let i = 0; i < 10; i++) {
+            //         let temp = msg.documents[i].isbn.split(' ');
+            //         let no = temp[1];
+            //         let url = msg.documents[i].thumbnail;
+            //         let name = msg.documents[i].title;
+            //         let author = msg.documents[i].authors;
+            //         let publish = msg.documents[i].publisher;
+            //         temp = msg.documents[i].datetime.split('-');
+            //         let year = temp[0];
+            //         let price = msg.documents[i].price;
+
+            //         let v_no = '"' + no + '"';
+            //         let v_url = '"' + url + '"';
+            //         let v_name = '"' + name + '"';
+            //         let v_author = '"' + author + '"';
+            //         let v_publish = '"' + publish + '"';
+            //         let v_year = '"' + year + '"';
+            //         let v_price = '"' + price + '"';
+
+            //         if(url == ""){
+            //             let v_url = " ";
+            //             $(".context").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
+            //                                 + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
+            //                                 + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
+            //                                 + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
+            //         }else{
+            //             $(".context").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
+            //                                 + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
+            //                                 + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
+            //                                 + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
+            //         }
+            //     }
+            // }
+
+            // function search(){
+            //     $.ajax({
+            //         method: "GET",
+            //         url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
+            //         data: { query : search_name },
+            //         headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
+            //     })
+            //     .done(function (msg) {
+            //         var cnt = msg.meta.total_count;
                             
-                            totalPages = cnt / 10;
+            //         totalPages = cnt / 10;
+            //         console.log(totalPages);
 
-                            if(totalPages > 100){
-                                totalPages = 100;
-                            }
+            //         if(totalPages > 100){
+            //             totalPages = 100;
+            //         }
 
-                            $("#pagination").empty();
-                            $(".context").empty();
+            //         $(".context").empty();
+            //         $("#pagination").empty();
 
-                            $(function() {
-                                (function() {
-                                    var container = $('#pagination');
-                                    if (!container.length) return;
-                                    var sources = function () {
-                                        var result = [];
+            //         $(function () {
+            //             window.pagObj = $('#pagination').twbsPagination({
+            //                 totalPages: totalPages,
+            //                 visiblePages: 10,
+            //                 prev: "‹",
+            //                 next: "›",
+            //                 first: '«',
+            //                 last: '»',
+            //                 onPageClick: function (event, page) {
+            //                     page_num = page;
+            //                 }
+            //             }).on('page', function (event, page) {
+            //                     $.ajax({
+            //                         method: "GET",
+            //                         url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
+            //                         data: { query : search_name },
+            //                         headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
+            //                     })
+            //                     .done(function (msg) {
+            //                         $(".context").empty();
+            //                         make_card(msg);
+            //                     });
+            //                 });
+            //         });
+            //         make_card(msg);
+            //     });
+            // }
 
-                                        for (var i = 1; i < totalPages * 10; i++) {
-                                            result.push(i);
-                                        }
+            // if(window.location.search != ""){
+            //     let t_array = window.location.href.split('?');
 
-                                        return result;
-                                    }();
-                                    var options = {
-                                        dataSource: sources,
-                                        callback: function (response, pagination) {
-                                            //console.log(pagination.pageNumber);
-                                            var dataHtml = '<ul>';
+            //     url = t_array[0];
+            //     first = false;
+            //     search_name = decodeURI(window.location.search.slice(1));
+            //     $("#bookname").val(search_name);
 
-                                            $.each(response, function (index, item) {
-                                            dataHtml += '<li>' + item + '</li>';
-                                            });
+            //     search();
+            // }
 
-                                            dataHtml += '</ul>';
-                                        }
-                                    };
-
-                                    container.pagination(options);
-                                    console.log(page_num);
-
-                                    for (let i = 0; i < 10; i++) {
-                                        let temp = msg.documents[i].isbn.split(' ');
-                                        let no = temp[1];
-                                        let url = msg.documents[i].thumbnail;
-                                        let name = msg.documents[i].title;
-                                        let author = msg.documents[i].authors;
-                                        let publish = msg.documents[i].publisher;
-                                        temp = msg.documents[i].datetime.split('-');
-                                        let year = temp[0];
-                                        let price = msg.documents[i].price;
-
-                                        let v_no = '"' + no + '"';
-                                        let v_url = '"' + url + '"';
-                                        let v_name = '"' + name + '"';
-                                        let v_author = '"' + author + '"';
-                                        let v_publish = '"' + publish + '"';
-                                        let v_year = '"' + year + '"';
-                                        let v_price = '"' + price + '"';
-
-                                        if(url == ""){
-                                            let v_url = " ";
-                                            $(".context").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
-                                                            + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
-                                                            + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                                                            + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
-                                        }else{
-                                            $(".context").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
-                                                            + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
-                                                            + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                                                            + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
-                                        }
-                                    }
-
-                                })('demo1');
-                            })
-
-                            // $(function () {
-                            //     console.log(totalPages);
-                            //     window.pagObj = $('#pagination').twbsPagination({
-                            //         totalPages: totalPages,
-                            //         visiblePages: 10,
-                            //         prev: "‹",
-                            //         next: "›",
-                            //         first: '«',
-                            //         last: '»',
-                            //         onPageClick: function (event, page) {
-                            //             page_num = page;
-                            //         }
-                            //     }).on('page', function (event, page) {
-                            //         $.ajax({
-                            //             method: "GET",
-                            //             url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
-                            //             data: { query : search_name },
-                            //             headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
-                            //         })
-                            //         .done(function (msg) {
-                            //             $(".context").empty();
-
-                            //             for (let i = 0; i < 10; i++) {
-                            //                 let temp = msg.documents[i].isbn.split(' ');
-                            //                 let no = temp[1];
-                            //                 let url = msg.documents[i].thumbnail;
-                            //                 let name = msg.documents[i].title;
-                            //                 let author = msg.documents[i].authors;
-                            //                 let publish = msg.documents[i].publisher;
-                            //                 temp = msg.documents[i].datetime.split('-');
-                            //                 let year = temp[0];
-                            //                 let price = msg.documents[i].price;
-
-                            //                 let v_no = '"' + no + '"';
-                            //                 let v_url = '"' + url + '"';
-                            //                 let v_name = '"' + name + '"';
-                            //                 let v_author = '"' + author + '"';
-                            //                 let v_publish = '"' + publish + '"';
-                            //                 let v_year = '"' + year + '"';
-                            //                 let v_price = '"' + price + '"';
-
-                            //                 if(url == ""){
-                            //                     let v_url = " ";
-                            //                     $(".context").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
-                            //                                     + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
-                            //                                     + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                            //                                     + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
-                            //                 }else{
-                            //                     $(".context").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
-                            //                                     + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
-                            //                                     + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                            //                                     + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
-                            //                 }
-                            //             }
-                            //         });
-                            //     });
-                            // });
-
-                            // for (let i = 0; i < 10; i++) {
-                            //     let temp = msg.documents[i].isbn.split(' ');
-                            //     let no = temp[1];
-                            //     let url = msg.documents[i].thumbnail;
-                            //     let name = msg.documents[i].title;
-                            //     let author = msg.documents[i].authors;
-                            //     let publish = msg.documents[i].publisher;
-                            //     temp = msg.documents[i].datetime.split('-');
-                            //     let year = temp[0];
-                            //     let price = msg.documents[i].price;
-
-                            //     let v_no = '"' + no + '"';
-                            //     let v_url = '"' + url + '"';
-                            //     let v_name = '"' + name + '"';
-                            //     let v_author = '"' + author + '"';
-                            //     let v_publish = '"' + publish + '"';
-                            //     let v_year = '"' + year + '"';
-                            //     let v_price = '"' + price + '"';
-
-                            //     if(url == ""){
-                            //         let v_url = " ";
-                            //         $(".context").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
-                            //                         + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
-                            //                         + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                            //                         + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
-                            //     }else{
-                            //         $(".context").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
-                            //                         + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
-                            //                         + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
-                            //                         + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +"); window.close();'> </div> </div>" );
-                            //     }
-                            // }
-                        });
-                });
-            });
+            // $(document).ready(function(){
+            //     $("#search").click(function(){
+            //         if(first){
+            //             search_name = $("#bookname").val();
+            //             first = false;
+            //         }else{
+            //             location.href = url + "?"+ $("#bookname").val(); 
+            //         }
+            //         search();
+            //     });
+            // });
         </script>
     </body>
 </html>
