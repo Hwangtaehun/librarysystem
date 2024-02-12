@@ -50,7 +50,6 @@ var search_name;
                     var cnt = msg.meta.total_count;
                             
                     totalPages = cnt / 10;
-                    console.log(totalPages);
 
                     if(totalPages > 100){
                         totalPages = 100;

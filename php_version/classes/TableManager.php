@@ -83,5 +83,18 @@ class TableManager
         $sql .= ' WHERE `'.$this->keyField.'`= :'.$this->keyField;
         $this->myQuery($sql, $param);
     }
+
+    function allupdataData($param, $id){
+        $sql = 'UPDATE`'.$this->table.'`SET ';
+        foreach($param as $key=>$value){
+            $sql .= '`'.$key.'`= :'.$key.', ';
+        }
+        $sql = rtrim($sql, ', ');
+        $sql .= ' WHERE `'.$this->keyField.'`= '.$id;
+        echo '$sql = '.$sql.'<br>';
+        print_r($param);
+        echo '<br>';
+        $this->myQuery($sql, $param);
+    }
 }
 ?>

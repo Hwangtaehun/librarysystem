@@ -81,8 +81,6 @@ main .context .card img{
     width: 180px;
 }
 
-
-
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}
 

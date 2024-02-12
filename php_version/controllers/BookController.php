@@ -86,11 +86,14 @@ class BookController{
 
     public function addupdate(){
         if(isset($_POST['book_no'])) {
-            if($_POST['book_no'] == ''){
+            if($_POST['bk_no'] == ''){
+                unset($_POST['bk_no']);
                 $this->bookTable->insertData($_POST);
             }
             else{
-                $this->bookTable->updateData($_POST);
+                $id = $_POST['bk_no'];
+                unset($_POST['bk_no']);
+                $this->bookTable->allupdataData($_POST, $id);
             }
             header('location: /book/list');
         }
@@ -105,6 +108,11 @@ class BookController{
             $title = '책'.$title2;
             return ['tempName'=>'bookForm.html.php', 'title'=>$title, 'title2'=>$title2];
         }
+    }
+
+    public function isbn(){
+        $title = '책검색';
+        return ['tempName'=>'isbn.html.php', 'title'=>$title];
     }
 }
 ?>

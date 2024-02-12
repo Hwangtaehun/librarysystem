@@ -16,9 +16,14 @@
         }
         return $m_script;
     }
-    
+
     //팝업창 인지 확인
     if(isset($_GET['pop'])){
+        if($_GET['pop'] == true){
+            $not_pop = false;
+        }
+    }
+    else if($title == '책검색'){
         $not_pop = false;
     }
     else{
@@ -124,7 +129,7 @@
     ?>
     <body>
         <header>
-            <?php if(!isset($_GET['pop'])){ ?>
+            <?php if($not_pop){ ?>
             <a href="/">
                 <img src="../img/header.gif" alt="">
             </a>
@@ -218,30 +223,28 @@
             echo '</div>';
         echo '</nav>';
         }
-        if(!isset($_GET['pop'])){
+        if($not_pop){
             if($state != 1){
                 if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' 
                     && $title != '회원가입' && $title != '공지사항 현황' && $title != '공지사항 수정'){
-                    if($not_pop){
-                        if($menu != '마이페이지'){
-                            $menu = '내서재';
-                        }
-                        echo "<aside><menu><li><h3>$menu</h3></li>";
-                        $script = makehtml($menu, $menus);
-                        echo $script;    
-                        echo "</menu></aside>";
+
+                    if($menu != '마이페이지'){
+                        $menu = '내서재';
                     }
+
+                    echo "<aside><menu><li><h3>$menu</h3></li>";
+                    $script = makehtml($menu, $menus);
+                    echo $script;    
+                    echo "</menu></aside>";
                 }
             }
             else{
                 if($title != '회원 현황' && $title != '도서관 관리' && $title != '회원 수정'){
-                    if($not_pop){
-                        echo "";
-                        echo "<aside><menu><li><h3>$menu</h3></li>";
-                        $script = makehtml($menu, $menus);
-                        echo $script;    
-                        echo "</menu></aside>";
-                    }
+                    echo "";
+                    echo "<aside><menu><li><h3>$menu</h3></li>";
+                    $script = makehtml($menu, $menus);
+                    echo $script;    
+                    echo "</menu></aside>";
                 }
             }
         } 

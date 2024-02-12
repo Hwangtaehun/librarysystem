@@ -43,7 +43,8 @@
     <?php }?>
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 260px;">
+                <div class="card" style="width: 16rem; height: 350px;">
+                    <img src="<?= $row['book_url']; ?>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
                         <p class="card-text">작가:<?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
