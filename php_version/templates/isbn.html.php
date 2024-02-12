@@ -24,5 +24,21 @@
                 <ul class="pagination justify-content-center" id="pagination"></ul>
             </div>
         </main>
+        <script>
+            const pa = document.querySelector(".pagination");
+
+            window.addEventListener("resize", function() {
+                let width = window.innerWidth;
+                windowsize(width);
+            })
+
+            function windowsize(width) {
+                if(width > 991){
+                    pa.className = 'pagination justify-content-center pagination-lg';
+                }else{
+                    pa.className = 'pagination justify-content-center';
+                }
+            }
+        </script>
     </body>
 </html>

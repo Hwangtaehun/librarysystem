@@ -147,7 +147,12 @@ main .search .srbt{
 
 /*카드*/
 main .card {
+    display: flex;
+    flex-direction: row;
     margin-bottom: 10px;
+}
+main .card .big{
+    padding: 0;
 }
 main .card .card-body .card-text{
     margin-bottom: 5px;
@@ -155,6 +160,7 @@ main .card .card-body .card-text{
 main .card img{
     margin: 0 auto;
     width: 90px;
+    object-fit: contain;
 }
 
 /*추가, 수정 페이지 디자인*/

@@ -71,17 +71,11 @@ main .context .card{
     margin: auto;
     margin-bottom: 5px;
 }
-main .context .card input{
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-}
 main .context .card img{
     margin: 0 auto;
     width: 90px;
+    object-fit: contain;
 }
-
-
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}
