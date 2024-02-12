@@ -201,6 +201,65 @@ class DelController{
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
+    //상호대차 도착일 검색
+    public function addresearch(){
+        $title = '상호대차 도착일 추가';
+
+        $this->sqlList($title);
+
+        if(isset($_POST)){
+            if($_POST['lib_research'] == 0){
+                $mat_no = $_POST['mat_no'];
+                $sql = $this->sql." AND delivery.mat_no = $mat_no";
+                $value = "mat_no=$mat_no";
+            }
+            else if($_POST['mat_no'] == ''){
+                $lib_no = $_POST['lib_research'];
+                $sql = $this->sql." AND delivery.lib_no_arr = $lib_no";
+                $value = "lib_no=$lib_no";
+            }
+            else{
+                $lib_no = $_POST['lib_research'];
+                $mat_no = $_POST['mat_no'];
+                $sql = $this->sql." AND delivery.mat_no = $mat_no AND delivery.lib_no_arr = $lib_no";
+                $value = "mat_no=$mat_no,lib_no=$lib_no";
+            }
+        }
+        
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+            $key_array = explode(",",$value);
+            if(sizeof($key_array) != 1){
+                $mat = explode("=",$key_array[0]);
+                $mem = explode("=",$key_array[1]);
+                $mat_no = $mat[1];
+                $lib_no = $mem[1];
+                $sql = $this->sql." AND delivery.mat_no = $mat_no AND delivery.lib_no_arr = $lib_no";
+            }
+            else{
+                $key_array = explode("=",$value);
+                if($key_array[0] == "mat_no"){
+                    $mat_no = $key_array[1];
+                    $sql = $this->sql." AND delivery.mat_no = $mat_no";
+                }else if($key_array[0] == "lib_no"){
+                    $lib_no_arr = $key_array[1];
+                    $sql = $this->sql." AND delivery.lib_no_arr = $lib_no_arr";
+                }
+            }
+        }
+        
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
+    }
+
     public function delete(){
         $this->delTable->deleteData($_POST['del_no']);
         header('location: /del/list');

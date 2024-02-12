@@ -115,6 +115,10 @@ main .search select{
     border-radius: 8px;
     border-right-style: double;
 }
+main .search .re{
+    position: relative;
+    margin-bottom: 5px;
+}
 main .search .lib {
     margin-left: 20%;
 }
@@ -147,6 +151,10 @@ main .card {
 }
 main .card .card-body .card-text{
     margin-bottom: 5px;
+}
+main .card img{
+    margin: 0 auto;
+    width: 90px;
 }
 
 /*추가, 수정 페이지 디자인*/

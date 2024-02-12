@@ -78,8 +78,10 @@ main .context .card input{
 }
 main .context .card img{
     margin: 0 auto;
-    width: 180px;
+    width: 90px;
 }
+
+
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}
 footer img {height: 35px;}
