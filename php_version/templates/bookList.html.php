@@ -13,8 +13,6 @@
     }
     ?>
     <script>
-        var cnt = 1;
-
         //검색 내용이 있는 없는지 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){

@@ -36,7 +36,7 @@
         //자료 팝업창
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkma","width=310,height=445");
+            window.open(url,"chkma","width=500,height=445");
         }
 
         //상호대차 팝업창

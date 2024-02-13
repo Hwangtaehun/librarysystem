@@ -1,0 +1,145 @@
+
+<!doctype html>
+<html lang = "en">
+    <head>
+        <meta charset = "utf-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>자료 현황</title>
+    </head>
+        <body>
+        <header>
+                        <a href="/">
+                <img src="../img/header.gif" alt="">
+            </a>
+            <div class="link">
+            <a>황태훈님 환영합니다.</a><a href="/member/logout">로그아웃</a>            </div>
+                    </header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/len/memLent'>대출중도서</a></li><li><a class='dropdown-item' href='/len/memAllLent'>모든대출내역</a></li><li><a class='dropdown-item' href='/res/list'>예약내역</a></li><li><a class='dropdown-item' href='/del/list'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/addupdate?mem_no=2'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/memdel?mem_no=2'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
+            <head>
+    <link rel="stylesheet" href="../css/form-noaside.css">    <script>
+        //예약가능 확인 함수
+        function checkRes(myform){
+            if(myform.id_state.value != '예약가능'){
+                alert("예약이 불가능합니다.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form action="/mat/research" method="post">
+        <div class="search">
+            <select id = "s1" name = "lib_research">
+                <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>            </select>
+            <input class="lib" type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+            <button type="submit" class="btn btn-outline-secondary" id="inbt">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
+    </form>
+    <div class="container text-center">
+            <div class="row row-cols-2">
+                    <div class="col">
+                <div class="card" style="width: 26rem; height: 240px;">
+                    <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1653639%3Ftimestamp%3D20240130172551' class='card-img-top' alt='CentOS 리눅스 구축관리실무'>                    <div class="card-body">
+                                                        <h5 class="card-title">CentOS 리눅스 구축관리실무</h5>
+                            <p class="card-text">
+                            저자 정우영 | 출판사 수퍼유저코리아<br>
+                            발행년도 2016 | 소장기관 청주청원도서관<br>
+                            청구기호 005-정66<br>
+                            대출가능 | 예약불가<br>
+                            </p>
+                                                        <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
+                                        <input type="hidden" name="mat_no" value="2016">
+                                        <input type="hidden" name="mem_no" value="2">
+                                        <input type="hidden" name="res_date" value="2024-02-13">
+                                        <input type="hidden" id="id_state" value="예약불가">
+                                        <input type="submit" value="예약">
+                                        <a href="/mat/delpop?mat_no=2016" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                            <input type="button" value="상호대차">
+                                        </a>
+                                                                                </form>
+                    </div>
+                </div>
+            </div>
+                <div class="col">
+                <div class="card" style="width: 26rem; height: 240px;">
+                    <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F513452%3Ftimestamp%3D20240106155556' class='card-img-top' alt='설민석의 조선왕조실록'>                    <div class="card-body">
+                                                        <h5 class="card-title">설민석의 조선왕조실록</h5>
+                            <p class="card-text">
+                            저자 설민석 | 출판사 세계사<br>
+                            발행년도 2016 | 소장기관 청주청원도서관<br>
+                            청구기호 911-설38<br>
+                            대출불가 | 예약불가<br>                             
+                            </p>
+                                                        <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
+                                        <input type="hidden" name="mat_no" value="2016">
+                                        <input type="hidden" name="mem_no" value="2">
+                                        <input type="hidden" name="res_date" value="2024-02-13">
+                                        <input type="hidden" id="id_state" value="예약불가">
+                                        <input type="submit" value="예약">
+                                        <a href="/mat/delpop?mat_no=2016" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                            <input type="button" value="상호대차">
+                                        </a>
+                                                                                </form>
+                    </div>
+                </div>
+            </div>
+                <div class="col">
+                <div class="card" style="width: 26rem; height: 240px;">
+                    <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1153572%3Ftimestamp%3D20231223182255' class='card-img-top' alt='연금술사'>                    <div class="card-body">
+                                                        <h5 class="card-title">연금술사</h5>
+                            <p class="card-text">
+                            저자 파울로 코엘료 | 출판사: 문학동네<br>
+                            발행년도: 2018 | 소장기관: 청주청원도서관<br>
+                            청구기호: 879-코64<br>
+                            대출가능 | 예약불가<br> 
+                            </p>
+                                                        <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
+                                        <input type="hidden" name="mat_no" value="2018">
+                                        <input type="hidden" name="mem_no" value="2">
+                                        <input type="hidden" name="res_date" value="2024-02-13">
+                                        <input type="hidden" id="id_state" value="예약불가">
+                                        <input type="submit" value="예약">
+                                        <a href="/mat/delpop?mat_no=2018" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                            <input type="button" value="상호대차">
+                                        </a>
+                                                                                </form>
+                    </div>
+                </div>
+            </div>
+                <div class="col">
+                <div class="card" style="width: 26rem; height: 240px;">
+                    <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3779501%3Ftimestamp%3D20231227154719' class='card-img-top' alt='이득우의 언리얼 C++ 게임 개발의 정석'>                    <div class="card-body">
+                                                        <h5 class="card-title">이득우의 언리얼 C++ 게임 개발의 정석</h5>
+                            <p class="card-text">
+                            저자: 이득우 | 출판사: 에이콘출판<br>
+                            발행년도: 2018 | 소장기관: 청주상당도서관<br>
+                            청구기호: 005-이27<br>
+                            대출가능 | 예약불가<br>
+                            </p>
+                                                        <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
+                                        <input type="hidden" name="mat_no" value="2018">
+                                        <input type="hidden" name="mem_no" value="2">
+                                        <input type="hidden" name="res_date" value="2024-02-13">
+                                        <input type="hidden" id="id_state" value="예약불가">
+                                        <input type="submit" value="예약">
+                                        <a href="/mat/delpop?mat_no=2018" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                            <input type="button" value="상호대차">
+                                        </a>
+                                                                                </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</body>                    </main>
+        <footer>
+            <img src="../img/footer.gif" alt="">
+            <div class='table_menu'><table><tr><th>공지사항</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/len/memLent">대출중도서</a></td><td><a href="/member/addupdate?mem_no=2">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/len/memAllLent">모든대출내역</a></td><td><a href="/member/memdel?mem_no=2">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/res/list">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/del/list">상호대차내역</a></td><td></td></tr></table></div>        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

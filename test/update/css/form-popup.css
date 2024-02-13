@@ -59,22 +59,29 @@ main .sel select{
 main .search .srbt{
     width: 80px;
 }
-main .card .card-body .card-text{
-    margin-bottom: 5px;
-}
 
-main .context .card{
+/*카드*/
+main .card{
     display: flex;
     flex-direction: row;
-    width: 28rem;
-    height: 260px;
     margin: auto;
     margin-bottom: 5px;
 }
-main .context .card img{
+main .card img{
     margin: 0 auto;
     width: 90px;
     object-fit: contain;
+}
+main .card .card-body{
+    padding-top: 5px;
+}
+main .list .card input{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+main .card .card-body .card-text{
+    margin-bottom: 5px;
 }
 
 footer {grid-area: footer; text-align: center; border-style: hidden;}

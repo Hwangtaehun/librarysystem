@@ -64,7 +64,7 @@
         //자료 팝업창 띄우는 함수 
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkbk","width=310,height=445");
+            window.open(url,"chkbk","width=500,height=445");
         }
 
         //회원 팝업창에 받아온 내용 가져오기

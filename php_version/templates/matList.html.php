@@ -74,11 +74,11 @@
     <?php if($ispop){ ?>
         <div class="row">
     <?php }else{ ?>
-        <div class="row row-cols-3">
+        <div class="row row-cols-2">
     <?php }?>
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 300px;">
+                <div class="card" style="width: 27rem; height: 240px;">
                     <?php
                     if($row['book_url'] != ''){
                         $bu = $row['book_url'];
@@ -88,6 +88,17 @@
                     ?>
                     <div class="card-body">
                             <?php
+                            if(!empty($row['kind_no'])&&!empty($row['mat_symbol'])){
+                                $libsymbol = $row['kind_no'].'-'.$row['mat_symbol'];
+
+                                if($row['mat_many'] != 0){
+                                    $libsymbol = $libsymbol.'='.$row['mat_many'];
+                                }
+
+                                if($row['mat_overlap'] != 'c.1'){
+                                    $libsymbol = $libsymbol.'='.$row['mat_overlap'];
+                                }
+                            }
                             if($title == '자료 현황'){
                                 if($mem_state != 1){
                                     $state = $row['len_re_st'];
@@ -116,6 +127,7 @@
                                     }
                                 }
                                 else{
+                                    $kind = $row['kind_no'];
                                     $mat_many = $row['mat_many'];
                                     $mat_overlap = $row['mat_overlap'];
                                 }
@@ -132,21 +144,21 @@
                                 $mat_overlap = $assist->removeSymbol($o_overlap);
                             }
                             ?>
+                            <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
                             <p class="card-text">
-                            도서관: <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
-                            <? if(isset($row['kind_no'])){ ?>
-                                종류번호: <?=htmlspecialchars($row['kind_no'],ENT_QUOTES,'UTF-8');?><br>
-                            <?}?>
-                            책이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
-                            작가: <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
-                            출판사: <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
-                            <?php if(isset($mat_many)){ ?>
-                                권차: <?=htmlspecialchars($mat_many,ENT_QUOTES,'UTF-8');?><br>
-                                복권: <?=htmlspecialchars($mat_overlap,ENT_QUOTES,'UTF-8');?><br>
+                            저자 <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?> | 출판사 <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
+                            발행년도 <?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?> | 소장기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                            <?php if(isset($libsymbol)){ ?>
+                                청구기호 <?=htmlspecialchars($libsymbol,ENT_QUOTES,'UTF-8');?><br>
+                            <?php }
+                            if(isset($kind)){ ?>
+                                종류번호 <?=htmlspecialchars($kind,ENT_QUOTES,'UTF-8');?><br>
+                            <?php }
+                            if(isset($mat_many)){ ?>
+                                권차 <?=htmlspecialchars($mat_many,ENT_QUOTES,'UTF-8');?> | 복권 <?=htmlspecialchars($mat_overlap,ENT_QUOTES,'UTF-8');?><br>
                             <?php } 
                             if(isset($lent_re_state)){ ?>
-                                <?=htmlspecialchars($lent_re_state,ENT_QUOTES,'UTF-8');?><br>
-                                <?=htmlspecialchars($res_state,ENT_QUOTES,'UTF-8');?><br>
+                                <?=htmlspecialchars($lent_re_state,ENT_QUOTES,'UTF-8');?> | <?=htmlspecialchars($res_state,ENT_QUOTES,'UTF-8');?><br>
                             <?php }?> 
                             </p>
                         <?php

@@ -25,8 +25,10 @@
             </div>
         </main>
         <script>
+            const bn = document.querySelector("#bookname");
             const pa = document.querySelector(".pagination");
 
+            bn.value = decodeURI(window.location.search.slice(1));
             window.addEventListener("resize", function() {
                 let width = window.innerWidth;
                 windowsize(width);

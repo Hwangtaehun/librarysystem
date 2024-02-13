@@ -66,7 +66,7 @@
         //자료 검색 팝업창
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkbk","width=310,height=445");
+            window.open(url,"chkbk","width=500,height=445");
         }
 
         //현재날짜변경

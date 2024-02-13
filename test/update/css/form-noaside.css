@@ -135,8 +135,19 @@ main .search .srbt{
     width: 80px;
 }
 
+/*카드*/
 main .card {
+    display: flex;
+    flex-direction: row;
     margin-bottom: 10px;
+}
+main .card img{
+    margin: 0 auto;
+    width: 90px;
+    object-fit: contain;
+}
+main .card .card-body{
+    padding-top: 5px;
 }
 main .card .card-body .card-text{
     margin-bottom: 5px;

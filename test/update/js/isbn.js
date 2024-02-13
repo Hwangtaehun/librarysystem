@@ -26,12 +26,12 @@ var search_name;
 
                     if(url == ""){
                         let v_url = " ";
-                        $(".context").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
+                        $(".list").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
                                             + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
                                             + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
                                             + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +", " + v_url + "); window.close();'> </div> </div>" );
                     }else{
-                        $(".context").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
+                        $(".list").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
                                             + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
                                             + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
                                             + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +", " + v_url + "); window.close();'> </div> </div>" );
@@ -56,7 +56,7 @@ var search_name;
                         totalPages = 100;
                     }
 
-                    $(".context").empty();
+                    $(".list").empty();
                     $("#pagination").empty();
 
                     $(function () {
@@ -78,7 +78,7 @@ var search_name;
                                     headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
                                 })
                                 .done(function (msg) {
-                                    $(".context").empty();
+                                    $(".list").empty();
                                     make_card(msg);
                                 });
                             });

@@ -93,7 +93,6 @@ var search_name;
                 first = false;
                 search_name = decodeURI(window.location.search.slice(1));
                 search();
-                $("#bookname").val(search_name);
             }
 
             $(document).ready(function(){

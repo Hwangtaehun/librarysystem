@@ -30,7 +30,7 @@
         //자료검색 팝업창 생성
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkbk","width=310,height=445");
+            window.open(url,"chkbk","width=500,height=445");
         }
 
         //팝업창에 찾은 내용을 웹페이지에게 넘기는 함수
