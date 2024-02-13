@@ -79,6 +79,13 @@
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
                 <div class="card" style="width: 16rem; height: 300px;">
+                    <?php
+                    if($row['book_url'] != ''){
+                        $bu = $row['book_url'];
+                        $bn = $row['book_name'];
+                        echo "<img src='$bu' class='card-img-top' alt='$bn'>";
+                    }
+                    ?>
                     <div class="card-body">
                             <?php
                             if($title == '자료 현황'){
@@ -126,7 +133,7 @@
                             }
                             ?>
                             <p class="card-text">
-                            도서관 이름: <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                            도서관: <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
                             <? if(isset($row['kind_no'])){ ?>
                                 종류번호: <?=htmlspecialchars($row['kind_no'],ENT_QUOTES,'UTF-8');?><br>
                             <?}?>

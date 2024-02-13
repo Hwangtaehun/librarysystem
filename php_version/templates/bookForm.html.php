@@ -46,7 +46,7 @@
 
         function checkbook() {
             const url = "/book/isbn";
-            window.open(url,"chkbk","width=510,height=620");
+            window.open(url,"chkbk","width=550,height=620");
         }
     </script>
 </head>

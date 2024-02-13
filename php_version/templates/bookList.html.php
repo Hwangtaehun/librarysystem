@@ -13,6 +13,8 @@
     }
     ?>
     <script>
+        var cnt = 1;
+
         //검색 내용이 있는 없는지 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
@@ -43,8 +45,14 @@
     <?php }?>
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 350px;">
-                    <img src="<?= $row['book_url']; ?>" class="card-img-top" alt="...">
+                <div class="card" style="width: 16rem; height: 250px;">
+                    <?php
+                    if($row['book_url'] != ''){
+                        $bu = $row['book_url'];
+                        $bn = $row['book_name'];
+                        echo "<img src='$bu' class='card-img-top' alt='$bn'>";
+                    }
+                    ?>
                     <div class="card-body">
                         <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
                         <p class="card-text">작가:<?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>

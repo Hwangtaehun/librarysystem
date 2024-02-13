@@ -176,12 +176,12 @@
                 $small = $small.(string)$one;
             }
             
-            echo "var major = $major;";
-            echo "var middle = $middle;";
-            echo "var small = $small;";
-            echo "let s1 = document.querySelector('#s1');";
-            echo "let s2 = document.querySelector('#s2');";
-            echo "let s3 = document.querySelector('#s3');";
+            echo "const major = '$major';";
+            echo "const middle = '$middle';";
+            echo "const small = '$small';";
+            echo "const s1 = document.querySelector('#s1');";
+            echo "const s2 = document.querySelector('#s2');";
+            echo "const s3 = document.querySelector('#s3');";
             echo "s1.value = major;";
             echo "majorChange(major);";
             echo "s2.value = middle;";
