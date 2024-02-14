@@ -53,10 +53,9 @@
                     ?>
                     <div class="card-body">
                         <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
-                        <p class="card-text">작가:<?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
-                                            출판사:<?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
-                                            출판년도:<?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?>년<br>
-                                            가격:<?=htmlspecialchars($row['book_price'],ENT_QUOTES,'UTF-8');?>원
+                        <p class="card-text">
+                            저자<?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?> | 출판사<?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
+                            출판년도<?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?>년 | 가격<?=htmlspecialchars($row['book_price'],ENT_QUOTES,'UTF-8');?>원
                         </p>
                         <?php
                             if($ispop){

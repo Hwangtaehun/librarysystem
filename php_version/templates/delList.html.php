@@ -166,9 +166,25 @@
         <?php }?>
         <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 300px;">
+                <div class="card" style="width: 16rem; height: 250px;">
                     <div class="card-body">
                     <?php
+                    //청구번호 변환
+                    $kind = $row['kind_no'];
+                    $symbol = $row['mat_symbol'];
+                    $many = $row['mat_many'];
+                    $overlap = $row['mat_overlap'];
+
+                    $book = $kind.'-'.$symbol;
+
+                    if($many != 0){
+                        $book = $book.'='.$many;
+                    }
+
+                    if($overlap != 'c.1'){
+                        $book = $book.'='.$overlap;
+                    }
+
                     if(isset($row['del_app'])){
                         $del_app = '반송';
                         if($row['del_app'] == 0){
@@ -180,21 +196,20 @@
                     }
                     
                     if($title != '상호대차 도착일 추가'){ ?>
-                        회원 아이디: <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
+                        회원 아이디 <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
                         <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                     <?php }?>
-                    책이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                    도서 <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
                     <?php if(!$ispop){ ?>
-                    권차: <?=htmlspecialchars($row['mat_many'],ENT_QUOTES,'UTF-8');?><br>
-                    복권: <?=htmlspecialchars($row['mat_overlap'],ENT_QUOTES,'UTF-8');?><br>
+                    청구 번호 <?=htmlspecialchars($book,ENT_QUOTES,'UTF-8');?><br>
                     <?php } ?> 
-                    소장 도서관: <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
-                    수신 도서관: <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> <br>
+                    소장 도서관 <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
+                    수신 도서관 <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> <br>
                     <?php if(!$ispop){ ?>
+                        승인 상태 <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?><br>
                         <?php if($title != '상호대차 도착일 추가'){ if(isset($row['del_arr_date'])){ ?>
-                            도착일: <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?><br>
+                            도착일 <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?><br>
                         <?php } } ?>
-                    승인 상태: <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?><br>
                     <?php } ?>
                 <?php if($ispop){
                         echo '<form>';

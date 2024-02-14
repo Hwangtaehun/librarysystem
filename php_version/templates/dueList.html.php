@@ -49,12 +49,22 @@ $lib_array = $assist->libraryarray($pdo);
                 <div class="card" style="width: 16rem; height: 300px;">
                     <div class="card-body">
                     <?php
-                    //도서번호 변환
+                    //청구번호 변환
                     $kind = $row['kind_no'];
                     $symbol = $row['mat_symbol'];
                     $many = $row['mat_many'];
                     $overlap = $row['mat_overlap'];
-                    $book = $kind.' '.$symbol.' '.$many.' '.$overlap;
+
+                    $book = $kind.'-'.$symbol;
+
+                    if($many != 0){
+                        $book = $book.'='.$many;
+                    }
+
+                    if($overlap != 'c.1'){
+                        $book = $book.'='.$overlap;
+                    }
+                    
 
                     //반납일 날짜
                     if($row['len_re_date'] == ''){
@@ -73,12 +83,12 @@ $lib_array = $assist->libraryarray($pdo);
                     ?>
                     <h5 class="card-title"><?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?></h5>
                     <p class="card-text">
-                        책이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
-                        소장 도서관: <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
-                        책번호: <?=htmlspecialchars($book,ENT_QUOTES,'UTF-8');?><br>
-                        대출일: <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?><br>
-                        반납일: <?=htmlspecialchars($len_re_date,ENT_QUOTES,'UTF-8');?><br>
-                        해제일: <?=htmlspecialchars($due_exp,ENT_QUOTES,'UTF-8');?><br>
+                        도서 <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                        소장 기관 <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
+                        청구 번호 <?=htmlspecialchars($book,ENT_QUOTES,'UTF-8');?><br>
+                        대출일 <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?><br>
+                        반납일 <?=htmlspecialchars($len_re_date,ENT_QUOTES,'UTF-8');?><br>
+                        해제일 <?=htmlspecialchars($due_exp,ENT_QUOTES,'UTF-8');?><br>
                     </p>
                     <?php if($row['due_exp'] != ''){ ?>
                         <form action="/etc/delete" method="post">
