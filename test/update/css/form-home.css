@@ -342,6 +342,8 @@ main .calender .dates {
 }
 
 main .calender .date, .day{
+    position: static;
+    z-index: 2;
     text-align: center;
     width: calc(100%/7);
     padding: 16px 0 16px 0;
@@ -367,9 +369,11 @@ main .calender .holiday{
     color: tomato !important;
 }
 
-main .calender .break{
-    background-color: rgba(255, 255, 0, 0.9);
-    border-radius:200%;
+main .calender .image .break{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    z-index: 1;
 }
 
 footer {

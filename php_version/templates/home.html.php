@@ -172,6 +172,7 @@
                 <div class="day">Sat</div>
               </div>
               <div class="dates"></div>
+              <div class="image"></div>
             </div>
         </div>
         <script src="../js/slider.js"></script>

@@ -19,16 +19,17 @@
 <html>
     <head>
         <link rel="stylesheet" href="../css/form-home.css">
-        <script>
+        <script defer>
             var cnt = 1;
-        </script>
+            let rest = 5;        </script>
+        <script defer src="../js/calendar.js"></script>
     </head>
         <body>
         <!-- 검색창 -->
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
-                    <option  value = 0 > 없음 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option><option  value = 5 > 청주시립도서관 </option><option  value = 6 > 청주오창도서관 </option>                </select>
+                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                </select>
                 <input type="text" name="user_research" id="id_research" value = "" placeholder="도서 이름을 입력해주세요.">
                 <button type="submit" class="btn btn-outline-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -106,7 +107,7 @@
             <div class="header">
               <div class="select">
                 <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
-                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option><option  value='/member/home?lib_no=5' > 청주시립도서관 </option><option  value='/member/home?lib_no=6' > 청주오창도서관 </option>               
+                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option>               
                 </select>
               </div>
               <button class="prevBtn" onclick="prevCal()"></button>
@@ -119,7 +120,7 @@
               <button class="nextBtn" onclick="nextCal()"></button>
             </div>
             <div class="main">
-              <div class="daies">
+              <div class="days">
                 <div class="day">Sun</div>
                 <div class="day">Mon</div>
                 <div class="day">Tue</div>
@@ -129,238 +130,10 @@
                 <div class="day">Sat</div>
               </div>
               <div class="dates"></div>
+              <div class="image"></div>
             </div>
         </div>
-        <script>
-            // 슬라이드 배너 사용하는 스크립트
-            const slide = document.querySelector(".slide");
-            let slideWidth = slide.clientWidth;
-
-            const prevBtn = document.querySelector(".slide_prev_button");
-            const nextBtn = document.querySelector(".slide_next_button");
-
-            let slideItems = document.querySelectorAll(".slide_item");
-            const maxSlide = slideItems.length;
-
-            let currSlide = 1;
-
-            const pagination = document.querySelector(".slide_pagination");
-
-            for (let i = 0; i < maxSlide; i++) {
-                if (i === 0) pagination.innerHTML += `<li class="active">•</li>`;
-                else pagination.innerHTML += `<li>•</li>`;
-            }
-
-            const paginationItems = document.querySelectorAll(".slide_pagination > li");
-
-            const startSlide = slideItems[0];
-            const endSlide = slideItems[slideItems.length - 1];
-            const startElem = document.createElement("div");
-            const endElem = document.createElement("div");
-
-            endSlide.classList.forEach((c) => endElem.classList.add(c));
-            endElem.innerHTML = endSlide.innerHTML;
-
-            startSlide.classList.forEach((c) => startElem.classList.add(c));
-            startElem.innerHTML = startSlide.innerHTML;
-
-            slideItems[0].before(endElem);
-            slideItems[slideItems.length - 1].after(startElem);
-
-            slideItems = document.querySelectorAll(".slide_item");
-            
-            let offset = slideWidth + currSlide;
-            slideItems.forEach((i) => {
-                i.setAttribute("style", `left: ${-offset}px`);
-            });
-
-            function nextMove() {
-                currSlide++;
-                if (currSlide <= maxSlide) {
-                    const offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `left: ${-offset}px`);
-                    });
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                } else {
-                    currSlide = 0;
-                    let offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `transition: ${0}s; left: ${-offset}px`);
-                    });
-                    currSlide++;
-                    offset = slideWidth * currSlide;
-                    setTimeout(() => {
-                        slideItems.forEach((i) => {
-                            i.setAttribute("style", `transition: ${0.15}s; left: ${-offset}px`);
-                        });
-                    }, 0);
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                }
-            }
-
-            function prevMove() {
-                currSlide--;
-                if (currSlide > 0) {
-                    const offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `left: ${-offset}px`);
-                    });
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                } else {
-                    currSlide = maxSlide + 1;
-                    let offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `transition: ${0}s; left: ${-offset}px`);
-                    });
-                    currSlide--;
-                    offset = slideWidth * currSlide;
-                    setTimeout(() => {
-                        slideItems.forEach((i) => {
-                            i.setAttribute("style", `transition: ${0.15}s; left: ${-offset}px`);
-                        });
-                    }, 0);
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                }
-            }
-
-            nextBtn.addEventListener("click", () => {
-                nextMove();
-            });
-
-            prevBtn.addEventListener("click", () => {
-                prevMove();
-            });
-
-            window.addEventListener("resize", () => {
-                slideWidth = slide.clientWidth;
-            });
-
-            for (let i = 0; i < maxSlide; i++) {
-                paginationItems[i].addEventListener("click", () => {
-                    currSlide = i + 1;
-                    const offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                    i.setAttribute("style", `left: ${-offset}px`);
-                    });
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                });
-            }
-
-            let startPoint = 0;
-            let endPoint = 0;
-            
-            slide.addEventListener("mousedown", (e) => {
-                startPoint = e.pageX;
-            });
-            slide.addEventListener("mouseup", (e) => {
-                endPoint = e.pageX;
-                if (startPoint < endPoint) {
-                    prevMove();
-                } else if (startPoint > endPoint) {
-                    nextMove();
-                }
-            });
-
-            slide.addEventListener("touchstart", (e) => {
-                startPoint = e.touches[0].pageX;
-            });
-            slide.addEventListener("touchend", (e) => {
-                endPoint = e.changedTouches[0].pageX;
-                if (startPoint < endPoint) {
-                    prevMove();
-                } else if (startPoint > endPoint) {
-                    nextMove();
-                }
-            });
-
-            let loopInterval = setInterval(() => {
-                nextMove();
-            }, 3000);
-
-            slide.addEventListener("mouseover", () => {
-                clearInterval(loopInterval);
-            });
-
-            slide.addEventListener("mouseout", () => {
-                loopInterval = setInterval(() => {
-                    nextMove();
-                }, 3000);
-            });
-            //참고 사이트: https://devinus.tistory.com/48
-        </script>
-        <script>
-            //달력 스크립트
-            let CDate = new Date();
-            let today = new Date();
-            let rest = 7;
-
-            rest = 5;
-            buildCalender();
-
-            function buildCalender(){
-                let size_pre = 0;
-                let size_next = 0;
-                let prevLast = new Date(CDate.getFullYear(), CDate.getMonth(), 0);
-                let thisFirst = new Date(CDate.getFullYear(), CDate.getMonth(), 1);
-                let thisLast = new Date(CDate.getFullYear(), CDate.getMonth() + 1, 0);
-                document.querySelector(".yearTitle").innerHTML = CDate.getFullYear();
-                document.querySelector(".monthTitle").innerHTML = CDate.getMonth() + 1;
-                let dates = [];
-
-                if(thisFirst.getDay()!=0){
-                    size_pre = thisFirst.getDay();
-                    for(let i = 0; i < thisFirst.getDay(); i++){
-                        dates.unshift(prevLast.getDate()-i);
-                    }
-                }
-
-                for(let i = 1; i <= thisLast.getDate(); i++){
-                    dates.push(i);
-                }
-
-                for(let i = 1; i <= 13 - thisLast.getDay(); i++){
-                    dates.push(i);
-                }
-
-                for(let i = 0; i < 42; i++){
-                    if(dates[i-1] > dates[i]){
-                        size_next = i;
-                    }
-                }
-
-                let htmlDates = '';
-                for(let i = 0; i < 42; i++){
-                    if(i < size_pre || size_next <= i){
-                        htmlDates += `<div class="date cloud">${dates[i]}</div>`;
-                    }
-                    else if(i % 7 == rest){
-                        htmlDates += `<div class="date break">${dates[i]}</div>`;
-                    }
-                    else{
-                        htmlDates += `<div class="date">${dates[i]}</div>`;
-                    }
-                }
-                
-                document.querySelector(".dates").innerHTML = htmlDates;
-            }
-
-            function prevCal(){
-                CDate.setMonth(CDate.getMonth()-1);
-                buildCalender();
-            }
-
-            function nextCal(){
-                CDate.setMonth(CDate.getMonth()+1);
-                buildCalender();
-            }
-            //참고 사이트: https://cl0clam.tistory.com/5
-        </script>
+        <script src="../js/slider.js"></script>
     </body>
 </html>                    </main>
         <footer>
