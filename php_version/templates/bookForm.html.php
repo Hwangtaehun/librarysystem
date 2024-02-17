@@ -6,12 +6,17 @@
         //필수 입력했는지 확인 하는 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
-                alert("책이름을 입력하세요.");
+                alert("도서를 입력하세요.");
                 myform.id_name.focus();
                 return false;
             }
-            if(myform.id_author.length <= 0){
+            if(myform.id_author.value.length <= 0){
                 alert("저자를 입력하세요.");
+                myform.id_author.focus();
+                return false;
+            }
+            if(myform.id_author.value.includes('(')){
+                alert("저자 부분에 ()를 지워주세요.");
                 myform.id_author.focus();
                 return false;
             }
@@ -99,14 +104,6 @@
 
         document.querySelector("#flexSwitchCheckDefault").addEventListener("change", function (e) {
             e.preventDefault();
-            no.value = null;
-            ne.value = null;
-            author.value = null;
-            publish.value = null;
-            year.value = null; 
-            price.value = null;
-            url.value = null;
-            img.value = null;
 
             if(this.checked == true){
                 res.disabled = true;

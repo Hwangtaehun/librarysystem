@@ -14,6 +14,8 @@ class BookSymbol{
 	private $author;
 	
     public function __construct(String $author){
+		$author_array = explode(',', $author);
+		$author = $author_array[0];
 		$this->author = $author; 
         $this->lastauthor_exist = false;
 		//공백 단위로 잘라서 배열로 만들기

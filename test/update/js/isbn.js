@@ -23,7 +23,7 @@ var search_name;
                     let v_publish = '"' + publish + '"';
                     let v_year = '"' + year + '"';
                     let v_price = '"' + price + '"';
-
+                    
                     if(url == ""){
                         let v_url = " ";
                         $(".list").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
