@@ -246,6 +246,9 @@ footer .table_menu a{
     border: none;
     border-bottom: 1px solid #000000;
 }
+#form_fieldset #id_url{
+    width: 80%;
+}
 
 /* 목록 */
 #fieldset_row {

@@ -274,7 +274,7 @@ class LenController{
                     $lib_no_len = $_POST['lib_no'];
                     $param = ['len_no'=>$len_no, 'lib_no_len'=>$lib_no_len];
                     $this->plaTable->insertData($param);
-                    header('location: /len/list');
+                    header('location: /len/addupdate');
                 }
             }
             else{

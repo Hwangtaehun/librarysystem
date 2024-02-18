@@ -50,6 +50,11 @@
                     <input type="radio" name="lib_close" id="id_fri" value="5"> 금요일
                     <input type="radio" name="lib_close" id="id_sat" value="6"> 토요일
                     <input type="radio" name="lib_close" id="id_null" value="7"> 없음</li>
+                <li><label>약도</label>
+                    <input class="input" type= "text" name="lib_url" id="id_url" value="<?php if(isset($row)){echo $row['lib_url'];}?>"></li>
+<?php if(isset($row)){ if($row['lib_url'] != ''){?>
+                <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<?php }}?>
             </ul>
             <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
             <div class="form_class">

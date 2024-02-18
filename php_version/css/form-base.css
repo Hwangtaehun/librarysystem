@@ -189,6 +189,9 @@ main .card .card-body .card-text{
     border: none;
     border-bottom: 1px solid #000000;
 }
+#form_fieldset #id_url{
+    width: 80%;
+}
 /*수치 입력부분*/
 .number{
     width: 50px;

@@ -34,7 +34,20 @@ class LibController{
     }
 
     public function list(){
+        $state = 2;
         $title = '도서관 현황';
+    
+        if(isset($_SESSION['mem_state'])) {
+            $state = $_SESSION['mem_state'];
+        }
+
+        if($state != 1){
+            $title = '도서관 정보';
+        }
+
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
 
         $where = '';
         $result = $this->libTable->selectAll();
@@ -52,11 +65,15 @@ class LibController{
     public function research(){
         $title = '도서관 현황';
 
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
+
         if(isset($_POST)){
             $value = '%'.$_POST['user_research'].'%';
         }
 
-        if(isset($_GET)){
+        if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
         
@@ -69,7 +86,7 @@ class LibController{
         $stmt = $this->libTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $pagi = $this->assist->pagemanager($total_cnt, $value);
-        
+
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 

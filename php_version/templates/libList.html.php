@@ -6,10 +6,21 @@
         $ispop = false;
         $action = "/lib/research";
     }
+    else if($title == '도서관 정보'){
+        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        $ispop = false;
+        $action = "/lib/research?title=$title";
+    }
     else{
         echo '<link rel="stylesheet" href="../css/form-popup.css">';
         $ispop = true;
         $action = "/lib/research?title=$title&pop=true";
+    }
+
+    $state = 2;
+
+    if(isset($_SESSION['mem_state'])) {
+        $state = $_SESSION['mem_state'];
     }
 ?>
     <script>
@@ -89,13 +100,17 @@
                         $no = "'".$row['lib_no']."'";
                         echo '<input type=button value="선택" onclick="opener.parent.libValue('.$name.', '.$no.'); window.close();">';
                     }
-                    else{
-                    ?>
+                    else{ if($state == 1){
+                ?>
                     <form action="/lib/delete" method="post">
                             <input type="hidden" name="mem_no" value="<?=$row['lib_no']?>">
                             <input type="submit" value="삭제">
                             <a href="/lib/addupdate?lib_no=<?=$row['lib_no']?>"><input type="button" value="수정"></a>
-                    <?php } ?>
+                <?php }else{ ?>
+                    <form action="/lib/detail" method="post">
+                            <input type="hidden" name="mem_no" value="<?=$row['lib_no']?>">
+                            <input type="submit" value="상세 정보">
+                <?php }} ?>
                     </form>
                 </div>
             </div>

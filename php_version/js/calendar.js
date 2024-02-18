@@ -29,8 +29,8 @@ function HolidayData(m_year, m_month){
 
             while(str.indexOf('<locdate>', index) != -1){
                 index = str.indexOf('<locdate>', index) + 9;
-                let date = str.substr(index, 8); 
-                let price = Number(date.substr(6, 2));
+                let date = str.slice(index, index + 8); 
+                let price = Number(date.slice(6, 8));
                 holiday.push(price);
             }
 

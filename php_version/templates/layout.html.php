@@ -206,6 +206,7 @@
                         }
                         else{
                             echo '<li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link" href="/lib/list">도서관</a></li>';
                             echo '<li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li>';
                             echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>';
                             echo '<ul class="dropdown-menu">';
@@ -225,8 +226,8 @@
         }
         if($not_pop){
             if($state != 1){
-                if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' 
-                    && $title != '회원가입' && $title != '공지사항 현황' && $title != '공지사항 수정'){
+                if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && 
+                   $title != '회원가입' && $title != '공지사항 현황' && $title != '공지사항 수정' && $title != '도서관 정보'){
 
                     if($menu != '마이페이지'){
                         $menu = '내서재';
@@ -274,8 +275,8 @@
                     echo '<tr><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
                 }else{
-                    echo "<tr><th>공지사항</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr>";
-                    echo '<tr><td><a href="/not/list">공지사항</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="'.$menus['내서재'][0][1].'">'.$menus['내서재'][0][0].'</a></td><td><a href="'.$menus['마이페이지'][0][1].'">'.$menus['마이페이지'][0][0].'</a></td></tr>';
+                    echo "<tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr>";
+                    echo '<tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="'.$menus['내서재'][0][1].'">'.$menus['내서재'][0][0].'</a></td><td><a href="'.$menus['마이페이지'][0][1].'">'.$menus['마이페이지'][0][0].'</a></td></tr>';
                     echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][1][1].'">'.$menus['내서재'][1][0].'</a></td><td><a href="'.$menus['마이페이지'][1][1].'">'.$menus['마이페이지'][1][0].'</a></td></tr>';
                     echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][2][1].'">'.$menus['내서재'][2][0].'</a></td><td></td></tr>';
                     echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][3][1].'">'.$menus['내서재'][3][0].'</a></td><td></td></tr>';
