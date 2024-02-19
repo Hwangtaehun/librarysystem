@@ -91,7 +91,7 @@
                 <p class="card-text">
                     설립일: <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?><br>
                     주소: <?=htmlspecialchars($row['lib_add'],ENT_QUOTES,'UTF-8');?><br>
-                    쉬는날: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
+                    정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
                 </p>
                 <?php
                     if($ispop){
@@ -103,12 +103,12 @@
                     else{ if($state == 1){
                 ?>
                     <form action="/lib/delete" method="post">
-                            <input type="hidden" name="mem_no" value="<?=$row['lib_no']?>">
+                            <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
                             <input type="submit" value="삭제">
                             <a href="/lib/addupdate?lib_no=<?=$row['lib_no']?>"><input type="button" value="수정"></a>
                 <?php }else{ ?>
                     <form action="/lib/detail" method="post">
-                            <input type="hidden" name="mem_no" value="<?=$row['lib_no']?>">
+                            <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
                             <input type="submit" value="상세 정보">
                 <?php }} ?>
                     </form>

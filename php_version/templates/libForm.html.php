@@ -1,6 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <?php
+    $state = 2;
+
+    if(isset($_SESSION['mem_state'])) {
+        $state = $_SESSION['mem_state'];
+    }
+
+    if($state != 1){
+        if(isset($row['lib_close'])){
+            $close = '없음';
+            switch ($row['lib_close']) {
+                case 0:
+                    $close = '일요일';
+                    break;
+                case 1:
+                    $close = '월요일';
+                    break;
+                case 2:
+                    $close = '화요일';
+                    break;
+                case 3:
+                    $close = '수요일';
+                    break;
+                case 4:
+                    $close = '목요일';
+                    break;  
+                case 5:
+                    $close = '금요일';
+                    break;
+                case 6:
+                    $close = '월요일';
+                    break;
+                default:
+                    $close = '연중무휴';
+                    break;
+            }
+        }
+    
+        if(isset($row['lib_add'])){
+            $zip = $row['lib_zip'];
+            $address = "[$zip] ".$row['lib_add'];
+    
+            if($row['lib_detail'] != 'null'){
+                $address = $address.' '.$row['lib_detail'];
+            }
+        }
+    }
+    ?>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
         //필수 입력 내용 확인하는 함수
@@ -25,6 +73,7 @@
     </script>
 </head>
 <body>
+<?php if($state == 1){?>
     <form action="/lib/addupdate" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
         <h2><?=$title?></h2>
@@ -41,7 +90,7 @@
                     <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly></li>
                 <li><label></label>
                     <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"></li>
-                <li><label>닫는 날짜</label>
+                <li><label>정기휴관일</label>
                     <input type="radio" name="lib_close" id="id_sun" value="0"> 일요일
                     <input type="radio" name="lib_close" id="id_mon" value="1"> 월요일
                     <input type="radio" name="lib_close" id="id_tue" value="2"> 화요일
@@ -52,9 +101,9 @@
                     <input type="radio" name="lib_close" id="id_null" value="7"> 없음</li>
                 <li><label>약도</label>
                     <input class="input" type= "text" name="lib_url" id="id_url" value="<?php if(isset($row)){echo $row['lib_url'];}?>"></li>
-<?php if(isset($row)){ if($row['lib_url'] != ''){?>
+                <?php if(isset($row)){ if($row['lib_url'] != ''){?>
                 <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-<?php }}?>
+                <?php }}?>
             </ul>
             <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
             <div class="form_class">
@@ -156,5 +205,31 @@
     ?>
 
     </script>
+<?php }else{ ?>
+    <fieldset id = form_fieldset>
+        <h2><?=$title?></h2>
+        <fieldset><?php if(isset($row)){echo $row['lib_name'];}?></fieldset>
+            <ul>
+                <li><label for  = "id_date">설립일</label>
+                    <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?></li>
+                <li><label for  = "id_detail">주소</label>
+                    <?=htmlspecialchars($address);?></li></li>
+                <li><label>정기휴관일</label>
+                    <?=htmlspecialchars($close);?></li></li>
+                <li><label>약도</label>
+                <?php if(isset($row)){ if($row['lib_url'] != ''){?>
+                </li>
+                <li>
+                    <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </li>
+                <?php }}else{ ?>
+                약도가 존재하지 않습니다.</li>
+                <?php }?>
+            </ul>
+        <div class="form_class">
+            <input type= "button" value="이전" onclick="javascript:history.back()">
+        </div>
+    </fieldset>
+<?php } ?>
 </body>
 </html>

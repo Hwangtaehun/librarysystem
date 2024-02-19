@@ -33,6 +33,7 @@ class LibController{
         $this->assist->listchange(9);
     }
 
+    //목록
     public function list(){
         $state = 2;
         $title = '도서관 현황';
@@ -59,6 +60,13 @@ class LibController{
         $pagi = $this->assist->pagemanager($total_cnt, '없음');
         
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
+    }
+
+    //도서관 세부정보
+    public function detail(){
+        $row = $this->libTable->selectID($_POST['lib_no']);
+        $title = '도서관 정보';
+        return ['tempName'=>'libForm.html.php','title'=>$title, 'row'=>$row];
     }
 
     //검색
