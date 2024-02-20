@@ -208,23 +208,24 @@
 <?php }else{ ?>
     <fieldset id = form_fieldset>
         <h2><?=$title?></h2>
-        <fieldset><?php if(isset($row)){echo $row['lib_name'];}?></fieldset>
             <ul>
+                <li><label for  = "id_name">기관명</label>
+                    <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?></li>
                 <li><label for  = "id_date">설립일</label>
                     <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?></li>
                 <li><label for  = "id_detail">주소</label>
                     <?=htmlspecialchars($address);?></li></li>
                 <li><label>정기휴관일</label>
                     <?=htmlspecialchars($close);?></li></li>
-                <li><label>약도</label>
                 <?php if(isset($row)){ if($row['lib_url'] != ''){?>
-                </li>
+                <li><label>약도</label></li>
                 <li>
                     <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </li>
-                <?php }}else{ ?>
-                약도가 존재하지 않습니다.</li>
-                <?php }?>
+                <?php }else{ ?>
+                    <li><label>약도</label>
+                        약도가 존재하지 않습니다</li>
+                <?php }}?>
             </ul>
         <div class="form_class">
             <input type= "button" value="이전" onclick="javascript:history.back()">
