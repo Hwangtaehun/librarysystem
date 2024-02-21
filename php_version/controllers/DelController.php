@@ -276,7 +276,7 @@ class DelController{
             else{
                 if($_POST['del_no'] == ''){
                     $mem_no = $_POST['mem_no'];
-                    if($this->assist->rentpossible($mem_no, $this->memTable, $this->lenTable)){
+                    if($this->assist->lentpossible($mem_no, $this->memTable, $this->lenTable)){
                         $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
                         $this->delTable->insertData($param);
                     }else{

@@ -84,6 +84,19 @@ class LenController{
         }
     }
 
+    private function matExistSet($mat_no, $mat_exist){
+        $exist = true;
+        
+        if($mat_exist == 1){
+            $exist = $this->assist->existMat($mat_no, $this->lenTable, $this->delTable);
+        }
+
+        if($exist){
+            $param = ['mat_no'=>$mat_no,'mat_exist'=>$mat_exist];
+            $this->matTable->updateData($param);
+        }
+    }
+
     public function list(){
         $title = '대출 현황';
         if(isset($_GET['title'])){
@@ -251,6 +264,12 @@ class LenController{
         $sql = "DELETE FROM `place` WHERE len_no = $len_no";
         $this->plaTable->delupdateSQL($sql);
         $this->lenTable->deleteData($len_no);
+
+        $stmt = $this->lenTable->selectID($len_no);
+        $row = $stmt->fetch();
+        $mat_no = $row['mat_no'];
+        $this->matExistSet($mat_no, 1);
+
         header('location: /len/list');
     }
 
@@ -258,7 +277,7 @@ class LenController{
         if(isset($_POST['len_no'])) {
             if($_POST['len_no'] == ''){
                 $mem_no = $_POST['mem_no'];
-                if($this->reservationCheck() && $this->assist->rentpossible($mem_no, $this->memTable, $this->lenTable)){
+                if($this->reservationCheck() && $this->assist->lentpossible($mem_no, $this->memTable, $this->lenTable)){
                     $today = date("Y-m-d");
                     $mat_no = $_POST['mat_no'];
                     $param = ['mat_no'=>$mat_no, 'mem_no'=>$mem_no, 'len_ex'=>$_POST['len_ex'], 'len_date'=>$today];
@@ -274,29 +293,34 @@ class LenController{
                     $lib_no_len = $_POST['lib_no'];
                     $param = ['len_no'=>$len_no, 'lib_no_len'=>$lib_no_len];
                     $this->plaTable->insertData($param);
+                    $this->matExistSet($mat_no, 0);
+
                     header('location: /len/addupdate');
                 }
             }
             else{
                 $len_no = $_POST['len_no'];
+                $mat_no = $_POST['mat_no'];
                 $row = $this->lenTable->selectID($_POST['len_no']);
                 if($row['len_re_st'] == 1){
                     if($_POST['len_re_st'] != 1){
                         $len_no = $_POST['len_no'];
                         $sql = "UPDATE `place` SET `lib_no_re` = NULL WHERE `len_no` = $len_no";
                         $this->plaTable->delupdateSQL($sql);
-                        $sql = "UPDATE overdue SET due_exp = NULL WHERE `len_no` = $len_no";
+                        $sql = "UPDATE `overdue` SET `due_exp` = NULL WHERE `len_no` = $len_no";
                         $this->dueTable->delupdateSQL($sql);
                     }
                 }
                 
                 if(!isset($_POST['len_re_date'])){
-                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
+                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$mat_no, 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                               'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
+                    $this->matExistSet($mat_no, 0);
                 }
                 else{
-                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
+                    $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$mat_no, 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                     'len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
+                    $this->matExistSet($mat_no, 1);
                 }
                 $this->lenTable->updateData($param);
                 header('location: /len/list');
@@ -352,6 +376,8 @@ class LenController{
             $due_exp = date("Y-m-d", strtotime($today.' + '.$day.' days'));
             $param = ['due_no'=>$due_no,'due_exp'=>$due_exp];
             $this->dueTable->updateData($param);
+            $param = ['mat_no'=>$mat_no,'mat_exist'=>1];
+            $this->matTable->updateData($param);
         }
         header('location: /len/returnLent');
     }

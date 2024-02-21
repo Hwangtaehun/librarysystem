@@ -240,7 +240,7 @@ class Assistance{
         return $where;
     }
 
-    public function rentpossible($mem_no, $memTable, $lenTable){
+    public function lentpossible($mem_no, $memTable, $lenTable){
         $result = $memTable->selectID($mem_no);
         $mem_lent = $result['mem_lent'];
 
@@ -253,6 +253,32 @@ class Assistance{
         }
 
         return true;
+    }
+
+    public function existMat($mat_no, $lenTable, $delTable){
+        $where = "WHERE `mat_no` = $mat_no AND `lent_re_st` = 0";
+        $rs = $lenTable->whereSQL($where);
+        $bool = $this->resultempty_check($rs);
+
+        if($bool){
+            $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
+            $rs = $delTable->whereSQL($where);
+            $bool = $this->resultempty_check($rs);
+        }
+        
+        if($bool){
+            $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
+            $rs = $delTable->whereSQL($where);
+            $bool = $this->resultempty_check($rs);
+        }
+
+        if($bool){
+            $bool = false;
+        }else{
+            $bool = true;
+        }
+
+        return $bool;
     }
 }
 ?>
