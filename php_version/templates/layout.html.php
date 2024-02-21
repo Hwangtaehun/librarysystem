@@ -260,19 +260,20 @@
             if($not_pop){
                 echo "<div class='table_menu'><table>";
                 if($state == 1){
-                    echo "<tr><th>공지사항</th> <th>책</th> <th>종류</th> <th>도서관</th> <th>자료</th> <th>대출</th> <th>상호대차</th> <th>기타</th></tr>";
+                    echo "<tr><th>공지사항</th> <th>책</th> <th>종류</th> <th>도서관</th> <th>자료</th> <th>회원</th> <th>대출</th> <th>상호대차</th> <th>기타</th></tr>";
                     $num = 0;
                     echo '<tr><td><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></td><td><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['종류'][$num][1].'">'.$menus['종류'][$num][0].'</a></td><td><a href="'.$menus['도서관'][$num][1].'">'.$menus['도서관'][$num][0].'</a></td>';
-                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
+                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="/member/list">회원관리</a></td>';
+                    echo '<td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
                     $num =  1;
                     echo '<tr><td><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></td><td><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['종류'][$num][1].'">'.$menus['종류'][$num][0].'</a></td><td><a href="'.$menus['도서관'][$num][1].'">'.$menus['도서관'][$num][0].'</a></td>';
-                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
+                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
                     $num =  2;
-                    echo '<tr><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
+                    echo '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
                 }else{
                     echo "<tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr>";

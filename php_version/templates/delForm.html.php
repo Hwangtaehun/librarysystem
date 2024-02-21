@@ -91,6 +91,7 @@
                 <li><label for ="id_arr_date">도착일</label>
                     <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"></li>
                 <li><label>상태</label>
+                    <input type="radio" name="del_app" id="id_st" value=""> 대기
                     <input type="radio" name="del_app" id="id_de" value="0"> 거절
                     <input type="radio" name="del_app" id="id_ap" value="1"> 승인
                     <input type="radio" name="del_app" id="id_re" value="2"> 반송</li>
@@ -119,12 +120,16 @@
 
     //라디오 버튼 값 할당하는 함수
     if(isset($row['del_app'])){ ?>
+        const st = document.querySelector('#id_st');
         const de = document.querySelector('#id_de');
         const ap = document.querySelector('#id_ap');
         const re = document.querySelector('#id_re');
     <?php
         $del_app = $row['del_app'];
-        if($del_app == 0){
+        if($del_app == ''){
+            echo "st.checked = true;";
+        }
+        else if($del_app == 0){
             echo "de.checked = true;";
         }
         else if($del_app == 1){

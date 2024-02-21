@@ -74,7 +74,8 @@ class TableManager
         $this->myQuery($sql, $param);
     }
 
-    function updateData($param){
+    function updateData($param)
+    {
         $sql = 'UPDATE`'.$this->table.'`SET ';
         foreach($param as $key=>$value){
             $sql .= '`'.$key.'`= :'.$key.', ';
@@ -84,16 +85,25 @@ class TableManager
         $this->myQuery($sql, $param);
     }
 
-    function allupdataData($param, $id){
+    function allupdataData($param, $id)
+    {
         $sql = 'UPDATE`'.$this->table.'`SET ';
         foreach($param as $key=>$value){
             $sql .= '`'.$key.'`= :'.$key.', ';
         }
         $sql = rtrim($sql, ', ');
         $sql .= ' WHERE `'.$this->keyField.'`= '.$id;
-        echo '$sql = '.$sql.'<br>';
-        print_r($param);
-        echo '<br>';
+        $this->myQuery($sql, $param);
+    }
+
+    function updateNullData($param, $id)
+    {
+        $sql = 'UPDATE`'.$this->table.'`SET ';
+        foreach($param as $key=>$value){
+            $sql .= '`'.$key.'`= NULL, ';
+        }
+        $sql = rtrim($sql, ', ');
+        $sql .= ' WHERE `'.$this->keyField.'`= '.$id;
         $this->myQuery($sql, $param);
     }
 }

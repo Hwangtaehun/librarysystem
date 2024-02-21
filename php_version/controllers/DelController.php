@@ -288,6 +288,9 @@ class DelController{
                     if($_POST['lib_arr_date'] == ''){
                         $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
                         $this->delTable->updateData($param);
+                        $param = ['lib_arr_date'=>$_POST['lib_arr_date']];
+                        $id = $_POST['del_no'];
+                        $this->delTable->updateNullData($param, $id);
                     }
                     else{
                         $this->delTable->updateData($_POST);

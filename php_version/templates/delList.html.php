@@ -186,12 +186,15 @@
                     }
 
                     if(isset($row['del_app'])){
-                        $del_app = '반송';
+                        $del_app = '대기';
                         if($row['del_app'] == 0){
                             $del_app = '거부';
                         }
                         else if($row['del_app'] == 1){
                             $del_app = '승인';
+                        }
+                        else if($row['del_app'] == 2){
+                            $del_app = '반송';
                         }
                     }
                     

@@ -106,7 +106,7 @@
                 <a href="<?php if($mem_state == 1){echo "/member/list";}else if($mem_state == 3){echo "/member/logalert";}else{echo "/member/addupdate?mem_no='.$mem_no";} ?>">
                     <img src="../img/icon/mem.png" alt="">
                 </a>
-                <h6><?php if($mem_state == 1){echo "회원";}else{echo "회원정보수정";} ?></h6>
+                <h6><?php if($mem_state == 1){echo "회원관리";}else{echo "회원정보수정";} ?></h6>
             </div>
             <div class="quick" id="menu3">
                 <a href="<?php if($mem_state == 1){echo "/len/list";}else{echo "/len/memLent";} ?>">

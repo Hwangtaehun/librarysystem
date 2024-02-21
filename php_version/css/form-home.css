@@ -369,6 +369,11 @@ main .calender .holiday{
     color: tomato !important;
 }
 
+main .calender .today {
+  border: 2px solid limegreen !important;
+  border-radius: 100%;
+}
+
 main .calender .image .break{
     position: absolute;
     height: 50px;
