@@ -255,30 +255,37 @@ class Assistance{
         return true;
     }
 
-    public function existMat($mat_no, $lenTable, $delTable){
-        $where = "WHERE `mat_no` = $mat_no AND `lent_re_st` = 0";
-        $rs = $lenTable->whereSQL($where);
-        $bool = $this->resultempty_check($rs);
+    public function existMat($mat_no, $mat_exist, $lenTable, $delTable, $matTable){
+        $bool = true;
 
-        if($bool){
-            $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
-            $rs = $delTable->whereSQL($where);
+        if($mat_exist == 1){
+            $where = "WHERE `mat_no` = $mat_no AND `lent_re_st` = 0";
+            $rs = $lenTable->whereSQL($where);
             $bool = $this->resultempty_check($rs);
-        }
-        
-        if($bool){
-            $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
-            $rs = $delTable->whereSQL($where);
-            $bool = $this->resultempty_check($rs);
+
+            if($bool){
+                $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
+                $rs = $delTable->whereSQL($where);
+                $bool = $this->resultempty_check($rs);
+            }
+            
+            if($bool){
+                $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
+                $rs = $delTable->whereSQL($where);
+                $bool = $this->resultempty_check($rs);
+            }
+
+            if($bool){
+                $bool = false;
+            }else{
+                $bool = true;
+            }
         }
 
         if($bool){
-            $bool = false;
-        }else{
-            $bool = true;
+            $param = ['mat_no'=>$mat_no,'mat_exist'=>$mat_exist];
+            $matTable->updateData($param);
         }
-
-        return $bool;
     }
 }
 ?>

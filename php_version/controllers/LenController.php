@@ -84,19 +84,6 @@ class LenController{
         }
     }
 
-    private function matExistSet($mat_no, $mat_exist){
-        $exist = true;
-        
-        if($mat_exist == 1){
-            $exist = $this->assist->existMat($mat_no, $this->lenTable, $this->delTable);
-        }
-
-        if($exist){
-            $param = ['mat_no'=>$mat_no,'mat_exist'=>$mat_exist];
-            $this->matTable->updateData($param);
-        }
-    }
-
     public function list(){
         $title = '대출 현황';
         if(isset($_GET['title'])){
@@ -268,7 +255,7 @@ class LenController{
         $stmt = $this->lenTable->selectID($len_no);
         $row = $stmt->fetch();
         $mat_no = $row['mat_no'];
-        $this->matExistSet($mat_no, 1);
+        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
 
         header('location: /len/list');
     }
@@ -293,7 +280,7 @@ class LenController{
                     $lib_no_len = $_POST['lib_no'];
                     $param = ['len_no'=>$len_no, 'lib_no_len'=>$lib_no_len];
                     $this->plaTable->insertData($param);
-                    $this->matExistSet($mat_no, 0);
+                    $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
 
                     header('location: /len/addupdate');
                 }
@@ -315,12 +302,16 @@ class LenController{
                 if(!isset($_POST['len_re_date'])){
                     $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$mat_no, 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                               'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
-                    $this->matExistSet($mat_no, 0);
+                    $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                 }
                 else{
                     $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$mat_no, 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                     'len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
-                    $this->matExistSet($mat_no, 1);
+                    if(empty($_POST['len_re_date'])){
+                        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                    }else{
+                        $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
+                    }
                 }
                 $this->lenTable->updateData($param);
                 header('location: /len/list');

@@ -261,7 +261,13 @@ class DelController{
     }
 
     public function delete(){
-        $this->delTable->deleteData($_POST['del_no']);
+        $del_no = $_POST['del_no'];
+        $stmt = $this->delTable->selectID($del_no);
+        $row = $stmt->fetch();
+        $mat_no = $row['mat_no'];
+
+        $this->delTable->deleteData($del_no);
+        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
         header('location: /del/list');
     }
 
@@ -286,14 +292,33 @@ class DelController{
                 }
                 else{
                     if($_POST['lib_arr_date'] == ''){
-                        $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
+                        $del_app = $_POST['del_app'];
+                        $mat_no = $_POST['mem_no'];
+                        $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$del_app];
                         $this->delTable->updateData($param);
                         $param = ['lib_arr_date'=>$_POST['lib_arr_date']];
                         $id = $_POST['del_no'];
                         $this->delTable->updateNullData($param, $id);
+
+                        if($del_app != ''){
+                            if($del_app == 0){
+                                $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                            }else{
+                                $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
+                            }
+                        }else{
+                            $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                        }
                     }
                     else{
+                        $del_app = $_POST['del_app'];
+                        $mat_no = $_POST['mem_no'];
+                        
                         $this->delTable->updateData($_POST);
+
+                        if($del_app == 2){
+                            $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                        }
                     }
                     header('location: /del/list');
                 }
