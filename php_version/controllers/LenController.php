@@ -252,8 +252,7 @@ class LenController{
         $this->plaTable->delupdateSQL($sql);
         $this->lenTable->deleteData($len_no);
 
-        $stmt = $this->lenTable->selectID($len_no);
-        $row = $stmt->fetch();
+        $row = $this->lenTable->selectID($len_no);
         $mat_no = $row['mat_no'];
         $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
 
@@ -296,22 +295,17 @@ class LenController{
                         $this->plaTable->delupdateSQL($sql);
                         $sql = "UPDATE `overdue` SET `due_exp` = NULL WHERE `len_no` = $len_no";
                         $this->dueTable->delupdateSQL($sql);
+                        $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
                     }
                 }
                 
                 if(!isset($_POST['len_re_date'])){
                     $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$mat_no, 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                               'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
-                    $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                 }
                 else{
                     $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$mat_no, 'len_date'=>$_POST['len_date'], 'len_ex'=>$_POST['len_ex'], 
                     'len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>$_POST['len_re_st'], 'len_memo'=>$_POST['len_memo'], 'len_no'=>$_POST['len_no']];
-                    if(empty($_POST['len_re_date'])){
-                        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
-                    }else{
-                        $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
-                    }
                 }
                 $this->lenTable->updateData($param);
                 header('location: /len/list');
@@ -340,6 +334,7 @@ class LenController{
         $len_no = $_POST['len_no'];
         $today = date("Y-m-d");
         
+        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
         $param = ['len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>1, 'len_no'=>$len_no];
         $this->lenTable->updateData($param);
         $sql = "UPDATE `place` SET `lib_no_re` = $lib_no WHERE `len_no` = $len_no";
