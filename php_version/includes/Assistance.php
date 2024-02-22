@@ -287,5 +287,38 @@ class Assistance{
             $matTable->updateData($param);
         }
     }
+
+    /*
+    //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
+    public function reservationCheck($res_no, $mat_no, $resTable){
+        $rs = false;
+
+        if($res_no == ''){
+            $where = "WHERE `mat_no` = $mat_no";
+            $stmt = $resTable->whereSQL($where);
+            $num = $stmt->rowCount();
+            
+            if($num == 0){
+                $rs = true;
+            }
+            else{
+                $row = $stmt->fetch();
+                if($row['mem_no'] == $_POST['mem_no']){
+                    $rs = true;
+                    $resTable->deleteData($row['res_no']);
+                }
+            }
+        }
+        else{
+            $rs = true;
+        }
+        
+        if($rs == false){
+            echo "<script>alert('다른 회원이 예약한 도서입니다.')</script>";
+        }
+
+        return $rs;
+    }
+    */
 }
 ?>

@@ -101,10 +101,10 @@
                             }
                             if($title == '자료 현황'){
                                 if($mem_state != 1){
-                                    $state = $row['len_re_st'];
+                                    $state = $row['mat_exist'];
                                     $res = $row['res_no'];
                 
-                                    if(empty($state) || $state == "1" ) {
+                                    if($state == "1" ) {
                                         $lent_re_state = "대출가능";
                                     }
                                     else if($state = "2" ) {
@@ -115,14 +115,12 @@
                                     }
                                     
                                     $res_state = "예약불가";
-                                    if(!empty($state)) {
-                                        if($state = "0") {
-                                            if(empty($res)) {
-                                                $res_state = "예약가능";
-                                            }
-                                            else {
-                                                $res_state = "예약있음";
-                                            }
+                                    if($state = "0") {
+                                        if(empty($res)) {
+                                            $res_state = "예약가능";
+                                        }
+                                        else {
+                                            $res_state = "예약있음";
                                         }
                                     }
                                 }
@@ -178,13 +176,13 @@
                                         <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
                                 <?php }else if($mem_state == 3){}else{ ?>
                                 <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
-                                        <input type="hidden" name="mat_no" value="<?=$row['12']?>">
+                                        <input type="hidden" name="mat_no" value="<?=$row['15']?>">
                                         <input type="hidden" name="mem_no" value="<?=$_SESSION['mem_no']?>">
                                         <input type="hidden" name="res_date" value="<?=$date?>">
                                         <input type="hidden" id="id_state" value="<?=$res_state?>">
-                                        <input type="submit" value="예약">
+                                        <input id="bt_res" type="submit" value="예약" <?php if($res_state != "예약가능"){ echo "disabled"; } ?> >
                                         <a href="/mat/delpop?mat_no=<?=$row['12']?>" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
-                                            <input type="button" value="상호대차">
+                                            <input id="bt_del" type="button" value="상호대차" <?php if($lent_re_state != "대출가능"){ echo "disabled"; } ?> >
                                         </a>
                                 <?php } ?>
                         <?php } ?>

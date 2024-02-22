@@ -39,8 +39,9 @@ class LenController{
     //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
     private function reservationCheck(){
         $rs = false;
+        $res_no = $_POST['res_no'];
 
-        if($_POST['res_no'] == ''){
+        if($res_no == ''){
             $mat_no = $_POST['mat_no'];
             $where = "WHERE `mat_no` = $mat_no";
             $stmt = $this->resTable->whereSQL($where);
@@ -53,7 +54,7 @@ class LenController{
                 $row = $stmt->fetch();
                 if($row['mem_no'] == $_POST['mem_no']){
                     $rs = true;
-                    $this->resTable->deleteData($row['res_no']);
+                    $res_no = $row['res_no'];
                 }
             }
         }
@@ -63,6 +64,8 @@ class LenController{
         
         if($rs == false){
             echo "<script>alert('다른 회원이 예약한 도서입니다.')</script>";
+        }else{
+            $this->resTable->deleteData($res_no);
         }
 
         return $rs;
@@ -334,6 +337,7 @@ class LenController{
         $len_no = $_POST['len_no'];
         $today = date("Y-m-d");
         
+        //오류 발생
         $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
         $param = ['len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>1, 'len_no'=>$len_no];
         $this->lenTable->updateData($param);
@@ -362,8 +366,6 @@ class LenController{
             $due_exp = date("Y-m-d", strtotime($today.' + '.$day.' days'));
             $param = ['due_no'=>$due_no,'due_exp'=>$due_exp];
             $this->dueTable->updateData($param);
-            $param = ['mat_no'=>$mat_no,'mat_exist'=>1];
-            $this->matTable->updateData($param);
         }
         header('location: /len/returnLent');
     }

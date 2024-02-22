@@ -56,7 +56,7 @@ class MatController{
 
     //관리자 계정이 아니면 SQL를 변동하는 함수
     private function basic_sql(){
-        $this->sql = "SELECT * FROM library, book, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND material.mat_exist = 1";
+        $this->sql = "SELECT * FROM library, book, material LEFT JOIN reservation ON material.mat_no = reservation.mat_no WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
     }
 
     public function list(){

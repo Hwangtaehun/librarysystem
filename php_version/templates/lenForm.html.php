@@ -137,7 +137,7 @@
 <?php }?>
                 <li><label>연장여부</label>
                     <input type="radio" name="len_ex" id="id_extend" value="7"> 예 
-                    <input type="radio" name="len_ex" id="id_normal" value="0"> 아니요</li>
+                    <input type="radio" name="len_ex" id="id_normal" value="0" checked> 아니요</li>
 <?php if(isset($row)){ ?>
                 <li><label for ="id_re_date">반납일</label>
                     <input type="date" name="len_re_date" id="id_re_date" value="<?php echo $row['len_re_date']; ?>"></li>
@@ -155,8 +155,8 @@
             <input type="hidden" id="id_mat" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
 <?php if($title == '대출 추가'){ ?>
             <input type="hidden" id="id_del" name="del_no" value="<?php if(isset($row)){if(!empty($row['del_no'])){echo $row['del_no'];}}?>">
+            <input type="hidden" id="id_res" name="res_no" value="">
 <?php } ?>
-            <input type="hidden" id="id_res" name="res_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?= $title2 ?>">
                 <input type= "reset" value='지우기'>
