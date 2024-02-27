@@ -111,13 +111,13 @@
             </div>
             <div class="quick" id="menu9">
                 <a href="/etc/duelist">
-                    <img src="../img/icon/icon5.png" alt="">
+                    <img src="../img/icon/icon12.png" alt="">
                 </a>
                 <h6>연체관리</h6>
             </div>
             <div class="quick" id="menu10">
                 <a href="/member/list">
-                    <img src="../img/icon/icon12.png" alt="">
+                    <img src="../img/icon/icon5.png" alt="">
                 </a>
                 <h6>회원관리</h6>
             </div>
