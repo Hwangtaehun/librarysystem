@@ -44,6 +44,9 @@ class DelController{
         else if($title == '상호대차 도착일 추가'){
             $this->sql = $this->sql." AND delivery.del_arr_date IS NULL AND delivery.del_app = 1 ";
         }
+        else if($title == '상호대차 승인 거절'){
+            $this->sql = $this->sql." AND delivery.del_app IS NULL ";
+        }
         else{
             //팝업창 확인
             if(isset($_GET['pop'])){
@@ -108,6 +111,24 @@ class DelController{
     //상호대차 도착일 추가
     public function addlist(){
         $title = '상호대차 도착일 추가';
+
+        $this->sqlList($title);
+        $sql = $this->sql.$this->sort;
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+        
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
+    }
+
+    //상호대차 승인 거절
+    public function aprelist(){
+        $title = '상호대차 승인 거절';
 
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
@@ -260,6 +281,41 @@ class DelController{
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
+    //상호대차 승인 거절 검색
+    public function apreresearch(){
+        $title = '상호대차 승인 거절';
+
+        $this->sqlList($title);
+
+        if(isset($_POST)){
+            $lib_no = $_POST['lib_research'];
+            if($lib_no != 0){
+                $sql = $this->sql." AND material.lib_no = $lib_no ";
+                $value = "lib_no=$lib_no";
+            }else{
+                $sql = $this->sql." ";
+                $value = "없음";
+            }
+        }
+        
+        if(isset($_GET['value'])){
+            $lib_no = $_GET['value'];
+            $sql = $this->sql." AND material.lib_no = $lib_no ";
+        }
+
+        $sql = $sql.$this->sort;
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->delTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
+        return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
+    }
+
     public function delete(){
         $del_no = $_POST['del_no'];
         $row = $this->delTable->selectID($del_no);
@@ -353,7 +409,7 @@ class DelController{
         }
     }
 
-    //'상호대차도착일추가'할때 사용
+    //'상호대차도착일추가'와 '상호대차승인거절'할때 사용 
     public function arrive(){
         $this->delTable->updateData($_POST);
         echo "<script>history.back();</script>";

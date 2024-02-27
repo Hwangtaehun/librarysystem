@@ -75,17 +75,23 @@ function buildCalender(holiday){
 
     let htmlDates = '';
     for(let i = 0; i < 42; i++){
+        var toclass = '';
+
+        if(today.getDate()==dates[i] && today.getMonth()==CDate.getMonth() && today.getFullYear()==CDate.getFullYear()){
+            toclass = 'today';
+        }
+
         if(i < size_pre || size_next <= i){
             htmlDates += `<div class="date cloud">${dates[i]}</div>`;
         }
         else if(holiday.findIndex((index) => index == dates[i]) != -1){
-            htmlDates += `<div class="date holiday" id="break">${dates[i]}</div>`;
+            htmlDates += `<div class="date holiday ${toclass}" id="break">${dates[i]}</div>`;
         }
         else if(i % 7 == rest){
-            htmlDates += `<div class="date" id="break">${dates[i]}</div>`;
+            htmlDates += `<div class="date ${toclass}" id="break">${dates[i]}</div>`;
         }
         else{
-            htmlDates += `<div class="date">${dates[i]}</div>`;
+            htmlDates += `<div class="date ${toclass}">${dates[i]}</div>`;
         }
     }
     

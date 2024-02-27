@@ -259,18 +259,21 @@ class Assistance{
         $bool = true;
 
         if($mat_exist == 1){
-            $where = "WHERE `mat_no` = $mat_no AND `lent_re_st` = 0";
+            $where = "WHERE `mat_no` = $mat_no AND `len_re_st` = 0";
+            echo "1. where = $where <br>";
             $rs = $lenTable->whereSQL($where);
             $bool = $this->resultempty_check($rs);
 
             if($bool){
                 $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
+                echo "2. where = $where <br>";
                 $rs = $delTable->whereSQL($where);
                 $bool = $this->resultempty_check($rs);
             }
             
             if($bool){
                 $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
+                echo "3. where = $where <br>";
                 $rs = $delTable->whereSQL($where);
                 $bool = $this->resultempty_check($rs);
             }
@@ -281,6 +284,8 @@ class Assistance{
                 $bool = true;
             }
         }
+
+        echo "bool = $bool, mat_no = $mat_no, mat_exist = $mat_exist <br>";
 
         if($bool){
             $param = ['mat_no'=>$mat_no,'mat_exist'=>$mat_exist];

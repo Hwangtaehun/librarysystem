@@ -2,7 +2,7 @@
     <?php
     // 웹페이지 맞는 css설정
     if($title == '회원 현황'){
-        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
         $action = "/member/research";
     }

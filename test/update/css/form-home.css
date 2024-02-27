@@ -369,11 +369,23 @@ main .calender .holiday{
     color: tomato !important;
 }
 
+main .calender .today {
+  border: 2px solid limegreen !important;
+  border-radius: 100%;
+}
+
 main .calender .image .break{
     position: absolute;
     height: 50px;
     width: 50px;
     z-index: 1;
+}
+
+main .blank{
+    margin: 10px;
+    border: #000000;
+    border-style: solid;
+    border-width: 0.5px;
 }
 
 footer {

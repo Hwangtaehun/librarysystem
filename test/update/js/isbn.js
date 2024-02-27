@@ -23,15 +23,15 @@ var search_name;
                     let v_publish = '"' + publish + '"';
                     let v_year = '"' + year + '"';
                     let v_price = '"' + price + '"';
-                    
+
                     if(url == ""){
                         let v_url = " ";
-                        $(".list").append( "<div class='card col'> <div class='card-body'> <h5 class='card-title'>"
+                        $(".list").append( "<div class='card col' style='width: 28rem; height: 180px;'> <div class='card-body'> <h5 class='card-title'>"
                                             + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
                                             + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
                                             + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +", " + v_url + "); window.close();'> </div> </div>" );
                     }else{
-                        $(".list").append( "<div class='card col'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
+                        $(".list").append( "<div class='card col' style='width: 28rem; height: 180px;'> <img src = '" + url + "' class='card-img-top' alt='...'> <div class='card-body'> <h5 class='card-title'>"
                                             + name + "</h5> <p class='card-text'>작가: " + author + "<br> 출판사: " + publish + "<br> 출판년도: " + year + "<br> 가격: " 
                                             + price + "<br> </p> <input type='button' value='선택' onclick='opener.parent.isbnValue(" + v_no + ", " + v_name 
                                             + ", " + v_author + ", " + v_publish + ", " + v_year + ", " + v_price +", " + v_url + "); window.close();'> </div> </div>" );
@@ -50,7 +50,6 @@ var search_name;
                     var cnt = msg.meta.total_count;
                             
                     totalPages = cnt / 10;
-                    console.log(totalPages);
 
                     if(totalPages > 100){
                         totalPages = 100;
@@ -93,8 +92,6 @@ var search_name;
                 url = t_array[0];
                 first = false;
                 search_name = decodeURI(window.location.search.slice(1));
-                $("#bookname").val(search_name);
-
                 search();
             }
 
@@ -109,3 +106,4 @@ var search_name;
                     search();
                 });
             });
+//사용출처: http://josecebe.github.io/twbs-pagination/

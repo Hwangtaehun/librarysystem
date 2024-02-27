@@ -11,6 +11,11 @@
         $ispop = false;
         $action = "/del/addresearch";
     }
+    else if($title == '상호대차 승인 거절'){
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
+        $ispop = false;
+        $action = "/del/apreresearch";
+    }
     else{
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -23,7 +28,7 @@
         
         //검색 확인 함수
         function checkResearch(myform) {
-            if(myform.user_research.value.delgth <= 0){
+            if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
                 myform.user_research.focus();
                 return false;
@@ -80,6 +85,38 @@
             bookname = name;
             document.querySelector("#id_research").value = memid+' '+bookname;
         }
+
+        function radioInput(myform) {
+            var bool = true;
+            
+            if(myform.id_de.value.length <= 0){
+                bool = false;
+            }
+
+            if(!bool){
+                if(myform.id_ap.value.length <= 0){
+                    bool = false;
+                }else{
+                    bool = true;
+                }
+            }
+
+            if(!bool){
+                alert("승인 또는 거절을 선택해주세요.");
+                myform.id_ap.focus();
+            }
+
+            return bool;
+        }
+
+        function checkInput(myform) {
+            if(myform.il_date.value.length <= 0){
+                alert("날짜를 입력해주세요.");
+                myform.il_date.focus();
+                return false;
+            }
+            return true;
+        }
     </script>
 </head>
 <?php
@@ -106,7 +143,7 @@
     <?php }else if($title == '상호대차 도착일 추가'){ ?>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
         <div class="search">
-            <label for="s1">소장도서관</label>
+            <label for="s1">수신도서관</label>
             <select class = "re" id = "s1" name = "lib_research">
                 <?php
                 for($z = 0; $z < sizeof($lib); $z++){
@@ -128,6 +165,32 @@
             <input type="hidden" id="id_mat" name="mat_no" value="">
             <input type="hidden" id="id_lib" name="lib_no_arr" value="">
             <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
+            <button type="submit" class="btn btn-outline-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
+    <?php }else if($title == '상호대차 승인 거절'){ ?>
+    <form action="<?php echo $action; ?>" method="post">
+        <div class="search">
+            <label for="s1">소장도서관</label>
+            <select class = "re" id = "s1" name = "lib_research">
+                <?php
+                for($z = 0; $z < sizeof($lib); $z++){
+                    $no[$z] = $lib[$z][0]; 
+                    if($lib[$z][1] == '없음'){
+                        $name[$z] = '전체';
+                    }else{
+                        $name[$z] = $lib[$z][1];
+                    }
+                }
+                for($z = 0;$z < sizeof($lib); $z++){
+                    echo "<option  value = $no[$z] > $name[$z] </option>";
+                }
+                ?>
+            </select>
+            <input type="hidden" id="id_lib" name="lib_no" value="">
             <button type="submit" class="btn btn-outline-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -185,8 +248,9 @@
                         $book = $book.'='.$overlap;
                     }
 
+                    $del_app = '대기';
+
                     if(isset($row['del_app'])){
-                        $del_app = '대기';
                         if($row['del_app'] == 0){
                             $del_app = '거부';
                         }
@@ -208,8 +272,8 @@
                     <?php } ?> 
                     소장 도서관 <?=htmlspecialchars($lib_array[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
                     수신 도서관 <?=htmlspecialchars($lib_array[$row['lib_no_arr']],ENT_QUOTES,'UTF-8');?> <br>
-                    <?php if(!$ispop){ ?>
-                        승인 상태 <?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?><br>
+                    <?php if(!$ispop && $title != '상호대차 승인 거절'){ ?>
+                        승인 상태-<?=htmlspecialchars($del_app,ENT_QUOTES,'UTF-8');?><br>
                         <?php if($title != '상호대차 도착일 추가'){ if(isset($row['del_arr_date'])){ ?>
                             도착일 <?=htmlspecialchars($row['del_arr_date'],ENT_QUOTES,'UTF-8');?><br>
                         <?php } } ?>
@@ -234,19 +298,27 @@
                                     <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
                                     <input type="submit" value="삭제">
                                     <a href="/del/addupdate?del_no=<?=$row['del_no']?>"><input type="button" value="수정"></a>
-                    <?php }
+                    <?php   }
                             else if($title == '상호대차 도착일 추가'){ ?>
-                                <form action="/del/arrive" method="post">
+                                <form action="/del/arrive" method="post" onSubmit="return checkInput(this)">
                                     <label for ="del_arr_date">도착일</label>
                                     <input type="date" name="del_arr_date" id="il_date" value="">
                                     <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
                                     <input type="submit" value="도착일추가">
-                    <?php }
+                    <?php   }
+                            else if($title == '상호대차 승인 거절'){ ?>
+                                <form action="/del/arrive" method="post" onSubmit="return radioInput(this)">
+                                    <label for ="del_app">승인여부</label>
+                                    <input type="radio" name="del_app" id="id_de" value="0"> 거절
+                                    <input type="radio" name="del_app" id="id_ap" value="1"> 승인
+                                    <input type="hidden" name="del_no" value="<?=$row['del_no']?>">
+                                    <input type="submit" value="변경">
+                    <?php   }
                             else{ ?>
                                 <form action="/del/pagelent" method="post">
                                     <input type="hidden" name="len_no" value="<?=$row['len_no']?>">
                                     <input type="submit" value="이동">
-                    <?php }
+                    <?php   }
                         } 
                     }
                 ?>

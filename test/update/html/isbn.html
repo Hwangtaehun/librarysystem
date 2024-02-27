@@ -22,17 +22,15 @@
                 </button>
             </div>
             <div class="container text-center">
-                <div class="list row row-cols-2"> </div>
+                <div class="context row row-cols-2"> </div>
             </div>
             <div class="container">
                 <ul class="pagination justify-content-center" id="pagination"></ul>
             </div>
         </main>
         <script>
-            const bn = document.querySelector("#bookname");
             const pa = document.querySelector(".pagination");
 
-            bn.value = decodeURI(window.location.search.slice(1));
             window.addEventListener("resize", function() {
                 let width = window.innerWidth;
                 windowsize(width);

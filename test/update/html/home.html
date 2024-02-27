@@ -14,7 +14,7 @@
             <div class="link">
             <a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a>            </div>
                     </header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand" href="#">메뉴</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/lib/list">도서관</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
             <!doctype html>
 <html>
     <head>
@@ -29,7 +29,7 @@
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
-                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                </select>
+                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option><option  value = 5 > 청주시립도서관 </option><option  value = 6 > 청주오창도서관 </option>                </select>
                 <input type="text" name="user_research" id="id_research" value = "" placeholder="도서 이름을 입력해주세요.">
                 <button type="submit" class="btn btn-outline-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -38,34 +38,6 @@
                 </button>
             </div>
         </form>
-        <!-- 메인 내용 -->
-        <div class="main_context">
-            <!-- 슬라이드 배너 -->
-            <div class="slide slide_wrap">
-                            <div><a href="/not/addupdate?not_no=1">
-                    <img src="../img/not/1/ban/배너이미지.png" alt="" style="width:100%;">
-                </a></div>
-                            <div class="slide_tool">
-                    <div class="slide_prev_button slide_button"></div>
-                    <div class="slide_next_button slide_button"></div>
-                </div>
-                <ul class="slide_pagination"></ul>
-            </div>
-            <!-- 게시판 내용 -->
-            <div class="board">
-                <h3>공지사항</h3>
-                <fieldset id="fieldset_row">
-                                    <div id="div_row">
-                        <a class="http" href="/not/addupdate?not_no=1">
-                            <script>
-                                document.write(cnt+"번째 ");
-                                cnt++;
-                            </script>
-                            환영합니다                            2023-11-27                        </a>
-                    </div>
-                                </fieldset>
-            </div>
-        </div>
         <div class="quickmenu">
             <div id="context">
                 <h2>자주찾는 메뉴</h2>
@@ -103,11 +75,39 @@
                 <h6>상호대차내역</h6>
             </div>
         </div>
+        <!-- 메인 내용 -->
+        <div class="main_context">
+            <!-- 슬라이드 배너 -->
+            <div class="slide slide_wrap">
+                            <div><a href="/not/addupdate?not_no=1">
+                    <img src="../img/not/1/ban/배너이미지.png" alt="" style="width:100%;">
+                </a></div>
+                            <div class="slide_tool">
+                    <div class="slide_prev_button slide_button"></div>
+                    <div class="slide_next_button slide_button"></div>
+                </div>
+                <ul class="slide_pagination"></ul>
+            </div>
+            <!-- 게시판 내용 -->
+            <div class="board">
+                <h3>공지사항</h3>
+                <fieldset id="fieldset_row">
+                                    <div id="div_row">
+                        <a class="http" href="/not/addupdate?not_no=1">
+                            <script>
+                                document.write(cnt+"번째 ");
+                                cnt++;
+                            </script>
+                            환영합니다                            2023-11-27                        </a>
+                    </div>
+                                </fieldset>
+            </div>
+        </div>
         <div class="calender">
             <div class="header">
               <div class="select">
                 <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
-                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option>               
+                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option><option  value='/member/home?lib_no=5' > 청주시립도서관 </option><option  value='/member/home?lib_no=6' > 청주오창도서관 </option>               
                 </select>
               </div>
               <button class="prevBtn" onclick="prevCal()"></button>
@@ -134,12 +134,11 @@
             </div>
         </div>
         <script src="../js/slider.js"></script>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3200.343548794332!2d127.47234561192785!3d36.666240072170034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356527fbe9e20b1f%3A0x53e174c6e034558e!2z7LKt7KO87LKt7JuQ64-E7ISc6rSA!5e0!3m2!1sko!2skr!4v1708169538829!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </body>
 </html>                    </main>
         <footer>
             <img src="../img/footer.gif" alt="">
-            <div class='table_menu'><table><tr><th>공지사항</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/member/logalert">대출중도서</a></td><td><a href="/member/logalert">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">모든대출내역</a></td><td><a href="/member/logalert">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/member/logalert">상호대차내역</a></td><td></td></tr></table></div>        </footer>
+            <div class='table_menu'><table><tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/member/logalert">대출중도서</a></td><td><a href="/member/logalert">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">모든대출내역</a></td><td><a href="/member/logalert">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/member/logalert">상호대차내역</a></td><td></td></tr></table></div>        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -37,17 +37,16 @@
             $state = 2;
         }
 
-        if($title == '대출 장소 현황'){
-            $menu = '기타';
-        } 
-        else{
-            $menu_arr = explode(' ', $title);
-            $menu = $menu_arr[0];
-        }          
+        $menu_arr = explode(' ', $title);
+        $menu = $menu_arr[0];        
 
         if($state != 1){
             if($title ==  '회원 수정'){
                 $menu = '마이페이지';
+            }
+        }else{
+            if($menu == '회원'){
+                $menu = '기타';
             }
         }
 
@@ -86,16 +85,20 @@
             $menus['대출'][1][1] = '/len/addupdate';
             $menus['대출'][2][0] = '반납추가';
             $menus['대출'][2][1] = '/len/returnLent';
+            $menus['대출'][3][0] = '대출장소관리';
+            $menus['대출'][3][1] = '/etc/plalist';
             $menus['상호대차'][0][0] = '상호대차관리';
             $menus['상호대차'][0][1] = '/del/list';
             $menus['상호대차'][1][0] = '상호대차도착일추가';
             $menus['상호대차'][1][1] = '/del/addlist';
             $menus['상호대차'][2][0] = '상호대차완료내역';
             $menus['상호대차'][2][1] = '/del/completelist';
-            $menus['기타'][0][0] = '예약관리';
-            $menus['기타'][0][1] = '/res/list';
-            $menus['기타'][1][0] = '대출장소관리';
-            $menus['기타'][1][1] = '/etc/plalist';
+            $menus['상호대차'][3][0] = '상호대차승인거절';
+            $menus['상호대차'][3][1] = '/del/aprelist';
+            $menus['기타'][0][0] = '회원관리';
+            $menus['기타'][0][1] = '/member/list';
+            $menus['기타'][1][0] = '예약관리';
+            $menus['기타'][1][1] = '/res/list';
             $menus['기타'][2][0] = '연체관리';
             $menus['기타'][2][1] = '/etc/duelist';
         }
@@ -187,7 +190,6 @@
                             $script = makehtml('자료', $menus);
                             echo $script;
                             echo '</ul></li>';
-                            echo '<li class="nav-item"><a class="nav-link" href="/member/list">회원</a></li>';
                             echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출 및 반납</a>';
                             echo '<ul class="dropdown-menu">';
                             $script = makehtml('대출', $menus);
@@ -240,7 +242,7 @@
                 }
             }
             else{
-                if($title != '회원 현황' && $title != '도서관 관리' && $title != '회원 수정'){
+                if($title != '도서관 관리'){
                     echo "";
                     echo "<aside><menu><li><h3>$menu</h3></li>";
                     $script = makehtml($menu, $menus);
@@ -260,21 +262,22 @@
             if($not_pop){
                 echo "<div class='table_menu'><table>";
                 if($state == 1){
-                    echo "<tr><th>공지사항</th> <th>책</th> <th>종류</th> <th>도서관</th> <th>자료</th> <th>회원</th> <th>대출</th> <th>상호대차</th> <th>기타</th></tr>";
+                    echo "<tr><th>공지사항</th> <th>책</th> <th>종류</th> <th>도서관</th> <th>자료</th> <th>대출</th> <th>상호대차</th> <th>기타</th></tr>";
                     $num = 0;
                     echo '<tr><td><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></td><td><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['종류'][$num][1].'">'.$menus['종류'][$num][0].'</a></td><td><a href="'.$menus['도서관'][$num][1].'">'.$menus['도서관'][$num][0].'</a></td>';
-                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="/member/list">회원관리</a></td>';
-                    echo '<td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
+                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
-                    $num =  1;
+                    $num = 1;
                     echo '<tr><td><a href="'.$menus['공지사항'][$num][1].'">'.$menus['공지사항'][$num][0].'</a></td><td><a href="'.$menus['책'][$num][1].'">'.$menus['책'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['종류'][$num][1].'">'.$menus['종류'][$num][0].'</a></td><td><a href="'.$menus['도서관'][$num][1].'">'.$menus['도서관'][$num][0].'</a></td>';
-                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
+                    echo '<td><a href="'.$menus['자료'][$num][1].'">'.$menus['자료'][$num][0].'</a></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
-                    $num =  2;
-                    echo '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
+                    $num = 2;
+                    echo '<tr><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td>';
                     echo '<td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td><td><a href="'.$menus['기타'][$num][1].'">'.$menus['기타'][$num][0].'</a></td></tr>';
+                    $num = 3;
+                    echo '<tr><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td><td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td>';
                 }else{
                     echo "<tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr>";
                     echo '<tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="'.$menus['내서재'][0][1].'">'.$menus['내서재'][0][0].'</a></td><td><a href="'.$menus['마이페이지'][0][1].'">'.$menus['마이페이지'][0][0].'</a></td></tr>';
