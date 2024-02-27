@@ -273,6 +273,12 @@ main .quick img{
     height: 95%;
 }
 
+main .quick .long{
+    position: relative;
+    right: 14px;
+    width: 145px;
+}
+
 main .quick h6{
     margin-top: 7px;
     text-align: center;

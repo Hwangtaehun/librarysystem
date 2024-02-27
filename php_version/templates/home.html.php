@@ -31,6 +31,7 @@
     ?>
     <body>
         <!-- 검색창 -->
+<?php if($mem_state != 1){ ?>
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
@@ -56,6 +57,73 @@
                 </button>
             </div>
         </form>
+<?php }else{ ?>
+        <div class="quickmenu">
+            <div class="quick" id="menu1">
+                <a href="/not/list">
+                    <img src="../img/icon/icon3.png" alt="">
+                </a>
+                <h6>공지사항관리</h6>
+            </div>
+            <div class="quick" id="menu2">
+                <a href="/not/addupdate">
+                    <img src="../img/icon/icon11.png" alt="">
+                </a>
+                <h6>공지사항추가</h6>
+            </div>
+            <div class="quick" id="menu3">
+                <a href="/len/addupdate">
+                    <img src="../img/icon/icon4.png" alt="">
+                </a>
+                <h6>대출추가</h6>
+            </div>
+            <div class="quick" id="menu4">
+                <a href="/len/returnLent">
+                    <img src="../img/icon/icon7.png" alt="">
+                </a>
+                <h6>반납추가</h6>
+            </div>
+            <div class="quick" id="menu5">
+                <a href="/etc/plalist">
+                    <img src="../img/icon/icon8.png" alt="">
+                </a>
+                <h6>대출장소관리</h6>
+            </div>
+        </div>
+        <div class="quickmenu">
+            <div class="quick" id="menu6">
+                <a href="/del/aprelist">
+                    <img src="../img/icon/icon2.png" alt="">
+                </a>
+                <div class="long"><h6>상호대차승인거절</h6></div>
+            </div>
+            <div class="quick" id="menu7">
+                <a href="/del/addlist">
+                    <img src="../img/icon/icon9.png" alt="">
+                </a>
+                <div class="long"><h6>상호대차도착일추가</h6></div>
+            </div>
+            <div class="quick" id="menu8">
+                <a href="/mat/addupdate">
+                    <img src="../img/icon/icon1.png" alt="">
+                </a>
+                <h6>자료추가</h6>
+            </div>
+            <div class="quick" id="menu9">
+                <a href="/etc/duelist">
+                    <img src="../img/icon/icon5.png" alt="">
+                </a>
+                <h6>연체관리</h6>
+            </div>
+            <div class="quick" id="menu10">
+                <a href="/member/list">
+                    <img src="../img/icon/icon12.png" alt="">
+                </a>
+                <h6>회원관리</h6>
+            </div>
+        </div>
+        <div class="blank"></div>
+<?php } ?>
         <!-- 메인 내용 -->
         <div class="main_context">
             <!-- 슬라이드 배너 -->
@@ -90,6 +158,7 @@
                 </fieldset>
             </div>
         </div>
+<?php if($mem_state != 1){ ?>
         <div class="quickmenu">
             <div id="context">
                 <h2>자주찾는 메뉴</h2>
@@ -97,36 +166,37 @@
                     빠르게 찾아보세요.</h5>
             </div>
             <div class="quick" id="menu1">
-                <a href="<?php echo "/not/list"; ?>">
-                    <img src="../img/icon/not.png" alt="">
+                <a href="/not/list">
+                    <img src="../img/icon/icon3.png" alt="">
                 </a>
-                <h6><?php if($mem_state == 1){echo "공지사항관리";}else{echo "공지사항";} ?></h6>
+                <h6>공지사항</h6>
             </div>
             <div class="quick" id="menu2">
-                <a href="<?php if($mem_state == 1){echo "/member/list";}else if($mem_state == 3){echo "/member/logalert";}else{echo "/member/addupdate?mem_no='.$mem_no";} ?>">
-                    <img src="../img/icon/mem.png" alt="">
+                <a href="/lib/list">
+                    <img src="../img/icon/icon10.png" alt="">
                 </a>
-                <h6><?php if($mem_state == 1){echo "회원관리";}else{echo "회원정보수정";} ?></h6>
+                <h6>도서관</h6>
             </div>
             <div class="quick" id="menu3">
-                <a href="<?php if($mem_state == 1){echo "/len/list";}else{echo "/len/memLent";} ?>">
-                    <img src="../img/icon/lent.png" alt="">
+                <a href="/len/memLent">
+                    <img src="../img/icon/icon6.png" alt="">
                 </a>
-                <h6><?php if($mem_state == 1){echo "대출관리";}else{echo "대출중도서";} ?></h6>
+                <h6>대출중도서</h6>
             </div>
             <div class="quick" id="menu4">
-                <a href="<?php echo "/res/list"; ?>">
-                    <img src="../img/icon/res.png" alt="">
+                <a href="/res/list">
+                    <img src="../img/icon/icon4.png" alt="">
                 </a>
-                <h6><?php if($mem_state == 1){echo "예약관리";}else{echo "예약내역";} ?></h6>
+                <h6>예약내역</h6>
             </div>
             <div class="quick" id="menu5">
-                <a href="<?php echo "/del/list" ?>">
-                    <img src="../img/icon/del.png" alt="">
+                <a href="/del/list">
+                    <img src="../img/icon/icon9.png" alt="">
                 </a>
-                <h6><?php if($mem_state == 1){echo "상호대차관리";}else{echo "상호대차내역";} ?></h6>
+                <h6>상호대차내역</h6>
             </div>
         </div>
+<?php } ?>
         <div class="calender">
             <div class="header">
               <div class="select">

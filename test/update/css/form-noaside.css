@@ -158,6 +158,11 @@ main .context {
     height: 300px;
 }
 
+/*readonly 배경 회색*/
+main input[readonly] {
+    background-color: gray;
+}
+
 footer {
     grid-area: footer; 
     text-align: center; 
