@@ -82,7 +82,7 @@
             document.querySelector("#id_sta").value = state;
             document.querySelector("#id_mat").value = mat;
             document.querySelector("#ib_name").value = book;
-            document.querySelector("#il_no").value = lib; //안되면 const사용하기
+            document.querySelector("#il_no").value = lib; //안되면 const사용하기   
         }
     </script>
 </head>
