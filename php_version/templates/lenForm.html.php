@@ -50,40 +50,6 @@
             url = "/len/respop";
             window.open(url,"chkde","width=310,height=445");
         }
-
-        //회원 팝업창 내용 받아오기
-        function memValue(no, name, state){
-            document.querySelector("#id_mem").value = no;
-            document.querySelector("#im_id").value = name;
-            document.querySelector("#id_sta").value = state;
-        }
-
-        //자료 팝업창 내용 받아오기
-        function matValue(no, name){
-            document.querySelector("#id_mat").value = no;
-            document.querySelector("#ib_name").value = name;
-        }
-
-        //상호대차 팝업창 내용 받아오기
-        function delValue(mem, id, state, mat, book, lib, del){
-            document.querySelector("#id_mem").value = mem;
-            document.querySelector("#im_id").value = id;
-            document.querySelector("#id_sta").value = state;
-            document.querySelector("#id_mat").value = mat;
-            document.querySelector("#ib_name").value = book;
-            document.querySelector("#il_no").value = lib; //안되면 const사용하기
-            document.querySelector("#id_del").value = del;
-        }
-
-        //예약 내용 받아오기
-        function resValue(mem, id, state, mat, book, lib){
-            document.querySelector("#id_mem").value = mem;
-            document.querySelector("#im_id").value = id;
-            document.querySelector("#id_sta").value = state;
-            document.querySelector("#id_mat").value = mat;
-            document.querySelector("#ib_name").value = book;
-            document.querySelector("#il_no").value = lib; //안되면 const사용하기   
-        }
     </script>
 </head>
 <?php
@@ -194,6 +160,60 @@
         }
     }
     ?>
+
+        const mat_b = document.querySelector('#mat_check');
+        const mem_b = document.querySelector('#im_check');
+        const lib_s = document.querySelector('#il_no');
+        const del_h = document.querySelector('#id_del');
+        const res_h = document.querySelector('#id_res');
+
+        function checkReset(){
+            mem_b.disabled = false;
+            mat_b.disabled = false; 
+            lib_s.disabled = false;
+            del_h.value = '';
+            res_h.value = '';
+        }
+
+         //회원 팝업창 내용 받아오기
+        function memValue(no, name, state){
+            document.querySelector("#id_mem").value = no;
+            document.querySelector("#im_id").value = name;
+            document.querySelector("#id_sta").value = state;
+        }
+
+        //자료 팝업창 내용 받아오기
+        function matValue(no, name){
+            document.querySelector("#id_mat").value = no;
+            document.querySelector("#ib_name").value = name;
+        }
+
+        //상호대차 팝업창 내용 받아오기
+        function delValue(mem, id, state, mat, book, lib, del){
+            document.querySelector("#id_mem").value = mem;
+            document.querySelector("#im_id").value = id;
+            document.querySelector("#id_sta").value = state;
+            document.querySelector("#id_mat").value = mat;
+            document.querySelector("#ib_name").value = book;
+            document.querySelector("#il_no").value = lib; //안되면 const사용하기
+            document.querySelector("#id_del").value = del;
+            mem_b.disabled = true;
+            mat_b.disabled = true; 
+            lib_s.disabled = true;
+        }
+
+        //예약 내용 받아오기
+        function resValue(mem, id, state, mat, book, lib){
+            document.querySelector("#id_mem").value = mem;
+            document.querySelector("#im_id").value = id;
+            document.querySelector("#id_sta").value = state;
+            document.querySelector("#id_mat").value = mat;
+            document.querySelector("#ib_name").value = book;
+            document.querySelector("#il_no").value = lib; //안되면 const사용하기  
+            mem_b.disabled = true;
+            mat_b.disabled = true; 
+            lib_s.disabled = true;
+        }
     </script>
 </body>
 </html>

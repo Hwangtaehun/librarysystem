@@ -51,7 +51,7 @@ class DelController{
             //팝업창 확인
             if(isset($_GET['pop'])){
                 if($_GET['pop'] == true){
-                    $this->sql = $this->sql."AND len_no IS NULL AND del_arr_date IS NOT NULL ";
+                    $this->sql = $this->sql." AND len_no IS NULL AND del_arr_date IS NOT NULL ";
                 }
             }
             else{
