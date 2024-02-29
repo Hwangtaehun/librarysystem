@@ -394,21 +394,41 @@ main .blank{
     border-width: 0.5px;
 }
 
-/*카드*/
-main .card {
+/*책 리스트*/
+main .list_title{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .list_title h4{
+    color: yellow;
+}
+
+main .booklist{
+    display: ruby-text;
+    text-align: left;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+main .booklist .card{
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    min-width: 320px;
 }
-main .card img{
+
+main .booklist .card img{
     margin: 0 auto;
     width: 90px;
     object-fit: contain;
 }
-main .card .card-body{
-    padding-top: 5px;
-}
-main .card .card-body .card-text{
+
+main .booklist .card .card-body .card-text{
     margin-bottom: 5px;
 }
 

@@ -5,10 +5,12 @@
         <script defer>
             var cnt = 1;
             <?php
-            if($close == ''){
-                echo "let rest = 7;";
-            }else{
-                echo "let rest = $close;";
+            if(isset($close)){
+                if($close == ''){
+                    echo "let rest = 7;";
+                }else{
+                    echo "let rest = $close;";
+                }
             }
             ?>
         </script>
@@ -178,6 +180,7 @@
         </div>
         <script src="../js/slider.js"></script>
 <?php }else{ ?>
+        <h2>자주찾는 메뉴</h2>
         <div class="quickmenu">
             <div class="quick" id="menu1">
                 <a href="/not/list">
@@ -267,9 +270,83 @@
                 ?>               
             </select>
         </div>
-        <div class="reservation">
+        <div class="list_title">
+            <h2><?php echo $name[$lib_no]; ?> 예약도서</h2>
+            <h4>총<?php echo $cnt1; ?>권</h4>
         </div>
-        <div class="return">
+        <div class="booklist">
+        <?php if(isset($result1)){foreach($result1 as $row): ?>
+            <div class="card" style="width: 20rem; height: 180px;">
+            <?php
+            if(!empty($row['kind_no'])&&!empty($row['mat_symbol'])){
+                $libsymbol = $row['kind_no'].'-'.$row['mat_symbol'];
+
+                if($row['mat_many'] != 0){
+                    $libsymbol = $libsymbol.'='.$row['mat_many'];
+                }
+
+                if($row['mat_overlap'] != 'c.1'){
+                    $libsymbol = $libsymbol.'='.$row['mat_overlap'];
+                }
+            }
+
+            if($row['book_url'] != ''){
+                $bu = $row['book_url'];
+                $bn = $row['book_name'];
+                echo "<img src='$bu' class='card-img-top' alt='$bn'>";
+            }
+            ?>
+                <div class="card-body">
+                    <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
+                    <p class="card-text">
+                        저자 <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?> | 출판사 <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
+                        발행년도 <?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?> | 소장기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                    <?php if(isset($libsymbol)){ ?>
+                        청구기호 <?=htmlspecialchars($libsymbol,ENT_QUOTES,'UTF-8');?><br>
+                    <?php } ?>
+                    </p>
+                </div>
+            </div>
+        <?php endforeach; }?>
+        </div>
+        <div class="list_title">
+            <h2><?php echo $name[$lib_no]; ?> 반송도서</h2>
+            <h4>총<?php echo $cnt; ?>권</h4>
+        </div>
+        <div class="booklist">
+        <?php if(isset($result)){foreach($result as $row): ?>
+            <div class="card" style="width: 20rem; height: 180px;">
+            <?php
+            if(!empty($row['kind_no'])&&!empty($row['mat_symbol'])){
+                $libsymbol = $row['kind_no'].'-'.$row['mat_symbol'];
+
+                if($row['mat_many'] != 0){
+                    $libsymbol = $libsymbol.'='.$row['mat_many'];
+                }
+
+                if($row['mat_overlap'] != 'c.1'){
+                    $libsymbol = $libsymbol.'='.$row['mat_overlap'];
+                }
+            }
+
+            if($row['book_url'] != ''){
+                $bu = $row['book_url'];
+                $bn = $row['book_name'];
+                echo "<img src='$bu' class='card-img-top' alt='$bn'>";
+            }
+            ?>
+                <div class="card-body">
+                    <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
+                    <p class="card-text">
+                        저자 <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?> | 출판사 <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
+                        발행년도 <?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?> | 소장기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                    <?php if(isset($libsymbol)){ ?>
+                        청구기호 <?=htmlspecialchars($libsymbol,ENT_QUOTES,'UTF-8');?><br>
+                    <?php } ?>
+                    </p>
+                </div>
+            </div>
+        <?php endforeach; }?>
         </div>
 <?php } ?>
     </body>

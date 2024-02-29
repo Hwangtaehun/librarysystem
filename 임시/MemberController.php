@@ -76,32 +76,24 @@ class MemberController{
 
             return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'close'=>$close];
         }else{
-
             if(isset($_GET['lib_no'])){
                 $this->id = $_GET['lib_no'];
             }
+            $this->assist->listchange(3);
 
             $m_id = $this->id;
             $this->sqlSet("del");
-            $del_sql = $this->board_sql." lib_no_arr = $m_id ".$this->board_sort;
+            $del_sql = $this->board_sql." AND lib_no_arr = $m_id ".$this->board_sort;
             $this->sqlSet("res");
-            $res_sql = $this->board_sql." lib_no = $m_id ".$this->board_sort;
+            $res_sql = $this->board_sql." AND library.lib_no = $m_id ".$this->board_sort;
 
             $result = $this->delTable->joinSQL($del_sql);
             $total_cnt = $result->rowCount();
-            $del_sql = $this->assist->pagesql($del_sql);
-            $stmt = $this->memTable->whereSQL($del_sql);
-            $result = $stmt->fetchAll();
-            $pagi = $this->assist->pagemanager($total_cnt, '없음');
 
             $result1 = $this->resTable->joinSQL($res_sql);
             $total_cnt1 = $result1->rowCount();
-            $res_sql = $this->assist->pagesql($res_sql);
-            $stmt = $this->memTable->whereSQL($res_sql);
-            $result = $stmt->fetchAll();
-            $pagi1 = $this->assist->pagemanager($total_cnt, '없음');
 
-            return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'cnt'=>$total_cnt, 'cnt1'=>$total_cnt1, 'pagi'=>$pagi, 'pagi1'=>$pagi1];
+            return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'cnt'=>$total_cnt, 'cnt1'=>$total_cnt1];
         }
     }
 
@@ -132,14 +124,14 @@ class MemberController{
         }
 
         if(isset($_POST)){
-            $value = $_POST['user_research'];
+            $member = $_POST['user_research'];
         }
 
         if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
 
-        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value' AND `mem_state` NOT LIKE 1";
+        $where = "WHERE `mem_name` LIKE '$member' OR `mem_id` LIKE '$member' AND `mem_state` NOT LIKE 1";
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
