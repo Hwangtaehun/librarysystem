@@ -33,6 +33,7 @@ class NotController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->today = date("Y-m-d");
+        $this->assist->tablename('not');
     }
 
     //이미지 업로드 전체적으로 관리하는 함수

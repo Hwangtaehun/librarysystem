@@ -34,6 +34,7 @@ class MatController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->assist->listchange(6);
+        $this->assist->tablename('mat');
     }
 
     //중복된 책인 있는 확인하는 함수
@@ -102,6 +103,7 @@ class MatController{
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('pop');
 
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->matTable->joinSQL($sql);
@@ -115,6 +117,7 @@ class MatController{
     public function research(){
         $in = '';
         $ispop = false;
+        $this->assist->funName('');
 
         if(!isset($_SESSION['mem_state'])){
             $this->basic_sql();

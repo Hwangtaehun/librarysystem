@@ -4,6 +4,22 @@ class Assistance{
     private $table = 'kind';
     private $add = '';
 
+    //한 페이지에 보여지는 정보 크기
+    public function listchange(int $num){
+        $this->listnum = $num;
+    }
+
+    //테이블 이름
+    public function tablename(string $table){
+        $this->table = $table;
+        
+    }
+
+    //함수 이름
+    public function funName(string $add){
+        $this->add = $add;
+    }
+
     //문자가 정수인지 확인하는 함수
 	public function isInteger(String $strValue) {
 	    $num = (int)$strValue;
@@ -128,16 +144,7 @@ class Assistance{
         return $lib_array;
     }
 
-    public function listchange(int $num){
-        $this->listnum = $num;
-    }
-
-    public function tablename(string $table, string $add){
-        $this->table = $table;
-        $this->add = $add;
-    }
-
-    //page번호 달기 만들기위한 html제작
+    //page번호 달기 만들기위한 html제작 -> next.js 사용할때 오버로딩 사용하기
 	public function pagemanager(int $total_cnt, string $value){
         $pagenum = 19;
         $outStr= '';

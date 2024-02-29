@@ -31,6 +31,7 @@ class BookController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->assist->listchange(6);
+        $this->assist->tablename('book');
     }
 
     public function list(){
@@ -59,14 +60,14 @@ class BookController{
         
         $where = '';
         if(isset($_POST['user_research'])){
-            $value = '%'.$_POST['user_research'].'%';
+            $book = '%'.$_POST['user_research'].'%';
         }
 
         if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
         
-        $where = "WHERE book_name LIKE '$value' OR book_author LIKE '$value' OR book_publish LIKE '$value'";
+        $where = "WHERE book_name LIKE '$book' OR book_author LIKE '$book' OR book_publish LIKE '$book'";
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);

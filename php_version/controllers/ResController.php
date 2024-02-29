@@ -34,6 +34,7 @@ class ResController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->assist->listchange(6);
+        $this->assist->tablename('res');
     }
 
     public function list(){

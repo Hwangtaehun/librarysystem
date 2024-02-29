@@ -31,6 +31,7 @@ class LibController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->assist->listchange(9);
+        $this->assist->tablename('lib');
     }
 
     //목록

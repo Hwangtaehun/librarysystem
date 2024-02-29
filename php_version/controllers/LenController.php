@@ -34,51 +34,8 @@ class LenController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->assist->listchange(6);
+        $this->assist->tablename('len');
     }
-
-    /*
-    //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
-    private function reservationCheck(){
-        $rs = false;
-        $res_no = $_POST['res_no'];
-
-        if($res_no == ''){
-            $mat_no = $_POST['mat_no'];
-            $where = "WHERE `mat_no` = $mat_no";
-            $stmt = $this->resTable->whereSQL($where);
-            $num = $stmt->rowCount();
-            
-            if($num == 0){
-                $rs = true;
-            }
-            else{
-                $row = $stmt->fetch();
-                if($row['mem_no'] == $_POST['mem_no']){
-                    $rs = true;
-                    $res_no = $row['res_no'];
-                }
-            }
-        }
-        else{
-            $row = $this->resTable->selectID($res_no);
-
-            if($row['mem_no'] == $_POST['mem_no']){
-                $rs = true;
-            }
-            else{
-                $rs = false;
-            }
-        }
-        
-        if($rs == false){
-            echo "<script>alert('다른 회원이 예약한 도서입니다.'); history.back();</script>";
-        }else{
-            $this->resTable->deleteData($res_no);
-        }
-
-        return $rs;
-    }
-    */
 
     //대출 게시판형마다 다른 sql 필요해서 정리 단. 대출 현황과 대출찾기는 제외
     private function sqlList(string $title){
@@ -116,7 +73,7 @@ class LenController{
     }
 
     //로그인한 회원의 현재 대출 목록 출력
-    public function memLent(){
+    public function memlist(){
         $title = '대출중자료';
 
         $this->sqlList($title);
@@ -124,6 +81,7 @@ class LenController{
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('mem');
 
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
@@ -134,7 +92,7 @@ class LenController{
     }
 
     //로그인한 회원의 모든 대출 목록 출력
-    public function memAllLent(){
+    public function memAlllist(){
         $title = '모든대출내역';
 
         $this->sqlList($title);
@@ -142,6 +100,7 @@ class LenController{
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('memAll');
 
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
@@ -152,13 +111,14 @@ class LenController{
     }
 
     //반납 목록
-    public function returnLent(){
+    public function returnlist(){
         $title = '반납 추가';
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('return');
 
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
@@ -171,6 +131,7 @@ class LenController{
     //검색
     public function research(){
         $title = '대출 현황';
+        $this->assist->funName('');
         
         if(isset($_GET['title'])){
             $title = $_GET['title'];

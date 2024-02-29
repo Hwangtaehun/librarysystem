@@ -82,7 +82,7 @@
             $menus['대출'][0][0] = '대출추가';
             $menus['대출'][0][1] = '/len/addupdate';
             $menus['대출'][1][0] = '반납추가';
-            $menus['대출'][1][1] = '/len/returnLent';
+            $menus['대출'][1][1] = '/len/returnlist';
             $menus['대출'][2][0] = '대출관리';
             $menus['대출'][2][1] = '/len/list';
             $menus['대출'][3][0] = '대출장소관리';
@@ -112,8 +112,8 @@
             $menus['마이페이지'][1][0] = '회원탈퇴';
             if(isset($_SESSION['mem_no'])){
                 $mem_no = $_SESSION['mem_no'];
-                $menus['내서재'][0][1] = '/len/memLent';                
-                $menus['내서재'][1][1] = '/len/memAllLent';                
+                $menus['내서재'][0][1] = '/len/memlist';                
+                $menus['내서재'][1][1] = '/len/memAlllist';                
                 $menus['내서재'][2][1] = '/res/list';                
                 $menus['내서재'][3][1] = '/del/list';                
                 $menus['마이페이지'][0][1] = '/member/addupdate?mem_no='.$mem_no;               

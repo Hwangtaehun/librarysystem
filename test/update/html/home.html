@@ -29,7 +29,7 @@
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
-                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                </select>
+                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option><option  value = 5 > 청주시립도서관 </option><option  value = 6 > 청주오창도서관 </option>                </select>
                 <input type="text" name="user_research" id="id_research" value = "" placeholder="도서 이름을 입력해주세요.">
                 <button type="submit" class="btn btn-outline-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -38,6 +38,43 @@
                 </button>
             </div>
         </form>
+        <div class="quickmenu">
+            <div id="context">
+                <h2>자주찾는 메뉴</h2>
+                <h5>필요한 정보를<br>
+                    빠르게 찾아보세요.</h5>
+            </div>
+            <div class="quick" id="menu1">
+                <a href="/not/list">
+                    <img src="../img/icon/not.png" alt="">
+                </a>
+                <h6>공지사항</h6>
+            </div>
+            <div class="quick" id="menu2">
+                <a href="/member/logalert">
+                    <img src="../img/icon/mem.png" alt="">
+                </a>
+                <h6>회원정보수정</h6>
+            </div>
+            <div class="quick" id="menu3">
+                <a href="/len/memLent">
+                    <img src="../img/icon/lent.png" alt="">
+                </a>
+                <h6>대출중도서</h6>
+            </div>
+            <div class="quick" id="menu4">
+                <a href="/res/list">
+                    <img src="../img/icon/res.png" alt="">
+                </a>
+                <h6>예약내역</h6>
+            </div>
+            <div class="quick" id="menu5">
+                <a href="/del/list">
+                    <img src="../img/icon/del.png" alt="">
+                </a>
+                <h6>상호대차내역</h6>
+            </div>
+        </div>
         <!-- 메인 내용 -->
         <div class="main_context">
             <!-- 슬라이드 배너 -->
@@ -66,48 +103,11 @@
                                 </fieldset>
             </div>
         </div>
-        <div class="quickmenu">
-            <div id="context">
-                <h2>자주찾는 메뉴</h2>
-                <h5>필요한 정보를<br>
-                    빠르게 찾아보세요.</h5>
-            </div>
-            <div class="quick" id="menu1">
-                <a href="/not/list">
-                    <img src="../img/icon/icon3.png" alt="">
-                </a>
-                <h6>공지사항</h6>
-            </div>
-            <div class="quick" id="menu2">
-                <a href="/member/logalert">
-                    <img src="../img/icon/icon10.png" alt="">
-                </a>
-                <h6>도서관</h6>
-            </div>
-            <div class="quick" id="menu3">
-                <a href="/len/memLent">
-                    <img src="../img/icon/icon6.png" alt="">
-                </a>
-                <h6>대출중도서</h6>
-            </div>
-            <div class="quick" id="menu4">
-                <a href="/res/list">
-                    <img src="../img/icon/icon4.png" alt="">
-                </a>
-                <h6>예약내역</h6>
-            </div>
-            <div class="quick" id="menu5">
-                <a href="/del/list">
-                    <img src="../img/icon/icon9.png" alt="">
-                </a>
-                <h6>상호대차내역</h6>
-            </div>
-        </div>
         <div class="calender">
             <div class="header">
               <div class="select">
                 <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
-                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option>               
+                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option><option  value='/member/home?lib_no=5' > 청주시립도서관 </option><option  value='/member/home?lib_no=6' > 청주오창도서관 </option>               
                 </select>
               </div>
               <button class="prevBtn" onclick="prevCal()"></button>

@@ -15,6 +15,9 @@ class MemberController{
     private $delTable;
     private $notTable;
     private $assist;
+    private $id = 1;
+    private $board_sql;
+    private $board_sort;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -33,28 +36,73 @@ class MemberController{
         $this->today = date('Y-m-d', time());
         $this->assist = new Assistance();
         $this->assist->listchange(9);
-        $this->assist->tablename('member');
+    }
+
+    private function sqlSet(string $table){
+        if($table == 'del'){
+            $this->board_sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
+                    AND material.book_no = book.book_no AND del_app = 2 AND del_arr_date IS NULL";
+            $this->board_sort = "ORDER BY book.book_name";
+        }else{
+            $this->board_sql = "SELECT * FROM reservation, material, member, library, book, kind WHERE reservation.mat_no = material.mat_no AND reservation.mem_no = member.mem_no
+                    AND material.kind_no = kind.kind_no AND material.book_no = book.book_no AND material.lib_no = library.lib_no";
+            $this->board_sort = " ORDER BY library.lib_name, book.book_name";
+        }
     }
 
     //홈화면 함수
     public function home(){
-        //공지사항
-        $sort = "ORDER BY not_no DESC";
-        $sql = "WHERE `not_op_date` <= '$this->today' AND `not_cl_date` > '$this->today' $sort"; //배너
-        $sql1 = "WHERE `not_op_date` <= '$this->today' $sort"; //공지사항 게시판
-        $result = $this->notTable->whereSQL($sql);
-        $result1 = $this->notTable->whereSQL($sql1);
-
-        //휴일요일
-        $id = 1;
-        if(isset($_GET['lib_no'])){
-            $id = $_GET['lib_no'];
-        }
-        $row = $this->libTable->selectID($id);
-        $close = $row['lib_close'];
-
         $title = '도서관 관리';
-        return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'close'=>$close];
+        $mem_state = 3;
+
+        if(isset($_SESSION['mem_state'])){
+            $mem_state = $_SESSION['mem_state'];
+        }
+
+        if($mem_state != 1){
+            //공지사항
+            $sort = "ORDER BY not_no DESC";
+            $sql = "WHERE `not_op_date` <= '$this->today' AND `not_cl_date` > '$this->today' $sort"; //배너
+            $sql1 = "WHERE `not_op_date` <= '$this->today' $sort"; //공지사항 게시판
+            $result = $this->notTable->whereSQL($sql);
+            $result1 = $this->notTable->whereSQL($sql1);
+
+            //휴일요일
+            if(isset($_GET['lib_no'])){
+                $this->id = $_GET['lib_no'];
+            }
+            $row = $this->libTable->selectID($this->id);
+            $close = $row['lib_close'];
+
+            return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'close'=>$close];
+        }else{
+            if(isset($_GET['lib_no'])){
+                $this->id = $_GET['lib_no'];
+            }
+            $this->assist->listchange(3);
+
+            $m_id = $this->id;
+            $this->sqlSet("del");
+            $del_sql = $this->board_sql." AND lib_no_arr = $m_id ".$this->board_sort;
+            $this->sqlSet("res");
+            $res_sql = $this->board_sql." AND library.lib_no = $m_id ".$this->board_sort;
+
+            $result = $this->delTable->joinSQL($del_sql);
+            $total_cnt = $result->rowCount();
+            $del_sql = $this->assist->pagesql($del_sql);
+            $stmt = $this->delTable->joinSQL($del_sql);
+            $result = $stmt->fetchAll();
+            $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+            $result1 = $this->resTable->joinSQL($res_sql);
+            $total_cnt1 = $result1->rowCount();
+            $res_sql = $this->assist->pagesql($res_sql);
+            $stmt = $this->resTable->joinSQL($res_sql);
+            $result1 = $stmt->fetchAll();
+            $pagi1 = $this->assist->pagemanager($total_cnt, '없음');
+
+            return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'cnt'=>$total_cnt, 'cnt1'=>$total_cnt1, 'pagi'=>$pagi, 'pagi1'=>$pagi1];
+        }
     }
 
     public function list(){
@@ -84,14 +132,14 @@ class MemberController{
         }
 
         if(isset($_POST)){
-            $value = $_POST['user_research'];
+            $member = $_POST['user_research'];
         }
 
         if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
 
-        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value' AND `mem_state` NOT LIKE 1";
+        $where = "WHERE `mem_name` LIKE '$member' OR `mem_id` LIKE '$member' AND `mem_state` NOT LIKE 1";
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);

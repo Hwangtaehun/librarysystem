@@ -34,6 +34,7 @@ class DelController{
         $this->notTable = $notTable;
         $this->assist = new Assistance();
         $this->assist->listchange(6);
+        $this->assist->tablename('del');
     }
 
     //게시판형마다 다른 sql 필요해서 정리
@@ -93,12 +94,13 @@ class DelController{
     //상호대차 완료 목록 출력
     public function completelist(){
         $title = '상호대차 완료 현황';
-
+        
         $this->sqlList($title);
         $sql = $this->sql.$this->sort;
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('complete');
         
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
@@ -117,6 +119,7 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('add');
         
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
@@ -135,6 +138,7 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
+        $this->assist->funName('apre');
         
         $sql = $this->assist->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
@@ -157,6 +161,7 @@ class DelController{
         }
 
         $this->sqlList($title);
+        $this->assist->funName('');
 
         if(isset($_POST)){
             if($_SESSION['mem_state'] == 1){
