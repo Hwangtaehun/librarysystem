@@ -358,7 +358,7 @@ class LenController{
         $row = $this->matTable->selectID($mat_no);
         if($row['lib_no'] != $lib_no){
             $mem_no = $_SESSION['mem_no'];
-            $lib_no_arr = $row['lib_no'];
+            $lib_no_arr = $lib_no;
             $param = ['mem_no'=>$mem_no, 'mat_no'=>$mat_no, 'lib_no_arr'=>$lib_no_arr, 'del_arr_date'=>$today, 'del_app'=>2];
             $this->delTable->insertData($param);
         }

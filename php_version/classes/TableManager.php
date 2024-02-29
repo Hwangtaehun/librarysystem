@@ -104,7 +104,7 @@ class TableManager
         }
         $sql = rtrim($sql, ', ');
         $sql .= ' WHERE `'.$this->keyField.'`= '.$id;
-        $this->myQuery($sql, $param);
+        $this->pdo->exec($sql);
     }
 }
 ?>

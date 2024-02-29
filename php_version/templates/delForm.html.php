@@ -89,7 +89,7 @@
                 <!-- 수정할때만 생성 -->
                 <?php if(isset($row)){ ?>
                 <li><label for ="id_arr_date">도착일</label>
-                    <input type="date" name="den_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"></li>
+                    <input type="date" name="del_arr_date" id="id_arr_date" value="<?php echo $row['del_arr_date']; ?>"></li>
                 <li><label>상태</label>
                     <input type="radio" name="del_app" id="id_st" value=""> 대기
                     <input type="radio" name="del_app" id="id_de" value="0"> 거절

@@ -345,36 +345,40 @@ class DelController{
                         echo "<script>window.close();</script>";
                     }
                     else{
-                        if($_POST['lib_arr_date'] == ''){
-                            $del_app = $_POST['del_app'];
-    
-                            if($del_app != ''){
-                                if($del_app == 0){
+                        if(empty($_POST['del_arr_date']) || empty($_POST['del_app'])){
+                            if(!empty($_POST['del_app'])){
+                                if($_POST['del_app'] == 0){
                                     $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                                 }else{
                                     $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
                                 }
-                                $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$del_app];
+                                
+                                $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
                                 $this->delTable->updateData($param);
-                                $param = ['lib_arr_date'=>$_POST['lib_arr_date']];
+                                $param = ['del_arr_date'=>''];
                                 $id = $_POST['del_no'];
-                                $this->delTable->updateNullData($param, $id);
+                                $this->delTable->updateNullData($param, $id);//질문
                             }else{
                                 $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                                 $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
                                 $this->delTable->updateData($param);
-                                $param = ['lib_arr_date'=>$_POST['lib_arr_date'], 'del_app'=>$del_app];
+                                $param = ['lib_arr_date'=>'', 'del_app'=>''];
                                 $id = $_POST['del_no'];
                                 $this->delTable->updateNullData($param, $id);
                             }
                         }
                         else{
-                            $del_app = $_POST['del_app'];
-                            $mat_no = $_POST['mem_no'];
-                            
-                            $this->delTable->updateData($_POST);
+                            if(empty($_POST['len_no'])){
+                                $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'del_arr_date'=>$_POST['del_arr_date'], 
+                                    'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
+                            }else{
+                                $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'del_arr_date'=>$_POST['del_arr_date'], 
+                                    'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app'], 'len_no'=>$_POST['len_no']];
+                            }
+
+                            $this->delTable->updateData($param);
     
-                            if($del_app == 2){
+                            if($_POST['del_app'] == 2){
                                 $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                             }
                         }

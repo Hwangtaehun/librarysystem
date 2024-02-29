@@ -1,6 +1,8 @@
 <?php
 class Assistance{
 	private $listnum = 19;
+    private $table = 'kind';
+    private $add = '';
 
     //문자가 정수인지 확인하는 함수
 	public function isInteger(String $strValue) {
@@ -130,6 +132,11 @@ class Assistance{
         $this->listnum = $num;
     }
 
+    public function tablename(string $table, string $add){
+        $this->table = $table;
+        $this->add = $add;
+    }
+
     //page번호 달기 만들기위한 html제작
 	public function pagemanager(int $total_cnt, string $value){
         $pagenum = 19;
@@ -157,7 +164,7 @@ class Assistance{
                 $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
                 if($sup_pg != 0){
                     $go_pg = $sup_pg - 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Previous"> 
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Previous"> 
                                 <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for ($i=0; $i < 19 ; $i++) { 
@@ -173,13 +180,13 @@ class Assistance{
                         }
 
                         $start_num = $page * $this->listnum;
-                        $outStr .= '<li class="page-item"><a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$start_num.'">'.$str_num.'</a></li>';
+                        $outStr .= '<li class="page-item"><a class="page-link" href="/'.$this->table.'/'.$this->add.'list?sup_pg='.$go_pg.'&page='.$start_num.'">'.$str_num.'</a></li>';
                     }
                 }
 
                 if($sup_pg != $sp_pg-1){
                     $go_pg = $sup_pg + 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Next"> 
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Next"> 
                                 <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
@@ -188,7 +195,7 @@ class Assistance{
                 $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
                 if($sup_pg != 0){
                     $go_pg = $sup_pg - 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Previous"> 
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Previous"> 
                                 <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for ($i=0; $i < 19 ; $i++) { 
@@ -204,13 +211,13 @@ class Assistance{
                         }
 
                         $start_num = $page * $this->listnum;
-                        $outStr .= '<li class="page-item"><a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.'">'.$str_num.'</a></li>';
+                        $outStr .= '<li class="page-item"><a class="page-link" href="/'.$this->table.'/'.$this->add.'research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.'">'.$str_num.'</a></li>';
                     }
                 }
 
                 if($sup_pg != $sp_pg-1){
                     $go_pg = $sup_pg + 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/kind/research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Next"> 
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Next"> 
                                 <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
@@ -285,8 +292,6 @@ class Assistance{
                 $bool = true;
             }
         }
-
-        echo "bool = $bool, mat_no = $mat_no, mat_exist = $mat_exist <br>";
 
         if($bool){
             $param = ['mat_no'=>$mat_no,'mat_exist'=>$mat_exist];
