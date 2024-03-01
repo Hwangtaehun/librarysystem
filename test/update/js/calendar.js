@@ -103,6 +103,7 @@ function breakImg() {
     console.log(array);
     let html = '';
     for (let i = 0; i < array.length; i++) { 
+        // let top = window.scrollY + parseInt(array[i].getBoundingClientRect().top) + array[i].getBoundingClientRect().width / 21 - 1;
         let top = window.scrollY + parseInt(array[i].getBoundingClientRect().top) + 1;
         let left = window.scrollX + parseInt(array[i].getBoundingClientRect().left) + array[i].getBoundingClientRect().width / 3 - 1;
         html += '<img src="../img/icon/star.png" class="break" style="left: ' + left + 'px; top: ' + top + 'px;">'

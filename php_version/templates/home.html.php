@@ -246,74 +246,38 @@
             </div>
         </div>
         <div class="blank"></div>
-        <div class="select">
-            <label for="s2">도서관 선택</label>
-            <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
-                <?php
-                    for($z = 1; $z < sizeof($lib); $z++){
-                        $no[$z] = $lib[$z][0]; 
-                        $name[$z] = $lib[$z][1];
-                    }
-
-                    $lib_no = 1;
-                    if(isset($_GET['lib_no'])){
-                        $lib_no = $_GET['lib_no'];
-                    }
-
-                    for($z = 1;$z < sizeof($lib); $z++){
-                        if($lib_no == $z){
-                            echo "<option  value='/member/home?lib_no=$no[$z]' selected> $name[$z] </option>";
-                        }else{
-                            echo "<option  value='/member/home?lib_no=$no[$z]' > $name[$z] </option>";
+        <div class="list_head">
+            <div class="select">
+                <label for="s2">도서관 선택</label>
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
+                    <?php
+                        for($z = 1; $z < sizeof($lib); $z++){
+                            $no[$z] = $lib[$z][0]; 
+                            $name[$z] = $lib[$z][1];
                         }
-                    }
-                ?>               
-            </select>
-        </div>
-        <div class="list_title">
-            <h2><?php echo $name[$lib_no]; ?> 예약도서</h2>
-            <h4>총<?php echo $cnt1; ?>권</h4>
-        </div>
-        <div class="booklist">
-        <?php if(isset($result1)){foreach($result1 as $row): ?>
-            <div class="card">
-            <?php
-            if(!empty($row['kind_no'])&&!empty($row['mat_symbol'])){
-                $libsymbol = $row['kind_no'].'-'.$row['mat_symbol'];
 
-                if($row['mat_many'] != 0){
-                    $libsymbol = $libsymbol.'='.$row['mat_many'];
-                }
+                        $lib_no = 1;
+                        if(isset($_GET['lib_no'])){
+                            $lib_no = $_GET['lib_no'];
+                        }
 
-                if($row['mat_overlap'] != 'c.1'){
-                    $libsymbol = $libsymbol.'='.$row['mat_overlap'];
-                }
-            }
-
-            if($row['book_url'] != ''){
-                $bu = $row['book_url'];
-                $bn = $row['book_name'];
-                echo "<img src='$bu' class='card-img-top' alt='$bn'>";
-            }
-            ?>
-                <div class="card-body">
-                    <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
-                    <p class="card-text">
-                        저자 <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
-                        출판사 <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
-                        발행년도 <?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?><br>
-                        소장기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
-                    <?php if(isset($libsymbol)){ ?>
-                        청구기호 <?=htmlspecialchars($libsymbol,ENT_QUOTES,'UTF-8');?><br>
-                    <?php } ?>
-                    </p>
-                </div>
+                        for($z = 1;$z < sizeof($lib); $z++){
+                            if($lib_no == $z){
+                                echo "<option  value='/member/home?lib_no=$no[$z]' selected> $name[$z] </option>";
+                            }else{
+                                echo "<option  value='/member/home?lib_no=$no[$z]' > $name[$z] </option>";
+                            }
+                        }
+                    ?>               
+                </select>
             </div>
-        <?php endforeach; }?>
-        </div>
-        <div class="list_title">
-            <h2><?php echo $name[$lib_no]; ?> 반송도서</h2>
-            <h4>총<?php echo $cnt; ?>권</h4>
+            <div class="list_title">
+                <div class="list_click">
+                    <a href="/member/home?lib_no=<?php echo $lib_no; ?>&tab=del"><h2>반송도서</h2></a>
+                    <a href="/member/home?lib_no=<?php echo $lib_no; ?>&tab=res"><h2>예약도서</h2></a>
+                </div>
+                <h4>총<?php echo $cnt; ?>권</h4>
+            </div>
         </div>
         <div class="booklist">
         <?php if(isset($result)){foreach($result as $row): ?>
@@ -343,7 +307,7 @@
                         저자 <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
                         출판사 <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
                         발행년도 <?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?><br>
-                        소장기관 <?=htmlspecialchars($name[$row['lib_no']],ENT_QUOTES,'UTF-8');?><br>
+                        소장기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
                     <?php if(isset($libsymbol)){ ?>
                         청구기호 <?=htmlspecialchars($libsymbol,ENT_QUOTES,'UTF-8');?><br>
                     <?php } ?>

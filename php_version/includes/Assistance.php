@@ -2,7 +2,8 @@
 class Assistance{
 	private $listnum = 19;
     private $table = 'kind';
-    private $add = '';
+    private $func = '';
+    private $m_get = '';
 
     //한 페이지에 보여지는 정보 크기
     public function listchange(int $num){
@@ -12,12 +13,15 @@ class Assistance{
     //테이블 이름
     public function tablename(string $table){
         $this->table = $table;
-        
     }
 
     //함수 이름
-    public function funName(string $add){
-        $this->add = $add;
+    public function funName(string $func){
+        $this->func = $func;
+    }
+
+    public function getValue(string $m_get){
+        $this->m_get = $m_get;
     }
 
     //문자가 정수인지 확인하는 함수
@@ -171,7 +175,7 @@ class Assistance{
                 $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
                 if($sup_pg != 0){
                     $go_pg = $sup_pg - 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Previous"> 
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$m_page.$this->m_get.'" aria-label="Previous"> 
                                 <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for ($i=0; $i < 19 ; $i++) { 
@@ -187,13 +191,13 @@ class Assistance{
                         }
 
                         $start_num = $page * $this->listnum;
-                        $outStr .= '<li class="page-item"><a class="page-link" href="/'.$this->table.'/'.$this->add.'list?sup_pg='.$go_pg.'&page='.$start_num.'">'.$str_num.'</a></li>';
+                        $outStr .= '<li class="page-item"><a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$start_num.$this->m_get.'">'.$str_num.'</a></li>';
                     }
                 }
 
                 if($sup_pg != $sp_pg-1){
                     $go_pg = $sup_pg + 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'list?sup_pg='.$go_pg.'&page='.$m_page.'" aria-label="Next"> 
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$m_page.$this->m_get.'" aria-label="Next"> 
                                 <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
@@ -202,7 +206,8 @@ class Assistance{
                 $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
                 if($sup_pg != 0){
                     $go_pg = $sup_pg - 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Previous"> 
+                    $outStr .= '<li class="page-item"> 
+                                <a class="page-link" href="/'.$this->table.'/'.$this->func.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.$this->m_get.'" aria-label="Previous"> 
                                 <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for ($i=0; $i < 19 ; $i++) { 
@@ -218,13 +223,15 @@ class Assistance{
                         }
 
                         $start_num = $page * $this->listnum;
-                        $outStr .= '<li class="page-item"><a class="page-link" href="/'.$this->table.'/'.$this->add.'research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.'">'.$str_num.'</a></li>';
+                        $outStr .= '<li class="page-item">
+                                    <a class="page-link" href="/'.$this->table.'/'.$this->func.'research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.$this->m_get.'">'.$str_num.'</a></li>';
                     }
                 }
 
                 if($sup_pg != $sp_pg-1){
                     $go_pg = $sup_pg + 1;
-                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->add.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.'" aria-label="Next"> 
+                    $outStr .= '<li class="page-item"> 
+                                <a class="page-link" href="/'.$this->table.'/'.$this->func.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.$this->m_get.'" aria-label="Next"> 
                                 <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 

@@ -15,7 +15,6 @@ class MemberController{
     private $delTable;
     private $notTable;
     private $assist;
-    private $id = 1;
     private $board_sql;
     private $board_sort;
 
@@ -40,8 +39,8 @@ class MemberController{
 
     private function sqlSet(string $table){
         if($table == 'del'){
-            $this->board_sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
-                    AND material.book_no = book.book_no AND del_app = 2 AND del_arr_date IS NULL";
+            $this->board_sql = "SELECT * FROM delivery, material, member, library, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
+                    AND material.book_no = book.book_no AND material.lib_no = library.lib_no AND del_app = 2 AND del_arr_date IS NULL";
             $this->board_sort = "ORDER BY book.book_name";
         }else{
             $this->board_sql = "SELECT * FROM reservation, material, member, library, book, kind WHERE reservation.mat_no = material.mat_no AND reservation.mem_no = member.mem_no
@@ -52,8 +51,9 @@ class MemberController{
 
     //홈화면 함수
     public function home(){
-        $title = '도서관 관리';
+        $id = 1;
         $mem_state = 3;
+        $title = '도서관 관리';
 
         if(isset($_SESSION['mem_state'])){
             $mem_state = $_SESSION['mem_state'];
@@ -69,31 +69,41 @@ class MemberController{
 
             //휴일요일
             if(isset($_GET['lib_no'])){
-                $this->id = $_GET['lib_no'];
+                $id = $_GET['lib_no'];
             }
-            $row = $this->libTable->selectID($this->id);
+            $row = $this->libTable->selectID($id);
             $close = $row['lib_close'];
 
             return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'close'=>$close];
         }else{
+            $table = 'del';
+            $sql = $this->board_sql." AND lib_no_arr = $id ".$this->board_sort;
+
             if(isset($_GET['lib_no'])){
-                $this->id = $_GET['lib_no'];
+                $id = $_GET['lib_no'];
             }
-            $this->assist->listchange(3);
 
-            $m_id = $this->id;
-            $this->sqlSet("del");
-            $del_sql = $this->board_sql." AND lib_no_arr = $m_id ".$this->board_sort;
-            $this->sqlSet("res");
-            $res_sql = $this->board_sql." AND library.lib_no = $m_id ".$this->board_sort;
+            if(isset($_GET['tab'])){
+                $table = $_GET['tab'];
+            }
 
-            $result = $this->delTable->joinSQL($del_sql);
+            $this->assist->listchange(4);
+            $this->sqlSet($table);
+
+            if($table == 'res'){
+                $sql = $this->board_sql." AND library.lib_no = $id ".$this->board_sort;
+            }else{
+                $sql = $this->board_sql." AND lib_no_arr = $id ".$this->board_sort;
+            }
+            
+            $result = $this->memTable->joinSQL($sql);
             $total_cnt = $result->rowCount();
+            $sql = $this->assist->pagesql($sql);
+            $stmt = $this->memTable->joinSQL($sql);
+            $result = $stmt->fetchAll();
+            $pagi = $this->assist->pagemanager($total_cnt, '없음');
 
-            $result1 = $this->resTable->joinSQL($res_sql);
-            $total_cnt1 = $result1->rowCount();
-
-            return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'result1'=>$result1, 'cnt'=>$total_cnt, 'cnt1'=>$total_cnt1];
+            return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'cnt'=>$total_cnt, 'pagi'=>$pagi];
         }
     }
 

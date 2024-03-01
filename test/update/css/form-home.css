@@ -395,6 +395,11 @@ main .blank{
 }
 
 /*책 리스트*/
+main .list_head .select{
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
 main .list_title{
     display: flex;
     align-items: flex-end;
@@ -402,24 +407,40 @@ main .list_title{
     text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
+main .list_title .list_click{
+    display: flex;
+}
+
+main .list_title .list_click a{
+    text-decoration: none;
+    list-style:none;
+    color:black;
+    background-color: white;
+    text-shadow: none;
+    margin-right: 5px;
+}
+
 main .list_title h4{
     color: yellow;
 }
 
 main .booklist{
-    display: ruby-text;
-    text-align: left;
-    overflow: auto;
-    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: white;
+    height: 400px;
 }
 
 main .booklist .card{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     margin-right: 5px;
-    min-width: 320px;
+    width: 480px;
+    height: 190px;
+    border: none;
 }
 
 main .booklist .card img{
@@ -430,6 +451,10 @@ main .booklist .card img{
 
 main .booklist .card .card-body .card-text{
     margin-bottom: 5px;
+}
+
+main .page{
+    background-color: white;
 }
 
 footer {
