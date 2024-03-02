@@ -90,7 +90,14 @@ class EtcController{
             header('location: /etc/plalist');
         }
         else if(isset($_POST['due_no'])){
-            $this->dueTable->updateData($_POST);
+            
+            if(empty($_POST['due_exp'])){
+                $param = ['due_exp'=>''];
+                $this->dueTable->updateNullData($param, $_POST['due_no']);
+            }else{
+                $this->dueTable->updateData($_POST);
+            }
+            
             header('location: /etc/duelist');
         }
 
