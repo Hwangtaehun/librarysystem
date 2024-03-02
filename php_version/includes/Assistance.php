@@ -20,6 +20,7 @@ class Assistance{
         $this->func = $func;
     }
 
+    //get 파라미터 입력
     public function getValue(string $m_get){
         $this->m_get = $m_get;
     }

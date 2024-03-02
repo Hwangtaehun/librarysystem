@@ -87,8 +87,10 @@ class MemberController{
                 $table = $_GET['tab'];
             }
 
+            $m_get = "&lib_no=$id&tab=$table";
             $this->assist->listchange(4);
             $this->sqlSet($table);
+            $this->assist->getValue($m_get);
 
             if($table == 'res'){
                 $sql = $this->board_sql." AND library.lib_no = $id ".$this->board_sort;
