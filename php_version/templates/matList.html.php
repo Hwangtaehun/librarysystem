@@ -181,7 +181,7 @@
                                         <input type="hidden" name="res_date" value="<?=$date?>">
                                         <input type="hidden" id="id_state" value="<?=$res_state?>">
                                         <input id="bt_res" type="submit" value="예약" <?php if($res_state != "예약가능"){ echo "disabled"; } ?> >
-                                        <a href="/mat/delpop?mat_no=<?=$row['12']?>" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                        <a href="/mat/delpop?mat_no=<?=$row['15']?>" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
                                             <input id="bt_del" type="button" value="상호대차" <?php if($lent_re_state != "대출가능"){ echo "disabled"; } ?> >
                                         </a>
                                 <?php } ?>
