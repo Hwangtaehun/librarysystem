@@ -149,6 +149,7 @@ main .search .srbt{
 main .card {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-bottom: 10px;
 }
 main .card img{
