@@ -1,10 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class DelController{
-    private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
-                    AND material.book_no = book.book_no";
-    private $sort = "ORDER BY book.book_name";
+
+class DelController extends Common{
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -16,7 +14,9 @@ class DelController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
+    private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
+                    AND material.book_no = book.book_no";
+    private $sort = "ORDER BY book.book_name";
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -32,9 +32,8 @@ class DelController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
-        $this->assist->listchange(6);
-        $this->assist->tablename('del');
+        $this->listchange(6);
+        $this->tablename('del');
     }
 
     //게시판형마다 다른 sql 필요해서 정리
@@ -83,10 +82,10 @@ class DelController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -100,12 +99,12 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('complete');
+        $this->funName('complete');
         
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -119,12 +118,12 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('add');
+        $this->funName('add');
         
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -138,12 +137,12 @@ class DelController{
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('apre');
+        $this->funName('apre');
         
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -161,7 +160,7 @@ class DelController{
         }
 
         $this->sqlList($title);
-        $this->assist->funName('');
+        $this->funName('');
 
         if(isset($_POST)){
             if($_SESSION['mem_state'] == 1){
@@ -219,10 +218,10 @@ class DelController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
         
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -278,10 +277,10 @@ class DelController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
         
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -313,10 +312,10 @@ class DelController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->delTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
         
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -327,7 +326,7 @@ class DelController{
         $mat_no = $row['mat_no'];
 
         $this->delTable->deleteData($del_no);
-        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+        $this->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
         header('location: /del/list');
     }
 
@@ -343,7 +342,7 @@ class DelController{
                 $mem_no = $_POST['mem_no'];
                 $mat_no = $_POST['mat_no'];
                 $res_no = '';
-                if($this->assist->reservationCheck($res_no, $mat_no, $this->resTable) && $this->assist->lentpossible($mem_no, $this->memTable, $this->lenTable)){
+                if($this->reservationCheck($res_no, $mat_no, $this->resTable) && $this->lentpossible($mem_no, $this->memTable, $this->lenTable)){
                     if($_POST['del_no'] == ''){
                         $param = ['mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
                         $this->delTable->insertData($param);
@@ -353,9 +352,9 @@ class DelController{
                         if(empty($_POST['del_arr_date']) || empty($_POST['del_app'])){
                             if(!empty($_POST['del_app'])){
                                 if($_POST['del_app'] == 0){
-                                    $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                                    $this->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                                 }else{
-                                    $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
+                                    $this->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
                                 }
                                 
                                 $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr'], 'del_app'=>$_POST['del_app']];
@@ -364,7 +363,7 @@ class DelController{
                                 $id = $_POST['del_no'];
                                 $this->delTable->updateNullData($param, $id);//질문
                             }else{
-                                $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                                $this->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                                 $param = ['del_no'=>$_POST['del_no'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no'], 'lib_no_arr'=>$_POST['lib_no_arr']];
                                 $this->delTable->updateData($param);
                                 $param = ['lib_arr_date'=>'', 'del_app'=>''];
@@ -384,7 +383,7 @@ class DelController{
                             $this->delTable->updateData($param);
     
                             if($_POST['del_app'] == 2){
-                                $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+                                $this->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
                             }
                         }
                         header('location: /del/list');

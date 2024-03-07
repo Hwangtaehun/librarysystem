@@ -1,7 +1,7 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class NotController{
+class NotController extends Common{
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -13,7 +13,6 @@ class NotController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
     private $today;
     private $sort = "ORDER BY not_no DESC";
 
@@ -31,9 +30,8 @@ class NotController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
         $this->today = date("Y-m-d");
-        $this->assist->tablename('not');
+        $this->tablename('not');
     }
 
     //이미지 업로드 전체적으로 관리하는 함수
@@ -178,10 +176,10 @@ class NotController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->notTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, "없음");
+        $pagi = $this->pagemanager($total_cnt, "없음");
 
         return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result,'$pagi'=>$pagi];
     }
@@ -202,10 +200,10 @@ class NotController{
         $stmt = $this->notTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->notTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
 
         return ['tempName'=>'notList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }

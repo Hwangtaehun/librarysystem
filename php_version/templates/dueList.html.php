@@ -101,7 +101,11 @@ $lib_array = $assist->libraryarray($pdo);
                     </div>
                 </div>
             </div>
-    <?php endforeach; } ?>
+    <?php endforeach; }else{ ?>
+        <hr>
+            검색을 통해서 필요한 연체 내역을 출력해주세요.
+        <hr>
+    <?php } ?>
         </div>
     </div>
 </body>

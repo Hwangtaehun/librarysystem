@@ -1,7 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class ResController{
+
+class ResController extends Common{
     private $sql = "SELECT * FROM reservation, material, member, library, book, kind WHERE reservation.mat_no = material.mat_no AND reservation.mem_no = member.mem_no
                     AND material.kind_no = kind.kind_no AND material.book_no = book.book_no AND material.lib_no = library.lib_no";
     private $sort = " ORDER BY library.lib_name, book.book_name";
@@ -16,7 +17,6 @@ class ResController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -32,9 +32,8 @@ class ResController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
-        $this->assist->listchange(6);
-        $this->assist->tablename('res');
+        $this->listchange(6);
+        $this->tablename('res');
     }
 
     public function list(){
@@ -48,10 +47,10 @@ class ResController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $stmt = $this->resTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
         
         $title = '예약 현황';
         if(isset($_GET['title'])){
@@ -92,10 +91,10 @@ class ResController{
         }
 
         $total_cnt = sizeof($result);
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->resTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
 
         $title = '예약 현황';
         if(isset($_GET['title'])){

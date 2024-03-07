@@ -1,7 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class BookController{
+
+class BookController extends Common{
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -13,7 +14,6 @@ class BookController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -29,9 +29,8 @@ class BookController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
-        $this->assist->listchange(6);
-        $this->assist->tablename('book');
+        $this->listchange(6);
+        $this->tablename('book');
     }
 
     public function list(){
@@ -44,10 +43,10 @@ class BookController{
         $result = $this->bookTable->selectAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -72,10 +71,10 @@ class BookController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
 
         return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

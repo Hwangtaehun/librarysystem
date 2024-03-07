@@ -1,11 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class MatController{
-    private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
-    private $sort = "ORDER BY book.book_name";
-    private $popSql;
-    private $assist;
+
+class MatController extends Common{
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -17,6 +14,9 @@ class MatController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
+    private $sort = "ORDER BY book.book_name";
+    private $popSql;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -32,9 +32,8 @@ class MatController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
-        $this->assist->listchange(6);
-        $this->assist->tablename('mat');
+        $this->listchange(6);
+        $this->tablename('mat');
     }
 
     //중복된 책인 있는 확인하는 함수
@@ -82,10 +81,10 @@ class MatController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -103,12 +102,12 @@ class MatController{
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('pop');
+        $this->funName('pop');
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -117,7 +116,7 @@ class MatController{
     public function research(){
         $in = '';
         $ispop = false;
-        $this->assist->funName('');
+        $this->funName('');
 
         if(!isset($_SESSION['mem_state'])){
             $this->basic_sql();
@@ -198,10 +197,10 @@ class MatController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
 
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

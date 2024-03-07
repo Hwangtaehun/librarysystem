@@ -1,7 +1,8 @@
 <?php
 include_once __DIR__.'/../includes/Assistance.php';
 session_start();
-class LenController{
+
+class LenController extends Common{
     private $sql = "SELECT * FROM `library`, `book`, `material`, `member`, `lent` WHERE material.lib_no = library.lib_no 
                     AND material.book_no = book.book_no AND lent.mat_no = material.mat_no AND lent.mem_no = member.mem_no ";
     private $sort = " ORDER BY `mem_name`";
@@ -16,7 +17,6 @@ class LenController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -32,9 +32,8 @@ class LenController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
-        $this->assist->listchange(6);
-        $this->assist->tablename('len');
+        $this->listchange(6);
+        $this->tablename('len');
     }
 
     //대출 게시판형마다 다른 sql 필요해서 정리 단. 대출 현황과 대출찾기는 제외
@@ -64,10 +63,10 @@ class LenController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -81,12 +80,12 @@ class LenController{
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('mem');
+        $this->funName('mem');
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -100,12 +99,12 @@ class LenController{
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('memAll');
+        $this->funName('memAll');
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -118,12 +117,12 @@ class LenController{
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        $this->assist->funName('return');
+        $this->funName('return');
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -131,7 +130,7 @@ class LenController{
     //검색
     public function research(){
         $title = '대출 현황';
-        $this->assist->funName('');
+        $this->funName('');
         
         if(isset($_GET['title'])){
             $title = $_GET['title'];
@@ -201,10 +200,10 @@ class LenController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->assist->pagesql($sql);
+        $sql = $this->pagesql($sql);
         $stmt = $this->lenTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -227,7 +226,7 @@ class LenController{
 
         $row = $this->lenTable->selectID($len_no);
         $mat_no = $row['mat_no'];
-        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+        $this->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
 
         header('location: /len/list');
     }
@@ -236,7 +235,7 @@ class LenController{
         if(isset($_POST['len_no'])) {
             $mem_no = $_POST['mem_no'];
             $mat_no = $_POST['mat_no'];
-            if($this->assist->reservationCheck($_POST['res_no'], $mat_no, $this->resTable) && $this->assist->lentpossible($mem_no, $this->memTable, $this->lenTable)){
+            if($this->reservationCheck($_POST['res_no'], $mat_no, $this->resTable) && $this->lentpossible($mem_no, $this->memTable, $this->lenTable)){
                 if($_POST['len_no'] == ''){
                     $today = date("Y-m-d");
                     $param = ['mat_no'=>$mat_no, 'mem_no'=>$mem_no, 'len_ex'=>$_POST['len_ex'], 'len_date'=>$today];
@@ -254,7 +253,7 @@ class LenController{
                     $lib_no_len = $_POST['lib_no'];
                     $param = ['len_no'=>$len_no, 'lib_no_len'=>$lib_no_len];
                     $this->plaTable->insertData($param);
-                    $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
+                    $this->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
     
                     header('location: /len/addupdate');
                 }
@@ -268,7 +267,7 @@ class LenController{
                             $this->plaTable->delupdateSQL($sql);
                             $sql = "UPDATE `overdue` SET `due_exp` = NULL WHERE `len_no` = $len_no";
                             $this->dueTable->delupdateSQL($sql);
-                            $this->assist->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
+                            $this->existMat($mat_no, 0, $this->lenTable, $this->delTable, $this->matTable);
                         }
                     }
                     
@@ -310,7 +309,7 @@ class LenController{
         $len_no = $_POST['len_no'];
         $today = date("Y-m-d");
         
-        $this->assist->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
+        $this->existMat($mat_no, 1, $this->lenTable, $this->delTable, $this->matTable);
         $param = ['len_re_date'=>$_POST['len_re_date'], 'len_re_st'=>1, 'len_no'=>$len_no];
         $this->lenTable->updateData($param);
         $sql = "UPDATE `place` SET `lib_no_re` = $lib_no WHERE `len_no` = $len_no";
@@ -326,11 +325,11 @@ class LenController{
 
         $where = "WHERE len_no = $len_no";
         $stmt = $this->dueTable->whereSQL($where);
-        if(!$this->assist->resultempty_check($stmt)){
+        if(!$this->resultempty_check($stmt)){
             $row = $stmt->fetch();
             $due_no = $row['due_no'];
             $row = $this->lenTable->selectID($len_no);
-            $prd = $this->assist->estimateReturndate($row['len_date'], $row['len_ex']);
+            $prd = $this->estimateReturndate($row['len_date'], $row['len_ex']);
             $from = new DateTime($today);
             $to = new DateTime($prd);
             $diff = date_diff($from, $to);

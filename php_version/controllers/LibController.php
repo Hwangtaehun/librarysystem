@@ -1,7 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class LibController{
+
+class LibController extends Common{
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -13,7 +14,6 @@ class LibController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -29,9 +29,8 @@ class LibController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
-        $this->assist = new Assistance();
-        $this->assist->listchange(9);
-        $this->assist->tablename('lib');
+        $this->listchange(9);
+        $this->tablename('lib');
     }
 
     //목록
@@ -55,10 +54,10 @@ class LibController{
         $result = $this->libTable->selectAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->libTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
         
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -91,10 +90,10 @@ class LibController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->libTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
 
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -106,7 +105,7 @@ class LibController{
 
     public function addupdate(){
         if(isset($_POST['lib_no'])) {
-            if($this->assist->dateformat_check($_POST['lib_date'])){
+            if($this->dateformat_check($_POST['lib_date'])){
                 setcookie('zip', $_POST['lib_zip']);
                 setcookie('add', $_POST['lib_add']);
                 echo "<script>alert('날짜형식이 잘못되었습니다.'); history.back();</script>";

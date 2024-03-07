@@ -1,7 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
-class MemberController{
+
+class MemberController extends Common{
     private $today;
     private $libTable;
     private $bookTable;
@@ -14,7 +15,6 @@ class MemberController{
     private $plaTable;
     private $delTable;
     private $notTable;
-    private $assist;
     private $board_sql;
     private $board_sort;
 
@@ -33,8 +33,7 @@ class MemberController{
         $this->delTable = $delTable;
         $this->notTable = $notTable;
         $this->today = date('Y-m-d', time());
-        $this->assist = new Assistance();
-        $this->assist->listchange(9);
+        $this->listchange(9);
     }
 
     private function sqlSet(string $table){
@@ -88,9 +87,9 @@ class MemberController{
             }
 
             $m_get = "&lib_no=$id&tab=$table";
-            $this->assist->listchange(4);
+            $this->listchange(4);
             $this->sqlSet($table);
-            $this->assist->getValue($m_get);
+            $this->getValue($m_get);
 
             if($table == 'res'){
                 $sql = $this->board_sql." AND library.lib_no = $id ".$this->board_sort;
@@ -100,10 +99,10 @@ class MemberController{
             
             $result = $this->memTable->joinSQL($sql);
             $total_cnt = $result->rowCount();
-            $sql = $this->assist->pagesql($sql);
+            $sql = $this->pagesql($sql);
             $stmt = $this->memTable->joinSQL($sql);
             $result = $stmt->fetchAll();
-            $pagi = $this->assist->pagemanager($total_cnt, '없음');
+            $pagi = $this->pagemanager($total_cnt, '없음');
 
             return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'cnt'=>$total_cnt, 'pagi'=>$pagi];
         }
@@ -120,10 +119,10 @@ class MemberController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        $pagi = $this->pagemanager($total_cnt, '없음');
         
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -148,10 +147,10 @@ class MemberController{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->assist->pagesql($where);
+        $where = $this->pagesql($where);
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        $pagi = $this->pagemanager($total_cnt, $value);
         
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
