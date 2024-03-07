@@ -1,8 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <?php
+    $state = 2;
+
+    if(isset($_SESSION['mem_state'])) {
+        $state = $_SESSION['mem_state'];
+    }
+
+    if($state != 1){
+        if(isset($row['lib_close'])){
+            $close = '없음';
+            switch ($row['lib_close']) {
+                case 0:
+                    $close = '일요일';
+                    break;
+                case 1:
+                    $close = '월요일';
+                    break;
+                case 2:
+                    $close = '화요일';
+                    break;
+                case 3:
+                    $close = '수요일';
+                    break;
+                case 4:
+                    $close = '목요일';
+                    break;  
+                case 5:
+                    $close = '금요일';
+                    break;
+                case 6:
+                    $close = '월요일';
+                    break;
+                default:
+                    $close = '연중무휴';
+                    break;
+            }
+        }
+    
+        if(isset($row['lib_add'])){
+            $zip = $row['lib_zip'];
+            $address = "[$zip] ".$row['lib_add'];
+    
+            if($row['lib_detail'] != 'null'){
+                $address = $address.' '.$row['lib_detail'];
+            }
+        }
+    }
+    ?>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //필수 입력 내용 확인하는 함수
         function checkInput(myform) {
             if(myform.id_name.value.length <= 0){
                 alert("이름을 입력하세요.");
@@ -21,32 +70,42 @@
             }
             return true;
         }
-        <?php
-        if(isset($_COOKIE)){
-            $zip = $_COOKIE['zip'];
-            $add = $_COOKIE['add'];
-        }
-        ?>
     </script>
 </head>
 <body>
+<?php if($state == 1){?>
     <form action="/lib/addupdate" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
         <h2><?=$title?></h2>
-        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for  = "lib_name">이름</label>
-                <input class="input" type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"><br>
-                <label for  = "lib_id">설립일</label>
-                <input type = "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"><br>
-                <label for  = "lib_zip">주소</label>
-                <input class="input" type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" placeholder="우편번호" readonly>
-                <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
-                <label for = "mem_add"></label>
-                <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly><br>
-                <label for = "mem_add"></label>
-                <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"><br>
-                <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
+        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
+            <ul>
+                <li><label for  = "id_name">이름</label>
+                    <input class="input" type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"></li>
+                <li><label for  = "id_date">설립일</label>
+                    <input type = "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"></li>
+                <li><label for  = "id_detail">주소</label>
+                    <input class="input" type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" placeholder="우편번호" readonly>
+                    <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
+                <li><label></label>
+                    <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly></li>
+                <li><label></label>
+                    <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"></li>
+                <li><label>정기휴관일</label>
+                    <input type="radio" name="lib_close" id="id_sun" value="0"> 일요일
+                    <input type="radio" name="lib_close" id="id_mon" value="1"> 월요일
+                    <input type="radio" name="lib_close" id="id_tue" value="2"> 화요일
+                    <input type="radio" name="lib_close" id="id_wed" value="3"> 수요일
+                    <input type="radio" name="lib_close" id="id_thu" value="4"> 목요일
+                    <input type="radio" name="lib_close" id="id_fri" value="5"> 금요일
+                    <input type="radio" name="lib_close" id="id_sat" value="6"> 토요일
+                    <input type="radio" name="lib_close" id="id_null" value="7"> 없음</li>
+                <li><label>약도</label>
+                    <input class="input" type= "text" name="lib_url" id="id_url" value="<?php if(isset($row)){echo $row['lib_url'];}?>"></li>
+                <?php if(isset($row)){ if($row['lib_url'] != ''){?>
+                <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <?php }}?>
             </ul>
+            <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
@@ -102,6 +161,76 @@
                 }
             }).open();
         }
+
+        const sun = document.querySelector('#id_sun');
+        const mon = document.querySelector('#id_mon');
+        const tue = document.querySelector('#id_tue');
+        const wed = document.querySelector('#id_wed');
+        const thu = document.querySelector('#id_thu');
+        const fri = document.querySelector('#id_fri');
+        const sat = document.querySelector('#id_sat');
+        const noting = document.querySelector('#id_null');
+        
+    <?php
+    $lib_close = 7;
+    
+    if(isset($row['lib_close'])){ 
+        $lib_close = $row['lib_close'];
+    }
+
+    if($lib_close == 0){
+        echo "sun.checked = true;";
+    }
+    else if($lib_close == 1){
+        echo "mon.checked = true;";
+    }
+    else if($lib_close == 2){
+        echo "tue.checked = true;";
+    }
+    else if($lib_close == 3){
+        echo "wed.checked = true;";
+    }
+    else if($lib_close == 4){
+        echo "thu.checked = true;";
+    }
+    else if($lib_close == 5){
+        echo "fri.checked = true;";
+    }
+    else if($lib_close == 6){
+        echo "sat.checked = true;";
+    }
+    else{
+        echo "noting.checked = true;";
+    }
+    ?>
+
     </script>
+<?php }else{ ?>
+    <fieldset id = form_fieldset>
+        <h2><?=$title?></h2>
+            <ul>
+                <li><label for  = "id_name">기관명</label>
+                    <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?></li>
+                <li><label for  = "id_date">설립일</label>
+                    <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?></li>
+                <li><label for  = "id_detail">주소</label>
+                    <?=htmlspecialchars($address);?></li></li>
+                <li><label>정기휴관일</label>
+                    <?=htmlspecialchars($close);?></li></li>
+                <?php if(isset($row)){ if($row['lib_url'] != ''){?>
+                <li><label>약도</label></li>
+                <li>
+                    <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </li>
+                <?php }else{ ?>
+                    <li><label>약도</label>
+                        약도가 존재하지 않습니다</li>
+                <?php }}?>
+            </ul>
+        <div class="form_class">
+            <input type= "button" value="이전" onclick="javascript:history.back()">
+        </div>
+    </fieldset>
+<?php } ?>
 </body>
 </html>

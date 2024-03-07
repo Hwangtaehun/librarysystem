@@ -1,5 +1,6 @@
 <head>
     <?php
+    //css 확인 함수
     if($title == '대출 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -20,6 +21,7 @@
         var bookname = "";
         var memid = "";
         
+        //검색 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -29,48 +31,57 @@
             return true;            
         }
 
+        //선택한 검색별 선택하면 변화하는 함수
         function changeSelect(){
             var value = document.querySelector("#s1").value;
             const mem = document.querySelector("#ie_research");
             const mat = document.querySelector("#ia_research");
             if(value == '1'){
+                //회원만 검색
                 document.querySelector("#id_research").value = "";
                 document.querySelector("#id_mat").value = "";
                 mem.disabled=false;
                 mat.disabled=true;   
             }
             else if(value == '2'){
+                //자료만 검색
                 document.querySelector("#id_research").value = "";
                 document.querySelector("#id_mem").value = "";
                 mem.disabled=true;
                 mat.disabled=false;
             }
             else{
+                //회원+자료 검색
                 mem.disabled=false;
                 mat.disabled=false;
             }
         }
 
+        //회원 검색 팝업창
         function checkmem() {
             url = "/len/mempop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //자료 검색 팝업창
         function checkmat() {
             url = "/len/matpop";
-            window.open(url,"chkbk","width=310,height=445");
+            window.open(url,"chkbk","width=500,height=445");
         }
 
+        //현재날짜변경
         function changeDate(){
             document.querySelector("#il_date").value = date("Y-m-d");
         }
 
+        //자료 팝업창에 검색한 내용 입력
         function matValue(no, name){
             document.querySelector("#id_mat").value = no;
             bookname = name;
             document.querySelector("#id_research").value = memid+' '+bookname;
         }
 
+        //회원 팝업창에 검색한 내용 입력
         function memValue(no, name, state){
             document.querySelector("#id_mem").value = no;
             memid = name;
@@ -130,6 +141,22 @@
                 <div class="card" style="width: 16rem; height: 320px;">
                     <div class="card-body">
                     <?php
+                    //청구번호 변환
+                    $kind = $row['kind_no'];
+                    $symbol = $row['mat_symbol'];
+                    $many = $row['mat_many'];
+                    $overlap = $row['mat_overlap'];
+
+                    $book = $kind.'-'.$symbol;
+
+                    if($many != 0){
+                        $book = $book.'='.$many;
+                    }
+
+                    if($overlap != 'c.1'){
+                        $book = $book.'='.$overlap;
+                    }
+
                     if($title == '대출중자료'){
                         $date = $row['len_date'];
                         $reDate = $assist->estimateReturndate((string)$date, $row['len_ex']);
@@ -152,26 +179,27 @@
 
                     echo'<p class="card-text">';
                 if($title == '대출 현황' || $title == '대출찾기'){ ?>
-                    회원 아이디: <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
+                    회원 아이디 <?=htmlspecialchars($row['mem_id'],ENT_QUOTES,'UTF-8');?><br>
                     <input type="hidden" name="mem_no" value="<?=$row['mem_no']?>">
                 <?php }?>
-                책 이름: <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
-                소장 도서관: <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
-                대출일: <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?><br>
+                도서 <?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?><br>
+                청구번호 <?=htmlspecialchars($book,ENT_QUOTES,'UTF-8');?><br>
+                소장 기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                대출일 <?=htmlspecialchars($row['len_date'],ENT_QUOTES,'UTF-8');?><br>
                 <?php if(isset($reDate)){ ?>
-                    반납예정일: <?=htmlspecialchars($reDate,ENT_QUOTES,'UTF-8');?><br>
+                    반납예정일 <?=htmlspecialchars($reDate,ENT_QUOTES,'UTF-8');?><br>
                 <?php } ?>
                 <?php if(!empty($row['len_re_date'])){ ?>
-                    반납일: <?=htmlspecialchars($row['len_re_date'],ENT_QUOTES,'UTF-8');?><br>
+                    반납일 <?=htmlspecialchars($row['len_re_date'],ENT_QUOTES,'UTF-8');?><br>
                 <?php } 
                 if($title == '모든대출내역'){ ?>
-                    반납 상태: <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?><br>
+                    반납 상태 <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?><br>
                 <?php }
                 else if($title == '대출 현황' || $title == '대출찾기'){ ?>
-                    반납 상태: <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?><br>
-                    대출 연장: <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?><br>
+                    반납 상태 <?=htmlspecialchars($len_re_st,ENT_QUOTES,'UTF-8');?><br>
+                    연장 여부 <?=htmlspecialchars($extend,ENT_QUOTES,'UTF-8');?><br>
                     <?php if(!empty($row['len_memo'])){ ?>
-                        메모: <?=htmlspecialchars($row['len_memo'],ENT_QUOTES,'UTF-8');?><br>
+                        메모 <?=htmlspecialchars($row['len_memo'],ENT_QUOTES,'UTF-8');?><br>
                     <?php } ?>
                 <?php } ?>
                     </p>
@@ -209,7 +237,7 @@
                                         echo "<option  value = $no[$z] > $name[$z] </option>";
                                     }
                                     ?>
-                                </select>
+                                </select><br>
                                 <label for ="len_re_date">반납일</label>
                                 <input type="date" name="len_re_date" id="il_date" value="">
                                 <input type="hidden" name="len_no" value="<?=$row['len_no']?>">

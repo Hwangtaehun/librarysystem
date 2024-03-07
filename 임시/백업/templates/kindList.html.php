@@ -1,5 +1,6 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '종류 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -12,6 +13,7 @@
     }
     ?>
     <script>
+        // 검색 내용이 있는 없는지 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -19,13 +21,14 @@
                 return false;
             }
             return true;            
-        }     
+        } 
     </script>
 </head>
 <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
     include_once __DIR__.'/../includes/Combobox_Inheritance.php';
 
+    // 모든 분류 객체 생성
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", true);
     $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", true);
     $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
@@ -38,7 +41,7 @@
     $basearray = $inherit1->call_result();
     $subarray = $inherit2->call_result();
 ?>
-<body style="background-image:url('../img/kind_bg.gif'); background-size: 100% 192vh;">
+<body>
     <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
         <div class="sel">
             <label for = "kind_super">대분류</label>
@@ -96,41 +99,56 @@
         ?>
         <form action="/kind/delete" method="post">
                 <input type="submit" value="삭제">
+                <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
                 <a href="/kind/addupdate?kind_no=<?=$row['kind_no']?>"><input type="button" value="수정"></a>
         </form>
         <?php } ?>
     </fieldset>
     <?php endforeach; }?>
     <script>
+        // 대분류 선택이 바뀌었는데 중분류, 소분류 바뀌게 하는 함수
         function superChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($basearray); ?>;
             var target = document.querySelector("#s2");
+            var value = e.value;
+
+            if(e.value === "0"){
+                value = "000";
+            }
+
             target.innerHTML = "";
-            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+            for(var i = 0; i < stepCategoryJsonArray[value].length; i++){
                 var opt = document.createElement('option');
-                opt.value = stepCategoryJsonArray[e.value][i][0];
-                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                opt.value = stepCategoryJsonArray[value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[value][i][1];
                 target.appendChild(opt);
             }
             var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
             var target = document.querySelector("#s3");
             target.innerHTML = "";
-            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+            for(var i = 0; i < stepCategoryJsonArray[value].length; i++){
                 var opt = document.createElement('option');
-                opt.value = stepCategoryJsonArray[e.value][i][0];
-                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                opt.value = stepCategoryJsonArray[value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[value][i][1];
                 target.appendChild(opt);
             }
         }
 
+        // 중분류 선택이 바뀌었을때, 소분류 바뀌게 하는 함수
         function baseChange(e){
             var stepCategoryJsonArray = <?php echo json_encode($subarray); ?>;
             var target = document.querySelector("#s3");
+            var value = e.value;
+
+            if(e.value === "0"){
+                value = "000";
+            }
+            
             target.innerHTML = "";
-            for(var i = 0; i < stepCategoryJsonArray[e.value].length; i++){
+            for(var i = 0; i < stepCategoryJsonArray[value].length; i++){
                 var opt = document.createElement('option');
-                opt.value = stepCategoryJsonArray[e.value][i][0];
-                opt.innerHTML = stepCategoryJsonArray[e.value][i][1];
+                opt.value = stepCategoryJsonArray[value][i][0];
+                opt.innerHTML = stepCategoryJsonArray[value][i][1];
                 target.appendChild(opt);
             }
         }

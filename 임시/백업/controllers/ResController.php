@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__.'/../includes/Assistance.php';
 session_start();
 class ResController{
     private $sql = "SELECT * FROM reservation, material, member, library, book, kind WHERE reservation.mat_no = material.mat_no AND reservation.mem_no = member.mem_no
@@ -15,6 +16,7 @@ class ResController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -30,6 +32,9 @@ class ResController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
+        $this->assist = new Assistance();
+        $this->assist->listchange(6);
+        $this->assist->tablename('res');
     }
 
     public function list(){
@@ -41,31 +46,63 @@ class ResController{
         $sql = $this->sql.$this->sort;
         $stmt = $this->resTable->joinSQL($sql);
         $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $stmt = $this->resTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+        
         $title = '예약 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result];
+        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
+    //검색
     public function research(){
         if($_SESSION['mem_state'] == 1){
-            $value = $_POST['mem_no'];
+            if(isset($_POST['mem_no'])){
+                $value = $_POST['mem_no'];
+                
+            }
+            
+            if(isset($_GET['value'])){
+                $value = $_GET['value'];
+            }
+
             $sql = $this->sql." AND reservation.mem_no LIKE '$value'".$this->sort;
             $stmt = $this->resTable->joinSQL($sql);
             $result = $stmt->fetchAll();
         }
         else{
-            $value = $_POST['user_research'];
+            if(isset($_POST['user_research'])){
+                $value = $_POST['user_research'];
+                
+            }
+            
+            if(isset($_GET['value'])){
+                $value = $_GET['value'];
+            }
+
             $sql = $this->sql." AND book.book_name LIKE '%$value%'";
             $stmt = $this->resTable->joinSQL($sql);
             $result = $stmt->fetchAll();
         }
+
+        $total_cnt = sizeof($result);
+        $sql = $this->assist->pagesql($sql);
+        $stmt = $this->resTable->joinSQL($sql);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+
         $title = '예약 현황';
         if(isset($_GET['title'])){
             $title = $_GET['title'];
         }
-        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result];
+
+        return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     public function delete(){
@@ -97,16 +134,8 @@ class ResController{
         }
     }
 
+    //회원 찾기 팝업창으로 띄우는 함수
     public function mempop(){
-        // if(isset($_POST['user_research'])){
-        //     $value= $_POST['user_research'];
-        //     $where = "WHERE `mem_id` = '$value' OR `mem_name` = '$value'";
-        //     $stmt = $this->memTable->whereSQL($where);
-        //     $result = $stmt->fetchAll();
-        //     $title = '회원찾기';
-        //     return['tempName'=>'memberList.html.php', 'title'=>$title, 'result'=>$result];
-        // }
-        setcookie('pop', 'true');
         echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 }

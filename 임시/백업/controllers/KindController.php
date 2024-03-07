@@ -13,6 +13,7 @@ class kindController{
     private $plaTable;
     private $delTable;
     private $notTable;
+    private $assist;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
@@ -28,43 +29,70 @@ class kindController{
         $this->plaTable = $plaTable;
         $this->delTable = $delTable;
         $this->notTable = $notTable;
+        $this->assist = new Assistance();
     }
 
     public function list(){
-        $result = $this->kindTable->selectAll();
         $title = '종류 현황';
-        if(isset($_GET['title'])){
-            $title = $_GET['title'];
-        }
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
-    }
 
-    public function research(){
-        $value = $_POST['sup'];
-        if($_POST['sup'] == 0){
-            if($_POST['base'] == 0){
-                $array = mb_str_split($_POST['super'], $split_length = 1, $encoding = "utf-8");
-                $value = $array[0].'__';
-            }
-            else{
-                $array = mb_str_split($_POST['base'], $split_length = 1, $encoding = "utf-8");
-                $value = $array[0].$array[1].'_'; 
-            }
-        }
-        $where = "WHERE `kind_no` LIKE '$value'";
+        $where = '';
+        $result = $this->kindTable->selectAll();
+        $total_cnt = sizeof($result);
+        
+        $where = $this->assist->pagesql($where);
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
-        $title = '종류 현황';
-        if(isset($_GET['title'])){
-            $title = $_GET['title'];
-        }
-        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result];
+        $pagi = $this->assist->pagemanager($total_cnt, '없음');
+
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
-    private function makeKey(String $str, bool $bool) {
-        $assist = new Assistance();
-        $text = "중분류";
+    //검색
+    public function research(){
+        $title = '종류 현황';
         
+        if(isset($_POST['sup'])){
+            $value = $_POST['sup'];
+            if($value === '0'){
+                if($_POST['base'] === '0'){
+                    if($_POST['super'] === '0'){
+                        $value = '없음';
+                    }else{
+                        $array = mb_str_split($_POST['super'], $split_length = 1, $encoding = "utf-8");
+                        $value = $array[0].'__';
+                    }
+                }
+                else{
+                    $array = mb_str_split($_POST['base'], $split_length = 1, $encoding = "utf-8");
+                    $value = $array[0].$array[1].'_'; 
+                }
+            }
+        }
+        
+        if(isset($_GET['value'])){
+            $value = $_GET['value'];
+        }
+
+        $where = '';
+        if($value != '없음'){
+            $where = "WHERE `kind_no` LIKE '$value'";
+        }
+
+        $stmt = $this->kindTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $total_cnt = sizeof($result);
+        
+        $where = $this->assist->pagesql($where);
+        $stmt = $this->kindTable->whereSQL($where);
+        $result = $stmt->fetchAll();
+        $pagi = $this->assist->pagemanager($total_cnt, $value);
+        
+        return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
+    }
+
+    //중분류 종류번호 생성 및 소분류 종류번호 생성
+    private function makeKey(String $str, bool $bool) {
+        $text = "중분류";
         if($bool) {
             $array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
             $final_position = $array[2];
@@ -83,11 +111,11 @@ class kindController{
             $num = $result->rowCount();
             $text = $row[$num-1][0];
 
-            if($assist->isInteger($text)) {
+            if($this->assist->isInteger($text)) {
                 $text=$text.".1";
             }
             else {
-                if($assist->isFloat($text)) {
+                if($this->assist->isFloat($text)) {
                     $str_array = explode( '.', $text );
                     $num = (int)$str_array[1];
                     $num++;

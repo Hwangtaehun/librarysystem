@@ -32,19 +32,24 @@ class EtcController{
         $this->notTable = $notTable;
     }
 
+    //연체 페이지 불러오는 함수
     public function duelist(){
+        $title = '연체 현황';
+        
         $sql= $this->sql.$this->sort;
         $stmt = $this->dueTable->joinSQL($sql);
         $result = $stmt->fetchAll();
-        $title = '연체 현황';
+        
         return ['tempName'=>'dueList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //장소 페이지를 불러오는 함수
     public function plalist(){
         $title = '대출 장소 현황';
         return ['tempName'=>'plaList.html.php','title'=>$title];
     }
 
+    //연체 검색
     public function dueresearch(){
         $value = $_POST['user_research'];
         $sql= $this->sql." AND lent.mem_no = $value".$this->sort;
@@ -54,6 +59,7 @@ class EtcController{
         return ['tempName'=>'dueList.html.php','title'=>$title,'result'=>$result];
     }
 
+    //장소 검색
     public function plaresearch(){
         $value = $_POST['len_no'];
         $where = "WHERE len_no = $value";
@@ -84,7 +90,14 @@ class EtcController{
             header('location: /etc/plalist');
         }
         else if(isset($_POST['due_no'])){
-            $this->dueTable->updateData($_POST);
+            
+            if(empty($_POST['due_exp'])){
+                $param = ['due_exp'=>''];
+                $this->dueTable->updateNullData($param, $_POST['due_no']);
+            }else{
+                $this->dueTable->updateData($_POST);
+            }
+            
             header('location: /etc/duelist');
         }
 
@@ -95,7 +108,6 @@ class EtcController{
             return ['tempName'=>'plaForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
         else if(isset($_GET['due_no'])){
-            // $row = $this->dueTable->selectID($_GET['due_no']);
             $due_no = $_GET['due_no'];
             $sql = $this->sql." AND overdue.due_no = $due_no";
             $stmt = $this->delTable->joinSQL($sql);
@@ -106,19 +118,13 @@ class EtcController{
         }
     }
 
+    //회원 찾는 팝업창 불러오기
     public function mempop(){
-        // $result = $this->memTable->selectAll();
-        // $title = '회원찾기';
-        // return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
         echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 
+    //대출 찾는 팝업창 불러오기
     public function lenpop(){
-        // $result = $this->lenTable->selectAll();
-        // $title = '대출찾기';
-        // return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result];
-        setcookie('pop', 'true');
         echo "<script>location.href='/len/list?title=대출찾기&pop=true';</script>";
     }
 }

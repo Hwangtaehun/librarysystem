@@ -25,9 +25,9 @@ class Combobox_Manager {
 			}
 
 			if($nothing){
-				$this->result[0] = array(0, '없음');
+				$this->result[0] = array('0', '없음');
 				for ($i= 0; $i < $count ; $i++) { 
-					$this->result[$i+1] = array($this->pri[$i], $this->name[$i]); //확인
+					$this->result[$i+1] = array($this->pri[$i], $this->name[$i]);
 				}
 			}
 			else{
@@ -43,6 +43,7 @@ class Combobox_Manager {
 
 	public function __destruct() { }
 
+	//테이블_no를 테이블_name으로 변경
 	private function changenamekey(string $key) {
 		$str = '';
 		$cnt = 0;

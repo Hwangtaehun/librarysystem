@@ -9,6 +9,7 @@ class ProcessManager{
     //echo 'construct : '.$uri.'<br>';
   }
   
+  //페이지 출력
   private function outPage($page = []){
     $pdo = $this->m_pdo;
     extract($page);
@@ -17,10 +18,9 @@ class ProcessManager{
     return ob_get_clean();
   }
   
+  //실행
   public function run(){
-    //echo 'run 실행<br>';
     $page = $this->makePage();
-    //echo  $page['title'].'<br>';
     if(isset($page['title'])){
       $title = $page['title'];
       $outString = $this->outPage($page);
@@ -28,6 +28,7 @@ class ProcessManager{
     }
   }
   
+  //테이블을 객체를 생성하고 
   private function makePage(){
     include __DIR__.'/../classes/TableManager.php';
     $pdo = $this->m_pdo;

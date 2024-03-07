@@ -1,17 +1,20 @@
 <head>
     <link rel="stylesheet" href="../css/form-base.css">
     <script>
+        //쿠키 생성 함수
         function setCookie(key, value, expiredays) {
             let todayDate = new Date();
             todayDate.setDate(todayDate.getDate() + expiredays);
             document.cookie = key + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
         }
 
+        //쿠키 할당 함수
         function getCookie(key){
             key = new RegExp(key + '=([^;]*)');
             return key.test(document.cookie) ? unescape(RegExp.$1) : '';
         }
 
+        //내용 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -21,11 +24,13 @@
             return true;            
         }
 
+        //대출 팝업창 띄우는 함수
         function checklen() {
             url = "/etc/lenpop";
             window.open(url,"chkbk","width=310,height=445");
         }
 
+        //대출 팝업창에 받는 함수
         function lenValue(no, mem, mat, date){
             setCookie('mem_id', mem, 1);
             setCookie('book_name', mat, 1);

@@ -9,6 +9,7 @@ class Combobox_Inheritance{
 		$count = $this->where_edit($where);
 		$word_front = $this->where_array[0].' '.$this->where_array[1];
 
+		//$count가 1일이면 중분류 배열만들기, $count가 2일이면 대분류 배열 만들기
 		if($count === 1){
 			$max = 10;
 			for ($i=0; $i < $max; $i++) { 
@@ -39,6 +40,7 @@ class Combobox_Inheritance{
 		//print_r($this->result);
 	}
 
+	//대분류, 중분류, 소분류 분리
 	private function where_edit(string $where){
 		$rest = null;
 		$cnt = 0;
@@ -59,6 +61,7 @@ class Combobox_Inheritance{
 		return $cnt;
 	}
 
+	//정수를 문자로 변환
 	private function intTostr(int $num){
 		if($num < 10){
 			$str = '0'.$num;

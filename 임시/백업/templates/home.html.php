@@ -2,9 +2,19 @@
 <html>
     <head>
         <link rel="stylesheet" href="../css/form-home.css">
-        <script>
+        <script defer>
             var cnt = 1;
+            <?php
+            if(isset($close)){
+                if($close == ''){
+                    echo "let rest = 7;";
+                }else{
+                    echo "let rest = $close;";
+                }
+            }
+            ?>
         </script>
+        <script defer src="../js/calendar.js"></script>
     </head>
     <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
@@ -16,14 +26,25 @@
     if(isset($_SESSION['mem_state'])){
         $mem_state = $_SESSION['mem_state'];
     }
+
+    if(isset($_SESSION['mem_no'])){
+        $mem_no = $_SESSION['mem_no'];
+    }
     ?>
     <body>
+        <!-- 검색창 -->
+<?php if($mem_state != 1){ ?>
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
-                        $no[$z] = $lib[$z][0]; $name[$z] = $lib[$z][1];
+                        $no[$z] = $lib[$z][0]; 
+                        if($lib[$z][1] == '없음'){
+                            $name[$z] = '전체';
+                        }else{
+                            $name[$z] = $lib[$z][1];
+                        }
                     }
                     for($z = 0;$z < sizeof($lib); $z++){
                         echo "<option  value = $no[$z] > $name[$z] </option>";
@@ -38,11 +59,13 @@
                 </button>
             </div>
         </form>
+        <!-- 메인 내용 -->
         <div class="main_context">
+            <!-- 슬라이드 배너 -->
             <div class="slide slide_wrap">
             <?php if(isset($result)){foreach($result as $row): ?>
                 <div><a href="/not/addupdate?not_no=<?=$row['not_no']?>">
-                    <img src="<?php if(isset($row)){echo '.'.$row['not_ban_url'];}?>" width="100%">
+                    <img src="<?php if(isset($row)){echo '.'.$row['not_ban_url'];}?>" alt="" style="width:100%;">
                 </a></div>
             <?php endforeach; }?>
                 <div class="slide_tool">
@@ -51,6 +74,7 @@
                 </div>
                 <ul class="slide_pagination"></ul>
             </div>
+            <!-- 게시판 내용 -->
             <div class="board">
                 <h3>공지사항</h3>
                 <fieldset id="fieldset_row">
@@ -69,166 +93,229 @@
                 </fieldset>
             </div>
         </div>
-        <script>
-            const slide = document.querySelector(".slide");
-            let slideWidth = slide.clientWidth;
+        <div class="quickmenu">
+            <div id="context">
+                <h2>자주찾는 메뉴</h2>
+                <h5>필요한 정보를<br>
+                    빠르게 찾아보세요.</h5>
+            </div>
+            <div class="quick" id="menu1">
+                <a href="/not/list">
+                    <img src="../img/icon/icon3.png" alt="">
+                </a>
+                <h6>공지사항</h6>
+            </div>
+            <div class="quick" id="menu2">
+                <a href="/lib/list">
+                    <img src="../img/icon/icon10.png" alt="">
+                </a>
+                <h6>도서관</h6>
+            </div>
+            <div class="quick" id="menu3">
+                <a href="/len/memLent">
+                    <img src="../img/icon/icon6.png" alt="">
+                </a>
+                <h6>대출중도서</h6>
+            </div>
+            <div class="quick" id="menu4">
+                <a href="/res/list">
+                    <img src="../img/icon/icon4.png" alt="">
+                </a>
+                <h6>예약내역</h6>
+            </div>
+            <div class="quick" id="menu5">
+                <a href="/del/list">
+                    <img src="../img/icon/icon9.png" alt="">
+                </a>
+                <h6>상호대차내역</h6>
+            </div>
+        </div>
+        <div class="calender">
+            <div class="header">
+              <div class="select">
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
+                <?php
+                    for($z = 1; $z < sizeof($lib); $z++){
+                        $no[$z] = $lib[$z][0]; 
+                        $name[$z] = $lib[$z][1];
+                    }
 
-            const prevBtn = document.querySelector(".slide_prev_button");
-            const nextBtn = document.querySelector(".slide_next_button");
+                    $lib_no = 1;
+                    if(isset($_GET['lib_no'])){
+                        $lib_no = $_GET['lib_no'];
+                    }
 
-            let slideItems = document.querySelectorAll(".slide_item");
-            const maxSlide = slideItems.length;
+                    for($z = 1;$z < sizeof($lib); $z++){
+                        if($lib_no == $z){
+                            echo "<option  value='/member/home?lib_no=$no[$z]' selected> $name[$z] </option>";
+                        }else{
+                            echo "<option  value='/member/home?lib_no=$no[$z]' > $name[$z] </option>";
+                        }
+                    }
+                ?>               
+                </select>
+              </div>
+              <button class="prevBtn" onclick="prevCal()"></button>
+              <div class="title">
+                <div class="yearTitle"></div>
+                <div>년</div>
+                <div class="monthTitle"></div>
+                <div>월</div>
+              </div>
+              <button class="nextBtn" onclick="nextCal()"></button>
+            </div>
+            <div class="main">
+              <div class="days">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+              </div>
+              <div class="dates"></div>
+              <div class="image"></div>
+            </div>
+        </div>
+        <script src="../js/slider.js"></script>
+<?php }else{ ?>
+        <h2>자주찾는 메뉴</h2>
+        <div class="quickmenu">
+            <div class="quick" id="menu1">
+                <a href="/not/list">
+                    <img src="../img/icon/icon3.png" alt="">
+                </a>
+                <h6>공지사항관리</h6>
+            </div>
+            <div class="quick" id="menu2">
+                <a href="/not/addupdate">
+                    <img src="../img/icon/icon11.png" alt="">
+                </a>
+                <h6>공지사항추가</h6>
+            </div>
+            <div class="quick" id="menu3">
+                <a href="/len/addupdate">
+                    <img src="../img/icon/icon4.png" alt="">
+                </a>
+                <h6>대출추가</h6>
+            </div>
+            <div class="quick" id="menu4">
+                <a href="/len/returnLent">
+                    <img src="../img/icon/icon7.png" alt="">
+                </a>
+                <h6>반납추가</h6>
+            </div>
+            <div class="quick" id="menu5">
+                <a href="/etc/plalist">
+                    <img src="../img/icon/icon8.png" alt="">
+                </a>
+                <h6>대출장소관리</h6>
+            </div>
+        </div>
+        <div class="quickmenu">
+            <div class="quick" id="menu6">
+                <a href="/del/aprelist">
+                    <img src="../img/icon/icon2.png" alt="">
+                </a>
+                <div class="long"><h6>상호대차승인거절</h6></div>
+            </div>
+            <div class="quick" id="menu7">
+                <a href="/del/addlist">
+                    <img src="../img/icon/icon9.png" alt="">
+                </a>
+                <div class="long"><h6>상호대차도착일추가</h6></div>
+            </div>
+            <div class="quick" id="menu8">
+                <a href="/mat/addupdate">
+                    <img src="../img/icon/icon1.png" alt="">
+                </a>
+                <h6>자료추가</h6>
+            </div>
+            <div class="quick" id="menu9">
+                <a href="/etc/duelist">
+                    <img src="../img/icon/icon12.png" alt="">
+                </a>
+                <h6>연체관리</h6>
+            </div>
+            <div class="quick" id="menu10">
+                <a href="/member/list">
+                    <img src="../img/icon/icon5.png" alt="">
+                </a>
+                <h6>회원관리</h6>
+            </div>
+        </div>
+        <div class="blank"></div>
+        <div class="list_head">
+            <div class="select">
+                <label for="s2">도서관 선택</label>
+                <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
+                    <?php
+                        for($z = 1; $z < sizeof($lib); $z++){
+                            $no[$z] = $lib[$z][0]; 
+                            $name[$z] = $lib[$z][1];
+                        }
 
-            let currSlide = 1;
+                        $lib_no = 1;
+                        if(isset($_GET['lib_no'])){
+                            $lib_no = $_GET['lib_no'];
+                        }
 
-            const pagination = document.querySelector(".slide_pagination");
+                        for($z = 1;$z < sizeof($lib); $z++){
+                            if($lib_no == $z){
+                                echo "<option  value='/member/home?lib_no=$no[$z]' selected> $name[$z] </option>";
+                            }else{
+                                echo "<option  value='/member/home?lib_no=$no[$z]' > $name[$z] </option>";
+                            }
+                        }
+                    ?>               
+                </select>
+            </div>
+            <div class="list_title">
+                <div class="list_click">
+                    <a href="/member/home?lib_no=<?php echo $lib_no; ?>&tab=del"><h2>반송도서</h2></a>
+                    <a href="/member/home?lib_no=<?php echo $lib_no; ?>&tab=res"><h2>예약도서</h2></a>
+                </div>
+                <h4>총<?php echo $cnt; ?>권</h4>
+            </div>
+        </div>
+        <div class="booklist">
+        <?php if(isset($result)){foreach($result as $row): ?>
+            <div class="card">
+            <?php
+            if(!empty($row['kind_no'])&&!empty($row['mat_symbol'])){
+                $libsymbol = $row['kind_no'].'-'.$row['mat_symbol'];
 
-            for (let i = 0; i < maxSlide; i++) {
-                if (i === 0) pagination.innerHTML += `<li class="active">•</li>`;
-                else pagination.innerHTML += `<li>•</li>`;
-            }
+                if($row['mat_many'] != 0){
+                    $libsymbol = $libsymbol.'='.$row['mat_many'];
+                }
 
-            const paginationItems = document.querySelectorAll(".slide_pagination > li");
-
-            const startSlide = slideItems[0];
-            const endSlide = slideItems[slideItems.length - 1];
-            const startElem = document.createElement("div");
-            const endElem = document.createElement("div");
-
-            endSlide.classList.forEach((c) => endElem.classList.add(c));
-            endElem.innerHTML = endSlide.innerHTML;
-
-            startSlide.classList.forEach((c) => startElem.classList.add(c));
-            startElem.innerHTML = startSlide.innerHTML;
-
-            slideItems[0].before(endElem);
-            slideItems[slideItems.length - 1].after(startElem);
-
-            slideItems = document.querySelectorAll(".slide_item");
-            
-            let offset = slideWidth + currSlide;
-            slideItems.forEach((i) => {
-                i.setAttribute("style", `left: ${-offset}px`);
-            });
-
-            function nextMove() {
-                currSlide++;
-                if (currSlide <= maxSlide) {
-                    const offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `left: ${-offset}px`);
-                    });
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                } else {
-                    currSlide = 0;
-                    let offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `transition: ${0}s; left: ${-offset}px`);
-                    });
-                    currSlide++;
-                    offset = slideWidth * currSlide;
-                    setTimeout(() => {
-                        slideItems.forEach((i) => {
-                            i.setAttribute("style", `transition: ${0.15}s; left: ${-offset}px`);
-                        });
-                    }, 0);
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
+                if($row['mat_overlap'] != 'c.1'){
+                    $libsymbol = $libsymbol.'='.$row['mat_overlap'];
                 }
             }
 
-            function prevMove() {
-                currSlide--;
-                if (currSlide > 0) {
-                    const offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `left: ${-offset}px`);
-                    });
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                } else {
-                    currSlide = maxSlide + 1;
-                    let offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                        i.setAttribute("style", `transition: ${0}s; left: ${-offset}px`);
-                    });
-                    currSlide--;
-                    offset = slideWidth * currSlide;
-                    setTimeout(() => {
-                        slideItems.forEach((i) => {
-                            i.setAttribute("style", `transition: ${0.15}s; left: ${-offset}px`);
-                        });
-                    }, 0);
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                }
+            if($row['book_url'] != ''){
+                $bu = $row['book_url'];
+                $bn = $row['book_name'];
+                echo "<img src='$bu' class='card-img-top' alt='$bn'>";
             }
-
-            nextBtn.addEventListener("click", () => {
-                nextMove();
-            });
-
-            prevBtn.addEventListener("click", () => {
-                prevMove();
-            });
-
-            window.addEventListener("resize", () => {
-                slideWidth = slide.clientWidth;
-            });
-
-            for (let i = 0; i < maxSlide; i++) {
-                paginationItems[i].addEventListener("click", () => {
-                    currSlide = i + 1;
-                    const offset = slideWidth * currSlide;
-                    slideItems.forEach((i) => {
-                    i.setAttribute("style", `left: ${-offset}px`);
-                    });
-                    paginationItems.forEach((i) => i.classList.remove("active"));
-                    paginationItems[currSlide - 1].classList.add("active");
-                });
-            }
-
-            let startPoint = 0;
-            let endPoint = 0;
-            
-            slide.addEventListener("mousedown", (e) => {
-                startPoint = e.pageX;
-            });
-            slide.addEventListener("mouseup", (e) => {
-                endPoint = e.pageX;
-                if (startPoint < endPoint) {
-                    prevMove();
-                } else if (startPoint > endPoint) {
-                    nextMove();
-                }
-            });
-
-            slide.addEventListener("touchstart", (e) => {
-                startPoint = e.touches[0].pageX;
-            });
-            slide.addEventListener("touchend", (e) => {
-                endPoint = e.changedTouches[0].pageX;
-                if (startPoint < endPoint) {
-                    prevMove();
-                } else if (startPoint > endPoint) {
-                    nextMove();
-                }
-            });
-
-            let loopInterval = setInterval(() => {
-                nextMove();
-            }, 3000);
-
-            slide.addEventListener("mouseover", () => {
-                clearInterval(loopInterval);
-            });
-
-            slide.addEventListener("mouseout", () => {
-                loopInterval = setInterval(() => {
-                    nextMove();
-                }, 3000);
-            });
-        </script>
+            ?>
+                <div class="card-body">
+                    <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
+                    <p class="card-text">
+                        저자 <?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
+                        출판사 <?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
+                        발행년도 <?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?><br>
+                        소장기관 <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?><br>
+                    <?php if(isset($libsymbol)){ ?>
+                        청구기호 <?=htmlspecialchars($libsymbol,ENT_QUOTES,'UTF-8');?><br>
+                    <?php } ?>
+                    </p>
+                </div>
+            </div>
+        <?php endforeach; }?>
+        </div>
+<?php } ?>
     </body>
 </html>

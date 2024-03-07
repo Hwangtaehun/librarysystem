@@ -1,7 +1,8 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '회원 현황'){
-        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
         $action = "/member/research";
     }
@@ -12,6 +13,7 @@
     }
     ?>
     <script>
+        //검색 내용확인하는 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -41,7 +43,7 @@
     <?php }?>
         <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 260px;">
+                <div class="card" style="width: 16rem; height: 210px;">
                     <div class="card-body">
                     <?php
                         $m_state = $row['mem_state'];

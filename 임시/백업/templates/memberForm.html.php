@@ -2,6 +2,7 @@
 <html>
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if(isset($_SESSION['mem_state'])){
         $state = $_SESSION['mem_state'];
 
@@ -25,6 +26,7 @@
         }
         ?>
 
+        //필수 내용 확인 함수
         function checkInput(myform) {
             if(check == false){
                 alert("아이디 중복체크를 해주세요.");
@@ -65,6 +67,7 @@
             return true;
         }
 
+        //아이디 중복 확인 함수
         function checkid() {
             check = false;
             var userid = document.querySelector("#id_id").value;
@@ -78,11 +81,13 @@
             }
         }
 
+        //아이디 중복 초기화
         function checkReset() {
             check = false;
             document.querySelector("#id_id").readOnly = false;
         }
 
+        //아이디 중복 활성화
         function decide() {
             check = true;
             document.querySelector("#id_id").readOnly = true;
@@ -90,6 +95,7 @@
             document.querySelector("#id_check").setAttribute("onclick", "change()");
         }
 
+        //아이디 중복 비활성화
         function change() {
             check = false;
             document.querySelector("#id_id").readOnly = false;
@@ -102,25 +108,26 @@
     <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
         <fieldset id = form_fieldset>
         <h2><?=$title?></h2>
-        <legend>아래 내용을 <?= $title2 ?>하세요.</legend>
-            <ul><label for  = "mem_name">이름</label>
-                <input class="input" type= "text" name="mem_name" id="id_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"><br>
-                <label for  = "mem_id">아이디</label>
-                <input class="input" type= "text" name="mem_id" id="id_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>">
-                <input type = "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"><br>
-                <label for  = "mem_pw">비밀번호</label>
-                <input class="input" type= "password" name="mem_pw" id="id_pw" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
-                <label for  = "mem_pw_check">비밀번호 확인</label>
-                <input class="input" type= "password" name="mem_pw_check" id="id_pw_check" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"><br>
-                <label for  = "mem_add">주소</label>
-                <input class="input" type= "text" name="mem_zip" id="id_zip" value="<?php if(isset($row)){echo $row['mem_zip'];}?>" placeholder="우편번호" readonly>
-                <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"><br>
-                <label for = "mem_add"></label>
-                <input class="input" type= "text" name="mem_add" id="id_add" value="<?php if(isset($row)){echo $row['mem_add'];}?>" placeholder="주소" readonly><br>
-                <label for = "mem_add"></label>
-                <input class="input" type= "text" name="mem_detail" id="id_detail" value="<?php if(isset($row)){echo $row['mem_detail'];}?>" placeholder="상세주소"><br>
-                <input type="hidden" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
+        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
+            <ul>
+                <li><label for  = "id_name">이름</label>
+                    <input class="input" type= "text" name="mem_name" id="id_name" value="<?php if(isset($row)){echo $row['mem_name'];}?>"></li>
+                <li><label for  = "id_id">아이디</label>
+                    <input class="input" type= "text" name="mem_id" id="id_id" value="<?php if(isset($row)){echo $row['mem_id'];}?>">
+                    <input type = "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"></li>
+                <li><label for  = "id_pw">비밀번호</label>
+                    <input class="input" type= "password" name="mem_pw" id="id_pw" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"></li>
+                <li><label for  = "id_pw_check">비밀번호 확인</label>
+                    <input class="input" type= "password" name="mem_pw_check" id="id_pw_check" value="<?php if(isset($row)){echo $row['mem_pw'];}?>"></li>
+                <li><label for  = "id_detail">주소</label>
+                    <input class="input" type= "text" name="mem_zip" id="id_zip" value="<?php if(isset($row)){echo $row['mem_zip'];}?>" placeholder="우편번호" readonly>
+                    <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
+                <li><label></label>
+                    <input class="input" type= "text" name="mem_add" id="id_add" value="<?php if(isset($row)){echo $row['mem_add'];}?>" placeholder="주소" readonly></li>
+                <li><label></label>
+                    <input class="input" type= "text" name="mem_detail" id="id_detail" value="<?php if(isset($row)){echo $row['mem_detail'];}?>" placeholder="상세주소"></li>
             </ul>
+            <input type="hidden" name="mem_no" value="<?php if(isset($row)){echo $row['mem_no'];}?>">
             <div class="form_class">
                 <input type= "submit" value="<?=$title2 ?>">
                 <input type= "reset" value='지우기'>
@@ -129,6 +136,7 @@
     </form>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+        //아이디 체크확인
         if(check){
             decide();
         }

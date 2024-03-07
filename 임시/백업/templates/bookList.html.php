@@ -1,5 +1,6 @@
 <head>
     <?php
+    // 웹페이지 맞는 css설정
     if($title == '책 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
@@ -12,6 +13,7 @@
     }
     ?>
     <script>
+        //검색 내용이 있는 없는지 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -41,13 +43,19 @@
     <?php }?>
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 16rem; height: 260px;">
+                <div class="card" style="width: 16rem; height: 250px;">
+                    <?php
+                    if($row['book_url'] != ''){
+                        $bu = $row['book_url'];
+                        $bn = $row['book_name'];
+                        echo "<img src='$bu' class='card-img-top' alt='$bn'>";
+                    }
+                    ?>
                     <div class="card-body">
                         <h5 class="card-title"><?=htmlspecialchars($row['book_name'],ENT_QUOTES,'UTF-8');?></h5>
-                        <p class="card-text">작가:<?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?><br>
-                                            출판사:<?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
-                                            출판년도:<?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?>년<br>
-                                            가격:<?=htmlspecialchars($row['book_price'],ENT_QUOTES,'UTF-8');?>원
+                        <p class="card-text">
+                            저자<?=htmlspecialchars($row['book_author'],ENT_QUOTES,'UTF-8');?> | 출판사<?=htmlspecialchars($row['book_publish'],ENT_QUOTES,'UTF-8');?><br>
+                            출판년도<?=htmlspecialchars($row['book_year'],ENT_QUOTES,'UTF-8');?>년 | 가격<?=htmlspecialchars($row['book_price'],ENT_QUOTES,'UTF-8');?>원
                         </p>
                         <?php
                             if($ispop){

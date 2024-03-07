@@ -6,6 +6,7 @@
         $state = $_SESSION['mem_state'];
     }
 
+    // 웹페이지 맞는 css설정
     if($state == 1){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
     }else{
@@ -14,6 +15,8 @@
     ?>
     <script>
         var cnt = 1;
+        
+        //검색 내용 확인 함수
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -41,8 +44,12 @@
         <div id="div_row">
             <?=htmlspecialchars($row['not_no'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['not_name'],ENT_QUOTES,'UTF-8');?>
+            <?php if(isset($row['not_op_date'])){ ?>
             <?=htmlspecialchars($row['not_op_date'],ENT_QUOTES,'UTF-8');?>
+            <?php }
+            if(isset($row['not_op_date'])){ ?>
             <?=htmlspecialchars($row['not_cl_date'],ENT_QUOTES,'UTF-8');?>
+            <?php }?>
             <?php if(isset($row['not_pop_url'])){ ?>
                 <?=htmlspecialchars($row['not_pop_wid'],ENT_QUOTES,'UTF-8');?>
                 <?=htmlspecialchars($row['not_pop_hei'],ENT_QUOTES,'UTF-8');?>

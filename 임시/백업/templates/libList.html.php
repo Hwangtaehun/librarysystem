@@ -1,17 +1,30 @@
 <head>
 <?php
+    //css따라 선택
     if($title == '도서관 현황'){
         echo '<link rel="stylesheet" href="../css/form-base.css">';
         $ispop = false;
         $action = "/lib/research";
+    }
+    else if($title == '도서관 정보'){
+        echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+        $ispop = false;
+        $action = "/lib/research?title=$title";
     }
     else{
         echo '<link rel="stylesheet" href="../css/form-popup.css">';
         $ispop = true;
         $action = "/lib/research?title=$title&pop=true";
     }
+
+    $state = 2;
+
+    if(isset($_SESSION['mem_state'])) {
+        $state = $_SESSION['mem_state'];
+    }
 ?>
     <script>
+        //검색 내용 확인
         function checkResearch(myform) {
             if(myform.user_research.value.length <= 0){
                 alert("검색할 내용을 입력해주세요.");
@@ -38,7 +51,37 @@
     <?php }else{ ?>
         <div class="row row-cols-3">
     <?php }?>
-<?php if(isset($result)){foreach($result as $row): ?>
+<?php if(isset($result)){foreach($result as $row): 
+        if(isset($row['lib_close'])){
+            $close = '없음';
+            switch ($row['lib_close']) {
+                case 0:
+                    $close = '일요일';
+                    break;
+                case 1:
+                    $close = '월요일';
+                    break;
+                case 2:
+                    $close = '화요일';
+                    break;
+                case 3:
+                    $close = '수요일';
+                    break;
+                case 4:
+                    $close = '목요일';
+                    break;  
+                case 5:
+                    $close = '금요일';
+                    break;
+                case 6:
+                    $close = '월요일';
+                    break;
+                default:
+                    $close = '연중무휴';
+                    break;
+            }
+        }
+?>
         <div class="col">
             <div class="card" style="width: 16rem; height: 200px;">
                 <div class="card-body">
@@ -48,6 +91,7 @@
                 <p class="card-text">
                     설립일: <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?><br>
                     주소: <?=htmlspecialchars($row['lib_add'],ENT_QUOTES,'UTF-8');?><br>
+                    정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
                 </p>
                 <?php
                     if($ispop){
@@ -56,13 +100,17 @@
                         $no = "'".$row['lib_no']."'";
                         echo '<input type=button value="선택" onclick="opener.parent.libValue('.$name.', '.$no.'); window.close();">';
                     }
-                    else{
-                    ?>
+                    else{ if($state == 1){
+                ?>
                     <form action="/lib/delete" method="post">
-                            <input type="hidden" name="mem_no" value="<?=$row['lib_no']?>">
+                            <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
                             <input type="submit" value="삭제">
                             <a href="/lib/addupdate?lib_no=<?=$row['lib_no']?>"><input type="button" value="수정"></a>
-                    <?php } ?>
+                <?php }else{ ?>
+                    <form action="/lib/detail" method="post">
+                            <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
+                            <input type="submit" value="상세 정보">
+                <?php }} ?>
                     </form>
                 </div>
             </div>

@@ -1,5 +1,30 @@
 <?php
 class Assistance{
+	private $listnum = 19;
+    private $table = 'kind';
+    private $func = '';
+    private $m_get = '';
+
+    //한 페이지에 보여지는 정보 크기
+    public function listchange(int $num){
+        $this->listnum = $num;
+    }
+
+    //테이블 이름
+    public function tablename(string $table){
+        $this->table = $table;
+    }
+
+    //함수 이름
+    public function funName(string $func){
+        $this->func = $func;
+    }
+
+    //get 파라미터 입력
+    public function getValue(string $m_get){
+        $this->m_get = $m_get;
+    }
+
     //문자가 정수인지 확인하는 함수
 	public function isInteger(String $strValue) {
 	    $num = (int)$strValue;
@@ -64,6 +89,7 @@ class Assistance{
 		return $bool;
 	}
 	
+	//쿼리 결과가 없는지 확인
 	public function resultempty_check(PDOStatement $rs) {
 		$bool = false;
 		
@@ -80,18 +106,8 @@ class Assistance{
 
 		return $bool;
 	}
-	
-	public function mat_manyZeroCheck(String $mat_many) {
-		if($mat_many === "0") {
-			$result = '';
-		}
-		else {
-			$result = $mat_many.' ';
-		}
-		
-		return $result;
-	}
 
+	//반납 날짜 계산
 	public function estimateReturndate(string $lentdate, int $extend) {
 		$period = 15;
 
@@ -101,10 +117,11 @@ class Assistance{
 		return $date;
 	}
 
+	//복권심볼 삭제
 	public function removeSymbol(string $str) {
 		$str_array = [];
-		
-		if($this->isInteger($str)) {
+
+		if(is_numeric($str)) {
 			$str_fianl = "";
 			return $str_fianl;
 		}
@@ -113,22 +130,229 @@ class Assistance{
 		$str_array = mb_str_split($str, $split_length = 1, $encoding = "utf-8");
 		
 		for($i = 2; $i < sizeof($str_array); $i++) {
-			$str_fianl += $str_array[$i];
+			$str_fianl = $str_fianl.$str_array[$i];
 		}
 
 		return $str_fianl;
 	}
 
+	//도서관 이름 배열 만들기
 	public function libraryarray(PDO $pdo){
         $num = 1;
 		$sql = "SELECT * FROM `library`";
         $result = $pdo->query($sql);
-        $lib_array[0] = '없음';
+        $lib_array[0] = ' ';
         foreach($result as $row):
             $lib_array[$num] = $row['lib_name'];
             $num++;
         endforeach;
         return $lib_array;
+    }
+
+    //page번호 달기 만들기위한 html제작 -> next.js 사용할때 오버로딩 사용하기
+	public function pagemanager(int $total_cnt, string $value){
+        $pagenum = 19;
+        $outStr= '';
+
+        if(20 < $total_cnt){
+            $total_pages = floor($total_cnt/$this->listnum);
+            $sp_pg = ceil($total_pages/$pagenum);
+
+            if(isset($_GET['sup_pg'])){
+                $sup_pg = $_GET['sup_pg'];
+            }
+            else{
+                $sup_pg = 0;
+            }
+
+            if(isset($_GET['page'])){
+                $m_page = $_GET['page'];
+            }
+            else{
+                $m_page = 1;
+            }
+            
+            if($value == '없음'){           
+                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
+                if($sup_pg != 0){
+                    $go_pg = $sup_pg - 1;
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$m_page.$this->m_get.'" aria-label="Previous"> 
+                                <span aria-hidden="true">&laquo;</span> </a> </li>';
+                }
+                for ($i=0; $i < 19 ; $i++) { 
+                    $go_pg = $sup_pg;
+                    $page = $sup_pg * 19 + $i;
+
+                    if($page <= $total_pages - 1){
+                        $num = $page + 1;
+                        if($num < 10){
+                            $str_num = '0'.$num;
+                        }else{
+                            $str_num = strval($num);
+                        }
+
+                        $start_num = $page * $this->listnum;
+                        $outStr .= '<li class="page-item"><a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$start_num.$this->m_get.'">'.$str_num.'</a></li>';
+                    }
+                }
+
+                if($sup_pg != $sp_pg-1){
+                    $go_pg = $sup_pg + 1;
+                    $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$m_page.$this->m_get.'" aria-label="Next"> 
+                                <span aria-hidden="true">&raquo;</span> </a> </li>';
+                }
+
+                $outStr .= '</ul> </ul> </div> </div>';
+            }else{
+                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
+                if($sup_pg != 0){
+                    $go_pg = $sup_pg - 1;
+                    $outStr .= '<li class="page-item"> 
+                                <a class="page-link" href="/'.$this->table.'/'.$this->func.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.$this->m_get.'" aria-label="Previous"> 
+                                <span aria-hidden="true">&laquo;</span> </a> </li>';
+                }
+                for ($i=0; $i < 19 ; $i++) { 
+                    $go_pg = $sup_pg;
+                    $page = $sup_pg * 19 + $i;
+
+                    if($page <= $total_pages - 1){
+                        $num = $page + 1;
+                        if($num < 10){
+                            $str_num = '0'.$num;
+                        }else{
+                            $str_num = strval($page);
+                        }
+
+                        $start_num = $page * $this->listnum;
+                        $outStr .= '<li class="page-item">
+                                    <a class="page-link" href="/'.$this->table.'/'.$this->func.'research?sup_pg='.$go_pg.'&page='.$start_num.'&value='.$value.$this->m_get.'">'.$str_num.'</a></li>';
+                    }
+                }
+
+                if($sup_pg != $sp_pg-1){
+                    $go_pg = $sup_pg + 1;
+                    $outStr .= '<li class="page-item"> 
+                                <a class="page-link" href="/'.$this->table.'/'.$this->func.'research?sup_pg='.$go_pg.'&page='.$m_page.'&value='.$value.$this->m_get.'" aria-label="Next"> 
+                                <span aria-hidden="true">&raquo;</span> </a> </li>';
+                }
+
+                $outStr .= '</ul> </ul> </div> </div>';
+            }
+        }
+        return $outStr;
+    }
+
+    //페이지 번호 매기기에 맞는 sql제작
+    public function pagesql(string $where){
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+        }
+        else{
+            $page = 0;
+        }
+
+        $limit = " LIMIT $page,$this->listnum";
+
+        if($where == ''){
+            $where = $limit;
+        }else{
+            $where = $where.$limit;
+        }
+
+        return $where;
+    }
+
+    public function lentpossible($mem_no, $memTable, $lenTable){
+        $result = $memTable->selectID($mem_no);
+        $mem_lent = $result['mem_lent'];
+
+        $where = "WHERE `mem_no` = $mem_no AND `len_re_date` IS NULL";
+        $rs = $lenTable->whereSQL($where);
+        $num = $rs->rowCount();
+
+        if($num > $mem_lent){
+            echo "<script>alert('대출가능수를 초과했습니다.');</script>";
+            return false;
+        }
+
+        return true;
+    }
+
+    public function existMat($mat_no, $mat_exist, $lenTable, $delTable, $matTable){
+        $bool = true;
+
+        if($mat_exist == 1){
+            $where = "WHERE `mat_no` = $mat_no AND `len_re_st` = 0";
+            echo "1. where = $where <br>";
+            $rs = $lenTable->whereSQL($where);
+            $bool = $this->resultempty_check($rs);
+
+            if($bool){
+                $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
+                echo "2. where = $where <br>";
+                $rs = $delTable->whereSQL($where);
+                $bool = $this->resultempty_check($rs);
+            }
+            
+            if($bool){
+                $where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
+                echo "3. where = $where <br>";
+                $rs = $delTable->whereSQL($where);
+                $bool = $this->resultempty_check($rs);
+            }
+
+            if($bool){
+                $bool = false;
+            }else{
+                $bool = true;
+            }
+        }
+
+        if($bool){
+            $param = ['mat_no'=>$mat_no,'mat_exist'=>$mat_exist];
+            $matTable->updateData($param);
+        }
+    }
+
+    //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
+    public function reservationCheck($res_no, $mat_no, $resTable){
+        $rs = false;
+
+        if($res_no == ''){
+            $mat_no = $_POST['mat_no'];
+            $where = "WHERE `mat_no` = $mat_no";
+            $stmt = $resTable->whereSQL($where);
+            $num = $stmt->rowCount();
+            
+            if($num == 0){
+                $rs = true;
+            }
+            else{
+                $row = $stmt->fetch();
+                if($row['mem_no'] == $_POST['mem_no']){
+                    $rs = true;
+                    $res_no = $row['res_no'];
+                }
+            }
+        }
+        else{
+            $row = $resTable->selectID($res_no);//
+
+            if($row['mem_no'] == $_POST['mem_no']){
+                $rs = true;
+            }
+            else{
+                $rs = false;
+            }
+        }
+        
+        if($rs == false){
+            echo "<script>alert('다른 회원이 예약한 도서입니다.');</script>";
+        }else{
+            $resTable->deleteData($res_no);
+        }
+
+        return $rs;
     }
 }
 ?>
