@@ -37,11 +37,9 @@ class kindController extends Common{
         $where = '';
         $result = $this->kindTable->selectAll();
         $total_cnt = sizeof($result);
-        
-        $where = $this->pagesql($where);
-        $stmt = $this->kindTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+
+        $pagi = $this->makePage($this->kindTable, $total_cnt, $where, true);
+        $result = $this->getResult();
 
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -80,11 +78,9 @@ class kindController extends Common{
         $stmt = $this->kindTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
-        
-        $where = $this->pagesql($where);
-        $stmt = $this->kindTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+
+        $pagi = $this->makePage($this->kindTable, $total_cnt, $where, true);
+        $result = $this->getResult();
         
         return ['tempName'=>'kindList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

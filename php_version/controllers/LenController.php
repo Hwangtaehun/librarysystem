@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__.'/../includes/Assistance.php';
+include_once __DIR__.'/../includes/Common.php';
 session_start();
 
 class LenController extends Common{
@@ -63,10 +63,8 @@ class LenController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->lenTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->lenTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -82,10 +80,8 @@ class LenController extends Common{
         $total_cnt = sizeof($result);
         $this->funName('mem');
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->lenTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->lenTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -101,10 +97,8 @@ class LenController extends Common{
         $total_cnt = sizeof($result);
         $this->funName('memAll');
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->lenTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->lenTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -119,10 +113,8 @@ class LenController extends Common{
         $total_cnt = sizeof($result);
         $this->funName('return');
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->lenTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->lenTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -200,10 +192,8 @@ class LenController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->lenTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->lenTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'lenList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

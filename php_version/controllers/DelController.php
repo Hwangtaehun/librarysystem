@@ -82,10 +82,8 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -100,11 +98,9 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
         $this->funName('complete');
-        
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -119,11 +115,9 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
         $this->funName('add');
-        
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -138,12 +132,10 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
         $this->funName('apre');
-        
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
 
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
+        
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
@@ -218,10 +210,8 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
         
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -277,10 +267,8 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
         
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -312,10 +300,8 @@ class DelController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->delTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->delTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
         
         return ['tempName'=>'delList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

@@ -99,10 +99,9 @@ class MemberController extends Common{
             
             $result = $this->memTable->joinSQL($sql);
             $total_cnt = $result->rowCount();
-            $sql = $this->pagesql($sql);
-            $stmt = $this->memTable->joinSQL($sql);
-            $result = $stmt->fetchAll();
-            $pagi = $this->pagemanager($total_cnt, '없음');
+
+            $pagi = $this->makePage($this->memTable, $total_cnt, $sql, false);
+            $result = $this->getResult();
 
             return ['tempName'=>'home.html.php', 'title'=>$title, 'result'=>$result, 'cnt'=>$total_cnt, 'pagi'=>$pagi];
         }
@@ -119,10 +118,8 @@ class MemberController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->pagesql($where);
-        $stmt = $this->memTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->memTable, $total_cnt, $where, true);
+        $result = $this->getResult();
         
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -135,22 +132,20 @@ class MemberController extends Common{
         }
 
         if(isset($_POST)){
-            $member = $_POST['user_research'];
+            $value = $_POST['user_research'];
         }
 
         if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
 
-        $where = "WHERE `mem_name` LIKE '$member' OR `mem_id` LIKE '$member' AND `mem_state` NOT LIKE 1";
+        $where = "WHERE `mem_name` LIKE '$value' OR `mem_id` LIKE '$value' AND `mem_state` NOT LIKE 1";
         $stmt = $this->memTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->pagesql($where);
-        $stmt = $this->memTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->memTable, $total_cnt, $where, true);
+        $result = $this->getResult();
         
         return ['tempName'=>'memberList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

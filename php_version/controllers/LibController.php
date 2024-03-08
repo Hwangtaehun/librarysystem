@@ -54,10 +54,8 @@ class LibController extends Common{
         $result = $this->libTable->selectAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->pagesql($where);
-        $stmt = $this->libTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->libTable, $total_cnt, $where, true);
+        $result = $this->getResult();
         
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -90,10 +88,8 @@ class LibController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->pagesql($where);
-        $stmt = $this->libTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->libTable, $total_cnt, $where, true);
+        $result = $this->getResult();
 
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

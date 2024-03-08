@@ -81,15 +81,13 @@ class MatController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->matTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->matTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
-    //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수
+    //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수 -- 요부분 다시하기
     public function poplist(){
         $title = $_GET['title'];
         if($title == '상세 검색'){
@@ -104,10 +102,9 @@ class MatController extends Common{
         $total_cnt = sizeof($result);
         $this->funName('pop');
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->matTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+
+        $pagi = $this->makePage($this->matTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -197,10 +194,8 @@ class MatController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $this->matTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->matTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

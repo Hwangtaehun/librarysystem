@@ -43,10 +43,8 @@ class BookController extends Common{
         $result = $this->bookTable->selectAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->pagesql($where);
-        $stmt = $this->bookTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->bookTable, $total_cnt, $where, true);
+        $result = $this->getResult();
 
         return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
@@ -59,22 +57,20 @@ class BookController extends Common{
         
         $where = '';
         if(isset($_POST['user_research'])){
-            $book = '%'.$_POST['user_research'].'%';
+            $value = '%'.$_POST['user_research'].'%';
         }
 
         if(isset($_GET['value'])){
             $value = $_GET['value'];
         }
         
-        $where = "WHERE book_name LIKE '$book' OR book_author LIKE '$book' OR book_publish LIKE '$book'";
+        $where = "WHERE book_name LIKE '$value' OR book_author LIKE '$value' OR book_publish LIKE '$value'";
         $stmt = $this->bookTable->whereSQL($where);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $where = $this->pagesql($where);
-        $stmt = $this->bookTable->whereSQL($where);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
+        $pagi = $this->makePage($this->bookTable, $total_cnt, $where, true);
+        $result = $this->getResult();
 
         return ['tempName'=>'bookList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

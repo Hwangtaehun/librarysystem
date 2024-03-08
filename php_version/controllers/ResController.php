@@ -37,8 +37,12 @@ class ResController extends Common{
     }
 
     public function list(){
-        $mem_state = $_SESSION['mem_state'];
-        if($mem_state != 1){
+        $title = '예약 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
+
+        if($_SESSION['mem_state'] != 1){
             $mem_no = $_SESSION['mem_no'];
             $this->sql = $this->sql." AND member.mem_no LIKE $mem_no";
         }
@@ -47,20 +51,19 @@ class ResController extends Common{
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
 
-        $sql = $this->pagesql($sql);
-        $stmt = $stmt = $this->resTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, '없음');
+        $pagi = $this->makePage($this->resTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
         
-        $title = '예약 현황';
-        if(isset($_GET['title'])){
-            $title = $_GET['title'];
-        }
         return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
 
     //검색
     public function research(){
+        $title = '예약 현황';
+        if(isset($_GET['title'])){
+            $title = $_GET['title'];
+        }
+
         if($_SESSION['mem_state'] == 1){
             if(isset($_POST['mem_no'])){
                 $value = $_POST['mem_no'];
@@ -91,15 +94,8 @@ class ResController extends Common{
         }
 
         $total_cnt = sizeof($result);
-        $sql = $this->pagesql($sql);
-        $stmt = $this->resTable->joinSQL($sql);
-        $result = $stmt->fetchAll();
-        $pagi = $this->pagemanager($total_cnt, $value);
-
-        $title = '예약 현황';
-        if(isset($_GET['title'])){
-            $title = $_GET['title'];
-        }
+        $pagi = $this->makePage($this->resTable, $total_cnt, $sql, false);
+        $result = $this->getResult();
 
         return ['tempName'=>'resList.html.php','title'=>$title,'result'=>$result, 'pagi'=>$pagi];
     }
