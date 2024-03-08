@@ -59,6 +59,16 @@ class MatController extends Common{
         $this->sql = "SELECT * FROM library, book, material LEFT JOIN reservation ON material.mat_no = reservation.mat_no WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no ";
     }
 
+    //popSQL 선택할때 사용
+    private function popSQL(string $title){
+        if($title == '상세 검색'){
+            $this->popSql = $this->sql;
+        }
+        else{
+            $this->popSql = $this->sql."AND material.mat_no NOT IN (SELECT mat_no FROM lent WHERE len_re_st = 0 OR len_re_st = 2 UNION SELECT mat_no FROM reservation) ";
+        }
+    }
+
     public function list(){
         $title = '자료 현황';
 
@@ -90,18 +100,12 @@ class MatController extends Common{
     //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수 -- 요부분 다시하기
     public function poplist(){
         $title = $_GET['title'];
-        if($title == '상세 검색'){
-            $this->popSql = $this->sql;
-        }
-        else{
-            $this->popSql = $this->sql."AND material.mat_no NOT IN (SELECT mat_no FROM lent WHERE len_re_st = 0 OR len_re_st = 2 UNION SELECT mat_no FROM reservation) ";
-        }
+        $this->popSQL($title);
         $sql = $this->popSql.$this->sort;
         $stmt = $this->matTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $total_cnt = sizeof($result);
         $this->funName('pop');
-
 
         $pagi = $this->makePage($this->matTable, $total_cnt, $sql, false);
         $result = $this->getResult();
@@ -184,7 +188,9 @@ class MatController extends Common{
         }
         
         if($ispop){
+            $this->popSql($title);
             $sql = $this->popSql.$where;
+            echo '<script>alert($title = '.$title.', $sql = '.$sql.');</script>';
         }
         else{
             $sql = $this->sql.$where;
