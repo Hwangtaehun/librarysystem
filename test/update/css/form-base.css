@@ -37,48 +37,9 @@ body {
     }
 }
 
-header{
-    grid-area: header;
-}
-header a img{
-    float: left; height: 60px;
-}
 header h1{
     float: left;
     color: #000000;
-}
-header .link {
-    float:right;
-    margin-top: 15px;
-    text-decoration: none;
-    list-style:none;
-}
-header .link a{
-    margin: 5px;
-    font-size: 95%;
-    color: #f91717;
-}
-
-nav{
-    grid-area: nav;
-    z-index: 2;
-}
-.navbar-collapse{
-    background-color: #f8f9fa;
-}
-.navbar-collapse > .navbar-nav > .nav-item > .active{
-    background-color: #363062;
-    color: #F5F5F5
-}
-.navbar-collapse > .navbar-nav > .nav-item > .active:hover{
-    background-color: #F99417;
-}
-.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item{
-    background-color: #FFFFFF;
-}
-.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
-    background-color: #4D4C7D;
-    color: #F5F5F5
 }
 
 main{
@@ -136,7 +97,7 @@ main .search button{
     width: 40px;
     height: 40px;
     margin: 0;
-    background: white;
+    background: #ffffff;
 }
 main .search #inbt{
     right: 1px;
@@ -149,6 +110,7 @@ main .search .srbt{
 main .card {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-bottom: 10px;
 }
 main .card img{
@@ -163,35 +125,6 @@ main .card .card-body .card-text{
     margin-bottom: 5px;
 }
 
-/*추가, 수정 페이지 디자인*/
-#form_fieldset{
-    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
-}
-#form_fieldset > fieldset{
-    font-size: 10px;
-}
-#form_fieldset > .form_class{
-    float: right;
-}
-#form_fieldset > ul{
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-}
-#form_fieldset > ul > li{
-    list-style: none;
-}
-#form_fieldset > ul > li > label{
-    width: 110px;
-    margin-bottom: 10px;
-}
-#form_fieldset > ul > li > .input{
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid #000000;
-}
-#form_fieldset #id_url{
-    width: 80%;
-}
 /*수치 입력부분*/
 .number{
     width: 50px;
@@ -218,7 +151,7 @@ main .context {
 
 /*readonly 배경 회색*/
 main input[readonly] {
-    background-color: gray;
+    background-color: #bbb;
 }
 
 aside{
@@ -284,7 +217,7 @@ footer .table_menu table td{
 footer .table_menu a{
     color: #FFFFFF;
     text-decoration: none;
-    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
 }
 
 /* 주소 */
@@ -301,7 +234,7 @@ footer .table_menu a{
     width: 100%; 
     padding: 1px;
     border: 1px groove #000000;
-    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
 }
 #fieldset_row > form{
     display: table-cell;

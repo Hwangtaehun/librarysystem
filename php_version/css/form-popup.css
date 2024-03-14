@@ -11,23 +11,6 @@ body {
     'footer';
 }
 
-header{grid-area: header;}
-header a img{
-    float: left;
-    height: 60px;
-}
-header .link {
-    float:right;
-    margin-top: 15px;
-    text-decoration: none;
-    list-style:none;
-}
-header .link a{
-    margin: 5px;
-    font-size: 95%;
-    color: #f91717;
-}
-
 main{
     grid-area: main; 
     padding-left: 10px; 
@@ -75,32 +58,12 @@ main .card img{
 main .card .card-body{
     padding-top: 5px;
 }
-main .list .card input{
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-}
 main .card .card-body .card-text{
     margin-bottom: 5px;
 }
 
-footer {grid-area: footer; text-align: center; border-style: hidden;}
-footer img {height: 35px;}
-
-/*목록*/
-#fieldset_row {
-    display: table; 
-    width: 100%; 
-    padding: 1px;
-    border: 1px groove #000000;
-}
-#div_row {
-    display: table-cell;
-    float: left;
-    max-width: 732px;
-}
-#fieldset_row > form{
-    display: table-cell;
-    text-align: right; 
-    float: right;
+main .list .card input{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
 }

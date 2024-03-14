@@ -1,0 +1,90 @@
+:root{
+    --one: #f8f9fa;
+    --two: #F99417;
+    --three: #363062;
+    --four: #4D4C7D;
+}
+
+header{
+    grid-area: header;
+}
+header a img{
+    float: left; 
+    height: 60px;
+}
+header .link {
+    float:right;
+    margin-top: 15px;
+    text-decoration: none;
+    list-style:none;
+}
+header .link a{
+    margin: 5px;
+    font-size: 95%;
+    color: #f91717;
+}
+
+nav{
+    grid-area: nav;
+    z-index: 2;
+}
+nav .navbar-brand{
+    margin: 0;
+}
+.navbar-collapse{
+    background-color: var(--one);
+}
+.navbar-collapse > .navbar-nav > .nav-item > .active{
+    background-color: var(--one);
+}
+.navbar-collapse > .navbar-nav > .nav-item > .active:hover{
+    background-color: var(--two);
+}
+.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu{
+    background-color: var(--one);
+}
+.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
+    background-color: var(--four);
+    color: var(--one)
+}
+
+/*readonly 배경 회색*/
+main input[readonly] {
+    background-color: rgb(183, 183, 183);
+}
+
+/* 추가, 수정 */
+#form_fieldset{
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+#form_fieldset h2{
+    text-align: center;
+}
+#form_fieldset .text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+}
+#form_fieldset .form_class{
+    display: flex;
+    margin-top: 10px;
+}
+#form_fieldset .form_class input{
+    width: 50%;
+}
+#form_fieldset ul{
+    padding: 0;
+}
+#form_fieldset li{
+    height: 50px;
+    list-style: none;
+}
+#form_fieldset li .input{
+    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#form_fieldset #id_url{
+    width: 80%;
+}

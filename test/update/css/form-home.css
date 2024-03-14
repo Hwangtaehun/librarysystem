@@ -36,45 +36,6 @@ body {
     }
 }
 
-header{grid-area: header;}
-header a img{
-    float: left;
-    height: 60px;
-}
-header .link {
-    float:right;
-    margin-top: 15px;
-    text-decoration: none;
-    list-style:none;
-}
-header .link a{
-    margin: 5px;
-    font-size: 95%;
-    color: #f91717;
-}
-
-nav{
-    grid-area: nav;
-    z-index: 2;
-}
-.navbar-collapse{
-    background-color: #f8f9fa;
-}
-.navbar-collapse > .navbar-nav > .nav-item > .active{
-    background-color: #363062;
-    color: #F5F5F5;
-}
-.navbar-collapse > .navbar-nav > .nav-item > .active:hover{
-    background-color: #F99417;
-}
-.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item{
-    background-color: #FFFFFF;
-}
-.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
-    background-color: #4D4C7D;
-    color: #F5F5F5;
-}
-
 main{
     grid-area: main; 
     padding-left: 10px; 
@@ -498,6 +459,12 @@ footer .table_menu a{
     border: 1px groove #000000;
 }
 
+#fieldset_row > form{
+    display: table-cell;
+    text-align: justify; 
+    float: right;
+}
+
 #div_row {
     display: table-cell;
     float: left;
@@ -506,10 +473,4 @@ footer .table_menu a{
 #div_row .http{
     color: #000000;
     text-decoration: none;
-}
-
-#fieldset_row > form{
-    display: table-cell;
-    text-align: justify; 
-    float: right;
 }
