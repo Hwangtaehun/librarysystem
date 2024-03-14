@@ -1,0 +1,476 @@
+body {
+    background-image : url('../img/background.gif');
+    background-size: 100% 100%;
+    color: #F5F5F5;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 60px 55px auto 35px;
+    grid-template-columns: 140px auto;
+    grid-template-areas:
+    'header header'
+    'nav nav'
+    'main main'
+    'footer footer';
+}
+
+@media (min-width: 1025px){
+    body {
+        grid-template-columns: auto 140px 884px auto;
+        grid-template-areas:
+        '. header header .'
+        '. nav nav .'
+        '. main main .'
+        '. footer footer .';
+    }
+}
+
+@media (max-width: 668px){
+    body {
+        grid-template-rows: 60px 55px auto 35px;
+        grid-template-columns: 140px auto;
+        grid-template-areas:
+        'header header'
+        'nav nav'
+        'main main'
+        'footer footer';
+    }
+}
+
+main{
+    grid-area: main; 
+    padding-left: 10px; 
+    margin-top: 1em;
+}
+
+/* 검색 */
+main .search {
+    margin: 0 auto;
+    position: relative;
+    width: 80%;
+    margin-bottom: 10px;
+}
+main .search select{
+    position : absolute;
+    top: 1px;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    border-right-style: double;
+}
+main .search input {
+    width: 80%;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    border-left-style: double;
+    padding: 10px 12px;
+    font-size: 14px;
+    margin-left: 20%;
+}
+main .search button{
+    position : absolute;
+    width: 40px;
+    top: 2px;
+    right: 1px;
+    margin: 0;
+}
+
+main .main_context{
+    display: grid;
+    grid-template-rows: 300px auto;
+    grid-template-columns: 500px auto;
+    grid-template-areas:
+    'slider board'
+    '. .';
+}
+
+@media (max-width: 1020px){
+    main .main_context{
+        display: grid;
+        grid-template-rows: 450px 450px;
+        grid-template-columns: auto 750px auto;
+        grid-template-areas:
+        '. slider .'
+        '. board .';
+    }
+}
+
+/* 슬라이드 */
+main .slide{
+    grid-area: slider;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    user-select: none;
+}
+
+main .slide_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    transition: left 0.15s;
+}
+
+main .slide_tool{
+    position: absolute;
+    top: calc(100% - 32px);
+    right: 0px;
+    width: 60px;
+    height: 32px;
+    background-color: #F99417;
+}
+main .slide_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(100% - 32px);
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+main .slide_prev_button {
+    right: 25px;
+    background:url('../img/left.png') center center / 100% no-repeat;
+}
+main .slide_next_button{
+    right: 5px;
+    background:url('../img/right.png') center center / 100% no-repeat;
+}
+
+main .slide ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+main .slide li{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+main .slide_pagination{
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+main .slide_pagination > li {
+    color: #7fb5ff88;
+    cursor: pointer;
+    font-size: 25px;
+}
+main .slide_pagination > li.active{
+    color: #7fb5ff;
+}
+
+main .slide_item_duplicate{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 0px;
+    width: 100%;
+    height: 300px;
+    flex-shrink: 0;
+    transition: left 0.15s;
+}
+
+main .board{
+    background-color: rgba(135, 135, 135, 0.5);
+    grid-area: board;
+    margin: 10px;
+    margin-bottom: 0px;
+}
+
+@media (max-width: 1020px){
+    main .board{
+        margin: 0px;
+        margin-top: 10px;
+    }
+}
+
+main .board h3{
+    color: #F99417;
+    text-align: center;
+}
+
+main .quickmenu{
+    display: flex;
+    height: 150px;
+}
+
+main .quickmenu h2{
+    margin: 10px;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .quickmenu h5{
+    margin: 10px;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .quick{
+    height: 120px;
+    width: 120px;
+    margin: 15px auto;
+    border-style: outset;
+    border-radius: 25px 25px 25px 25px;
+    background-color: #F5F5F5;
+}
+
+main .quick img{
+    display: block;
+    margin: auto auto;
+    width: 90%;
+    height: 95%;
+}
+
+main .quick .long{
+    position: relative;
+    right: 14px;
+    width: 145px;
+}
+
+main .quick h6{
+    margin-top: 7px;
+    text-align: center;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+/*달력*/
+main .calender .lib{
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+main .calender .header {
+    display: flex;
+    font-size: 48px;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 12px;
+    margin: 12px 24px 12px 24px;
+    border-bottom: 2px solid #aaaaaa;
+}
+
+main .calender .select select{
+    border-radius: 4px;
+}
+
+main .calender .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+main .calender .prevBtn{
+    background:url('../img/left.png') center center / 100% no-repeat;
+    height: 96px;
+    width: 96px;
+    border:none;
+}
+
+main .calender .nextBtn{
+    background:url('../img/right.png') center center / 100% no-repeat;
+    height: 96px;
+    width: 96px;
+    border:none;
+}
+
+main .calender .main {
+    display: flex;
+    background-color:rgba(92, 113, 135, 0.5);
+    flex-direction: column;
+    margin: 12px 24px 0px 24px;
+}
+
+main .calender .days {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+main .calender .dates {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+main .calender .date, .day{
+    position: static;
+    z-index: 2;
+    text-align: center;
+    width: calc(100%/7);
+    padding: 16px 0 16px 0;
+    box-sizing: border-box;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .calender .date:nth-child(7n),
+main .calender .day:nth-child(7n) {
+    color: dodgerblue;
+}
+
+main .calender .date:nth-child(7n+1),
+main .calender .day:nth-child(7n+1) {
+    color: tomato;
+}
+
+main .calender .cloud {
+    filter:opacity(0%);
+}
+
+main .calender .holiday{
+    color: tomato !important;
+}
+
+main .calender .today {
+  border: 2px solid limegreen !important;
+  border-radius: 100%;
+}
+
+main .calender .image .break{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    z-index: 1;
+}
+
+main .blank{
+    margin: 10px;
+    border: #000000;
+    border-style: solid;
+    border-width: 0.5px;
+}
+
+/*책 리스트*/
+main .list_head .select{
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+main .list_title{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+main .list_title .list_click{
+    display: flex;
+}
+
+main .list_title .list_click a{
+    text-decoration: none;
+    list-style:none;
+    color:black;
+    background-color: white;
+    text-shadow: none;
+    margin-right: 5px;
+}
+
+main .list_title h4{
+    color: yellow;
+}
+
+main .booklist{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: white;
+    height: 400px;
+}
+
+main .booklist .card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    width: 480px;
+    height: 190px;
+    border: none;
+}
+
+main .booklist .card img{
+    margin: 0 auto;
+    width: 90px;
+    object-fit: contain;
+}
+
+main .booklist .card .card-body .card-text{
+    margin-bottom: 5px;
+}
+
+main .page{
+    background-color: white;
+}
+
+footer {
+    grid-area: footer;
+    text-align: center;
+    border-style: hidden;
+}
+
+footer img {
+    height: 35px;
+}
+
+/*테이블 메뉴*/
+footer .table_menu{
+    display: table;
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+}
+
+footer .table_menu table{
+    margin: 0 auto;
+}
+
+footer .table_menu table td{
+    padding: 10px;
+}
+
+footer .table_menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+}
+
+#fieldset_row {
+    background: #F5F5F5;
+    color: #000000;
+    display: table; 
+    width: 100%; 
+    padding: 1px;
+    border: 1px groove #000000;
+}
+
+#fieldset_row > form{
+    display: table-cell;
+    text-align: justify; 
+    float: right;
+}
+
+#div_row {
+    display: table-cell;
+    float: left;
+    max-width: 732px;
+}
+#div_row .http{
+    color: #000000;
+    text-decoration: none;
+}

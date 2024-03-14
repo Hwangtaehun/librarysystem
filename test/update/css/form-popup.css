@@ -67,24 +67,3 @@ main .list .card input{
     bottom: 15px;
     right: 15px;
 }
-
-footer {grid-area: footer; text-align: center; border-style: hidden;}
-footer img {height: 35px;}
-
-/*목록*/
-#fieldset_row {
-    display: table; 
-    width: 100%; 
-    padding: 1px;
-    border: 1px groove #000000;
-}
-#div_row {
-    display: table-cell;
-    float: left;
-    max-width: 732px;
-}
-#fieldset_row > form{
-    display: table-cell;
-    text-align: right; 
-    float: right;
-}

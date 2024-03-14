@@ -1,0 +1,248 @@
+body {
+    background-image : url('../img/background.gif');
+    background-size: 100% 100%;
+    color: #F5F5F5;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 60px 55px auto 35px;
+    grid-template-columns: 140px auto;
+    grid-template-areas:
+    'header header'
+    'nav nav'
+    'aside main'
+    'footer footer';
+}
+
+@media (min-width: 1025px){
+    body {
+        grid-template-columns: auto 140px 884px auto;
+        grid-template-areas:
+        '. header header .'
+        '. nav nav .'
+        '. aside main .'
+        '. footer footer .';
+    }
+}
+
+@media (max-width: 668px){
+    body {
+        grid-template-rows: 60px 55px auto 35px;
+        grid-template-columns: 140px auto;
+        grid-template-areas:
+        'header header'
+        'nav nav'
+        'main main'
+        'footer footer'
+        'aside aside';
+    }
+}
+
+header h1{
+    float: left;
+    color: #000000;
+}
+
+main{
+    grid-area: main; 
+    padding-left: 10px; 
+    margin-top: 0.5em; 
+}
+
+main .sel { 
+    margin-bottom: 10px; 
+}
+main .sel select {
+    height: 30px;
+}
+main .sel button{
+    position : absolute;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    background: white;
+}
+
+main .search {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+main .search select{
+    position : absolute;
+    top: 1px;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    border-right-style: double;
+}
+main .search .re{
+    position: relative;
+    margin-bottom: 5px;
+}
+main .search .lib {
+    margin-left: 20%;
+}
+main .search input {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    border-left-style: double;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+main .search button{
+    position : absolute;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background: #ffffff;
+}
+main .search #inbt{
+    right: 1px;
+}
+main .search .srbt{
+    width: 80px;
+}
+
+/*카드*/
+main .card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+main .card img{
+    margin: 0 auto;
+    width: 90px;
+    object-fit: contain;
+}
+main .card .card-body{
+    padding-top: 5px;
+}
+main .card .card-body .card-text{
+    margin-bottom: 5px;
+}
+
+/*수치 입력부분*/
+.number{
+    width: 50px;
+}
+
+/*파일업로드*/
+main input[type="file"] {
+    display: none;
+}
+main .lb {
+    background-color: #4D4C7D;
+    cursor: pointer;
+    padding-left: 22.5px;
+}
+.file_name{
+    width: 65%;
+}
+
+/*공지사항 내용입력 부분*/
+main .context {
+    width: 100%;
+    height: 300px;
+}
+
+/*readonly 배경 회색*/
+main input[readonly] {
+    background-color: #bbb;
+}
+
+aside{
+    grid-area: aside; 
+    float:left; 
+    position: sticky; 
+    top: 0; 
+    max-height: 180px; 
+    margin-top: 0.5em; 
+    z-index: 1;
+}
+aside menu{
+    margin: 0;
+    padding: 0;
+}
+aside h3 {
+    color: #000000; 
+    text-decoration: none; 
+    background: #F99417; 
+    width: 140px;
+}
+aside .dropdown-item {
+    color: #ffffff; 
+    text-decoration: none;
+}
+aside .dropdown-item:hover {
+    color: #F99417;
+}
+aside li {
+    line-height: 200%; 
+    display: table-row; 
+    text-align: center; 
+    font-size: 95%; 
+    background: #4D4C7D;
+}
+
+footer {
+    grid-area: footer; 
+    text-align: center; 
+    border-style: hidden;
+}
+
+footer img {
+    height: 35px;
+}
+
+/*테이블 메뉴*/
+footer .table_menu{
+    display: table;
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+}
+
+footer .table_menu table{
+    margin: 0 auto;
+}
+
+footer .table_menu table td{
+    padding: 10px;
+}
+
+footer .table_menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+
+/* 주소 */
+#id_add{
+    width: 30%;
+}
+#id_detail{
+    width: 40%;
+}
+
+/*목록*/
+#fieldset_row {
+    display: table; 
+    width: 100%; 
+    padding: 1px;
+    border: 1px groove #000000;
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+#fieldset_row > form{
+    display: table-cell;
+    text-align: right; 
+    float: right;
+}
+#div_row {
+    display: table-cell;
+    float: left;
+    max-width: 732px;
+}
