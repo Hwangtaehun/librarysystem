@@ -76,39 +76,38 @@
 <?php if($state == 1){?>
     <form action="/lib/addupdate" method="post" onSubmit="return checkInput(this)">
         <fieldset id = form_fieldset>
-        <h2><?=$title?></h2>
-        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
-            <ul>
-                <li><label for  = "id_name">이름</label>
-                    <input class="input" type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"></li>
-                <li><label for  = "id_date">설립일</label>
-                    <input type = "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"></li>
-                <li><label for  = "id_detail">주소</label>
-                    <input class="input" type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" placeholder="우편번호" readonly>
-                    <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
-                <li><label></label>
-                    <input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly></li>
-                <li><label></label>
-                    <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"></li>
-                <li><label>정기휴관일</label>
-                    <input type="radio" name="lib_close" id="id_sun" value="0"> 일요일
-                    <input type="radio" name="lib_close" id="id_mon" value="1"> 월요일
-                    <input type="radio" name="lib_close" id="id_tue" value="2"> 화요일
-                    <input type="radio" name="lib_close" id="id_wed" value="3"> 수요일
-                    <input type="radio" name="lib_close" id="id_thu" value="4"> 목요일
-                    <input type="radio" name="lib_close" id="id_fri" value="5"> 금요일
-                    <input type="radio" name="lib_close" id="id_sat" value="6"> 토요일
-                    <input type="radio" name="lib_close" id="id_null" value="7"> 없음</li>
-                <li><label>약도</label>
-                    <input class="input" type= "text" name="lib_url" id="id_url" value="<?php if(isset($row)){echo $row['lib_url'];}?>"></li>
-                <?php if(isset($row)){ if($row['lib_url'] != ''){?>
-                <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <?php }}?>
-            </ul>
-            <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
-            <div class="form_class">
-                <input type= "submit" value="<?=$title2 ?>">
-                <input type= "reset" value='지우기'>
+            <h2><?=$title?></h2>
+            <div class="form_text">
+                <ul>
+                    <li><label for  = "id_name">이름</label><br>
+                        <input class="input" type= "text" name="lib_name" id="id_name" value="<?php if(isset($row)){echo $row['lib_name'];}?>"></li>
+                    <li><label for  = "id_date">설립일</label><br>
+                        <input type = "date" name="lib_date" id="id_date" value="<?php if(isset($row)){echo $row['lib_date'];}?>"></li>
+                    <li><label for  = "id_detail">주소</label><br>
+                        <input class="input" type= "text" name="lib_zip" id="id_zip" value="<?php if(isset($row)){echo $row['lib_zip'];}else if(isset($zip)){echo $zip;}?>" placeholder="우편번호" readonly>
+                        <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
+                    <li><input class="input" type= "text" name="lib_add" id="id_add" value="<?php if(isset($row)){echo $row['lib_add'];}else if(isset($add)){echo $add;}?>" placeholder="주소" readonly>
+                        <input class="input" type= "text" name="lib_detail" id="id_detail" value="<?php if(isset($row)){echo $row['lib_detail'];}?>" placeholder="상세주소"></li>
+                    <li><label>정기휴관일</label><br>
+                        <input type="radio" name="lib_close" id="id_sun" value="0"> 일요일
+                        <input type="radio" name="lib_close" id="id_mon" value="1"> 월요일
+                        <input type="radio" name="lib_close" id="id_tue" value="2"> 화요일
+                        <input type="radio" name="lib_close" id="id_wed" value="3"> 수요일
+                        <input type="radio" name="lib_close" id="id_thu" value="4"> 목요일
+                        <input type="radio" name="lib_close" id="id_fri" value="5"> 금요일
+                        <input type="radio" name="lib_close" id="id_sat" value="6"> 토요일
+                        <input type="radio" name="lib_close" id="id_null" value="7"> 없음</li>
+                    <li><label>약도</label><br>
+                        <input class="input" type= "text" name="lib_url" id="id_url" value="<?php if(isset($row)){echo $row['lib_url'];}?>"></li>
+                    <?php if(isset($row)){ if($row['lib_url'] != ''){?>
+                    <iframe src="<?php echo $row['lib_url']; ?>" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <?php }}?>
+                    <input type="hidden" name="lib_no" value="<?php if(isset($row)){echo $row['lib_no'];}?>">
+                    <div class="form_bt">
+                        <input type= "submit" value="<?=$title2 ?>">
+                        <input type= "reset" value='지우기'>
+                    </div>
+                </ul>
             </div>
         </fieldset>
     </form>
@@ -206,7 +205,7 @@
 
     </script>
 <?php }else{ ?>
-    <fieldset id = form_fieldset>
+    <fieldset id="fieldset_not">
         <h2><?=$title?></h2>
             <ul>
                 <li><label for  = "id_name">기관명</label>

@@ -35,10 +35,9 @@
 </head>
 <body>
     <form action="/not/addupdate" method="post" onSubmit="return checkInput(this)" enctype="multipart/form-data">
-        <fieldset id = form_fieldset>
+        <fieldset id = fieldset_not>
         <?php if($state == 1){ ?>
         <h2><?=$title?></h2>
-        <fieldset>아래 내용을 <?= $title2 ?>하세요.</fieldset>
             <ul>
                 <li><label for  = "id_name">제목</label>
                     <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>"></li>

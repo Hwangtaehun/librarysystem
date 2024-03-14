@@ -98,23 +98,27 @@
             <form action="/member/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
                 <fieldset id = form_fieldset>
                 <h2>회원가입</h2>
-                    <div class="text">
+                    <div class="form_text">
                         <ul>
-                            <li><input class="input" type= "text" name="mem_name" id="id_name" value="" placeholder="이름"></li>
-                            <li><input class="input" type= "text" name="mem_id" id="id_id" value="" placeholder="아이디">
+                            <li><label for  = "id_name">이름</label><br>
+                                <input class="input" type= "text" name="mem_name" id="id_name" value=""></li>
+                            <li><label for  = "id_id">아이디</label><br>
+                                <input class="input" type= "text" name="mem_id" id="id_id" value="">
                                 <input type = "button" name="id_check" id="id_check" value="아이디 중복" onclick="checkid();"></li>
-                            <li><input class="input" type= "password" name="mem_pw" id="id_pw" value="" placeholder="비밀번호"></li>
-                            <li><input class="input" type= "password" name="mem_pw_check" id="id_pw_check" value="" placeholder="비밀번호 확인"></li>
-                            <li><label for  = "id_detail">주소</label></li>
-                            <li><input class="input" type= "text" name="mem_zip" id="id_zip" value="" placeholder="우편번호" readonly>
-                                    <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
-                            <li><input class="input" type= "text" name="mem_add" id="id_add" value="" placeholder="주소" readonly></li>
-                            <li><input class="input" type= "text" name="mem_detail" id="id_detail" value="" placeholder="상세주소"></li>
+                            <li><label for  = "id_pw">비밀번호</label><br>
+                                <input class="input" type= "password" name="mem_pw" id="id_pw" value=""></li>
+                            <li><label for  = "id_pw_check">비밀번호 확인</label><br>
+                                <input class="input" type= "password" name="mem_pw_check" id="id_pw_check" value=""></li>
+                            <li><label for  = "id_detail">주소</label><br>
+                                <input class="input" type= "text" name="mem_zip" id="id_zip" value="" placeholder="우편번호" readonly>
+                                <input type = "button" onclick="daumPostcode()" value="우편번호 찾기"></li>
+                            <li><input class="input" type= "text" name="mem_add" id="id_add" value="" placeholder="주소" readonly>
+                                <input class="input" type= "text" name="mem_detail" id="id_detail" value="" placeholder="상세주소"></li>
                             <input type="hidden" name="mem_no" value="">
-                            <div class="form_class">
+                            <div class="form_bt">
                                 <input type= "submit" value="등록">
                                 <input type= "reset" value='지우기'>
-                            </div> 
+                            </div>
                         </ul>
                     </div>
                 </fieldset>

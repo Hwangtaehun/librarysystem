@@ -83,6 +83,7 @@
         }
 ?>
         <div class="col">
+            <?php if(!$ispop && $state == 1) { ?>
             <div class="card" style="width: 16rem; height: 200px;">
                 <div class="card-body">
                 <h5 class="card-title">
@@ -93,6 +94,16 @@
                     주소: <?=htmlspecialchars($row['lib_add'],ENT_QUOTES,'UTF-8');?><br>
                     정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
                 </p>
+            <?php }else{ ?>
+                <div class="card" style="width: 16rem; height: 100px;">
+                <div class="card-body">
+                <h5 class="card-title">
+                    <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
+                </h5>
+                <p class="card-text">
+                    정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
+                </p>
+            <?php } ?>
                 <?php
                     if($ispop){
                         echo '<form>';
