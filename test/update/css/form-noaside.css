@@ -38,8 +38,6 @@ body {
 
 main{
     grid-area: main;
-    padding-left: 10px; 
-    margin-top: 0.5em;
 }
 main .sel { 
     margin-bottom: 10px; 
@@ -105,6 +103,7 @@ main .card {
 main .card img{
     margin: 0 auto;
     width: 90px;
+    height: calc(100%);
     object-fit: contain;
 }
 main .card .card-body{

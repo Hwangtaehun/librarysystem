@@ -1,0 +1,145 @@
+
+<!doctype html>
+<html lang = "en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, user-scalable=no" charset = "utf-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/form-root.css">
+        <title>공지사항 수정</title>
+    </head>
+        <body>
+        <header>
+                        <a href="/">
+                <img src="../img/header.gif" alt="">
+            </a>
+            <div class="link">
+            <a href="/member/login">로그인</a><a href="/member/addupdate">회원가입</a>            </div>
+                    </header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand"></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/lib/list">도서관</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
+            <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/form-noaside.css">    <script>
+        //필수 내용 확인하는 함수
+        function checkInput(myform) {
+            if(myform.id_name.value.length <= 0){
+                alert("제목을 입력하세요.");
+                myform.id_name.focus();
+                return false;
+            }
+            if(myform.id_detail.length <= 0){
+                alert("내용을 입력하세요.");
+                myform.id_detail.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form action="/not/addupdate" method="post" onSubmit="return checkInput(this)" enctype="multipart/form-data">
+        <fieldset id = fieldset_not>
+                    <h2>공지사항 내용</h2>
+            <ul>
+                <li><label for  = "id_name">제목</label>
+                    <input class="input" type= "text" name="not_name" id="id_name" value="환영합니다" readonly></li>
+                <li><label for  = "id_context">내용</label></li>
+                <li><a href="../img/not/1/det/내용이미지.png">
+                    <img src="../img/not/1/det/내용이미지.png" alt="" style="width:75%">
+                    </a></li>
+                <li><textarea class="context" name="not_detail" id="id_context" cols="30" rows="10" readonly>
+                    청주도서관에 오신걸 환영합니다.
+회원가입을 원하신다면 오른쪽 상단에 회원가입을 눌러주시거나 로그인 페이지에서 로그인 버튼 아래에 있는 회원가입 버튼을 눌러주세요.                    </textarea></li>
+            </ul>
+            <div class="form_class">
+                <input type="button" value="이전" onclick="javascript:history.back()">
+                <a href="/not/list"><input type="button" value="목록"></a>
+            </div>
+                </fieldset>
+    </form>
+    <script>
+        const cb_id = document.getElementById('flexCheckBan');
+        const cp_id = document.getElementById('flexCheckPop');
+        const bu_id = document.getElementById('id_ban');
+        const pu_id = document.getElementById('id_pop');
+        const px_id = document.getElementById('id_pop_x');
+        const py_id = document.getElementById('id_pop_y');
+        const pw_id = document.getElementById('id_pop_wid');
+        const ph_id = document.getElementById('id_pop_hei');
+        const tb_id = document.getElementById('file_ban');
+        const tp_id = document.getElementById('file_pop');
+
+    document.getElementById('file_det').value = '내용이미지.png';tb_id.value = '배너이미지.png';tp_id.value = '팝업이미지.png';            cb_id.checked = true;
+            bu_id.disabled = false;
+            tb_id.disabled = false;
+                cp_id.checked = true;
+            pu_id.disabled = false;
+            tp_id.disabled = false;
+            px_id.disabled = false;
+            py_id.disabled = false;
+            pw_id.disabled = false;
+            ph_id.disabled = false;
+            //배너 체크 활성화/비활성화
+        function ban_box(checkbox) {
+            bu_id.disabled = checkbox.checked ? false : true;
+            tb_id.disabled = checkbox.checked ? false : true;
+
+            if(bu_id.disabled) {
+                bu_id.value = null;
+                tb_id.value = null;
+            }else{
+                bu_id.focus();
+            }
+        }
+
+        //팝업 체크 활성화/비활성화
+        function pop_box(checkbox) {
+            pu_id.disabled = checkbox.checked ? false : true;
+            tp_id.disabled = checkbox.checked ? false : true;
+            px_id.disabled = checkbox.checked ? false : true;
+            py_id.disabled = checkbox.checked ? false : true;
+            pw_id.disabled = checkbox.checked ? false : true;
+            ph_id.disabled = checkbox.checked ? false : true;
+
+            if(pu_id.disabled) {
+                pu_id.value = null;
+                tp_id.value = null;
+                px_id.value = null;
+                py_id.value = null;
+                pw_id.value = null;
+                ph_id.value = null;
+            }else{
+                pu_id.focus();
+            }
+        }
+
+        // 파일 업로드 했을때 변경사항
+        // 내용 이미지
+        document.getElementById('id_det').addEventListener('change', function(e){
+            if(document.getElementById('id_det').value != ''){
+                document.getElementById('file_det').value = document.getElementById('id_det').value;
+            }
+        })
+
+        // 배너 이미지
+        bu_id.addEventListener('change', function(e){
+            if(bu_id.value != ''){
+                tb_id.value = bu_id.value;
+            }
+        })
+
+        // 팝업 이미지
+        pu_id.addEventListener('change', function(e){
+            if(pu_id.value != ''){
+                tp_id.value = pu_id.value;
+            }
+        })
+    </script>
+</body>
+</html>                    </main>
+        <footer>
+            <img src="../img/footer.gif" alt="">
+            <div class='table_menu'><table><tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/member/logalert">대출중도서</a></td><td><a href="/member/logalert">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">모든대출내역</a></td><td><a href="/member/logalert">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/member/logalert">상호대차내역</a></td><td></td></tr></table></div>        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

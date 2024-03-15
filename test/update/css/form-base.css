@@ -43,9 +43,7 @@ header h1{
 }
 
 main{
-    grid-area: main; 
-    padding-left: 10px; 
-    margin-top: 0.5em; 
+    grid-area: main;  
 }
 
 main .sel { 
@@ -115,14 +113,9 @@ main .card {
 }
 main .card img{
     margin: 0 auto;
-    width: 90px;
-    object-fit: contain;
-}
-main .card .card-body{
-    padding-top: 5px;
-}
-main .card .card-body .card-text{
-    margin-bottom: 5px;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /*수치 입력부분*/
