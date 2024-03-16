@@ -130,8 +130,28 @@
                         </ul>
                     </div>
                 </div>
+                <input type="checkbox" id="searchicon">
+                <label for="searchicon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </label>
         </nav>
-        <aside><menu><li><h3>자료</h3></li><li><a class='dropdown-item' href='/mat/addupdate'>자료추가</a></li><li><a class='dropdown-item' href='/mat/list'>자료관리</a></li></menu></aside>        <main>
+        <aside>
+            <div class="sidemenu">
+                <input type="checkbox" id="menuicon">
+                <label for="menuicon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <menu><li><h3>자료</h3></li><li><a class='dropdown-item' href='/mat/addupdate'>자료추가</a></li><li><a class='dropdown-item' href='/mat/list'>자료관리</a></li></menu>
+            </div>
+        </aside> 
+        <main>
 <head>
     <link rel="stylesheet" href="../css/form-base.css">    
     <script>
@@ -146,27 +166,29 @@
     </script>
 </head>
 <body>
-    <form action="/mat/research" method="post">
-        <div class="search">
-            <!-- <select id = "s1" name = "lib_research">
-                <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>            </select>
-            <input class="lib" type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
-            <button type="submit" class="btn btn-outline-secondary" id="inbt">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button> -->
-        </div>
-    </form>
+    <div class="dynamic_search">
+        <form action="/mat/research" method="post">
+            <div class="search">
+                <select id = "s1" name = "lib_research">
+                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>            </select>
+                <input class="lib" type="text" name="user_research" id="id_research" value = "" placeholder="검색어를 입력해주세요.">
+                <button type="submit" class="btn btn-outline-secondary" id="inbt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
     <div class="container text-center">
-            <div class="row row-cols-2">
+            <div class="row row-cols-auto">
                     <div class="col">
-                <div class="card" style="width: 27rem; height: 300px;">
+                <div class="card" style="width: 28rem; height: 300px;">
                     <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1653639%3Ftimestamp%3D20240130172551' class='card-img-top' alt='CentOS 리눅스 구축관리실무'>                    <div class="card-body">
                                                         <h5 class="card-title">CentOS 리눅스 구축관리실무</h5>
                             <p class="card-text">
-                            저자 정우영 | 출판사 수퍼유저코리아<br>
-                            발행년도 2016 | 소장기관 청주청원도서관<br>
+                            저자 정우영<br>출판사 수퍼유저코리아<br>
+                            발행년도 2016<br>소장기관 청주청원도서관<br>
                                                             청구기호 005-정66<br>
                                                             종류번호 005<br>
                                                             권차 0 | 복권 c.1<br>
@@ -181,12 +203,12 @@
                 </div>
             </div>
                 <div class="col">
-                <div class="card" style="width: 27rem; height: 300px;">
+                <div class="card" style="width: 28rem; height: 300px;">
                     <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F513452%3Ftimestamp%3D20240106155556' class='card-img-top' alt='설민석의 조선왕조실록'>                    <div class="card-body">
                                                         <h5 class="card-title">설민석의 조선왕조실록</h5>
                             <p class="card-text">
-                            저자 설민석 | 출판사 세계사<br>
-                            발행년도 2016 | 소장기관 청주청원도서관<br>
+                            저자 설민석<br>출판사 세계사<br>
+                            발행년도 2016<br>소장기관 청주청원도서관<br>
                                                             청구기호 911-설38<br>
                                                             종류번호 911<br>
                                                             권차 0 | 복권 c.1<br>
@@ -201,12 +223,12 @@
                 </div>
             </div>
                 <div class="col">
-                <div class="card" style="width: 27rem; height: 300px;">
+                <div class="card" style="width: 28rem; height: 300px;">
                     <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1153572%3Ftimestamp%3D20231223182255' class='card-img-top' alt='연금술사'>                    <div class="card-body">
                                                         <h5 class="card-title">연금술사</h5>
                             <p class="card-text">
-                            저자 파울로 코엘료 | 출판사 문학동네<br>
-                            발행년도 2018 | 소장기관 청주청원도서관<br>
+                            저자 파울로 코엘료<br>출판사 문학동네<br>
+                            발행년도 2018<br>소장기관 청주청원도서관<br>
                                                             청구기호 879-코64<br>
                                                             종류번호 879<br>
                                                             권차 0 | 복권 c.1<br>
@@ -221,12 +243,12 @@
                 </div>
             </div>
                 <div class="col">
-                <div class="card" style="width: 27rem; height: 300px;">
+                <div class="card" style="width: 28rem; height: 300px;">
                     <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3779501%3Ftimestamp%3D20231227154719' class='card-img-top' alt='이득우의 언리얼 C++ 게임 개발의 정석'>                    <div class="card-body">
                                                         <h5 class="card-title">이득우의 언리얼 C++ 게임 개발의 정석</h5>
                             <p class="card-text">
-                            저자 이득우 | 출판사 에이콘출판<br>
-                            발행년도 2018 | 소장기관 청주상당도서관<br>
+                            저자 이득우<br>출판사 에이콘출판<br>
+                            발행년도 2018<br>소장기관 청주상당도서관<br>
                                                             청구기호 005-이27<br>
                                                             종류번호 005<br>
                                                             권차 0 | 복권 c.1<br>
@@ -241,12 +263,12 @@
                 </div>
             </div>
                 <div class="col">
-                <div class="card" style="width: 27rem; height: 300px;">
+                <div class="card" style="width: 28rem; height: 300px;">
                     <img src='https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5848920%3Ftimestamp%3D20240104170327' class='card-img-top' alt='해리 포터: 마법같은 1년'>                    <div class="card-body">
                                                         <h5 class="card-title">해리 포터: 마법같은 1년</h5>
                             <p class="card-text">
-                            저자 조앤 K. 롤링 | 출판사 문학수첩리틀북<br>
-                            발행년도 2021 | 소장기관 청주흥덕도서관<br>
+                            저자 조앤 K. 롤링<br>출판사 문학수첩리틀북<br>
+                            발행년도 2021<br>소장기관 청주흥덕도서관<br>
                                                             청구기호 843-롤298<br>
                                                             종류번호 843<br>
                                                             권차 0 | 복권 c.1<br>
@@ -267,5 +289,6 @@
             <img src="../img/footer.gif" alt="">
             <div class='table_menu'><table><tr><th>공지사항</th> <th>책</th> <th>종류</th> <th>도서관</th> <th>자료</th> <th>대출</th> <th>상호대차</th> <th>기타</th></tr><tr><td><a href="/not/addupdate">공지사항추가</a></td><td><a href="/book/addupdate">책추가</a></td><td><a href="/kind/addupdate">종류추가</a></td><td><a href="/lib/addupdate">도서관추가</a></td><td><a href="/mat/addupdate">자료추가</a></td><td><a href="/len/addupdate">대출추가</a></td><td><a href="/del/aprelist">상호대차승인거절</a></td><td><a href="/member/list">회원관리</a></td></tr><tr><td><a href="/not/list">공지사항관리</a></td><td><a href="/book/list">책관리</a></td><td><a href="/kind/list">종류관리</a></td><td><a href="/lib/list">도서관관리</a></td><td><a href="/mat/list">자료관리</a></td><td><a href="/len/returnlist">반납추가</a></td><td><a href="/del/addlist">상호대차도착일추가</a></td><td><a href="/res/list">예약관리</a></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td><a href="/len/list">대출관리</a></td><td><a href="/del/completelist">상호대차완료내역</a></td><td><a href="/etc/duelist">연체관리</a></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td><a href="/etc/plalist">대출장소관리</a></td><td><a href="/del/list">상호대차관리</a></td></table></div>        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="../js/search.js"></script>
     </body>
 </html>
