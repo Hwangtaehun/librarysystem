@@ -1,11 +1,8 @@
 body {
-    background-image : url('../img/background.gif');
-    background-size: 100% 100%;
     color: #F5F5F5;
-    min-height: 100vh;
-    display: grid;
+    background-size: 100% 100%;
     grid-template-rows: 60px 55px auto 35px;
-    grid-template-columns: 60px auto;
+    grid-template-columns: 70px auto;
     grid-template-areas:
     'header header'
     'nav nav'
@@ -15,19 +12,19 @@ body {
 
 @media (min-width: 1025px){
     body {
-        grid-template-columns: auto 60px 964px auto;
+        grid-template-columns: auto 70px 954px auto;
         grid-template-areas:
         '. header header .'
         '. nav nav .'
         '. aside main .'
-        '. footer footer .';
+        'footer footer footer footer';
     }
 }
 
 @media (max-width: 668px){
     body {
         grid-template-rows: 60px 55px auto 35px;
-        grid-template-columns: 60px auto;
+        grid-template-columns: 70px auto;
         grid-template-areas:
         'header header'
         'nav nav'

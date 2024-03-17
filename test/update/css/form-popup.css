@@ -1,8 +1,5 @@
 body {
-    background-image : url('../img/pop_bg.jpg');
     color: #F5F5F5 !important;
-    min-height: 100vh;
-    display: grid;
     grid-template-rows: 25px auto 50px;
     grid-template-columns: auto;
     grid-template-areas:

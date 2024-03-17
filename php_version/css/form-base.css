@@ -1,9 +1,6 @@
 body {
-    background-image : url('../img/background.gif');
-    background-size: 100% 100%;
     color: #F5F5F5;
-    min-height: 100vh;
-    display: grid;
+    background-size: 100% 100%;
     grid-template-rows: 60px 55px auto 35px;
     grid-template-columns: 70px auto;
     grid-template-areas:
@@ -20,7 +17,7 @@ body {
         '. header header .'
         '. nav nav .'
         '. aside main .'
-        '. footer footer .';
+        'footer footer footer footer';
     }
 }
 

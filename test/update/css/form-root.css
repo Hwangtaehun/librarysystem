@@ -5,6 +5,12 @@
     --four: #4D4C7D;
 }
 
+body{
+    background-image : url('../img/background.png');
+    min-height: 100vh;
+    display: grid;
+}
+
 header{
     grid-area: header;
 }
@@ -102,8 +108,7 @@ main #fieldset_not input[readonly]{
 main .dynamic_search {
     padding: 5px;
     position: absolute;
-    top: -80px;
-    margin-left: 10px;
+    top: -110px;
     z-index: 2;
     background-color: var(--one);
     width: 100%;
@@ -190,6 +195,10 @@ main .dynamic_search {
 #div_row .http{
     color: #F5F5F5;
     text-decoration: none;
+}
+
+main .container > .row-cols-auto{
+    justify-content: space-between;
 }
 
 /*추가, 수정 페이지 디자인*/

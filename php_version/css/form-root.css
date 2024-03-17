@@ -5,6 +5,12 @@
     --four: #4D4C7D;
 }
 
+body{
+    background-image : url('../img/background.png');
+    min-height: 100vh;
+    display: grid;
+}
+
 header{
     grid-area: header;
 }
