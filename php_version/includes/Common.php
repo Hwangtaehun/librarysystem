@@ -30,7 +30,7 @@ class Common{
             }
             
             if($value == '없음'){           
-                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
+                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
                 if($sup_pg != 0){
                     $go_pg = $sup_pg - 1;
                     $outStr .= '<li class="page-item"> <a class="page-link" href="/'.$this->table.'/'.$this->func.'list?sup_pg='.$go_pg.'&page='.$m_page.$this->m_get.'" aria-label="Previous"> 
@@ -59,9 +59,9 @@ class Common{
                                 <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
-                $outStr .= '</ul> </ul> </div> </div>';
+                $outStr .= '</ul> </div> </div>';
             }else{
-                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center"> <ul class="pagination">';
+                $outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
                 if($sup_pg != 0){
                     $go_pg = $sup_pg - 1;
                     $outStr .= '<li class="page-item"> 
@@ -93,7 +93,7 @@ class Common{
                                 <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
-                $outStr .= '</ul> </ul> </div> </div>';
+                $outStr .= '</ul> </div> </div>';
             }
         }
         return $outStr;

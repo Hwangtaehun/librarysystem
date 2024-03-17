@@ -13,6 +13,7 @@ search_disabled(search_width);
 
 window.addEventListener("resize", function() {
     search_disabled(this.window.innerWidth);
+    size_pagination(this.window.innerWidth);
 })
 
 search_bt.addEventListener("change", function (e) {
@@ -52,5 +53,14 @@ function search_disabled(width) {
             id.remove();
         }
         bs_create = false;
+    }
+}
+
+function size_pagination(width) {
+    var pa = document.querySelector(".pagination");
+    if(width > 991){
+        pa.className = 'pagination justify-content-center';
+    }else{
+        pa.className = 'pagination justify-content-center pagination-sm';
     }
 }
