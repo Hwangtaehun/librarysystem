@@ -43,7 +43,7 @@
 
         if($state != 1){
             if($title ==  '회원 수정'){
-                $menu = '마이페이지';
+                $menu = '내정보수정';
             }
         }else{
             if($menu == '회원'){
@@ -109,24 +109,24 @@
             $menus['내서재'][1][0] = '모든대출내역';
             $menus['내서재'][2][0] = '예약내역';
             $menus['내서재'][3][0] = '상호대차내역';
-            $menus['마이페이지'][0][0] = '회원정보수정';
-            $menus['마이페이지'][1][0] = '회원탈퇴';
+            $menus['내정보수정'][0][0] = '회원정보수정';
+            $menus['내정보수정'][1][0] = '회원탈퇴';
             if(isset($_SESSION['mem_no'])){
                 $mem_no = $_SESSION['mem_no'];
                 $menus['내서재'][0][1] = '/len/memlist';                
                 $menus['내서재'][1][1] = '/len/memAlllist';                
                 $menus['내서재'][2][1] = '/res/list';                
                 $menus['내서재'][3][1] = '/del/list';                
-                $menus['마이페이지'][0][1] = '/member/addupdate?mem_no='.$mem_no;               
-                $menus['마이페이지'][1][1] = '/member/memdel?mem_no='.$mem_no;
+                $menus['내정보수정'][0][1] = '/member/addupdate?mem_no='.$mem_no;               
+                $menus['내정보수정'][1][1] = '/member/memdel?mem_no='.$mem_no;
             }
             else{
                 $menus['내서재'][0][1] = '/member/logalert';                
                 $menus['내서재'][1][1] = '/member/logalert';                
                 $menus['내서재'][2][1] = '/member/logalert';               
                 $menus['내서재'][3][1] = '/member/logalert';                
-                $menus['마이페이지'][0][1] = '/member/logalert';               
-                $menus['마이페이지'][1][1] = '/member/logalert';
+                $menus['내정보수정'][0][1] = '/member/logalert';               
+                $menus['내정보수정'][1][1] = '/member/logalert';
             }
         }
     }
@@ -140,13 +140,33 @@
             <div class="link">
             <?php
             if(!isset($_SESSION['mem_state'])){
-                echo '<a href="/member/login">로그인</a>';
-                echo '<a href="/member/addupdate">회원가입</a>';
-            }
-            else{
+            ?>
+                <button id="login_hbt" onclick="location.href='/member/login'"></button>
+                <label for="login_hbt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                </label>
+                <button id="register_hbt" onclick="location.href='/member/addupdate'"></button>   
+                <label for="register_hbt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                    </svg>
+                </label>
+            <?php
+            }else{
                 $name = $_SESSION['mem_name'];
                 echo '<a>'.$name.'님 환영합니다.</a>';
-                echo '<a href="/member/logout">로그아웃</a>';
+            ?>
+                <button id="logout_hbt" onclick="location.href='/member/logout'"></button>   
+                <label for="logout_hbt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                </label>
+            <?php
             }
             ?>
             </div>
@@ -216,9 +236,9 @@
                             $script = makehtml('내서재', $menus);
                             echo $script;
                             echo '</ul></li>';
-                            echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>';
+                            echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내정보수정</a>';
                             echo '<ul class="dropdown-menu">';
-                            $script = makehtml('마이페이지', $menus);
+                            $script = makehtml('내정보수정', $menus);
                             echo $script;
                             echo '</ul></li>';
                         }
@@ -232,23 +252,24 @@
                 if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && 
                    $title != '회원가입' && $title != '공지사항 현황' && $title != '공지사항 수정' && $title != '도서관 정보'){
 
-                    if($menu != '마이페이지'){
+                    if($menu != '내정보수정'){
                         $menu = '내서재';
                     }
 
-                    echo "<aside><menu><li><h3>$menu</h3></li>";
+                    echo "<aside><div class='sidemenu'><input type='checkbox' id='menuicon'><label for='menuicon'>";
+                    echo "<span></span><span></span><span></span></label><menu><li><h3>$menu</h3></li>";
                     $script = makehtml($menu, $menus);
                     echo $script;    
-                    echo "</menu></aside>";
+                    echo "</menu></div></aside>";
                 }
             }
             else{
                 if($title != '도서관 관리'){
-                    echo "";
-                    echo "<aside><menu><li><h3>$menu</h3></li>";
+                    echo "<aside><div class='sidemenu'><input type='checkbox' id='menuicon'><label for='menuicon'>";
+                    echo "<span></span><span></span><span></span></label><menu><li><h3>$menu</h3></li>";
                     $script = makehtml($menu, $menus);
                     echo $script;    
-                    echo "</menu></aside>";
+                    echo "</menu></div></aside>";
                 }
             }
         } 
@@ -280,9 +301,9 @@
                     $num = 3;
                     echo '<tr><td></td><td></td><td></td><td></td><td></td><td><a href="'.$menus['대출'][$num][1].'">'.$menus['대출'][$num][0].'</a></td><td><a href="'.$menus['상호대차'][$num][1].'">'.$menus['상호대차'][$num][0].'</a></td>';
                 }else{
-                    echo "<tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr>";
-                    echo '<tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="'.$menus['내서재'][0][1].'">'.$menus['내서재'][0][0].'</a></td><td><a href="'.$menus['마이페이지'][0][1].'">'.$menus['마이페이지'][0][0].'</a></td></tr>';
-                    echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][1][1].'">'.$menus['내서재'][1][0].'</a></td><td><a href="'.$menus['마이페이지'][1][1].'">'.$menus['마이페이지'][1][0].'</a></td></tr>';
+                    echo "<tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>내정보수정</th></tr>";
+                    echo '<tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="'.$menus['내서재'][0][1].'">'.$menus['내서재'][0][0].'</a></td><td><a href="'.$menus['내정보수정'][0][1].'">'.$menus['내정보수정'][0][0].'</a></td></tr>';
+                    echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][1][1].'">'.$menus['내서재'][1][0].'</a></td><td><a href="'.$menus['내정보수정'][1][1].'">'.$menus['내정보수정'][1][0].'</a></td></tr>';
                     echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][2][1].'">'.$menus['내서재'][2][0].'</a></td><td></td></tr>';
                     echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][3][1].'">'.$menus['내서재'][3][0].'</a></td><td></td></tr>';
                 }

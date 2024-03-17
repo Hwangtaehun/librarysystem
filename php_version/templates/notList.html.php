@@ -28,16 +28,18 @@
     </script>
 </head>
 <body>
-    <form action="/not/research" method="post" onsubmit="return checkResearch(this)">
-        <div class="search">
-            <input type="text" name="user_research" id="id_research" value = "" placeholder="제목을 입력하세요.">
-            <button type="submit" class="btn btn-outline-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
-        </div>
-    </form>
+    <div class="dynamic_search">
+        <form action="/not/research" method="post" onsubmit="return checkResearch(this)">
+            <div class="search">
+                <input type="text" name="user_research" id="id_research" value = "" placeholder="제목을 입력하세요.">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
     <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">
         <?php if($state == 1){ ?>
@@ -76,4 +78,5 @@
         <?php } ?>
     </fieldset>
     <?php endforeach; }?>
+    <script src="../js/search.js"></script>
 </body>

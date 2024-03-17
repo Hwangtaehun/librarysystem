@@ -5,7 +5,7 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 55px auto 35px;
-    grid-template-columns: 140px auto;
+    grid-template-columns: 70px auto;
     grid-template-areas:
     'header header'
     'nav nav'
@@ -15,7 +15,7 @@ body {
 
 @media (min-width: 1025px){
     body {
-        grid-template-columns: auto 140px 884px auto;
+        grid-template-columns: auto 70px 954px auto;
         grid-template-areas:
         '. header header .'
         '. nav nav .'
@@ -27,7 +27,7 @@ body {
 @media (max-width: 668px){
     body {
         grid-template-rows: 60px 55px auto 35px;
-        grid-template-columns: 140px auto;
+        grid-template-columns: 70px auto;
         grid-template-areas:
         'header header'
         'nav nav'
@@ -43,67 +43,15 @@ header h1{
 }
 
 main{
-    grid-area: main; 
-    padding-left: 10px; 
-    margin-top: 0.5em; 
+    grid-area: main;  
 }
-
-main .sel { 
-    margin-bottom: 10px; 
+main .dynamic_search {
+    width: calc(100% - 70px);
 }
-main .sel select {
-    height: 30px;
-}
-main .sel button{
-    position : absolute;
-    width: 30px;
-    height: 30px;
-    margin: 0;
-    background: white;
-}
-
-main .search {
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
-    margin-bottom: 10px;
-}
-main .search select{
-    position : absolute;
-    top: 1px;
-    width: 20%;
-    height: 40px;
-    border-radius: 8px;
-    border-right-style: double;
-}
-main .search .re{
-    position: relative;
-    margin-bottom: 5px;
-}
-main .search .lib {
-    margin-left: 20%;
-}
-main .search input {
-    width: 80%;
-    height: 40px;
-    border: 1px solid #bbb;
-    border-radius: 8px;
-    border-left-style: double;
-    padding: 10px 12px;
-    font-size: 14px;
-}
-main .search button{
-    position : absolute;
-    width: 40px;
-    height: 40px;
-    margin: 0;
-    background: #ffffff;
-}
-main .search #inbt{
-    right: 1px;
-}
-main .search .srbt{
-    width: 80px;
+@media (min-width: 1024px){
+    main .dynamic_search {
+        width: 954px;
+    }
 }
 
 /*카드*/
@@ -111,18 +59,13 @@ main .card {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10px;
+    margin-top: 0.5rem;
 }
 main .card img{
     margin: 0 auto;
-    width: 90px;
-    object-fit: contain;
-}
-main .card .card-body{
-    padding-top: 5px;
-}
-main .card .card-body .card-text{
-    margin-bottom: 5px;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /*수치 입력부분*/
@@ -152,15 +95,63 @@ main .context {
 aside{
     grid-area: aside; 
     float:left; 
-    position: sticky; 
     top: 0; 
     max-height: 180px; 
     margin-top: 0.5em; 
     z-index: 1;
 }
+aside .sidemenu{
+    position: fixed;
+}
+aside #menuicon{
+    display: none;
+}
+aside #menuicon + label {
+    display: block;
+    width: 60px;
+    height: 40px;
+    margin: 5px;
+    position: relative;
+    cursor: pointer;
+}
+aside #menuicon + label span{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    border-radius: 30px;
+    background: var(--one);
+    transition: all .35s;
+}
+aside #menuicon + label span:nth-child(1){
+    top: 0;
+}
+aside #menuicon + label span:nth-child(2){
+    top: 50%;
+    transform: translateY(-50%);
+}
+aside #menuicon + label span:nth-child(3){
+    bottom: 0;
+}
+aside #menuicon:checked + label span:nth-child(1){
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+aside #menuicon:checked + label span:nth-child(2){
+    opacity: 0;
+}
+aside #menuicon:checked + label span:nth-child(3){
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
 aside menu{
-    margin: 0;
+    opacity: 0;
+}
+aside #menuicon:checked + label + menu{
     padding: 0;
+    margin: 0;
+    opacity: 100;
+    transition: all .35s;
 }
 aside h3 {
     color: #000000; 

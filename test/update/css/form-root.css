@@ -15,13 +15,19 @@ header a img{
 header .link {
     float:right;
     margin-top: 15px;
-    text-decoration: none;
-    list-style:none;
+    text-decoration-line: none;
 }
-header .link a{
+header .link button{
+    display: none;
+}
+header .link label{
     margin: 5px;
     font-size: 95%;
-    color: #f91717;
+    cursor: pointer;
+    color: var(--one);
+}
+header .link a{
+    text-align: center;
 }
 
 nav{

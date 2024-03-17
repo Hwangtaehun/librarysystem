@@ -95,47 +95,49 @@
     $mem_state = $_SESSION['mem_state'];
 ?>
 <body>
-    <?php if($mem_state != 1){ ?>
-    <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
-        <div class="search">
-            <input type="text" name="user_research" id="id_research" value = "" placeholder="책제목을 입력해주세요.">
-            <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
-            <button type="submit" class="btn btn-outline-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
-        </div>
-    <?php }else{ ?>
-    <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
-        <div class="sel">
-            <select id = "s1" name = "opt_type" onchange="changeSelect()">
-                <option value=0>전체</option>
-                <option value=1>회원id</option>
-                <option value=2>자료이름</option>
-            </select>
-            <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();">
-            <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();">
-        </div>
-        <div class="search">
-            <input type="text" name="user_research" id="id_research" value = "" readonly>
-            <input type="hidden" id="id_mem"   name="mem_no" value="">
-            <input type="hidden" id="id_mat"   name="mat_no" value="">
-            <input type="hidden" id="id_title" name="title"  value="<?=$title?>">
-            <button type="submit" class="btn btn-outline-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
-        </div>
-    <?php } ?>
-    </form>
+<?php if(!$ispop){ ?>
+    <div class="dynamic_search">
+<?php } ?>
+        <?php if($mem_state != 1){ ?>
+        <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+            <div class="search">
+                <input type="text" name="user_research" id="id_research" value = "" placeholder="책제목을 입력해주세요.">
+                <input type="hidden" id="id_title" name="title" value= "<?=$title?>">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        <?php }else{ ?>
+        <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+            <div class="sel">
+                <select id = "s1" name = "opt_type" onchange="changeSelect()">
+                    <option value=0>전체</option>
+                    <option value=1>회원id</option>
+                    <option value=2>자료이름</option>
+                </select>
+                <input type="button" id="ie_research" value="회원찾기" onclick="checkmem();">
+                <input type="button" id="ia_research" value="자료찾기" onclick="checkmat();">
+            </div>
+            <div class="search">
+                <input type="text" name="user_research" id="id_research" value = "" readonly>
+                <input type="hidden" id="id_mem"   name="mem_no" value="">
+                <input type="hidden" id="id_mat"   name="mat_no" value="">
+                <input type="hidden" id="id_title" name="title"  value="<?=$title?>">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        <?php } ?>
+        </form>
+<?php if(!$ispop){ ?>
+    </div>
+<?php } ?>
     <div class="container text-center">
-    <?php if($ispop){ ?>
-        <div class="row">
-    <?php }else{ ?>
-        <div class="row row-cols-3">
-    <?php }?>
+        <div class="row row-cols-auto">
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
                 <div class="card" style="width: 16rem; height: 320px;">
@@ -255,4 +257,5 @@
     <?php endforeach; }?>
         </div>
     </div>
+    <script src="../js/search.js"></script>
 </body>
