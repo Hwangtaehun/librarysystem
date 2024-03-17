@@ -56,6 +56,21 @@ class LibController extends Common{
 
         $pagi = $this->makePage($this->libTable, $total_cnt, $where, true);
         $result = $this->getResult();
+
+        if($title == '도서관 정보'){
+            $lib_no = 1;
+            if(isset($_GET['no'])){
+                $lib_no = $_GET['no'];
+            }
+
+            foreach($result as $row){
+                if($row['lib_no'] == $lib_no){
+                    $map[0] = $row['lib_name'];
+                    $map[1] = $row['lib_url'];
+                    return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi,'map'=>$map];
+                }
+            }
+        }
         
         return ['tempName'=>'libList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }

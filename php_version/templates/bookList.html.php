@@ -45,7 +45,7 @@
         <div class="row row-cols-auto">
     <?php if(isset($result)){foreach($result as $row): ?>
             <div class="col">
-                <div class="card" style="width: 28rem; height: 200px;">
+                <div class="card" style="width: 28rem; height: 210px;">
                     <?php
                     if($row['book_url'] != ''){
                         $bu = $row['book_url'];

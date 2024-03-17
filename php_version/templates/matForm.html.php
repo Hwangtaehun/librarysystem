@@ -28,7 +28,7 @@
         //책 팝업창 띄우는 함수
         function checkbook() {
             url = "/mat/bookpop";
-            window.open(url,"chkbk","width=310,height=445");
+            window.open(url,"chkbk","width=484,height=445");
         }
 
         //팝업창에 받은 내용 입력
@@ -79,43 +79,45 @@
                     <li><label for  = "ib_check">책이름</label><br>
                         <input class="input" type= "text" name="book_name" id="ib_name" value="<?php if(isset($row)){echo $row['book_name'];}?>" readonly>
                         <input type = "button" name="book_check" id="ib_check" value="책 찾기" onclick="checkbook();"></li>
-                    <li><label>종류번호</label></li>
-                    <li><label for  = "s1">대분류</label>
-                        <select id  = "s1" name = "super" onchange='superChange(this)'>
+                    <div id="avehi">
+                        <li><label>종류번호</label></li>
+                        <li><label for  = "s1">대분류</label>
+                            <select id  = "s1" name = "super" onchange='superChange(this)'>
+                                <?php
+                                for ($z=0; $z < sizeof($super); $z++) { 
+                                    $no[$z] = $super[$z][0];
+                                    $name[$z] = $super[$z][1];
+                                }
+                                for ($z=0; $z < sizeof($super); $z++) { 
+                                    echo "<option value = $no[$z] > $name[$z] </option>";
+                                }
+                                ?>
+                            </select></li>
+                        <li><label for = "s2">중분류</label>
+                            <select id = "s2" name = "base" onchange='baseChange(this)'>
                             <?php
-                            for ($z=0; $z < sizeof($super); $z++) { 
-                                $no[$z] = $super[$z][0];
-                                $name[$z] = $super[$z][1];
+                            for ($z=0; $z < sizeof($base); $z++) { 
+                                $no[$z] = $base[$z][0];
+                                $name[$z] = $base[$z][1];
                             }
-                            for ($z=0; $z < sizeof($super); $z++) { 
+                            for ($z=0; $z < sizeof($base); $z++) { 
                                 echo "<option value = $no[$z] > $name[$z] </option>";
                             }
                             ?>
-                        </select></li>
-                    <li><label for = "s2">중분류</label>
-                        <select id = "s2" name = "base" onchange='baseChange(this)'>
-                        <?php
-                        for ($z=0; $z < sizeof($base); $z++) { 
-                            $no[$z] = $base[$z][0];
-                            $name[$z] = $base[$z][1];
-                        }
-                        for ($z=0; $z < sizeof($base); $z++) { 
-                            echo "<option value = $no[$z] > $name[$z] </option>";
-                        }
-                        ?>
-                        </select></li>
-                    <li><label for = "s3">소분류</label>
-                        <select id = "s3" name = "kind_no">
-                        <?php
-                        for ($z=0; $z < sizeof($sub); $z++) { 
-                            $no[$z] = $sub[$z][0];
-                            $name[$z] = $sub[$z][1];
-                        }
-                        for ($z=0; $z < sizeof($sub); $z++) { 
-                            echo "<option value = $no[$z] > $name[$z] </option>";
-                        }
-                        ?>
-                        </select></li>
+                            </select></li>
+                        <li><label for = "s3">소분류</label>
+                            <select id = "s3" name = "kind_no">
+                            <?php
+                            for ($z=0; $z < sizeof($sub); $z++) { 
+                                $no[$z] = $sub[$z][0];
+                                $name[$z] = $sub[$z][1];
+                            }
+                            for ($z=0; $z < sizeof($sub); $z++) { 
+                                echo "<option value = $no[$z] > $name[$z] </option>";
+                            }
+                            ?>
+                            </select></li>
+                    </div>
                     <li><label for  = "mi_many">권차</label><br>
                         <input class="input" type= "text" name="mat_many" id="mi_many" value="<?php if(isset($row)){echo $row['mat_many'];}?>"></li>
                     <input type ="hidden" name="mat_no" value="<?php if(isset($row)){echo $row['mat_no'];}?>">

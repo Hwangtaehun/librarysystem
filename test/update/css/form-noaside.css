@@ -42,6 +42,10 @@ main{
     }
 }
 
+main .libmap h2{
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+
 /*카드*/
 main .card {
     display: flex;

@@ -35,6 +35,7 @@
         }
     </script>
 </head>
+<body>
 <?php if(!$ispop){ ?>
     <div class="dynamic_search">
 <?php } ?>
@@ -51,84 +52,98 @@
 <?php if(!$ispop){ ?>
     </div>
 <?php } ?>
-<div class="container text-center">
-    <div class="row row-cols-auto">
-<?php if(isset($result)){foreach($result as $row): 
-        if(isset($row['lib_close'])){
-            $close = '없음';
-            switch ($row['lib_close']) {
-                case 0:
-                    $close = '일요일';
-                    break;
-                case 1:
-                    $close = '월요일';
-                    break;
-                case 2:
-                    $close = '화요일';
-                    break;
-                case 3:
-                    $close = '수요일';
-                    break;
-                case 4:
-                    $close = '목요일';
-                    break;  
-                case 5:
-                    $close = '금요일';
-                    break;
-                case 6:
-                    $close = '월요일';
-                    break;
-                default:
-                    $close = '연중무휴';
-                    break;
+<?php if(!$ispop && $state != 1) { ?>
+    <div class="libmap">
+        <h2><?=$map[0]?></h2>
+        <iframe src="<?=$map[1]?>" width="1024" height="384" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+<?php } ?>
+    <div class="container text-center">
+        <div class="row row-cols-auto">
+    <?php if(isset($result)){foreach($result as $row): 
+            if(isset($row['lib_close'])){
+                $close = '없음';
+                switch ($row['lib_close']) {
+                    case 0:
+                        $close = '일요일';
+                        break;
+                    case 1:
+                        $close = '월요일';
+                        break;
+                    case 2:
+                        $close = '화요일';
+                        break;
+                    case 3:
+                        $close = '수요일';
+                        break;
+                    case 4:
+                        $close = '목요일';
+                        break;  
+                    case 5:
+                        $close = '금요일';
+                        break;
+                    case 6:
+                        $close = '월요일';
+                        break;
+                    default:
+                        $close = '연중무휴';
+                        break;
+                }
             }
-        }
-?>
-        <div class="col">
-            <?php if(!$ispop && $state == 1) { ?>
-            <div class="card" style="width: 16rem; height: 200px;">
-                <div class="card-body">
-                <h5 class="card-title">
-                    <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
-                </h5>
-                <p class="card-text">
-                    설립일: <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?><br>
-                    주소: <?=htmlspecialchars($row['lib_add'],ENT_QUOTES,'UTF-8');?><br>
-                    정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
-                </p>
-            <?php }else{ ?>
-                <div class="card" style="width: 16rem; height: 100px;">
-                <div class="card-body">
-                <h5 class="card-title">
-                    <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
-                </h5>
-                <p class="card-text">
-                    정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
-                </p>
-            <?php } ?>
-                <?php
-                    if($ispop){
-                        echo '<form>';
-                        $name = "'".$row['lib_name']."'";
-                        $no = "'".$row['lib_no']."'";
-                        echo '<input type=button value="선택" onclick="opener.parent.libValue('.$name.', '.$no.'); window.close();">';
-                    }
-                    else{ if($state == 1){
-                ?>
-                    <form action="/lib/delete" method="post">
-                            <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
-                            <input type="submit" value="삭제">
-                            <a href="/lib/addupdate?lib_no=<?=$row['lib_no']?>"><input type="button" value="수정"></a>
+    ?>
+            <div class="col">
+                <?php if(!$ispop && $state != 1) { 
+                    $no = $row['lib_no'];
+                    echo "<a id='hreflink' href='/lib/list?no=$no'>";
+                }?>
+                <?php if(!$ispop && $state == 1) { ?>
+                <div class="card" style="width: 16rem; height: 200px;">
+                    <div class="card-body">
+                    <h5 class="card-title">
+                        <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
+                    </h5>
+                    <p class="card-text">
+                        설립일: <?=htmlspecialchars($row['lib_date'],ENT_QUOTES,'UTF-8');?><br>
+                        주소: <?=htmlspecialchars($row['lib_add'],ENT_QUOTES,'UTF-8');?><br>
+                        정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
+                    </p>
                 <?php }else{ ?>
-                    <form action="/lib/detail" method="post">
-                            <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
-                            <input type="submit" value="상세 정보">
-                <?php }} ?>
-                    </form>
+                    <div class="card" style="width: 12rem; height: 100px;">
+                    <div class="card-body">
+                    <h5 class="card-title">
+                        <?=htmlspecialchars($row['lib_name'],ENT_QUOTES,'UTF-8');?>
+                    </h5>
+                    <p class="card-text">
+                        정기휴관일: <?=htmlspecialchars($close,ENT_QUOTES,'UTF-8');?><br>
+                    </p>
+                <?php } ?>
+                    <?php
+                        if($ispop){
+                            echo '<form>';
+                            $name = "'".$row['lib_name']."'";
+                            $no = "'".$row['lib_no']."'";
+                            echo '<input type=button value="선택" onclick="opener.parent.libValue('.$name.', '.$no.'); window.close();">';
+                        }
+                        else{ if($state == 1){
+                    ?>
+                        <form action="/lib/delete" method="post">
+                                <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
+                                <input type="submit" value="삭제">
+                                <a href="/lib/addupdate?lib_no=<?=$row['lib_no']?>"><input type="button" value="수정"></a>
+                    <?php }else{ ?>
+                        <form action="/lib/detail" method="post">
+                                <input type="hidden" name="lib_no" value="<?=$row['lib_no']?>">
+                                <input type="submit" value="상세 정보">
+                    <?php }} ?>
+                        </form>
+                    </div>
                 </div>
             </div>
+    <?php endforeach; }?>
         </div>
-<?php endforeach; }?>
+        <?php if(!$ispop && $state != 1) { 
+            echo '</a>';
+        }?>
     </div>
-</div>
-<script src="../js/search.js"></script>
+    <script src="../js/search.js"></script>
+</body>

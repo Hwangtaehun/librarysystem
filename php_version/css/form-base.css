@@ -51,6 +51,14 @@ main .dynamic_search {
     }
 }
 
+/*종류번호 간격*/
+main #avehi li{
+    height: auto;
+}
+main #avehi{
+    margin-bottom: 5px;
+}
+
 /*카드*/
 main .card {
     display: flex;
