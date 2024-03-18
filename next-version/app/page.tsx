@@ -1,4 +1,4 @@
-import PDO from "../components/Dbconnect"
+import PDO from "../components/includes/Dbconnect"
 
 export default async function Index(){
     const sql = 'select * from book'

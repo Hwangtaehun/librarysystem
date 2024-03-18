@@ -1,7 +1,7 @@
 import PDO from "./Dbconnect";
 
 class Automatic {
-    private today: Date = new Date("Y-m-d");
+    private today: Date;
 	
 	public __construct() {
 		this.today = new Date("Y-m-d");
@@ -11,12 +11,12 @@ class Automatic {
 	}
 
     //반납일 예정일 만드는 함수
-	private estimateReturndate(lentdate: Date , extend: number): Date {
+	protected estimateReturndate(lentdate: Date , extend: number): Date {
 		var period: number = 15;
 
 		period += extend;
 		var date: Date;
-        date.setDate(this.today.getDate() + period);
+        date.setDate(lentdate.getDate() + period);
 
 		return date;
 	}
@@ -63,64 +63,66 @@ class Automatic {
 	//연체 해제 함수
 	private clearmember() {
 		//연체 해제일 지났을때
-		$sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp <= '$this->str_today'";
-		$result = $this->pdo->query($sql);
-		$result->setFetchMode(PDO::FETCH_NUM);//null값 때문에 사용
-		$num = $result->rowCount();
+		var str_today: string = this.today.getFullYear() + "-" + this.today.getMonth() + 1 + "-" + this.today.getDate();
+		var sql: string = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp <= '" + str_today +"'";
+		var data = PDO(sql, '');
+        var result: Array<string> = JSON.parse(JSON.stringify(data));
+		var num: Number = result.length;
 
-		if($num != 0) {
-			try {
-				$num = 0;
+		if(num != 0) {
+			var mem_no: Array<Number> = [];
+			var due_no: Array<Number> = [];
+			var cnt = 0;
+
 				//해제할 회원과 연체 테이블 배열로 저장
-				while($row = $result->fetchObject()) {
-					$mem_no[$num] = $row->mem_no;
-					$due_no[$num] = $row->due_no;
-					$num++;
-				}
+			result.forEach(function (row) {
+				mem_no[cnt] = row['mem_no'];
+				due_no[cnt] = row['due_no'];
+				cnt++;
+			})
 				
 				//회원을 상태를 0으로 바꾸고 연체 테이블 삭제
-				for($i = 0; $i < $num; $i++) {
-					$sql = "UPDATE member SET mem_state = 0 WHERE mem_no = $mem_no[$i]";
-					$this->pdo->exec($sql);
-					$sql = "DELETE FROM overdue WHERE due_no = $due_no[$i]";
-					$this->pdo->exec($sql);
-					$sql= "SELECT * FROM overdue, lent WHERE overdue.len_no = lent.len_no AND lent.mem_no = $mem_no[$i]";
-					$stmt = $this->pdo->query($sql);
-					$count = $stmt->rowCount();
-					if($count != 0){
-						$sql = "UPDATE member SET mem_state = 2 WHERE mem_no = $mem_no[$i]";
-						$this->pdo->exec($sql);
+				for(let i = 0; i < cnt; i++) {
+					sql = "UPDATE member SET mem_state = 0 WHERE mem_no = " + mem_no[i];
+					PDO(sql, '');
+					sql = "DELETE FROM overdue WHERE due_no = " + due_no[i];
+					PDO(sql, '');
+					sql= "SELECT * FROM overdue, lent WHERE overdue.len_no = lent.len_no AND lent.mem_no = " + mem_no[i];
+					let data = PDO(sql, '');
+					result = JSON.parse(JSON.stringify(data));
+					let count = result.length;
+
+					if(count != 0){
+						sql = "UPDATE member SET mem_state = 2 WHERE mem_no = " + mem_no[i];
+						PDO(sql, '');
 					}
 				}
-			} catch(PDOException $e){
-				$strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
-				echo $strMsg;
-			}
 		}
 	}
 
 	//상호대차 도서 반송 함수
 	private delreturn(){
-		$date = date("Y-m-d", strtotime($this->str_today.'-4 days'));
-		$sql = "SELECT `del_no` FROM `delivery` WHERE len_no IS NULL AND `del_arr_date` < '$date'";
-		$result = $this->pdo->query($sql);
-		$num = $result->rowCount();
+		var date: Date;
+        date.setDate(this.today.getDate() - 4);
+		var date_str: string =  date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
 
-		if($num != 0){
-			try {
-				$num = 0;
-				while($row = $result->fetchObject()){
-					$del_no[$num] = $row->del_no;
-					$num++;
-				}
+		var sql: string = "SELECT `del_no` FROM `delivery` WHERE len_no IS NULL AND `del_arr_date` < '"+ date_str +"'";
+		var data = PDO(sql, '');
+		var result: Array<string> = JSON.parse(JSON.stringify(data));
+		var num: number = result.length;
 
-				for ($i=0; $i < $num; $i++) { 
-					$sql = "UPDATE delivery SET del_app = 2 WHERE del_no = $del_no[$i]";
-					$this->pdo->exec($sql);
-				}
-			} catch (PDOException $e){
-				$strMsg = 'DB 오류: '.$e->getMessage().'<br>오류 발생 파일 : '.$e->getFile().'<br>오류 발생 행:'.$e->getLine();
-				echo $strMsg;
+		if(num != 0){
+			var cnt = 0;
+			var del_no: Array<string> = [];
+
+			result.forEach(function (row) {
+				del_no[cnt] = row['del_no'];
+				cnt++;
+			})
+
+			for (let i=0; i < cnt; i++) { 
+				sql = "UPDATE delivery SET del_app = 2 WHERE del_no = " + del_no[i];
+				PDO(sql, '');
 			}
 		}
 	}
