@@ -14,7 +14,7 @@ pool.getConnection((err, conn) => {
     conn.release()
 })
 
-const PDO = (sql: string, arrParams) => {
+const PDO = (sql, arrParams) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(sql, arrParams, (err, data) => {
