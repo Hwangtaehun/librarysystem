@@ -44,7 +44,7 @@ var search_name;
                     method: "GET",
                     url: "https://dapi.kakao.com/v3/search/book?sort=accuracy&page=" + page_num,
                     data: { query : search_name },
-                    headers : { Authorization: "KakaoAK 4a10552ea42f3e71bb5c39c7994f8602"}
+                    headers : { Authorization: "KakaoAK " + process.env.KAKAO_PW}
                 })
                 .done(function (msg) {
                     var cnt = msg.meta.total_count;
