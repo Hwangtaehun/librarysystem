@@ -1,9 +1,9 @@
 import PDO from "./Dbconnect";
 
-class Automatic {
+export class Automatic {
     private today: Date;
 	
-	public __construct() {
+	constructor() {
 		this.today = new Date("Y-m-d");
 		this.clearmember();
 		this.overdue_manager();

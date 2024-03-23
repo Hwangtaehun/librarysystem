@@ -1,6 +1,6 @@
 import PDO from "./Dbconnect";
 
-class Assistance{
+export class Assistance{
 	private lib_sql: string = "SELECT * FROM `library`";
     private lib_index: string = 'lib_name';
 
@@ -8,8 +8,8 @@ class Assistance{
 	public libraryarray(): Array<string>{
         var num: number = 1;
         var data = PDO(this.lib_sql, '');
-        var index: string = this.lib_index
-        var result: Array<string> = JSON.parse(JSON.stringify(data))
+        var index: string = this.lib_index;
+        var result: Array<string> = JSON.parse(JSON.stringify(data));
         var lib_array : Array<string>;
 
         lib_array[0] = ' ';
