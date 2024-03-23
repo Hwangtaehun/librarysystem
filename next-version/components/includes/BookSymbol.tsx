@@ -108,21 +108,12 @@ class BookSymbol{
 	
 	//영어 -> 한글로 변경(나중 고치기)
 	private englishTokorean(str: string) {	
+		const xhr = new XMLHttpRequest();
         const URL = "https://dapi.kakao.com/v2/search/web";
         const HEADERS = {
-        Authorization: `KakaoAK 4a10552ea42f3e71bb5c39c7994f8602`
+        	Authorization: `KakaoAK 4a10552ea42f3e71bb5c39c7994f8602`
         };
-
-        const apiClient = axios.create({
-        url: URL,
-        headers: HEADERS,
-        params: {
-            query: str,
-            sort: "accuracy",
-            size: 10,
-            target: "title"
-        }
-        });
+		const parameter = {query: str}; 
 
 		// $parameter = array(
 		// 	"query"=>$str
