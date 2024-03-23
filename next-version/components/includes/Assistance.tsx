@@ -1,30 +1,30 @@
 import PDO from "./Dbconnect";
 
 class Assistance{
-	#lib_sql = "SELECT * FROM `library`";
-    #lib_index = 'lib_name';
+	private lib_sql: string = "SELECT * FROM `library`";
+    private lib_index: string = 'lib_name';
 
     //도서관 이름 배열 만들기
-	libraryarray(){
-        var num = 1;
-        var data = PDO(this.#lib_sql, '');
-        var index = this.#lib_index
-        var result = JSON.parse(JSON.stringify(data))
-        var lib_array;
+	public libraryarray(): Array<string>{
+        var num: number = 1;
+        var data = PDO(this.lib_sql, '');
+        var index: string = this.lib_index
+        var result: Array<string> = JSON.parse(JSON.stringify(data))
+        var lib_array : Array<string>;
 
         lib_array[0] = ' ';
         result.forEach(function (row) {
             lib_array[num] = row[index];
             num++;
         });
-        
+
         return lib_array;
     }
 
     //복권심볼 삭제
-	removeSymbol(str) {
-		var str_array = [];
-        var str_fianl = "";
+	public removeSymbol(str: string): string {
+		var str_array: Array<string> = [];
+        var str_fianl: string = "";
 
 		if(Number(str)) {
 			str_fianl = "";

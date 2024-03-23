@@ -1,40 +1,40 @@
 import PDO from "./Dbconnect";
 
 class Automatic {
-    #today;
+    private today: Date;
 	
-	__construct() {
-		this.#today = new Date("Y-m-d");
-		this.#clearmember();
-		this.#overdue_manager();
-		this.#delreturn();
+	public __construct() {
+		this.today = new Date("Y-m-d");
+		this.clearmember();
+		this.overdue_manager();
+		this.delreturn();
 	}
 
     //반납일 예정일 만드는 함수
-	estimateReturndate(lentdate , extend) {
-		var period = 15;
+	protected estimateReturndate(lentdate: Date , extend: number): Date {
+		var period: number = 15;
 
 		period += extend;
-		var date;
+		var date: Date;
         date.setDate(lentdate.getDate() + period);
 
 		return date;
 	}
 	
 	//연체 관리 함수
-	#overdue_manager() {
-        var today = this.#today;
-		var sql = "SELECT * FROM lent WHERE len_re_date is NULL";
+	private overdue_manager() {
+        var today = this.today;
+		var sql: string = "SELECT * FROM lent WHERE len_re_date is NULL";
 		var data = PDO(sql, '');
-        var result = JSON.parse(JSON.stringify(data)); 
-		var num = result.length;
-		var count = 0;
+        var result: Array<string> = JSON.parse(JSON.stringify(data)); 
+		var num: Number = result.length;
+		var count: number = 0;
 
 		if(num != 0) {	
-            var len_no_array;
+            var len_no_array : Array<string>;
             result.forEach(function (row) {
                 //반납 추정일
-                var estimate_date = this.estimateReturndate(row['len_date'], row['len_re_st']);
+                var estimate_date: Date = this.estimateReturndate(row['len_date'], row['len_re_st']);
 
                 //반납 추정일이 지났으면 회원계정을 정지 계정으로 변환
                 if(estimate_date < today ) {
@@ -61,17 +61,17 @@ class Automatic {
 	}
 	
 	//연체 해제 함수
-	#clearmember() {
+	private clearmember() {
 		//연체 해제일 지났을때
-		var str_today = this.#today.getFullYear() + "-" + this.#today.getMonth() + 1 + "-" + this.#today.getDate();
-		var sql = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp <= '" + str_today +"'";
+		var str_today: string = this.today.getFullYear() + "-" + this.today.getMonth() + 1 + "-" + this.today.getDate();
+		var sql: string = "SELECT * FROM lent INNER JOIN overdue ON lent.len_no = overdue.len_no WHERE overdue.due_exp <= '" + str_today +"'";
 		var data = PDO(sql, '');
-        var result = JSON.parse(JSON.stringify(data));
-		var num = result.length;
+        var result: Array<string> = JSON.parse(JSON.stringify(data));
+		var num: Number = result.length;
 
 		if(num != 0) {
-			var mem_no = [];
-			var due_no = [];
+			var mem_no: Array<Number> = [];
+			var due_no: Array<Number> = [];
 			var cnt = 0;
 
 				//해제할 회원과 연체 테이블 배열로 저장
@@ -101,19 +101,19 @@ class Automatic {
 	}
 
 	//상호대차 도서 반송 함수
-	#delreturn(){
-		var date;
-        date.setDate(this.#today.getDate() - 4);
-		var date_str =  date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
+	private delreturn(){
+		var date: Date;
+        date.setDate(this.today.getDate() - 4);
+		var date_str: string =  date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
 
-		var sql = "SELECT `del_no` FROM `delivery` WHERE len_no IS NULL AND `del_arr_date` < '"+ date_str +"'";
+		var sql: string = "SELECT `del_no` FROM `delivery` WHERE len_no IS NULL AND `del_arr_date` < '"+ date_str +"'";
 		var data = PDO(sql, '');
-		var result = JSON.parse(JSON.stringify(data));
-		var num = result.length;
+		var result: Array<string> = JSON.parse(JSON.stringify(data));
+		var num: number = result.length;
 
 		if(num != 0){
 			var cnt = 0;
-			var del_no = [];
+			var del_no: Array<string> = [];
 
 			result.forEach(function (row) {
 				del_no[cnt] = row['del_no'];
