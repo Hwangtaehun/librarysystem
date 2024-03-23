@@ -20,6 +20,8 @@ header a img{
 }
 header .link {
     float:right;
+    display: flex;
+    align-items: flex-end;
     margin-top: 15px;
     text-decoration-line: none;
 }
@@ -33,6 +35,7 @@ header .link label{
     color: var(--one);
 }
 header .link a{
+    height: 32px;
     text-align: center;
 }
 

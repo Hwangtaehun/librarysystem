@@ -1,4 +1,6 @@
 <?php
+include include_once __DIR__.'/Key.php';
+
 class BookSymbol{
 	//초성
     private $cho = array("ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ");
@@ -106,12 +108,14 @@ class BookSymbol{
 	
 	//영어 -> 한글로 변경
 	private function englishTokorean(String $str) {	
+		$key = new Key();
+
 		$parameter = array(
 			"query"=>$str
 		);
 		 
 		$host = "https://dapi.kakao.com/v2/search/web";
-		$api_key = "4a10552ea42f3e71bb5c39c7994f8602";
+		$api_key = $key->get_key();
 		$headers = array("Authorization: KakaoAK {$api_key}");
 		 
 		$query = http_build_query($parameter);

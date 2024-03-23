@@ -120,7 +120,7 @@ main .slide_tool{
     right: 0px;
     width: 60px;
     height: 32px;
-    background-color: #F99417;
+    background-color: var(--two);
 }
 main .slide_button{
     display: flex;
@@ -196,8 +196,9 @@ main .board{
 }
 
 main .board h3{
-    color: #F99417;
+    color: var(--two);
     text-align: center;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }
 
 main .quickmenu{
