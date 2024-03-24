@@ -14,7 +14,7 @@ export class BookSymbol{
 	private lastauthor_exist: boolean;
 	private author: string;
 	
-    public __construct(author: string){
+    public constructor(author: string){
 		var author_array: Array<string> = author.split(",");
 		this.author = author_array[0];
         this.lastauthor_exist = false;
