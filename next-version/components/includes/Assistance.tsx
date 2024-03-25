@@ -39,4 +39,15 @@ export class Assistance{
 
 		return str_fianl;
 	}
+
+    //반납일 예정일 만드는 함수
+	public estimateReturndate(lentdate: Date , extend: number): Date {
+		var period: number = 15;
+
+		period += extend;
+		var date: Date;
+        date.setDate(lentdate.getDate() + period);
+
+		return date;
+	}
 }

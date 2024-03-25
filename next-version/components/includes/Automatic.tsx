@@ -1,4 +1,5 @@
 import PDO from "./Dbconnect";
+import {Assistance} from "./Assistance";
 
 export class Automatic {
     private today: Date;
@@ -8,17 +9,6 @@ export class Automatic {
 		this.clearmember();
 		this.overdue_manager();
 		this.delreturn();
-	}
-
-    //반납일 예정일 만드는 함수
-	protected estimateReturndate(lentdate: Date , extend: number): Date {
-		var period: number = 15;
-
-		period += extend;
-		var date: Date;
-        date.setDate(lentdate.getDate() + period);
-
-		return date;
 	}
 	
 	//연체 관리 함수
@@ -34,7 +24,8 @@ export class Automatic {
             var len_no_array : Array<string>;
             result.forEach(function (row) {
                 //반납 추정일
-                var estimate_date: Date = this.estimateReturndate(row['len_date'], row['len_re_st']);
+				var assist =  new Assistance();
+                var estimate_date: Date = assist.estimateReturndate(row['len_date'], row['len_re_st']);
 
                 //반납 추정일이 지났으면 회원계정을 정지 계정으로 변환
                 if(estimate_date < today ) {

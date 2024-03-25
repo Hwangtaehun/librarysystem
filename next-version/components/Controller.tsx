@@ -1,3 +1,5 @@
+import { Assistance } from "./includes/Assistance";
+
 export class Controller{
     private libTable: string[] = ['library', 'lib_no'];
     private bookTable: string[] = ['book', 'book_no'];
@@ -276,15 +278,14 @@ export class Controller{
 		return bool;
 	}
 
-	//반납 날짜 계산 -- 여기서 부터
-	protected estimateReturndate(string $lentdate, int $extend) {
-		$period = 15;
+    
+    protected estimateReturndate(lentdata: Date, extend: number): string{
+        let assist = new Assistance();
+        let date = assist.estimateReturndate(lentdata, extend);
+        let str_date = date.getFullYear() + '-' + date.getMonth() + 1 + "-" + date.getDate();
 
-		$period += $extend;
-		$date = date("Y-m-d", strtotime($lentdate.'+ '.$period.' days'));
-
-		return $date;
-	}
+        return str_date;
+    }
 
     //페이그멘테이션 만들기
     protected makePage(TableManager $mainTable, int $total_cnt, string $sql, bool $iswhere){
