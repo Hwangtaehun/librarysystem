@@ -1,0 +1,308 @@
+:root{
+    --one: #f8f9fa;
+    --two: #F99417;
+    --three: #363062;
+    --four: #4D4C7D;
+}
+
+body{
+    background-image : url('../img/background.png');
+    min-height: 100vh;
+    display: grid;
+}
+
+header{
+    grid-area: header;
+}
+header a img{
+    float: left; 
+    height: 60px;
+}
+header .link {
+    float:right;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 15px;
+    text-decoration-line: none;
+}
+header .link button{
+    display: none;
+}
+header .link label{
+    margin: 5px;
+    font-size: 95%;
+    cursor: pointer;
+    color: var(--one);
+}
+header .link a{
+    height: 32px;
+    text-align: center;
+}
+
+nav{
+    grid-area: nav;
+    z-index: 2;
+}
+nav .navbar-brand{
+    margin: 0;
+}
+.navbar-collapse{
+    background-color: var(--one);
+}
+.navbar-collapse > .navbar-nav > .nav-item > .active{
+    background-color: var(--one);
+}
+.navbar-collapse > .navbar-nav > .nav-item > .active:hover{
+    background-color: var(--two);
+}
+.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu{
+    background-color: var(--one);
+}
+.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
+    background-color: var(--four);
+    color: var(--one)
+}
+
+/*readonly 배경 회색*/
+main input[readonly] {
+    background-color: rgb(205, 205, 205);
+}
+main #fieldset_not input[readonly]{
+    background-color: white;
+}
+
+/*하이퍼 링크 밑줄X*/
+#hreflink{
+    text-decoration-line: none;
+}
+
+/*검색창 반응형*/
+#searchicon{
+    display: none;
+}
+#searchicon + label {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+}
+#searchicon + label > .bi-search {
+    position: relative;
+    height: 100%;
+    color: #000000;
+    transition: all 0.35s;
+}
+#searchicon:checked + label > .bi-search{
+    opacity: 0;
+}
+#searchicon:disabled + label > .bi-search{
+    opacity: 0;
+}
+#searchicon + label > .bi-x-lg {
+    position: relative;
+    right: 20px;
+    height: 100%;
+    color: #000000;
+    opacity: 0;
+    transition: all 0.35s;
+}
+#searchicon:checked + label > .bi-x-lg{
+    opacity: 100;
+}
+#searchicon:disabled + label > .bi-x-lg{
+    opacity: 0;
+}
+main .dynamic_search {
+    padding: 5px;
+    position: absolute;
+    top: -110px;
+    z-index: 2;
+    background-color: var(--one);
+    width: 100%;
+}
+
+/*kind*/
+.sel { 
+    margin-bottom: 10px; 
+}
+.sel select {
+    height: 30px;
+}
+.sel button{
+    position : absolute;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    background: white;
+}
+
+/*검색*/
+.search {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+}
+.search select{
+    position : absolute;
+    top: 1px;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    border-right-style: double;
+}
+.search .re{
+    position: relative;
+    margin-bottom: 5px;
+}
+.search .lib {
+    margin-left: 20%;
+}
+.search input {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    border-left-style: double;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+.search button{
+    position : absolute;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background: #ffffff;
+}
+.search #inbt{
+    right: 1px;
+}
+.search .srbt{
+    width: 80px;
+}
+
+/*목록*/
+#fieldset_row {
+    display: table; 
+    width: 100%; 
+    padding: 1px;
+    border: 1px groove #000000;
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+#fieldset_row > form{
+    display: table-cell;
+    text-align: right; 
+    float: right;
+}
+#div_row {
+    display: table-cell;
+    float: left;
+    max-width: 732px;
+}
+#div_row .http{
+    color: #F5F5F5;
+    text-decoration: none;
+}
+
+main .container > .row-cols-auto{
+    justify-content: space-between;
+}
+
+/*추가, 수정 페이지 디자인*/
+#form_fieldset{
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+#form_fieldset h2{
+    text-align: center;
+}
+#form_fieldset .form_text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+}
+#form_fieldset .form_bt{
+    display: flex;
+    margin-top: 10px;
+}
+#form_fieldset .form_bt input{
+    width: 50%;
+}
+#form_fieldset ul{
+    padding: 0;
+}
+#form_fieldset ul li{
+    list-style: none;
+    height: 75px;
+}
+#form_fieldset ul li .input{
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#form_fieldset #id_url{
+    width: 80%;
+}
+
+#fieldset_not{
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
+#fieldset_not > fieldset{
+    font-size: 10px;
+}
+#fieldset_not > .form_class{
+    float: right;
+}
+#fieldset_not > ul{
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    padding: 0;
+}
+#fieldset_not > ul > li{
+    list-style: none;
+}
+#fieldset_not > ul > li > label{
+    width: 110px;
+    margin-bottom: 10px;
+}
+#fieldset_not > ul > li > .input{
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#fieldset_not #id_url{
+    width: 80%;
+}
+
+/*바닥글*/
+footer {
+    grid-area: footer; 
+    text-align: center; 
+    border-style: hidden;
+}
+footer img {
+    height: 35px;
+}
+
+/*테이블 메뉴*/
+footer .table_menu{
+    display: table;
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+}
+
+footer .table_menu table{
+    margin: 0 auto;
+}
+
+footer .table_menu table td{
+    padding: 10px;
+}
+
+footer .table_menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: -1px 0px #000000, 0px 1px #000000, 1px 0px #000000, 0px -1px #000000;
+}
