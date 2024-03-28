@@ -23,45 +23,7 @@ export class Controller{
 
     constructor(table: string){
         this.table = table;
-
-        switch (table) {
-            case this.libTable[0]:
-                this.keyField = this.libTable[1];
-                break;
-            case this.bookTable[0]:
-                this.keyField = this.bookTable[1];
-                break;
-            case this.kindTable[0]:
-                this.keyField = this.kindTable[1];
-                break;
-            case this.memTable[0]:
-                this.keyField = this.memTable[1];
-                break;
-            case this.matTable[0]:
-                this.keyField = this.matTable[1];
-                break;
-            case this.resTable[0]:
-                this.keyField = this.resTable[1];
-                break;
-            case this.lenTable[0]:
-                this.keyField = this.lenTable[1];
-                break;
-            case this.dueTable[0]:
-                this.keyField = this.dueTable[1];
-                break;
-            case this.plaTable[0]:
-                this.keyField = this.plaTable[1];
-                break;
-            case this.delTable[0]:
-                this.keyField = this.delTable[1];
-                break;
-            case this.notTable[0]:
-                this.keyField = this.notTable[1];
-                break;
-            default:
-                console.log("오류 발생");
-                break;
-        }
+        this.keyField = this.getKey(table);
     }
 
     private insertUrl(url): void{
@@ -525,5 +487,50 @@ export class Controller{
         this.keyField = m_key;
 
         return rs;
+    }
+
+    protected getKey(table: string): string{
+        var key: string;
+
+        switch (table) {
+            case this.libTable[0]:
+                key = this.libTable[1];
+                break;
+            case this.bookTable[0]:
+                key = this.bookTable[1];
+                break;
+            case this.kindTable[0]:
+                key = this.kindTable[1];
+                break;
+            case this.memTable[0]:
+                key = this.memTable[1];
+                break;
+            case this.matTable[0]:
+                key = this.matTable[1];
+                break;
+            case this.resTable[0]:
+                key = this.resTable[1];
+                break;
+            case this.lenTable[0]:
+                key = this.lenTable[1];
+                break;
+            case this.dueTable[0]:
+                key = this.dueTable[1];
+                break;
+            case this.plaTable[0]:
+                key = this.plaTable[1];
+                break;
+            case this.delTable[0]:
+                key = this.delTable[1];
+                break;
+            case this.notTable[0]:
+                key = this.notTable[1];
+                break;
+            default:
+                console.log("오류 발생");
+                break;
+        }
+
+        return key;
     }
 }
