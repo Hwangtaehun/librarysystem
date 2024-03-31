@@ -41,11 +41,68 @@ export class menu{
         }
     }
 
+    private menu_index(menu: string): number{
+        var index: number;
+
+        if(menu == '반납'){
+            menu = '대출';
+        }
+        else if(menu == '예약' || menu == '연체'){
+            menu = '기타';
+        }
+
+        if(this.state != '1'){
+            if(menu == '회원'){
+                menu = '기타';
+            }
+
+            switch (menu) {
+                case '내서재':
+                    index = 0;
+                    break;
+                case '내정보수정':
+                    index = 1;
+                    break;
+            }
+        }
+        else{
+            switch (menu) {
+                case '공지사항':
+                    index = 0;
+                    break;
+                case '책':
+                    index = 1;
+                    break;
+                case '종류':
+                    index = 2;
+                    break;
+                case '도서관':
+                    index = 3;
+                    break;
+                case '자료':
+                    index = 4;
+                    break;
+                case '대출':
+                    index = 5;
+                    break;
+                case '상호대차':
+                    index = 6;
+                    break;
+                case '기타':
+                    index = 7;
+                    break;
+            }
+        }
+
+        return index;
+    }
+
     public makehtml(menu: string): string{
         var m_script: string;
-        for (let i = 0; i < this.menus[menu].length ; i++) { 
-            let m_url = this.menus[menu][i][1];
-            let m_title = this.menus[menu][i][0];
+        var index = this.menu_index(menu);
+        for (let i = 0; i < this.menus[index].length ; i++) { 
+            let m_url = this.menus[index][i][1];
+            let m_title = this.menus[index][i][0];
             m_script = "<li><a class='dropdown-item' href='" + m_url + "'>" + m_title + "</a></li>";
         }
         return m_script;
