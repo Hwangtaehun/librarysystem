@@ -1,6 +1,7 @@
 {
   "name": "next-version",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
@@ -12,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.8",
-    "jsonwebtoken": "^9.0.2",
+    "jose": "^5.2.3",
     "mysql2": "^3.9.3",
     "next": "^14.1.4",
     "react": "^18.2.0",
@@ -23,6 +24,5 @@
     "@types/node": "20.11.25",
     "@types/react": "18.2.64",
     "typescript": "5.4.2"
-  },
-  "description": ""
+  }
 }
