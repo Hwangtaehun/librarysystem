@@ -1,0 +1,116 @@
+"use client"
+
+import { menu } from "./menu";
+
+export default function Navigation(){
+    var c_menu: menu = new menu();
+    var state = c_menu.get_state();
+
+    if(state == 1){
+        return (
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <div className="container-fluid">
+                    <a className="navbar-brand"></a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" href="/">홈</a>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">공지사항</a>
+                                <ul className="dropdown-menu"> 
+                                    {c_menu.makehtml('공지사항')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('책')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">종류</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('종류')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">도서관</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('도서관')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자료</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('자료')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('대출')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('상호대차')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('기타')}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        );
+    }
+    else{
+        return(
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <div className="container-fluid">
+                    <a className="navbar-brand"></a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" href="/">홈</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/not/list">공지사항</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/lib/list">도서관</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/mat/list">자료 검색</a>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('내서재')}
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내정보수정</a>
+                                <ul className="dropdown-menu">
+                                    {c_menu.makehtml('내정보수정')}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        );
+    }
+}
