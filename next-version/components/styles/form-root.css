@@ -16,6 +16,7 @@ header{
 }
 header a img{
     float: left; 
+    width: 256px;
     height: 60px;
 }
 header .link {
@@ -282,6 +283,7 @@ footer {
     border-style: hidden;
 }
 footer img {
+    width: 150px;
     height: 35px;
 }
 

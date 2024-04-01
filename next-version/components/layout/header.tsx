@@ -1,8 +1,14 @@
-import { getSession } from "../includes/session";
+'use client';
+
+// import { getSession } from "../includes/session";
+import Image from 'next/image'
+import header_img from '../img/header.gif'
+
+// const session = JSON.stringify(getSession());
 
 export default function Header(){
-    var session = JSON.stringify(getSession());
-    var data = JSON.parse(session);
+    // var data = JSON.parse(session);
+    var state;
 
     function login(e) {
         window.location.href = "/member/login";
@@ -16,11 +22,11 @@ export default function Header(){
         window.location.href = "/member/addupdate";
     }
 
-    if(data.state != null){
+    if(state == null){
         return(
             <header>
                 <a href="/">
-                    <img src="../img/header.gif" alt=""/>
+                    <Image src={header_img} alt=""/>
                 </a>
                 <div className="link">
                     <button id="login_hbt" onClick={login}></button>
@@ -40,7 +46,7 @@ export default function Header(){
             </header>
         );
     }else{
-        var name = data.name;
+        var name = 'data.name';
         return(
             <header>
                 <a href="/">

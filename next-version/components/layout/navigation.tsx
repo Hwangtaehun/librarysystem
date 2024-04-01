@@ -1,12 +1,16 @@
 "use client"
 
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { menu } from "./menu";
 
 export default function Navigation(){
     var c_menu: menu = new menu();
     var state = c_menu.get_state();
 
-    if(state == 1){
+    if(state == '1'){
         return (
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
