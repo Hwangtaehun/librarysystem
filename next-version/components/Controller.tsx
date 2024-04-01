@@ -26,10 +26,6 @@ export class Controller{
         this.keyField = this.getKey(table);
     }
 
-    private insertUrl(url): void{
-        this.url = url;
-    }
-
     //page번호 달기 만들기위한 html제작
 	private pagemanager(total_cnt: number, value: string): string{
         var pagenum: number = 19;
@@ -137,7 +133,7 @@ export class Controller{
             page = 0;
         }
 
-        var limit: string = " LIMIT $page,this.listnum";
+        var limit: string = " LIMIT " + page + "," + this.listnum;
 
         if(where == ''){
             where = limit;
@@ -146,6 +142,10 @@ export class Controller{
         }
 
         return where;
+    }
+
+    protected insertUrl(url): void{
+        this.url = url;
     }
 
     //함수 이름
