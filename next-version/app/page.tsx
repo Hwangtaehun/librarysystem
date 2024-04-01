@@ -1,4 +1,5 @@
-import PDO from "../components/includes/Dbconnect"
+import "../components/script/calendar"
+import "../components/script/slider"
 
 export default async function home(){
     // const sql = 'select * from book'
