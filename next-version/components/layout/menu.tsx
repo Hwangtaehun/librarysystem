@@ -2,20 +2,18 @@ import { getSession } from "../includes/session";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 export class Menu{
-    'use server';
-    
     private state = '2';
     private menus: string[][][];
 
     public constructor(){
-        // var session = JSON.stringify(getSession());
-        // var data = JSON.parse(session);
+        var session = JSON.stringify(getSession());
+        var data = JSON.parse(session);
 
-        // if(data.state != null){
-        //     this.state = data.state;
-        // }else{
-        //     this.state = '2';
-        // }
+        if(data.state != null){
+            this.state = data.state;
+        }else{
+            this.state = '2';
+        }
 
         if(this.state == '1'){
             this.menus = [[['공지사항추가', '/not/addupdate'], ['공지사항관리', '/not/list']],
@@ -32,15 +30,15 @@ export class Menu{
             this.menus = [[['대출중도서', url], ['모든대출내역', url], ['예약내역', url], ['상호대차내역', url]],
                           [['회원정보수정', url], ['회원탈퇴', url]]];
 
-            // if(data.no != null){
-            //     let mem_no = data.no;
-            //     this.menus[0][0][1] = '/len/memlist';                
-            //     this.menus[0][1][1] = '/len/memAlllist';                
-            //     this.menus[0][2][1] = '/res/list';                
-            //     this.menus[0][3][1] = '/del/list';                
-            //     this.menus[1][0][1] = '/member/addupdate?mem_no=' + mem_no;               
-            //     this.menus[1][1][1] = '/member/memdel?mem_no=' + mem_no;
-            // }
+            if(data.no != null){
+                let mem_no = data.no;
+                this.menus[0][0][1] = '/len/memlist';                
+                this.menus[0][1][1] = '/len/memAlllist';                
+                this.menus[0][2][1] = '/res/list';                
+                this.menus[0][3][1] = '/del/list';                
+                this.menus[1][0][1] = '/member/addupdate?mem_no=' + mem_no;               
+                this.menus[1][1][1] = '/member/memdel?mem_no=' + mem_no;
+            }
         }
     }
 

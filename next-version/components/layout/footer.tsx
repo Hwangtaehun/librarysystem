@@ -1,9 +1,9 @@
-import { menu } from "./menu";
+import { Menu } from "./menu";
 import Image from 'next/image'
 import foot_img from '../img/footer.gif'
 
 export default function Footer(){
-    var c_menu: menu = new menu();
+    var c_menu: Menu = new Menu();
     var menus = c_menu.get_menus();
     var state = c_menu.get_state();
 

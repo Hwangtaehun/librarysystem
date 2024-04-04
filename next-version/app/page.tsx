@@ -22,17 +22,9 @@ class Home_table extends Controller {
     }
 }
 
-async function url(){
-    "use client"
-    var url = useSearchParams();
-
-    return url;
-}
-
 export default async function home(){
     var lib = new Home_table('library');
     var not = new Home_table('notification');
-    url();
 
     return <h1>Hello NextJs</h1>
 }
