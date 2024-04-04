@@ -12,7 +12,7 @@ export class Controller{
     private dueTable: string[] = ['overdue', 'due_no'];
     private plaTable: string[] = ['place', 'pla_no'];
     private delTable: string[] = ['delivery', 'del_no'];
-    private notTable: string[] = ['notfication', 'not_no'];
+    private notTable: string[] = ['notification', 'not_no'];
     private listnum : number = 19;
     private url;
     private table : string;

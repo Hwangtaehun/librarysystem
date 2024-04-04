@@ -1,7 +1,7 @@
-import { menu } from "./menu";
+import { Menu } from "./menu";
 
 export default function Aside(menu_str){
-    var c_menu: menu = new menu();
+    var c_menu: Menu = new Menu();
     return(
         <aside>
             <div className='sidemenu'>

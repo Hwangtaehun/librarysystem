@@ -1,6 +1,7 @@
 import { getSession } from "../includes/session";
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-export class menu{
+export class Menu{
     'use server';
     
     private state = '2';
@@ -108,6 +109,22 @@ export class menu{
             m_script = "<li><a class='dropdown-item' href='" + m_url + "'>" + m_title + "</a></li>";
         }
         return m_script;
+    }
+
+    public makeArray(menu: string): string[]{
+        var result = [];
+        var index = this.menu_index(menu);
+        for (let i = 0; i < this.menus[index].length ; i++) { 
+            let m_url = this.menus[index][i][1];
+            let m_title = this.menus[index][i][0];
+            result.push(<NavDropdown.Item href={m_url}>{ m_title }</NavDropdown.Item>);
+        }
+        return result;
+    }
+
+    public array(menu: string): string[][]{
+        var index = this.menu_index(menu);
+        return this.menus[index];
     }
 
     public get_menus(){

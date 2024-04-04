@@ -44,22 +44,26 @@ nav{
     grid-area: nav;
     z-index: 2;
 }
+nav .container{
+    margin: 0;
+}
 nav .navbar-brand{
     margin: 0;
 }
 .navbar-collapse{
     background-color: var(--one);
 }
-.navbar-collapse > .navbar-nav > .nav-item > .active{
+.navbar-collapse > .navbar-nav > .nav-link{
     background-color: var(--one);
 }
-.navbar-collapse > .navbar-nav > .nav-item > .active:hover{
-    background-color: var(--two);
+.navbar-collapse > .navbar-nav > .nav-link:hover{
+    background-color: var(--four);
+    color: var(--one);
 }
 .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu{
     background-color: var(--one);
 }
-.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > li > .dropdown-item:hover{
+.navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu > .dropdown-item:hover{
     background-color: var(--four);
     color: var(--one)
 }

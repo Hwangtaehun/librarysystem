@@ -1,120 +1,76 @@
-"use client"
+"use client";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { menu } from "./menu";
+import { Menu } from "./menu";
 
 export default function Navigation(){
-    var c_menu: menu = new menu();
+    var c_menu: Menu = new Menu();
     var state = c_menu.get_state();
 
     if(state == '1'){
         return (
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <a className="navbar-brand"></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">홈</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">공지사항</a>
-                                <ul className="dropdown-menu"> 
-                                    {c_menu.makehtml('공지사항')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">책</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('책')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">종류</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('종류')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">도서관</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('도서관')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자료</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('자료')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">대출</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('대출')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('상호대차')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('기타')}
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container>
+                    <Navbar.Brand></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="/">홈</Nav.Link>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('공지사항')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('책')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('종류')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('도서관')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('자료')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('대출')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('상호대차')}
+                            </NavDropdown>
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                {c_menu.makeArray('기타')}
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
         );
     }
     else{
         return(
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <a className="navbar-brand"></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">홈</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/not/list">공지사항</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/lib/list">도서관</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/mat/list">자료 검색</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('내서재')}
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내정보수정</a>
-                                <ul className="dropdown-menu">
-                                    {c_menu.makehtml('내정보수정')}
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container>
+                    <Navbar.Brand></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="/">홈</Nav.Link>
+                            <Nav.Link href="/not/list">공지사항</Nav.Link>
+                            <Nav.Link href="/lib/list">도서관</Nav.Link>
+                            <Nav.Link href="/mat/list">자료 검색</Nav.Link>
+                            <NavDropdown title="내서재" id="basic-nav-dropdown">
+                                { c_menu.makeArray('내서재') }
+                            </NavDropdown>
+                            <NavDropdown title="내정보수정" id="basic-nav-dropdown">
+                                { c_menu.makeArray('내정보수정') }
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
         );
     }
 }
