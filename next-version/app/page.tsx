@@ -6,7 +6,7 @@ class Home_table extends Controller {
         super(table);
     }
 
-    public getLib_info(no: number){
+    public getLib_info(no: number):string[]{
         return this.selectID(no);
     }
 
@@ -30,8 +30,6 @@ export default async function home(props){
     if(url.lib_no != null){
         lib_no = url.lib_no;
     }
-
-    lib.getLib_info(+lib_no).then(value => console.log(value));
 
     return (<h1>Hello NextJs</h1>);
 }
