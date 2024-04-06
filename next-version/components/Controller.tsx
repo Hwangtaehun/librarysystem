@@ -19,14 +19,14 @@ export class Controller{
     private keyField: string;
     private func : string;
     private m_get : string;
-    private result: string[];
+    private result: Map<string, string>;
 
     constructor(table: string){
         this.table = table;
         this.keyField = this.getKey(table);
     }
 
-    //page번호 달기 만들기위한 html제작
+    //page번호 달기 만들기위한 html제작 -> reactbootstrap수정
 	private pagemanager(total_cnt: number, value: string): string{
         var pagenum: number = 19;
         var outStr: string;
@@ -158,11 +158,6 @@ export class Controller{
         this.m_get = m_get;
     }
 
-    //result 값 가져오는 함수
-    protected getResult(){
-        return this.result;
-    }
-
     //문자가 정수인지 확인하는 함수
 	protected isInteger(strValue: string | number): boolean {
 	    return Number.isInteger(strValue);;
@@ -237,10 +232,10 @@ export class Controller{
 	}
 	
 	//쿼리 결과가 없는지 확인
-	protected resultempty_check(rs: string[]) {
+	protected resultempty_check(rs: Map<string, string>): boolean {
 		var bool: boolean = false;
 		
-		if(rs.length === 0) {
+		if(rs.size === 0) {
             bool = true;
         }
 
@@ -257,41 +252,46 @@ export class Controller{
     }
 
     //검색 결과 모두 가져오기
-    protected selectAll(): string[]{
+    protected async selectAll(){
         const sql = 'SELECT * FROM `' + this.table + '`';
-        const data = PDO(sql, '');
+        const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        return getdata;
+        var key = Object.keys(getdata);
+        this.result;
     }
 
     //선택한 primary key에 대한 결과 얻기
-    protected selectID(id: number): string[]{
+    protected async selectID(id: number){
         const sql = 'SELECT * FROM `' + this.table + '` WHERE `' + this.keyField + '` = ' + id;
-        const data = PDO(sql, '');
-        const getdata: string[] = JSON.parse(JSON.stringify(data));
-        return getdata;
+        const data = await PDO(sql, '');
+        const getdata = JSON.parse(JSON.stringify(data));
+        this.result = getdata;
     }
 
     //조인 쿼리를 사용할 때 사용하는 함수
-    protected joinSQL(sql: string): string[]{
-        const data = PDO(sql, '');
+    protected async joinSQL(sql: string){
+        const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        return getdata;
+        var key = Object.keys(getdata);
+        this.result;
     }
 
     //where절을 이용한 검색 함수
-    protected whereSQL(where: string): string[]{
+    protected async whereSQL(where: string){
         const sql = 'SELECT * FROM `' + this.table + '` ' + where;
-        const data = PDO(sql, '');
+        const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        return getdata;
+        var key = Object.keys(getdata);
+        this.result;
     }
 
     //커스텀 sql - delupdateSQL()
-    protected customSQL(sql: string): string[]{
-        const data = PDO(sql, '');
+    protected async customSQL(sql: string){
+        const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        return getdata;
+        var key = Object.keys(getdata);
+
+        this.result;
     }
 
     protected insertData(param: Map<string, string>): void{
@@ -341,7 +341,6 @@ export class Controller{
     //페이그멘테이션 만들기 -- 여기 부터
     protected makePage(total_cnt: number, sql: string, iswhere: boolean): string{
         var pagi: string;
-        var result: string[];
         var value: string = '없음';
 
         if(this.url.get('value') != null){
@@ -351,14 +350,13 @@ export class Controller{
         sql = this.pagesql(sql);
 
         if(iswhere){
-            result = this.whereSQL(sql);
+            this.whereSQL(sql);
             pagi = this.pagemanager(total_cnt, value);
         }else{
-            result = this.joinSQL(sql);
+            this.joinSQL(sql);
             pagi = this.pagemanager(total_cnt, value);
         }
 
-        this.result = result;
         return pagi;
     }
 
@@ -372,18 +370,18 @@ export class Controller{
 
         this.table = this.memTable[0];
         this.keyField = this.memTable[1];
-        result = this.selectID(mem_no);
-        mem_lent = +result['mem_lent'];
+        this.selectID(mem_no);
+        mem_lent = +this.result['mem_lent'];
 
         this.table = this.lenTable[0];
         this.keyField =  this.lenTable[1];
         where = "WHERE `mem_no` = $mem_no AND `len_re_date` IS NULL";
-        result = this.whereSQL(where);
+        this.whereSQL(where);
 
         this.table = m_table;
         this.keyField = m_key;
 
-        if(result.length > mem_lent){
+        if(this.result.size > mem_lent){
             alert('대출가능수를 초과했습니다.');
             return false;
         }
@@ -401,22 +399,22 @@ export class Controller{
             var where: string = "WHERE `mat_no` = $mat_no AND `len_re_st` = 0";
             this.table = this.lenTable[0];
             this.keyField = this.lenTable[1];
-            var rs = this.whereSQL(where);
-            bool = this.resultempty_check(rs);
+            this.whereSQL(where);
+            bool = this.resultempty_check(this.result);
 
             this.table = this.delTable[0];
             this.keyField = this.delTable[1];
 
             if(bool){
                 where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
-                rs = this.whereSQL(where);
-                bool = this.resultempty_check(rs);
+                this.whereSQL(where);
+                bool = this.resultempty_check(this.result);
             }
             
             if(bool){
                 where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
-                rs = this.whereSQL(where);
-                bool = this.resultempty_check(rs);
+                this.whereSQL(where);
+                bool = this.resultempty_check(this.result);
             }
 
             if(bool){
@@ -443,7 +441,7 @@ export class Controller{
     protected reservationCheck(res_no: string, mat_no: string, mem_no: string): boolean{
         var num: number;
         var where: string;
-        var row: string[];
+        var row: Map<string, string>;
         var rs: boolean = false;
         var m_table: string = this.table;
         var m_key: string = this.keyField;
@@ -453,8 +451,9 @@ export class Controller{
 
         if(res_no == null){
             where = "WHERE `mat_no` = " + mat_no;
-            row = this.whereSQL(where);
-            num = row.length;
+            this.whereSQL(where);
+            row = this.result;
+            num = row.size;
             
             if(num == 0){
                 rs = true;
@@ -467,7 +466,8 @@ export class Controller{
             }
         }
         else{
-            row = this.selectID(+res_no);//
+            this.selectID(+res_no);
+            row = this.result;
 
             if(row['mem_no'] == mem_no){
                 rs = true;
@@ -532,5 +532,10 @@ export class Controller{
         }
 
         return key;
+    }
+
+    //result 값 가져오는 함수
+    public getResult(){
+        return this.result;
     }
 }

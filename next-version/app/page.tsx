@@ -49,6 +49,7 @@ export default async function home(props){
     // result = JSON.parse(JSON.stringify(data));
     lib.getLib_info(+lib_no);
     console.log(lib.getResult());
+    // console.log(lib.getResult());
     // rest = result[0]['lib_close'];
 
     // if(rest == null){
