@@ -17,6 +17,7 @@ class Combobox_Inheritance{
 				let base_where = word_front + " '" + word_back + "'";
 				//echo '$base_where = '.$base_where;
 				let base_man = new Combobox_Manager(table, key, base_where, nothing);
+				base_man.getFetch();
 				let name = i + '00';
                 this.result.set(name, base_man.result_call());
 			}
@@ -29,6 +30,7 @@ class Combobox_Inheritance{
 				let sub_where = word_front + " '" + word_back + "'";
 				//echo '$sub_where = '.$sub_where;
 				let sub_man = new Combobox_Manager(table, key, sub_where, nothing);
+				sub_man.getFetch();
 				let name = str_i + '0';
                 this.result.set(name, sub_man.result_call());
 			}

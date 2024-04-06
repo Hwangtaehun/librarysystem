@@ -1,50 +1,22 @@
 import PDO from "./Dbconnect";
 
 export class Combobox_Manager {
-	private pri: string[];
-    private name: string[];
+	private table: string;
+	private key: string;
+	private where: string;
+	private nothing: boolean;
 	private result: string[][];
 
 	constructor(table: string, key: string, where: string, nothing: boolean) {
-		var count: number = 0;
-		var key_name: string = this.changenamekey(key);
-        var sql: string;
-		// echo '$key_name = '.$key_name.'<br>';
-		if(where === ""){
-			sql = "SELECT * FROM `" + table + "`";
-		}
-		else{
-			sql = "SELECT * FROM `" + table + "` WHERE $where";
-		}
-		//echo '$sql = '.$sql.'<br>';
-        var data = PDO(sql, '');
-		var result: Array<string> = JSON.parse(JSON.stringify(data));
-
-        result.forEach(function (row) {
-            this.pri[count] = row[key];
-            this.name[count] = row[key_name];
-            count++;
-        });
-
-		if(nothing){
-			this.result[0][0] = '0';
-            this.result[0][1] = '없음';
-			for (let i= 0; i < count ; i++) { 
-				this.result[i+1][0] = this.pri[i];
-                this.result[i+1][1] = this.name[i];
-			}
-		}
-		else{
-			for (let i=0; i < count ; i++) { 
-				this.result[i][0] = this.pri[i];
-                this.result[i][1] = this.name[i];
-			}
-		}
+		this.table = table;
+		this.key = key;	
+		this.where = where;
+		this.nothing = nothing;
 	}
 
 	//테이블_no를 테이블_name으로 변경
 	private changenamekey(key: string) :string {
-		var str : string;
+		var str : string = "";
 		var cnt : number = 0;
 		var temp: string[] = key.split("");
 
@@ -60,6 +32,46 @@ export class Combobox_Manager {
 		str += "name";
 		
 		return str;
+	}
+
+	public async getFetch(){
+		var pri: string[]
+		var name: string[]
+		var count: number = 0;
+		var key_name: string = this.changenamekey(this.key);
+		var key =  this.key;
+        var sql: string;
+
+		if(this.where === ""){
+			sql = "SELECT * FROM `" + this.table + "`";
+		}
+		else{
+			sql = "SELECT * FROM `" + this.table + "` WHERE $where";
+		}
+
+        var data = await PDO(sql, '');
+		var result: Array<string> = JSON.parse(JSON.stringify(data));
+
+		pri = [];
+		name = [];
+		this.result = [];
+
+        result.forEach(function (row) {
+			pri.push(row[key].toString());
+			name.push(row[key_name]);
+			count++;
+        });
+
+		if (this.nothing) {
+            this.result.push(['0', '없음']);
+            for (let i = 0; i < count; i++) {
+                this.result.push([pri[i], name[i]]);
+            }
+        } else {
+            for (let i = 0; i < count; i++) {
+                this.result.push([pri[i], name[i]]);
+            }
+        }
 	}
 
 	public result_call(): string[][] {

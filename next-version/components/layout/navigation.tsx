@@ -5,10 +5,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Menu } from "./menu";
+import { getCookie } from 'cookies-next';
 
 export default function Navigation(){
-    var c_menu: Menu = new Menu();
-    var state = c_menu.get_state();
+    var state = getCookie("state");
+    var no = getCookie("no");
+    var c_menu: Menu = new Menu(state, no);
 
     if(state == '1'){
         return (

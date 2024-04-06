@@ -1,16 +1,14 @@
 'use client';
 
-// import { getSession } from "../includes/session";
 import Image from 'next/image'
 import LoginSvg from '../../assets/box-arrow-in-right.svg'
 import SigninSvg from '../../assets/person.svg'
 import header_img from '../img/header.gif'
-
-// const session = JSON.stringify(getSession());
+import { getCookie } from 'cookies-next';
 
 export default function Header(){
-    // var data = JSON.parse(session);
-    var state;
+    var state = getCookie("state");
+    var name = getCookie("name");
 
     function login(e) {
         window.location.href = "/member/login";

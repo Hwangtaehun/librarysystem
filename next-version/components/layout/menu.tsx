@@ -1,21 +1,18 @@
-import { getSession } from "../includes/session";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 export class Menu{
-    private state = '2';
+    private state: string;
     private menus: string[][][];
 
-    public constructor(){
-        // var session = JSON.stringify(getSession());
-        // var data = JSON.parse(session);
+    public constructor(state: string | null, no: string | null){
 
-        // if(data.state != null){
-        //     this.state = data.state;
-        // }else{
-        //     this.state = '2';
-        // }
+        if(state == null){
+            state = '2';
+        }else{
+            this.state = state;
+        }
 
-        if(this.state == '1'){
+        if(state == '1'){
             this.menus = [[['공지사항추가', '/not/addupdate'], ['공지사항관리', '/not/list']],
                           [['책추가', '/book/addupdate'], ['책관리', '/book/list']],
                           [['종류추가', '/kind/addupdate'], ['종류관리', '/kind/list']],
@@ -30,20 +27,19 @@ export class Menu{
             this.menus = [[['대출중도서', url], ['모든대출내역', url], ['예약내역', url], ['상호대차내역', url]],
                           [['회원정보수정', url], ['회원탈퇴', url]]];
 
-            // if(data.no != null){
-            //     let mem_no = data.no;
-            //     this.menus[0][0][1] = '/len/memlist';                
-            //     this.menus[0][1][1] = '/len/memAlllist';                
-            //     this.menus[0][2][1] = '/res/list';                
-            //     this.menus[0][3][1] = '/del/list';                
-            //     this.menus[1][0][1] = '/member/addupdate?mem_no=' + mem_no;               
-            //     this.menus[1][1][1] = '/member/memdel?mem_no=' + mem_no;
-            // }
+            if(no != null){
+                this.menus[0][0][1] = '/len/memlist';                
+                this.menus[0][1][1] = '/len/memAlllist';                
+                this.menus[0][2][1] = '/res/list';                
+                this.menus[0][3][1] = '/del/list';                
+                this.menus[1][0][1] = '/member/addupdate?mem_no=' + no;               
+                this.menus[1][1][1] = '/member/memdel?mem_no=' + no;
+            }
         }
     }
 
     private menu_index(menu: string): number{
-        var index: number;
+        var index: number = 9;
 
         if(menu == '반납'){
             menu = '대출';
@@ -98,20 +94,30 @@ export class Menu{
         return index;
     }
 
-    public makehtml(menu: string): string{
-        var m_script: string;
+    public makehtml(menu: string): string[]{
+        var result = [];
         var index = this.menu_index(menu);
+
+        if(index == 9){
+            return null;
+        }
+
         for (let i = 0; i < this.menus[index].length ; i++) { 
             let m_url = this.menus[index][i][1];
             let m_title = this.menus[index][i][0];
-            m_script = "<li><a class='dropdown-item' href='" + m_url + "'>" + m_title + "</a></li>";
+            result.push(<li><a className='dropdown-item' href={m_url}>{m_title}</a></li>);
         }
-        return m_script;
+        return result;
     }
 
     public makeArray(menu: string): string[]{
         var result = [];
         var index = this.menu_index(menu);
+
+        if(index == 9){
+            return null;
+        }
+
         for (let i = 0; i < this.menus[index].length ; i++) { 
             let m_url = this.menus[index][i][1];
             let m_title = this.menus[index][i][0];
@@ -127,9 +133,5 @@ export class Menu{
 
     public get_menus(){
         return this.menus;
-    }
-
-    public get_state(){
-        return this.state;
     }
 }
