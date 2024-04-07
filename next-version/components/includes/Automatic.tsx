@@ -95,7 +95,7 @@ export class Automatic {
 	private delreturn(){
 		var date: Date;
         date.setDate(this.today.getDate() - 4);
-		var date_str: string =  date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
+		var date_str: string =  date.getFullYear() + "-" + (date.getMonth() + 1)+ "-" + date.getDate();
 
 		var sql: string = "SELECT `del_no` FROM `delivery` WHERE len_no IS NULL AND `del_arr_date` < '"+ date_str +"'";
 		var data = PDO(sql, '');

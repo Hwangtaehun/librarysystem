@@ -27,9 +27,9 @@ export class Controller{
     }
 
     //page번호 달기 만들기위한 html제작
-	private pagemanager(total_cnt: number, value: string): string{
+	private pagemanager(total_cnt: number, value: string): HTMLElement{
         var pagenum: number = 19;
-        var outStr: string;
+        var outStr: HTMLElement;
 
         if(20 < total_cnt){
             var total_pages = Math.floor(total_cnt/this.listnum);
@@ -53,10 +53,10 @@ export class Controller{
             
             if(value === '없음'){
                 var go_pg: number;           
-                outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+                outStr.innerHTML = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
                 if(sup_pg != 0){
                     go_pg = sup_pg - 1;
-                    outStr += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg +
+                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg +
                               '&page=' + m_page + this.m_get + '" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for (let i=0; i < 19 ; i++) { 
@@ -73,23 +73,23 @@ export class Controller{
                         }
 
                         let start_num = page * this.listnum;
-                        outStr += '<li class="page-item"><a class="page-link" href="/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg + 
+                        outStr.innerHTML += '<li class="page-item"><a class="page-link" href="/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg + 
                                   '&page=' + start_num + this.m_get + '">' + str_num + '</a></li>';
                     }
                 }
 
                 if(sup_pg != sp_pg - 1){
                     go_pg = sup_pg + 1;
-                    outStr += '<li class="page-item"> <a class="page-link" href="/'+ this.table + '/' + this.func + 'list?sup_pg=' + go_pg + 
+                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/'+ this.table + '/' + this.func + 'list?sup_pg=' + go_pg + 
                               '&page=' + m_page + this.m_get + '" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
-                outStr += '</ul> </div> </div>';
+                outStr.innerHTML += '</ul> </div> </div>';
             }else{
-                outStr = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
+                outStr.innerHTML = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
                 if(sup_pg != 0){
                     go_pg = sup_pg - 1;
-                    outStr += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'research?sup_pg=' + go_pg + 
+                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'research?sup_pg=' + go_pg + 
                               '&page=' + m_page + '&value=' + value + this.m_get + '" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>';
                 }
                 for (let i = 0; i < 19 ; i++) { 
@@ -105,18 +105,18 @@ export class Controller{
                         }
 
                         let start_num = page * this.listnum;
-                        outStr += '<li class="page-item"> <a class="page-link" href="/'+ this.table + '/' + this.func + 'research?sup_pg=' + go_pg +
+                        outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/'+ this.table + '/' + this.func + 'research?sup_pg=' + go_pg +
                                   '&page=' + start_num + '&value=' + value + this.m_get + '">' + str_num + '</a></li>';
                     }
                 }
 
                 if(sup_pg != sp_pg - 1){
                     go_pg = sup_pg + 1;
-                    outStr += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'research?sup_pg='+ go_pg + 
+                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'research?sup_pg='+ go_pg + 
                               '&page=' + m_page + '&value=' + value + this.m_get + '" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>';
                 }
 
-                outStr += '</ul> </div> </div>';
+                outStr.innerHTML += '</ul> </div> </div>';
             }
         }
         return outStr;
@@ -340,7 +340,7 @@ export class Controller{
 
     //페이그멘테이션 만들기 -- 여기 부터
     protected async makePage(total_cnt: number, sql: string, iswhere: boolean){
-        var pagi: string;
+        var pagi: HTMLElement;
         var result: string[];
         var value: string = '없음';
 

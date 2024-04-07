@@ -1,5 +1,5 @@
 body {
-    color: #F5F5F5;
+    color: #F5F5F5 !important;
     background-size: 100% 100%;
     grid-template-rows: 60px 55px auto 35px;
     grid-template-columns: 140px auto;
@@ -100,6 +100,11 @@ main .slide{
     position: relative;
     width: 100%;
     user-select: none;
+}
+
+main .slide img{
+    width: 111%;
+    height: 100%;
 }
 
 main .slide_item{
