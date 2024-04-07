@@ -1,6 +1,5 @@
 import { getCookie } from 'cookies-next';
 import { Controller } from '../components/Controller'
-import PDO from "../components/includes/Dbconnect";
 import { Combobox_Manager } from '../components/includes/Combobox_Manager';
 
 class Home_table extends Controller {
@@ -8,8 +7,8 @@ class Home_table extends Controller {
         super(table);
     }
 
-    public getLib_info(no: number){
-        this.selectID(no);
+    public async getLib_info(no: number){
+        return await this.selectID(no);
     }
 
     public getNotlist(){
@@ -34,7 +33,7 @@ export default async function home(props){
     var lib_man = new Combobox_Manager("library", "lib_no", "", true);
     var lib_data: string[][];
     
-    lib_man.getFetch();
+    await lib_man.getFetch();
 
     if(state == null){
         state = '2';
@@ -45,19 +44,15 @@ export default async function home(props){
         lib_no = url.lib_no;
     }
 
-    // data = await PDO(lib.getLib_info(+lib_no), '');
-    // result = JSON.parse(JSON.stringify(data));
-    lib.getLib_info(+lib_no);
-    console.log(lib.getResult());
-    // console.log(lib.getResult());
-    // rest = result[0]['lib_close'];
+    result = await lib.getLib_info(+lib_no);
+    rest = result[0]['lib_close'];
 
-    // if(rest == null){
-    //     rest = '7';
-    // }
+    if(rest == null){
+        rest = '7';
+    }
 
-    // lib_data = lib_man.result_call();
-    // console.log(lib_data);
+    lib_data = lib_man.result_call();
+    console.log(rest);
 
     return (<h1>Hello NextJs</h1>);
 }

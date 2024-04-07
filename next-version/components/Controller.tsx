@@ -19,14 +19,14 @@ export class Controller{
     private keyField: string;
     private func : string;
     private m_get : string;
-    private result: Map<string, string>;
+    private result: string[];
 
     constructor(table: string){
         this.table = table;
         this.keyField = this.getKey(table);
     }
 
-    //page번호 달기 만들기위한 html제작 -> reactbootstrap수정
+    //page번호 달기 만들기위한 html제작
 	private pagemanager(total_cnt: number, value: string): string{
         var pagenum: number = 19;
         var outStr: string;
@@ -158,6 +158,11 @@ export class Controller{
         this.m_get = m_get;
     }
 
+    //result 값 가져오는 함수
+    protected getResult(){
+        return this.result;
+    }
+
     //문자가 정수인지 확인하는 함수
 	protected isInteger(strValue: string | number): boolean {
 	    return Number.isInteger(strValue);;
@@ -232,10 +237,10 @@ export class Controller{
 	}
 	
 	//쿼리 결과가 없는지 확인
-	protected resultempty_check(rs: Map<string, string>): boolean {
+	protected resultempty_check(rs: string[]) {
 		var bool: boolean = false;
 		
-		if(rs.size === 0) {
+		if(rs.length === 0) {
             bool = true;
         }
 
@@ -256,24 +261,22 @@ export class Controller{
         const sql = 'SELECT * FROM `' + this.table + '`';
         const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        var key = Object.keys(getdata);
-        this.result;
+        return getdata;
     }
 
     //선택한 primary key에 대한 결과 얻기
     protected async selectID(id: number){
         const sql = 'SELECT * FROM `' + this.table + '` WHERE `' + this.keyField + '` = ' + id;
         const data = await PDO(sql, '');
-        const getdata = JSON.parse(JSON.stringify(data));
-        this.result = getdata;
+        const getdata: string[] = JSON.parse(JSON.stringify(data));
+        return getdata;
     }
 
     //조인 쿼리를 사용할 때 사용하는 함수
     protected async joinSQL(sql: string){
         const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        var key = Object.keys(getdata);
-        this.result;
+        return getdata;
     }
 
     //where절을 이용한 검색 함수
@@ -281,17 +284,14 @@ export class Controller{
         const sql = 'SELECT * FROM `' + this.table + '` ' + where;
         const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        var key = Object.keys(getdata);
-        this.result;
+        return getdata;
     }
 
     //커스텀 sql - delupdateSQL()
     protected async customSQL(sql: string){
         const data = await PDO(sql, '');
         const getdata: string[] = JSON.parse(JSON.stringify(data));
-        var key = Object.keys(getdata);
-
-        this.result;
+        return getdata;
     }
 
     protected insertData(param: Map<string, string>): void{
@@ -339,8 +339,9 @@ export class Controller{
     }
 
     //페이그멘테이션 만들기 -- 여기 부터
-    protected makePage(total_cnt: number, sql: string, iswhere: boolean): string{
+    protected async makePage(total_cnt: number, sql: string, iswhere: boolean){
         var pagi: string;
+        var result: string[];
         var value: string = '없음';
 
         if(this.url.get('value') != null){
@@ -350,18 +351,19 @@ export class Controller{
         sql = this.pagesql(sql);
 
         if(iswhere){
-            this.whereSQL(sql);
+            result = await this.whereSQL(sql);
             pagi = this.pagemanager(total_cnt, value);
         }else{
-            this.joinSQL(sql);
+            result = await this.joinSQL(sql);
             pagi = this.pagemanager(total_cnt, value);
         }
 
+        this.result = result;
         return pagi;
     }
 
     //대출이 가능한지 확인
-    protected lentpossible(mem_no: number): boolean{
+    protected async lentpossible(mem_no: number){
         let m_table: string = this.table;
         let m_key: string = this.keyField;
         let mem_lent: number;
@@ -370,18 +372,18 @@ export class Controller{
 
         this.table = this.memTable[0];
         this.keyField = this.memTable[1];
-        this.selectID(mem_no);
-        mem_lent = +this.result['mem_lent'];
+        result = await this.selectID(mem_no);
+        mem_lent = +result['mem_lent'];
 
         this.table = this.lenTable[0];
         this.keyField =  this.lenTable[1];
         where = "WHERE `mem_no` = $mem_no AND `len_re_date` IS NULL";
-        this.whereSQL(where);
+        result = await this.whereSQL(where);
 
         this.table = m_table;
         this.keyField = m_key;
 
-        if(this.result.size > mem_lent){
+        if(result.length > mem_lent){
             alert('대출가능수를 초과했습니다.');
             return false;
         }
@@ -390,7 +392,7 @@ export class Controller{
     }
 
     //자료가 있는지 확인
-    protected existMat(mat_no: number, mat_exist: number): void{
+    protected async existMat(mat_no: number, mat_exist: number){
         var m_table: string = this.table;
         var m_key: string = this.keyField;
         var bool: boolean = true;
@@ -399,22 +401,22 @@ export class Controller{
             var where: string = "WHERE `mat_no` = $mat_no AND `len_re_st` = 0";
             this.table = this.lenTable[0];
             this.keyField = this.lenTable[1];
-            this.whereSQL(where);
-            bool = this.resultempty_check(this.result);
+            var rs = await this.whereSQL(where);
+            bool = this.resultempty_check(rs);
 
             this.table = this.delTable[0];
             this.keyField = this.delTable[1];
 
             if(bool){
                 where = "WHERE `mat_no` =  $mat_no AND `del_app` = 1 AND `len_no` IS NULL";
-                this.whereSQL(where);
-                bool = this.resultempty_check(this.result);
+                rs = await this.whereSQL(where);
+                bool = this.resultempty_check(rs);
             }
             
             if(bool){
                 where = "WHERE `mat_no` =  $mat_no AND `del_app` = 2 AND `del_arr_date` IS NULL";
-                this.whereSQL(where);
-                bool = this.resultempty_check(this.result);
+                rs = await this.whereSQL(where);
+                bool = this.resultempty_check(rs);
             }
 
             if(bool){
@@ -438,10 +440,10 @@ export class Controller{
     }
 
     //예약도서인지 확인 만약에 예약도서이면 현재 회원키와 예약도서 예약된 회원키를 같으면 대출 아니면 대출 거절
-    protected reservationCheck(res_no: string, mat_no: string, mem_no: string): boolean{
+    protected async reservationCheck(res_no: string, mat_no: string, mem_no: string){
         var num: number;
         var where: string;
-        var row: Map<string, string>;
+        var row: string[];
         var rs: boolean = false;
         var m_table: string = this.table;
         var m_key: string = this.keyField;
@@ -451,9 +453,8 @@ export class Controller{
 
         if(res_no == null){
             where = "WHERE `mat_no` = " + mat_no;
-            this.whereSQL(where);
-            row = this.result;
-            num = row.size;
+            row = await this.whereSQL(where);
+            num = row.length;
             
             if(num == 0){
                 rs = true;
@@ -466,8 +467,7 @@ export class Controller{
             }
         }
         else{
-            this.selectID(+res_no);
-            row = this.result;
+            row = await this.selectID(+res_no);//
 
             if(row['mem_no'] == mem_no){
                 rs = true;
@@ -532,10 +532,5 @@ export class Controller{
         }
 
         return key;
-    }
-
-    //result 값 가져오는 함수
-    public getResult(){
-        return this.result;
     }
 }
