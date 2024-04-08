@@ -100,7 +100,7 @@ export default async function home(props){
     if(state != '1'){
         return (
             <>
-            <Script defer src="../components/script/calendar">let rest = {rest}</Script>
+            <Script defer src="http://localhost/js/calendar.js"></Script>
             <form action="/mat/search" method="post">
                 <div className="search">
                     <select id="s1" name="lib_search">
