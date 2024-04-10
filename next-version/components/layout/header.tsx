@@ -10,6 +10,9 @@ export default function Header(){
     var state = getCookie("state");
     var name = getCookie("name");
 
+    console.log("state");
+    console.log(state);
+
     function login(e) {
         window.location.href = "/member/login";
     }
@@ -43,14 +46,13 @@ export default function Header(){
             </header>
         );
     }else{
-        var name = 'data.name';
         return(
             <header>
                 <a href="/">
-                    <img src="../img/header.gif" alt=""/>
+                    <Image src={header_img} alt=""/>
                 </a>
                 <div className="link">
-                    <a>{name}'님 환영합니다.</a>
+                    <a>{name}님 환영합니다.</a>
                     <button id="logout_hbt" onClick={logout}></button>   
                     <label htmlFor="logout_hbt">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">

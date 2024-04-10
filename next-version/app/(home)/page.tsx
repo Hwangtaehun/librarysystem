@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
-import { Controller } from '../components/Controller'
-import { Combobox_Manager } from '../components/includes/Combobox_Manager'
+import { Controller } from '../../components/Controller'
+import { Combobox_Manager } from '../../components/includes/Combobox_Manager'
 import Calender from './calendar';
 
 class Home_table extends Controller {
@@ -58,9 +58,9 @@ export default async function home(props){
         state = '2';
     }
 
-    //휴일 확인
+    //도서관 정보
     var lib_no = '1';
-    if(url.lib_no != null){
+    if(url.no != null){
         lib_no = url.no;
     }
     result = await lib.getLib_info(+lib_no);

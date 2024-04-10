@@ -9,6 +9,7 @@ body{
     background-image : url('../img/background.png');
     min-height: 100vh;
     display: grid;
+    color: var(--one) !important;
 }
 
 header{

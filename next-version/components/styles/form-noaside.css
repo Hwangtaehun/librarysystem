@@ -89,6 +89,7 @@ footer img {
 .auth_page h1{
     max-width: 450px;
     margin: 0px auto;
+    color: var(--one);
 }
 .auth_page .auth_input .form-control{
     margin: 0px auto; width: 12em; margin-top: 1em;

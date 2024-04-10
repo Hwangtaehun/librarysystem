@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang = "en">
     <head>
@@ -12,7 +13,7 @@
                 <img src="../img/header.gif" alt="">
             </a>
             <div class="link">
-                <button id="login_hbt" onclick="location.href='/member/login'"></button>
+                            <button id="login_hbt" onclick="location.href='/member/login'"></button>
                 <label for="login_hbt">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
@@ -24,40 +25,10 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                     </svg>
-                </label>         
-            </div>
+                </label>
+                        </div>
                     </header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/lib/list">도서관</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a>
-                        <ul class="dropdown-menu">
-                            <li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li>
-                            <li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li>
-                            <li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li>
-                            <li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
-                        <ul class="dropdown-menu">
-                            <li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li>
-                            <li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav>        
-    <main>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary"><div class="container-fluid"><a class="navbar-brand"></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNavDropdown"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/">홈</a></li><li class="nav-item"><a class="nav-link" href="/not/list">공지사항</a></li><li class="nav-item"><a class="nav-link" href="/lib/list">도서관</a></li><li class="nav-item"><a class="nav-link" href="/mat/list">자료 검색</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내서재</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>대출중도서</a></li><li><a class='dropdown-item' href='/member/logalert'>모든대출내역</a></li><li><a class='dropdown-item' href='/member/logalert'>예약내역</a></li><li><a class='dropdown-item' href='/member/logalert'>상호대차내역</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내정보수정</a><ul class="dropdown-menu"><li><a class='dropdown-item' href='/member/logalert'>회원정보수정</a></li><li><a class='dropdown-item' href='/member/logalert'>회원탈퇴</a></li></ul></li></ul></div></div></nav>        <main>
             <!doctype html>
 <html>
     <head>
@@ -65,6 +36,7 @@
         <script defer>
             var cnt = 1;
             let rest = 5;        </script>
+        <script defer src="../js/key.js"></script>
         <script defer src="../js/calendar.js"></script>
     </head>
         <body>
@@ -72,7 +44,7 @@
         <form action="/mat/research" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
                 <select id = "s1" name = "lib_research">
-                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option><option  value = 5 > 청주시립도서관 </option><option  value = 6 > 청주오창도서관 </option>                </select>
+                    <option  value = 0 > 전체 </option><option  value = 1 > 청주청원도서관 </option><option  value = 2 > 청주상당도서관 </option><option  value = 3 > 청주흥덕도서관 </option><option  value = 4 > 청주금빛도서관 </option>                </select>
                 <input type="text" name="user_research" id="id_research" value = "" placeholder="도서 이름을 입력해주세요.">
                 <button type="submit" class="btn btn-outline-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -81,6 +53,34 @@
                 </button>
             </div>
         </form>
+        <!-- 메인 내용 -->
+        <div class="main_context">
+            <!-- 슬라이드 배너 -->
+            <div class="slide slide_wrap">
+                            <div><a href="/not/addupdate?not_no=1">
+                    <img src="../img/not/1/ban/배너이미지.png" alt="" style="width:100%;">
+                </a></div>
+                            <div class="slide_tool">
+                    <div class="slide_prev_button slide_button"></div>
+                    <div class="slide_next_button slide_button"></div>
+                </div>
+                <ul class="slide_pagination"></ul>
+            </div>
+            <!-- 게시판 내용 -->
+            <div class="board">
+                <h3>공지사항</h3>
+                <fieldset id="fieldset_row">
+                                    <div id="div_row">
+                        <a class="http" href="/not/addupdate?not_no=1">
+                            <script>
+                                document.write(cnt+"번째 ");
+                                cnt++;
+                            </script>
+                            환영합니다                            2023-11-27                        </a>
+                    </div>
+                                </fieldset>
+            </div>
+        </div>
         <div class="quickmenu">
             <div id="context">
                 <h2>자주찾는 메뉴</h2>
@@ -118,39 +118,11 @@
                 <h6>상호대차내역</h6>
             </div>
         </div>
-        <!-- 메인 내용 -->
-        <div class="main_context">
-            <!-- 슬라이드 배너 -->
-            <div class="slide slide_wrap">
-                            <div><a href="/not/addupdate?not_no=1">
-                    <img src="../img/not/1/ban/배너이미지.png" alt="" style="width:100%;">
-                </a></div>
-                            <div class="slide_tool">
-                    <div class="slide_prev_button slide_button"></div>
-                    <div class="slide_next_button slide_button"></div>
-                </div>
-                <ul class="slide_pagination"></ul>
-            </div>
-            <!-- 게시판 내용 -->
-            <div class="board">
-                <h3>공지사항</h3>
-                <fieldset id="fieldset_row">
-                                    <div id="div_row">
-                        <a class="http" href="/not/addupdate?not_no=1">
-                            <script>
-                                document.write(cnt+"번째 ");
-                                cnt++;
-                            </script>
-                            환영합니다                            2023-11-27                        </a>
-                    </div>
-                                </fieldset>
-            </div>
-        </div>
         <div class="calender">
             <div class="header">
               <div class="select">
                 <select id = "s2" name = "lib_select" onchange = "if(this.value) location.href=(this.value);">
-                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option><option  value='/member/home?lib_no=5' > 청주시립도서관 </option><option  value='/member/home?lib_no=6' > 청주오창도서관 </option>               
+                <option  value='/member/home?lib_no=1' selected> 청주청원도서관 </option><option  value='/member/home?lib_no=2' > 청주상당도서관 </option><option  value='/member/home?lib_no=3' > 청주흥덕도서관 </option><option  value='/member/home?lib_no=4' > 청주금빛도서관 </option>               
                 </select>
               </div>
               <button class="prevBtn" onclick="prevCal()"></button>
@@ -181,7 +153,7 @@
 </html>                    </main>
         <footer>
             <img src="../img/footer.gif" alt="">
-            <div class='table_menu'><table><tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>마이페이지</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/member/logalert">대출중도서</a></td><td><a href="/member/logalert">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">모든대출내역</a></td><td><a href="/member/logalert">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/member/logalert">상호대차내역</a></td><td></td></tr></table></div>        </footer>
+            <div class='table_menu'><table><tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>내정보수정</th></tr><tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="/member/logalert">대출중도서</a></td><td><a href="/member/logalert">회원정보수정</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">모든대출내역</a></td><td><a href="/member/logalert">회원탈퇴</a></td></tr><tr><td></td><td></td><td><a href="/member/logalert">예약내역</a></td><td></td></tr><tr><td></td><td></td><td><a href="/member/logalert">상호대차내역</a></td><td></td></tr></table></div>        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
