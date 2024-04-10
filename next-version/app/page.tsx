@@ -1,6 +1,7 @@
 import { getCookie } from 'cookies-next';
 import { Controller } from '../components/Controller'
 import { Combobox_Manager } from '../components/includes/Combobox_Manager'
+import Calender from './calendar';
 
 class Home_table extends Controller {
     private today: Date;
@@ -60,13 +61,10 @@ export default async function home(props){
     //휴일 확인
     var lib_no = '1';
     if(url.lib_no != null){
-        lib_no = url.lib_no;
+        lib_no = url.no;
     }
     result = await lib.getLib_info(+lib_no);
-    rest = result[0]['lib_close'];
-    if(rest == null){
-        rest = '7';
-    }
+
 
     //슬라이드랑 공지사항 게시판
     result = await not.getNotBaner();
@@ -87,8 +85,8 @@ export default async function home(props){
     for(let i = 0; i < lib_data.length; i++){
         option.push(<option value={lib_data[i][0]}>{lib_data[i][1]}</option>);
     }
-    for(let i = 0; i < lib_data.length; i++){
-        var m_url = "/member/home?lib_no=" + lib_data[i][0]
+    for(let i = 1; i < lib_data.length; i++){
+        var m_url = "/?no=" + lib_data[i][0]
         if(lib_no == lib_data[i][0]){
             cal_option.push(<option value={m_url} selected>{lib_data[i][1]}</option>);
         }else{
@@ -165,36 +163,7 @@ export default async function home(props){
                     <h6>상호대차내역</h6>
                 </div>
             </div>
-            <div className="calender">
-                <div className="header">
-                <div className="select">
-                    <select id = "s2" name = "lib_select">
-                        {cal_option}
-                    </select>
-                </div>
-                <button className="prevBtn"></button>
-                <div className="title">
-                    <div className="yearTitle"></div>
-                    <div>년</div>
-                    <div className="monthTitle"></div>
-                    <div>월</div>
-                </div>
-                <button className="nextBtn"></button>
-                </div>
-                <div className="main">
-                <div className="days">
-                    <div className="day">Sun</div>
-                    <div className="day">Mon</div>
-                    <div className="day">Tue</div>
-                    <div className="day">Wed</div>
-                    <div className="day">Thu</div>
-                    <div className="day">Fri</div>
-                    <div className="day">Sat</div>
-                </div>
-                <div className="dates"></div>
-                <div className="image"></div>
-                </div>
-            </div>
+            <Calender cal_option={cal_option}/>
             </>
         );
     }
