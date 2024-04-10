@@ -101,12 +101,10 @@ main .slide{
     width: 100%;
     user-select: none;
 }
-
 main .slide img{
     width: 111%;
     height: 100%;
 }
-
 main .slide_item{
     display: flex;
     align-items: center;

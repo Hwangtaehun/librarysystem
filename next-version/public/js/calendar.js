@@ -1,8 +1,23 @@
 //달력 스크립트
-let rest = 7; //home 부분 작성한 후 수정하기
+const url = window.location.search.slice(1).split('=');
+let rest = 5; //home 부분 작성한 후 수정하기
 let CDate = new Date();
 let today = new Date();
 
+if(url[0] == 'no'){
+    let no = url[1];
+    console.log(no);
+    switch (no) {
+        case 1:
+        case 4:
+            rest = 5;
+            break;
+        case 2:
+        case 3:
+            rest = 1;
+            break;
+    }
+}
 HolidayData(String(CDate.getFullYear()), String(CDate.getMonth() + 1));
 
 window.addEventListener("resize", function() {
