@@ -18,7 +18,7 @@ function HolidayData(m_year, m_month){
 
     var xhr = new XMLHttpRequest();
     var url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo'; /*URL*/
-    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.PUBLIC_PW; /*Service Key*/
+    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + public_api; /*Service Key*/
     queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent(m_year); /**/
     queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(m_month); /**/
     xhr.open('GET', url + queryParams);

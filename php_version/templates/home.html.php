@@ -14,6 +14,7 @@
             }
             ?>
         </script>
+        <script defer src="../js/key.js"></script>
         <script defer src="../js/calendar.js"></script>
     </head>
     <?php

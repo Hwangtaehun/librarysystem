@@ -1,7 +1,6 @@
 import { getCookie } from 'cookies-next';
 import { Controller } from '../components/Controller'
 import { Combobox_Manager } from '../components/includes/Combobox_Manager'
-import Script from 'next/script';
 
 class Home_table extends Controller {
     private today: Date;
@@ -100,7 +99,6 @@ export default async function home(props){
     if(state != '1'){
         return (
             <>
-            <Script defer src="http://localhost/js/calendar.js"></Script>
             <form action="/mat/search" method="post">
                 <div className="search">
                     <select id="s1" name="lib_search">
@@ -171,18 +169,17 @@ export default async function home(props){
                 <div className="header">
                 <div className="select">
                     <select id = "s2" name = "lib_select">
-                    {/* onChange={() => { if(this.value) location.href=(this.value); }}              */}
                         {cal_option}
                     </select>
                 </div>
-                {/* <button className="prevBtn" onClick="prevCal()"></button> */}
+                <button className="prevBtn"></button>
                 <div className="title">
                     <div className="yearTitle"></div>
                     <div>년</div>
                     <div className="monthTitle"></div>
                     <div>월</div>
                 </div>
-                {/* <button className="nextBtn" onClick="nextCal()"></button> */}
+                <button className="nextBtn"></button>
                 </div>
                 <div className="main">
                 <div className="days">
@@ -198,7 +195,6 @@ export default async function home(props){
                 <div className="image"></div>
                 </div>
             </div>
-            <Script src="../components/script/slider.js"></Script>
             </>
         );
     }

@@ -1,10 +1,10 @@
 import "../components/styles/form-root.css"
 import "../components/styles/form-home.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Script from 'next/script';
 import Header from "../components/layout/header"
 import Navigation from "../components/layout/navigation"
 import Footer from "../components/layout/footer"
-import Aside from "../components/layout/aside";
 
 export const metadata = {
   title: '도서관 홈페이지',
@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script src="/js/calendar.js" strategy="beforeInteractive" defer />
+      </head>
       <body>
         <Header/>
         <Navigation/>
@@ -25,6 +28,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer/>
+        <Script defer src="http://localhost/js/slider.js"></Script>
       </body>
     </html>
   )
