@@ -26,108 +26,158 @@ export class Controller{
         this.keyField = this.getKey(table);
     }
 
+    private partpage(value: string, total_pages: number, sp_pg: number): JSX.Element[]{
+        var result: JSX.Element[];
+        var go_pg: number;
+        var sup_pg: number;
+        var m_page: number;
+
+        if(this.url.sup_pg != null){
+            sup_pg = +this.url.sup_pg;
+        }
+        else{
+            sup_pg = 0;
+        }
+
+        if(this.url.page != null){
+             m_page = +this.url.page;
+        }
+        else{
+             m_page = 1;
+        }
+
+        if(value === '없음'){           
+            if(sup_pg != 0){
+                go_pg = sup_pg - 1;
+                let url = '/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg + '&page=' + m_page + this.m_get;
+                result.push(
+                    <li className="page-item">
+                        <a className="page-link" href={url} aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                );
+            }
+
+            for (let i=0; i < 19 ; i++) { 
+                go_pg = sup_pg;
+                var page = sup_pg * 19 + i;
+
+                if(page <= total_pages - 1){
+                    var num = page + 1;
+                    var str_num: string;
+                    if(num < 10){
+                        str_num = '0' + num;
+                    }else{
+                        str_num = num.toString();
+                    }
+
+                    let start_num = page * this.listnum;
+                    let url = '/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg + '&page=' + start_num + this.m_get;
+
+                    result.push(
+                        <li className="page-item">
+                            <a className="page-link" href={url}>{str_num}</a>
+                        </li>
+                    );
+                }
+            }
+
+            if(sup_pg != sp_pg - 1){
+                go_pg = sup_pg + 1;
+                let url = '/'+ this.table + '/' + this.func + 'list?sup_pg=' + go_pg + '&page=' + m_page + this.m_get
+
+                result.push(
+                    <li className="page-item">
+                        <a className="page-link" href={url} aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                );
+            }
+        }else{
+            if(sup_pg != 0){
+                go_pg = sup_pg - 1;
+                let url = '/' + this.table + '/' + this.func + 'research?sup_pg=' + go_pg + '&page=' + m_page + '&value=' + value + this.m_get;
+
+                result.push(
+                    <li className="page-item">
+                        <a className="page-link" href={url} aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                );
+            }
+            for (let i = 0; i < 19 ; i++) { 
+                go_pg = sup_pg;
+                page = sup_pg * 19 + i;
+
+                if(page <= total_pages - 1){
+                    num = page + 1;
+                    if(num < 10){
+                        str_num = '0' + num;
+                    }else{
+                        str_num = page.toString();
+                    }
+
+                    let start_num = page * this.listnum;
+                    let url = '/'+ this.table + '/' + this.func + 'research?sup_pg=' + go_pg + '&page=' + start_num + '&value=' + value + this.m_get;
+
+                    result.push(
+                        <li className="page-item">
+                            <a className="page-link" href={url}>{str_num}</a>
+                        </li>
+                    );
+                }
+            }
+
+            if(sup_pg != sp_pg - 1){
+                go_pg = sup_pg + 1;
+                let url = '/' + this.table + '/' + this.func + 'research?sup_pg='+ go_pg + '&page=' + m_page + '&value=' + value + this.m_get
+
+                result.push(
+                    <li className="page-item">
+                        <a className="page-link" href={url} aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                );
+            }
+        }
+
+        return result;
+    }
+
     //page번호 달기 만들기위한 html제작
-	private pagemanager(total_cnt: number, value: string): HTMLElement{
+	private pagemanager(total_cnt: number, value: string): JSX.Element{
         var pagenum: number = 19;
-        var outStr: HTMLElement;
 
         if(20 < total_cnt){
             var total_pages = Math.floor(total_cnt/this.listnum);
             var sp_pg = Math.ceil(total_pages/pagenum);
-            var sup_pg: number;
-            var m_page: number;
+            var li_part = this.partpage(value, total_pages, sp_pg);
 
-            if(this.url.get('sup_pg') != null){
-                sup_pg = +this.url.get('sup_pg');
-            }
-            else{
-                sup_pg = 0;
-            }
-
-            if(this.url.get('page') != null){
-                m_page = +this.url.get('page');
-            }
-            else{
-                m_page = 1;
-            }
-            
-            if(value === '없음'){
-                var go_pg: number;           
-                outStr.innerHTML = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
-                if(sup_pg != 0){
-                    go_pg = sup_pg - 1;
-                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg +
-                              '&page=' + m_page + this.m_get + '" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>';
-                }
-                for (let i=0; i < 19 ; i++) { 
-                    go_pg = sup_pg;
-                    var page = sup_pg * 19 + i;
-
-                    if(page <= total_pages - 1){
-                        var num = page + 1;
-                        var str_num: string;
-                        if(num < 10){
-                            str_num = '0' + num;
-                        }else{
-                            str_num = num.toString();
-                        }
-
-                        let start_num = page * this.listnum;
-                        outStr.innerHTML += '<li class="page-item"><a class="page-link" href="/' + this.table + '/' + this.func + 'list?sup_pg=' + go_pg + 
-                                  '&page=' + start_num + this.m_get + '">' + str_num + '</a></li>';
-                    }
-                }
-
-                if(sup_pg != sp_pg - 1){
-                    go_pg = sup_pg + 1;
-                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/'+ this.table + '/' + this.func + 'list?sup_pg=' + go_pg + 
-                              '&page=' + m_page + this.m_get + '" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>';
-                }
-
-                outStr.innerHTML += '</ul> </div> </div>';
-            }else{
-                outStr.innerHTML = '<div class="page"> <div aria-label="Page navigation example"> <ul class="pagination justify-content-center">';
-                if(sup_pg != 0){
-                    go_pg = sup_pg - 1;
-                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'research?sup_pg=' + go_pg + 
-                              '&page=' + m_page + '&value=' + value + this.m_get + '" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>';
-                }
-                for (let i = 0; i < 19 ; i++) { 
-                    go_pg = sup_pg;
-                    page = sup_pg * 19 + i;
-
-                    if(page <= total_pages - 1){
-                        num = page + 1;
-                        if(num < 10){
-                            str_num = '0' + num;
-                        }else{
-                            str_num = page.toString();
-                        }
-
-                        let start_num = page * this.listnum;
-                        outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/'+ this.table + '/' + this.func + 'research?sup_pg=' + go_pg +
-                                  '&page=' + start_num + '&value=' + value + this.m_get + '">' + str_num + '</a></li>';
-                    }
-                }
-
-                if(sup_pg != sp_pg - 1){
-                    go_pg = sup_pg + 1;
-                    outStr.innerHTML += '<li class="page-item"> <a class="page-link" href="/' + this.table + '/' + this.func + 'research?sup_pg='+ go_pg + 
-                              '&page=' + m_page + '&value=' + value + this.m_get + '" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>';
-                }
-
-                outStr.innerHTML += '</ul> </div> </div>';
-            }
+            return (
+                <div className="page"> 
+                    <div aria-label="Page navigation example"> 
+                        <ul className="pagination justify-content-center">
+                            {li_part}
+                        </ul>
+                    </div>
+                </div>
+            );
         }
-        return outStr;
+        else{
+            return null;
+        }
     }
 
     //페이지 번호 매기기에 맞는 sql제작
     private pagesql(where: string): string{
         var page: number;
 
-        if(this.url.get('page') != null){
-            page = +this.url.get('page');
+        if(this.url.page != null){
+            page = +this.url.page;
         }
         else{
             page = 0;
@@ -156,11 +206,6 @@ export class Controller{
     //get 파라미터 입력
     protected getValue(m_get: string): void{
         this.m_get = m_get;
-    }
-
-    //result 값 가져오는 함수
-    protected getResult(){
-        return this.result;
     }
 
     //문자가 정수인지 확인하는 함수
@@ -338,14 +383,14 @@ export class Controller{
         PDO(sql, '');
     }
 
-    //페이그멘테이션 만들기 -- 여기 부터
+    //페이그멘테이션 만들기
     protected async makePage(total_cnt: number, sql: string, iswhere: boolean){
-        var pagi: HTMLElement;
+        var pagi: JSX.Element;
         var result: string[];
         var value: string = '없음';
 
-        if(this.url.get('value') != null){
-            value = this.url.get('value');
+        if(this.url.value != null){
+            value = this.url.value;
         }
         
         sql = this.pagesql(sql);
@@ -532,5 +577,10 @@ export class Controller{
         }
 
         return key;
+    }
+
+    //result 값 가져오는 함수
+    public getResult(){
+        return this.result;
     }
 }

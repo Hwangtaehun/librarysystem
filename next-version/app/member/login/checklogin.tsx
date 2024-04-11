@@ -27,8 +27,8 @@ export default async function checklogin(formData) {
         setCookie('no', member[0]['mem_no'], { cookies });
         setCookie('name', member[0]['mem_name'], { cookies });
         setCookie('state', member[0]['mem_state'], { cookies });
-        return { message: 'Success!' }
+        return { message: 'success' }
     }else{
-        return { message: 'fail!' }
+        return { message: 'fail' }
     }
 }

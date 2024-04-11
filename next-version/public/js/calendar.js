@@ -6,8 +6,7 @@ let today = new Date();
 
 if(url[0] == 'no'){
     let no = url[1];
-    console.log(no);
-    if(no == 1 ||no == 4){
+    if(no == 1 || no == 4){
         rest = 5;
     }else{
         rest = 1;
@@ -29,7 +28,7 @@ function HolidayData(m_year, m_month){
 
     var xhr = new XMLHttpRequest();
     var url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo'; /*URL*/
-    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + public_api; /*Service Key*/
+    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + 'eEL73Oq71v%2B%2BsPzxxoE0jNKIbDdNn5H1MCHQPl6ZH3OGDvE6%2BCaCLD%2FfgmaUjqrMmFC17xdbSe2o%2B%2BdAqRTXXQ%3D%3D'; /*Service Key*/
     queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent(m_year); /**/
     queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(m_month); /**/
     xhr.open('GET', url + queryParams);
@@ -112,7 +111,6 @@ function buildCalender(holiday){
 
 function breakImg() {
     let array = document.querySelectorAll("#break");
-    console.log(array);
     let html = '';
     for (let i = 0; i < array.length; i++) { 
         let top = window.scrollY + array[i].getBoundingClientRect().top + 1;
