@@ -10,9 +10,6 @@ export default function Header(){
     var state = getCookie("state");
     var name = getCookie("name");
 
-    console.log("state");
-    console.log(state);
-
     function login(e) {
         window.location.href = "/member/login";
     }

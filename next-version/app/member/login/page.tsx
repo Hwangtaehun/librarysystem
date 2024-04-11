@@ -1,31 +1,19 @@
-import { cookies } from 'next/headers';
-import { getCookie, setCookie } from 'cookies-next';
-import { Controller } from "../../../components/Controller";
+'use client'
+
+import { useState } from "react";
+import checklogin from "./checklogin";
 
 export default function login(){
-    async function handleSubmit(formData) {
-        'use server';  
+    const [message, setMessage] = useState<string>('')
+ 
+    async function handleSubmit(formData: FormData) {
+        const res = await checklogin(formData)
+        setMessage(res.message)
 
-        class MemberTable extends Controller{
-            constructor(table: string) {
-                super(table);
-            }
-
-            checkMember(id: string, pw: string){
-                let where = "WHERE `mem_id` = '"+ id + "' AND `mem_pw` = '"+ pw  +"'";
-                return this.whereSQL(where);
-            }
-        }
-
-        let id = formData.get('user_id');
-        let pw = formData.get('user_password');
-        let login = new MemberTable('member');
-        let member = await login.checkMember(id, pw);
-
-        if(member.length != 0){
-            setCookie('no', member[0]['mem_no'], { cookies });
-            setCookie('name', member[0]['mem_name'], { cookies });
-            setCookie('state', member[0]['mem_state'], { cookies });
+        if(message === 'success'){
+            history.back();
+        }else{
+            alert("아이디와 비밀번호가 잘못되었습니다.");
         }
     }
 
