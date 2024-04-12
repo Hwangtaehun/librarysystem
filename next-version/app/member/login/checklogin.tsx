@@ -5,8 +5,6 @@ import { setCookie } from 'cookies-next';
 import { Controller } from "../../../components/Controller";
 
 export default async function checklogin(formData) {
-    'use server';  
-
     class MemberTable extends Controller{
         constructor(table: string) {
             super(table);
@@ -27,8 +25,8 @@ export default async function checklogin(formData) {
         setCookie('no', member[0]['mem_no'], { cookies });
         setCookie('name', member[0]['mem_name'], { cookies });
         setCookie('state', member[0]['mem_state'], { cookies });
-        return { message: 'success' }
+        return { message: true }
     }else{
-        return { message: 'fail' }
+        return { message: false }
     }
 }

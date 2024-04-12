@@ -4,14 +4,12 @@ import { useState } from "react";
 import checklogin from "./checklogin";
 
 export default function login(){
-    const [message, setMessage] = useState<string>('')
- 
     async function handleSubmit(formData: FormData) {
         const res = await checklogin(formData)
-        setMessage(res.message)
+        const rs = res.message
 
-        if(message === 'success'){
-            history.back();
+        if(rs){
+            location.href = "/";
         }else{
             alert("아이디와 비밀번호가 잘못되었습니다.");
         }
