@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Member from "../member";
 import Idcheck from "./idcheck";
+import Memform from "./memform";
 
 export default function Meminsert(){
     const [idmes, setId] = useState("");
