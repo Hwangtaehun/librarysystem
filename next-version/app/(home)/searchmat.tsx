@@ -1,8 +1,11 @@
-export default function Searchmat(props){
+"use client";
 
-    
+import router from "next/router";
+
+
+export default function Searchmat(props){
     return(
-        <form action="/mat/search" method="post">
+        <form action="/mat/search">
             <div className="search">
                 <select id="s1" name="lib_search">
                     {props.option}
