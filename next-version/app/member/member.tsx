@@ -34,8 +34,10 @@ export default async function Member(formData){
 
         if(formData.mem_no == null){
             mapdata.delete('mem_no');
+            mapdata.delete('mem_pw_check');
             memtable.add(mapdata);
         }else{
+            mapdata.delete('mem_pw_check');
             memtable.update(mapdata);
         }
     }

@@ -72,6 +72,14 @@ main input[readonly] {
 main #fieldset_not input[readonly]{
     background-color: white;
 }
+/*회원 확인*/
+main .dynamic{
+    display: flex;
+    justify-content: space-between;
+}
+main .dynamic .message{
+    font-size: 95%;
+}
 
 /*하이퍼 링크 밑줄X*/
 #hreflink{

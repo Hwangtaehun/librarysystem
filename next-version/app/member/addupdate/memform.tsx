@@ -1,19 +1,16 @@
 "use client";
 
-import Member from "../../member";
 import { useState } from "react";
-import Idcheck from "../idcheck";
+import Member from "../member";
+import Idcheck from "./idcheck";
 
-
-export default function Memupdate({params: {id}}: {params: { id: string }}){
+export default function Memform(){
     const [idmes, setId] = useState("");
     const [pwmes, setPw] = useState("");
     const [pw, setpw] = useState("");
     const [idchk, setIdchk] = useState(false);
     const [pwchk, setPwchk] = useState(false);
 
-    Member(id);
-    
     async function onChange(e){
         if(e.target.name == 'mem_id'){
             if(e.target.value.length < 4){
@@ -69,7 +66,7 @@ export default function Memupdate({params: {id}}: {params: { id: string }}){
             if(res[0] == 'fail'){
                 console.log('ckeck');
             }else{
-                location.href = "/member/list";
+                location.href = "/";
             }
         }
     }
