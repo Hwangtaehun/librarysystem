@@ -5,3 +5,9 @@ const firstObject = jsonArray[0];
 const keys = Object.keys(firstObject);
 
 console.log(keys); // 객체의 key 배열 출력
+
+
+console.log(formData);
+for(let key of formData.keys()){
+    console.log(key + ": " + formData.get(key));
+}

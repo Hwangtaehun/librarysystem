@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from "react";
 import checklogin from "./checklogin";
 
 export default function login(){
