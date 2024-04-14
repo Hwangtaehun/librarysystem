@@ -92,33 +92,33 @@ export default function Memform(props){
                     <ul>
                         <li>
                             <label htmlFor  = "id_name">이름</label><br/>
-                            <input className="input" type= "text" name="mem_name" id="id_name" value={data.length > 0 && data[0]['mem_name'] ? data[0]['mem_name'] : ''}/>
+                            <input className="input" type= "text" name="mem_name" id="id_name" defaultValue={data.length > 0 && data[0]['mem_name'] ? data[0]['mem_name'] : ''}/>
                         </li>
                         <li>
                             <label htmlFor  = "id_id">아이디</label><br/>
                             <div className="dynamic">
-                                <input className="input" type= "text" name="mem_id" id="id_id" onChange={onChange} value={data.length > 0 && data[0]['mem_id'] ? data[0]['mem_id'] : ''}/>
+                                <input className="input" type= "text" name="mem_id" id="id_id" onChange={onChange} defaultValue={data.length > 0 && data[0]['mem_id'] ? data[0]['mem_id'] : ''}/>
                                 <div className="message">{idmes}</div>
                             </div>
                         </li>
                         <li>
                             <label htmlFor  = "id_pw">비밀번호</label><br/>
-                            <input className="input" type= "password" name="mem_pw" id="id_pw" onChange={onChange} value={data.length > 0 && data[0]['mem_pw'] ? data[0]['mem_pw'] : ''}/>
+                            <input className="input" type= "password" name="mem_pw" id="id_pw" onChange={onChange} defaultValue={data.length > 0 && data[0]['mem_pw'] ? data[0]['mem_pw'] : ''}/>
                         </li>
                         <li><label htmlFor  = "id_pw_check">비밀번호 확인</label><br/>
                             <div className="dynamic">
-                                <input className="input" type= "password" name="mem_pw_check" id="id_pw_check" onChange={onChange} value={data.length > 0 && data[0]['mem_pw'] ? data[0]['mem_pw'] : ''}/>
+                                <input className="input" type= "password" name="mem_pw_check" id="id_pw_check" onChange={onChange} defaultValue={data.length > 0 && data[0]['mem_pw'] ? data[0]['mem_pw'] : ''}/>
                                 <div className="message">{pwmes}</div>
                             </div>
                         </li>
                         <li>
                             <label htmlFor  = "id_detail">주소</label><br/>
-                            <input className="input" type= "text" name="mem_zip" id="id_zip" placeholder="우편번호" value={data.length > 0 && data[0]['mem_zip'] ? data[0]['mem_zip'] : ''} readOnly />
-                            <input type = "button" onClick={addressSearch} value="우편번호 찾기"/>
+                            <input className="input" type= "text" name="mem_zip" id="id_zip" placeholder="우편번호" defaultValue={data.length > 0 && data[0]['mem_zip'] ? data[0]['mem_zip'] : ''} readOnly />
+                            <input type = "button" onClick={addressSearch} defaultValue="우편번호 찾기"/>
                         </li>
                         <li>
-                            <input className="input" type= "text" name="mem_add" id="id_add" placeholder="주소" value={data.length > 0 && data[0]['mem_add'] ? data[0]['mem_add'] : ''} readOnly />
-                            <input className="input" type= "text" name="mem_detail" id="id_detail" placeholder="상세주소" value={data.length > 0 && data[0]['mem_detail'] ? data[0]['mem_detail'] : ''}/>
+                            <input className="input" type= "text" name="mem_add" id="id_add" placeholder="주소" defaultValue={data.length > 0 && data[0]['mem_add'] ? data[0]['mem_add'] : ''} readOnly />
+                            <input className="input" type= "text" name="mem_detail" id="id_detail" placeholder="상세주소" defaultValue={data.length > 0 && data[0]['mem_detail'] ? data[0]['mem_detail'] : ''}/>
                         </li>
                         <input type="hidden" name="mem_no" value={data.length > 0 && data[0]['mem_no'] ? data[0]['mem_no'] : ''}/>
                         <div className="form_bt">

@@ -64,7 +64,7 @@ export default function Navigation(){
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상호대차</a>
+                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">기타</a>
                                 <ul className="dropdown-menu">
                                     {c_menu.makehtml('기타')}
                                 </ul>
