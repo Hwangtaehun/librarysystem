@@ -5,8 +5,6 @@ import Memdel from "./list/memdel";
 function cardparame(data, pop){
     let result: JSX.Element[] = [];
 
-    console.log(data);
-    console.log("data[0] = " + data[0]['mem_no']);
     async function memdelete(formData: FormData) {
         const res = await Memdel(formData);
 
@@ -96,7 +94,6 @@ export default function Memlist(props){
         pop = true;
         url = "member/list?pop=true";
     }
-    console.log(props.data);
     card = cardparame(props.data, pop)
 
     async function sumbit(formData: FormData) {

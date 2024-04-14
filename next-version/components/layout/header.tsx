@@ -50,6 +50,7 @@ export default function Header(){
                     <Image src={headerimg} alt=""/>
                 </a>
                 <div className="link">
+                    <a>{name}님 환영합니다.</a>
                     <button id="logout_hbt" onClick={logout}></button>   
                     <label htmlFor="logout_hbt">
                         <Image src={LogoutSvg} alt='' width={32} />
