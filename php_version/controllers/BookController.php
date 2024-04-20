@@ -1,20 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Common.php';
+include_once __DIR__.'/../includes/Controller.php';
 session_start();
 
-class BookController extends Common{
-    private $libTable;
-    private $bookTable;
-    private $kindTable;
-    private $memTable;
-    private $matTable;
-    private $resTable;
-    private $lenTable;
-    private $dueTable;
-    private $plaTable;
-    private $delTable;
-    private $notTable;
-
+class BookController extends Controller{
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
     {

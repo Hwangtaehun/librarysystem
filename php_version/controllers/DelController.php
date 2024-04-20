@@ -1,19 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Common.php';
+include_once __DIR__.'/../includes/Controller.php';
 session_start();
 
-class DelController extends Common{
-    private $libTable;
-    private $bookTable;
-    private $kindTable;
-    private $memTable;
-    private $matTable;
-    private $resTable;
-    private $lenTable;
-    private $dueTable;
-    private $plaTable;
-    private $delTable;
-    private $notTable;
+class DelController extends Controller{
     private $sql = "SELECT * FROM delivery, material, member, book WHERE delivery.mat_no = material.mat_no AND delivery.mem_no = member.mem_no 
                     AND material.book_no = book.book_no";
     private $sort = "ORDER BY book.book_name";

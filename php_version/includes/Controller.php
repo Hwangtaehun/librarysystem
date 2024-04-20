@@ -1,10 +1,21 @@
 <?php
-class Common{
+class Controller{
 	private $listnum = 19;
     private $table = 'kind';
     private $func = '';
     private $m_get = '';
     private $result;
+    protected $libTable;
+    protected $bookTable;
+    protected $kindTable;
+    protected $memTable;
+    protected $matTable;
+    protected $resTable;
+    protected $lenTable;
+    protected $dueTable;
+    protected $plaTable;
+    protected $delTable;
+    protected $notTable;
 
     //page번호 달기 만들기위한 html제작
 	private function pagemanager(int $total_cnt, string $value){

@@ -1,22 +1,11 @@
 <?php
-include_once __DIR__.'/../includes/Common.php';
+include_once __DIR__.'/../includes/Controller.php';
 session_start();
 
-class ResController extends Common{
+class ResController extends Controller{
     private $sql = "SELECT * FROM reservation, material, member, library, book, kind WHERE reservation.mat_no = material.mat_no AND reservation.mem_no = member.mem_no
                     AND material.kind_no = kind.kind_no AND material.book_no = book.book_no AND material.lib_no = library.lib_no";
     private $sort = " ORDER BY library.lib_name, book.book_name";
-    private $libTable;
-    private $bookTable;
-    private $kindTable;
-    private $memTable;
-    private $matTable;
-    private $resTable;
-    private $lenTable;
-    private $dueTable;
-    private $plaTable;
-    private $delTable;
-    private $notTable;
 
     public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
                                 TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)

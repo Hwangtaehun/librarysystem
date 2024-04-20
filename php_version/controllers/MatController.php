@@ -1,19 +1,8 @@
 <?php
-include_once __DIR__.'/../includes/Common.php';
+include_once __DIR__.'/../includes/Controller.php';
 session_start();
 
-class MatController extends Common{
-    private $libTable;
-    private $bookTable;
-    private $kindTable;
-    private $memTable;
-    private $matTable;
-    private $resTable;
-    private $lenTable;
-    private $dueTable;
-    private $plaTable;
-    private $delTable;
-    private $notTable;
+class MatController extends Controller{
     private $sql = "SELECT * FROM library, book, kind, material WHERE library.lib_no = material.lib_no AND book.book_no = material.book_no AND kind.kind_no = material.kind_no ";
     private $sort = "ORDER BY book.book_name";
     private $popSql;

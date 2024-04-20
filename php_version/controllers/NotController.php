@@ -1,18 +1,7 @@
 <?php
-include_once __DIR__.'/../includes/Common.php';
+include_once __DIR__.'/../includes/Controller.php';
 session_start();
-class NotController extends Common{
-    private $libTable;
-    private $bookTable;
-    private $kindTable;
-    private $memTable;
-    private $matTable;
-    private $resTable;
-    private $lenTable;
-    private $dueTable;
-    private $plaTable;
-    private $delTable;
-    private $notTable;
+class NotController extends Controller{
     private $today;
     private $sort = "ORDER BY not_no DESC";
 
