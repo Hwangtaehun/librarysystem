@@ -3,6 +3,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 export class Menu{
     private state: string;
     private menus: string[][][];
+    private cnt: number = 10;
 
     public constructor(state: string | null, no: string | null){
 
@@ -105,7 +106,9 @@ export class Menu{
         for (let i = 0; i < this.menus[index].length ; i++) { 
             let m_url = this.menus[index][i][1];
             let m_title = this.menus[index][i][0];
-            result.push(<li><a className='dropdown-item' href={m_url}>{m_title}</a></li>);
+            let m_id: string = this.cnt.toString();
+            result.push(<li key={m_id}><a className='dropdown-item' href={m_url}>{m_title}</a></li>);
+            this.cnt++;
         }
         return result;
     }
