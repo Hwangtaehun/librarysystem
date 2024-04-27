@@ -50,6 +50,12 @@ class Home_table extends Controller {
         this.getValue(m_get);
     }
 
+    public async getClose(lib_no: string){
+        let where = "WHERE lib_no = " + lib_no;
+        let result = await this.whereSQL(where);
+        return result[0]['lib_close'];
+    }
+
     public async makeBoard(tab: string, lib_no: string){
         let result: string[];
         let sql: string;
@@ -61,6 +67,10 @@ class Home_table extends Controller {
         total_cnt = result.length;
 
         return this.makePage(total_cnt, sql, false);
+    }
+
+    public getDate(){
+        return this.today;
     }
 }
 
@@ -102,7 +112,16 @@ function makeCard(row: string[]): JSX.Element[] {
         );
     }
     return card;
-  }
+}
+
+async function holiday(lib_no: string){
+    let CDate: Date = new Date();
+    let rest: number = 5;
+    let lib = new Home_table('library');
+    if(lib_no != '1'){
+        rest = await lib.getClose(lib_no);
+    }
+}
 
 export default async function home(props){
     const url = props.searchParams;
@@ -127,7 +146,7 @@ export default async function home(props){
     //도서관 정보
     var lib_no = '1';
     if(url.no != null){
-        lib_no = url.no;
+        lib_no = url.no; 
     }
 
     lib_data = lib_man.result_call();
@@ -136,11 +155,7 @@ export default async function home(props){
     }
     for(let i = 1; i < lib_data.length; i++){
         var m_url = "/?no=" + lib_data[i][0]
-        if(lib_no == lib_data[i][0]){
-            select_option.push(<option value={m_url} selected>{lib_data[i][1]}</option>);
-        }else{
-            select_option.push(<option value={m_url}>{lib_data[i][1]}</option>);
-        }
+        select_option.push(<option value={m_url}>{lib_data[i][1]}</option>);
     }
 
     if(state != '1'){
@@ -217,7 +232,7 @@ export default async function home(props){
                     <h6>상호대차내역</h6>
                 </div>
             </div>
-            <Calender cal_option={select_option}/>
+            <Calender cal_option={select_option} value={lib_no}/>
             </>
         );
     }
@@ -315,7 +330,7 @@ export default async function home(props){
             </div>
             <div className="blank"></div>
             <div className="list_head">
-                <Libselect lib_option={select_option} />
+                <Libselect lib_option={select_option} value={lib_no}/>
             </div>
             <div className="list_title">
                 <div className="list_click">

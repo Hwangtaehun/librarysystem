@@ -435,6 +435,6 @@ main .page{
     float: right;
 }
 #div_row .http{
-    color: #000000;
+    color: #000000 !important;
     text-decoration: none;
 }

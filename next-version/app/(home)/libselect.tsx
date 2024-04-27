@@ -19,7 +19,7 @@ export default function Libselect(props){
     if(state != '1'){
         return(
             <div className="select">
-                <select id = "s2" name = "lib_select" onChange = {move}>
+                <select id = "s2" name = "lib_select" onChange = {move} value={props.value}>
                     {props.lib_option}
                 </select>
             </div>
@@ -28,7 +28,7 @@ export default function Libselect(props){
         return(
             <div className="select">
                 <label htmlFor="s2">도서관 선택</label>
-                <select id = "s2" name = "lib_select" onChange = {move}>
+                <select id = "s2" name = "lib_select" onChange = {move} value={props.value}>
                     {props.lib_option}
                 </select>
             </div>
