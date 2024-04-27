@@ -3,6 +3,10 @@
 import Libselect from "./libselect";
 
 export default function Calender(props){
+    let today: Date = new Date();
+    let CDate: Date = new Date();
+    let rest = props.rest
+    
     function prevClick() {
         eval("prevCal()");
     };
@@ -14,7 +18,7 @@ export default function Calender(props){
     return(
         <div className="calender">
             <div className="header">
-                <Libselect lib_option={props.cal_option}/>
+                <Libselect lib_option={props.cal_option} value={props.value}/>
                 <button className="prevBtn" onClick={prevClick}></button>
                 <div className="title">
                         <div className="yearTitle"></div>
