@@ -1,10 +1,12 @@
 import { cookies } from 'next/headers';
 import { getCookie } from 'cookies-next';
-import { Controller } from '../../components/Controller'
-import { Combobox_Manager } from '../../components/includes/Combobox_Manager'
+import { Controller } from '../components/Controller'
+import { Combobox_Manager } from '../components/includes/Combobox_Manager'
+import Navigation from "../components/layout/navigation"
 import Calender from './calendar';
 import Libselect from './libselect';
 import Searchmat from './searchmat';
+import Script from 'next/script';
 
 class Home_table extends Controller {
     private today: Date;
@@ -138,37 +140,15 @@ export default async function home(props){
 
     lib_data = lib_man.result_call();
     for(let i = 0; i < lib_data.length; i++){
-        option.push(<option value={lib_data[i][0]}>{lib_data[i][1]}</option>);
+        if(i == 0){
+            option.push(<option value={lib_data[i][0]}>전체</option>);
+        }else{
+            option.push(<option value={lib_data[i][0]}>{lib_data[i][1]}</option>);
+        }
     }
     for(let i = 1; i < lib_data.length; i++){
         var m_url = "/?no=" + lib_data[i][0]
         select_option.push(<option value={m_url}>{lib_data[i][1]}</option>);
-    }
-
-    async function holiday(m_year: string, m_month: string){
-        let holiday = [];
-
-        if(Number(m_month) < 10){
-            m_month = '0' + m_month;
-        }
-
-        var url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo'; /*URL*/
-        var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.NEXT_PUBLIC_PUBLIC_PW; /*Service Key*/
-        queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent(m_year); /**/
-        queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(m_month); /**/
-        let result = await fetch(url+queryParams);
-        console.log(url+queryParams);
-        let str = await result.text();
-        let index = 0;
-
-        while(str.indexOf('<locdate>', index) != -1){
-            index = str.indexOf('<locdate>', index) + 9;
-            let date = str.slice(index, index + 8); 
-            let price = Number(date.slice(6, 8));
-            holiday.push(price);
-        }
-
-        return holiday;
     }
 
     if(state != '1'){
@@ -196,7 +176,7 @@ export default async function home(props){
         }
 
         return (
-            <>
+            <><Navigation /><main>
             <Searchmat option={option}/>
             <div className="main_context">
                 <div className="slide slide_wrap">
@@ -251,8 +231,9 @@ export default async function home(props){
                     <h6>상호대차내역</h6>
                 </div>
             </div>
-            <Calender cal_option={select_option} value={lib_no} rest={rest}/>
-            </>
+            <Calender cal_option={select_option} value={lib_no} rest={rest} />
+            <Script defer src="http://localhost/js/slider.js"></Script>
+            </main></>
         );
     }
     else{
@@ -281,88 +262,88 @@ export default async function home(props){
         }
 
         return(
-            <>
-            <h2>자주찾는 메뉴</h2>
-            <div className="quickmenu">
-                <div className="quick" id="menu1">
-                    <a href="/not/list">
-                        <img src="/img/icon/icon3.png" alt=""/>
-                    </a>
-                    <h6>공지사항관리</h6>
+            <><Navigation /><main>
+                <h2>자주찾는 메뉴</h2>
+                <div className="quickmenu">
+                    <div className="quick" id="menu1">
+                        <a href="/not/list">
+                            <img src="/img/icon/icon3.png" alt="" />
+                        </a>
+                        <h6>공지사항관리</h6>
+                    </div>
+                    <div className="quick" id="menu2">
+                        <a href="/not/addupdate">
+                            <img src="/img/icon/icon11.png" alt="" />
+                        </a>
+                        <h6>공지사항추가</h6>
+                    </div>
+                    <div className="quick" id="menu3">
+                        <a href="/len/addupdate">
+                            <img src="/img/icon/icon4.png" alt="" />
+                        </a>
+                        <h6>대출추가</h6>
+                    </div>
+                    <div className="quick" id="menu4">
+                        <a href="/len/returnLent">
+                            <img src="/img/icon/icon7.png" alt="" />
+                        </a>
+                        <h6>반납추가</h6>
+                    </div>
+                    <div className="quick" id="menu5">
+                        <a href="/etc/plalist">
+                            <img src="/img/icon/icon8.png" alt="" />
+                        </a>
+                        <h6>대출장소관리</h6>
+                    </div>
                 </div>
-                <div className="quick" id="menu2">
-                    <a href="/not/addupdate">
-                        <img src="/img/icon/icon11.png" alt=""/>
-                    </a>
-                    <h6>공지사항추가</h6>
-                </div>
-                <div className="quick" id="menu3">
-                    <a href="/len/addupdate">
-                        <img src="/img/icon/icon4.png" alt=""/>
-                    </a>
-                    <h6>대출추가</h6>
-                </div>
-                <div className="quick" id="menu4">
-                    <a href="/len/returnLent">
-                        <img src="/img/icon/icon7.png" alt=""/>
-                    </a>
-                    <h6>반납추가</h6>
-                </div>
-                <div className="quick" id="menu5">
-                    <a href="/etc/plalist">
-                        <img src="/img/icon/icon8.png" alt=""/>
-                    </a>
-                    <h6>대출장소관리</h6>
-                </div>
-            </div>
-            <div className="quickmenu">
-                <div className="quick" id="menu6">
-                    <a href="/del/aprelist">
-                        <img src="/img/icon/icon2.png" alt="" />
-                    </a>
-                    <div className="long"><h6>상호대차승인거절</h6></div>
-                </div>
-                <div className="quick" id="menu7">
-                    <a href="/del/addlist">
+                <div className="quickmenu">
+                    <div className="quick" id="menu6">
+                        <a href="/del/aprelist">
+                            <img src="/img/icon/icon2.png" alt="" />
+                        </a>
+                        <div className="long"><h6>상호대차승인거절</h6></div>
+                    </div>
+                    <div className="quick" id="menu7">
+                        <a href="/del/addlist">
                             <img src="/img/icon/icon9.png" alt="" />
-                    </a>
-                    <div className="long"><h6>상호대차도착일추가</h6></div>
+                        </a>
+                        <div className="long"><h6>상호대차도착일추가</h6></div>
+                    </div>
+                    <div className="quick" id="menu8">
+                        <a href="/mat/addupdate">
+                            <img src="/img/icon/icon1.png" alt="" />
+                        </a>
+                        <h6>자료추가</h6>
+                    </div>
+                    <div className="quick" id="menu9">
+                        <a href="/etc/duelist">
+                            <img src="/img/icon/icon12.png" alt="" />
+                        </a>
+                        <h6>연체관리</h6>
+                    </div>
+                    <div className="quick" id="menu10">
+                        <a href="/member/list">
+                            <img src="/img/icon/icon5.png" alt="" />
+                        </a>
+                        <h6>회원관리</h6>
+                    </div>
                 </div>
-                <div className="quick" id="menu8">
-                    <a href="/mat/addupdate">
-                        <img src="/img/icon/icon1.png" alt="" />
-                    </a>
-                    <h6>자료추가</h6>
+                <div className="blank"></div>
+                <div className="list_head">
+                    <Libselect lib_option={select_option} value={lib_no} />
                 </div>
-                <div className="quick" id="menu9">
-                    <a href="/etc/duelist">
-                        <img src="/img/icon/icon12.png" alt=""/>
-                    </a>
-                    <h6>연체관리</h6>
+                <div className="list_title">
+                    <div className="list_click">
+                        <a href={url_del}><h2>반송도서</h2></a>
+                        <a href={url_res}><h2>예약도서</h2></a>
+                    </div>
+                    <h4>총{cnt}권</h4>
                 </div>
-                <div className="quick" id="menu10">
-                    <a href="/member/list">
-                            <img src="/img/icon/icon5.png" alt=""/>
-                    </a>
-                    <h6>회원관리</h6>
+                <div className="booklist">
+                    {cardlist}
+                    {page}
                 </div>
-            </div>
-            <div className="blank"></div>
-            <div className="list_head">
-                <Libselect lib_option={select_option} value={lib_no}/>
-            </div>
-            <div className="list_title">
-                <div className="list_click">
-                    <a href={url_del}><h2>반송도서</h2></a>
-                    <a href={url_res}><h2>예약도서</h2></a>
-                </div>
-                <h4>총{cnt}권</h4>
-            </div>
-            <div className="booklist">
-                {cardlist}
-                {page}
-            </div>
-            </>
+            </main></>
         )
     }
 }

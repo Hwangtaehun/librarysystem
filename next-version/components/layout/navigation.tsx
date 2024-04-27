@@ -2,7 +2,7 @@
 import { Menu } from "./menu";
 import { getCookie } from 'cookies-next';
 
-export default function Navigation(){
+export default function Navigation(props){
     var state = getCookie("state");
     var no = getCookie("no");
     var c_menu: Menu = new Menu(state, no);
@@ -72,6 +72,7 @@ export default function Navigation(){
                         </ul>
                     </div>
                 </div>
+                {props.navsearch}
             </nav>
             </>
         );
@@ -114,6 +115,7 @@ export default function Navigation(){
                         </ul>
                     </div>
                 </div>
+                {props.navsearch}
             </nav>
             </>
         );

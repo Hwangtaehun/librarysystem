@@ -1,6 +1,7 @@
 'use client'
 
 import checklogin from "./checklogin";
+import Navigation from "../../../components/layout/navigation";
 
 export default function login(){
     async function handleSubmit(formData: FormData) {
@@ -15,14 +16,20 @@ export default function login(){
     }
 
     return (
-        <div className = "auth_page">
-            <h1>로그인</h1>
-            <form className = "auth_input" action={handleSubmit}>
-                <input className="form-control" type="text" name="user_id" id="user_id" placeholder="아이디"/>
-                <input className="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호"/>
-                <input type="submit" className="btn btn-outline-primary" value='로그인'/><br/>
-                <a href="/member/addupdate">아직 회원이 아니신가요?</a>
-            </form>
-        </div>
+        <>
+            <link rel="stylesheet" href="/css/form-noaside.css" />
+            <Navigation />
+            <main>
+                <div className="auth_page">
+                    <h1>로그인</h1>
+                    <form className="auth_input" action={handleSubmit}>
+                        <input className="form-control" type="text" name="user_id" id="user_id" placeholder="아이디" />
+                        <input className="form-control" type="password" name="user_password" id="user_password" placeholder="비밀번호" />
+                        <input type="submit" className="btn btn-outline-primary" value='로그인' /><br />
+                        <a href="/member/addupdate">아직 회원이 아니신가요?</a>
+                    </form>
+                </div>
+            </main>
+        </>
     );
 }
