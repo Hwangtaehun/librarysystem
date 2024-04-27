@@ -68,10 +68,6 @@ class Home_table extends Controller {
 
         return this.makePage(total_cnt, sql, false);
     }
-
-    public getDate(){
-        return this.today;
-    }
 }
 
 function booknumber(row: string[], index: number): string{
@@ -114,15 +110,6 @@ function makeCard(row: string[]): JSX.Element[] {
     return card;
 }
 
-async function holiday(lib_no: string){
-    let CDate: Date = new Date();
-    let rest: number = 5;
-    let lib = new Home_table('library');
-    if(lib_no != '1'){
-        rest = await lib.getClose(lib_no);
-    }
-}
-
 export default async function home(props){
     const url = props.searchParams;
     var result: string[];
@@ -158,7 +145,26 @@ export default async function home(props){
         select_option.push(<option value={m_url}>{lib_data[i][1]}</option>);
     }
 
+    async function holiday(m_year: string, m_month: string){
+        let holiday = [];
+
+        var url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo'; /*URL*/
+        var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.PUBLIC_PW; /*Service Key*/
+        queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent(m_year); /**/
+        queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(m_month); /**/
+        let result = await fetch(url+queryParams);
+        console.log(url+queryParams);
+        const xmlData = await result.text();
+        console.log(xmlData);
+    }
+
     if(state != '1'){
+        let rest: number = 5;
+        let lib = new Home_table('library');
+        if(lib_no != '1'){
+            rest = await lib.getClose(lib_no);
+        }
+
         //슬라이드랑 공지사항 게시판
         result = await not.getNotBaner();
         not_slider = [];
@@ -175,6 +181,8 @@ export default async function home(props){
             not_board.push(<div id="div_row"><a className="http" href={m_url}>{cnt} {result[i]['not_name']} {m_date}</a></div>);
             cnt++;
         }
+
+        holiday('2024', '04');
 
         return (
             <>
@@ -232,7 +240,7 @@ export default async function home(props){
                     <h6>상호대차내역</h6>
                 </div>
             </div>
-            <Calender cal_option={select_option} value={lib_no}/>
+            <Calender cal_option={select_option} value={lib_no} rest={rest}/>
             </>
         );
     }
