@@ -1,11 +1,26 @@
 "use client"
+import { useEffect, useState } from "react";
 import { Menu } from "./menu";
 import { getCookie } from 'cookies-next';
 
 export default function Navigation(props){
+    const [issmall, setIsSmall] = useState(false);
     var state = getCookie("state");
     var no = getCookie("no");
     var c_menu: Menu = new Menu(state, no);
+
+    useEffect(() => {
+        function handleResize() {
+            setIsSmall(window.innerWidth < 992);
+        }
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    })
 
     if(state == '1'){
         return (
@@ -69,6 +84,7 @@ export default function Navigation(props){
                                     {c_menu.makehtml('기타')}
                                 </ul>
                             </li>
+                            {issmall && props.search}
                         </ul>
                     </div>
                 </div>

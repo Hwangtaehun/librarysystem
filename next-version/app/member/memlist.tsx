@@ -90,40 +90,10 @@ function cardparame(data, pop){
     return result;
 }
 
-function Search(url){
-    async function sumbit(formData: FormData) {
-        formData.forEach(function(value, key){
-            if(value == null){
-                if(key == 'user_search'){
-                    alert("검색할 내용을 입력해주세요.");
-                }
-                return 0;
-            }
-        });
-
-        const value = formData.get("user_search");
-
-        location.href = url + "?value=" + value;
-    }
-
-    return(
-        <form action={sumbit} method="post">
-            <div className="search">
-                <input type="text" name="user_search" id="id_search" placeholder="검색할 회원 이름을 입력해주세요." />
-                <button type="submit" className="btn btn-outline-secondary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                </button>
-            </div>
-        </form>
-    );
-}
-
 export default function Memlist(props){
     const [check, setCheck] = useState(false);
     const [disable, setDisable] = useState(false);
-    const [width, setWidth] = useState(1000);
+    const [width, setWidth] = useState(992);
     let pop = false;
     let url = "/member/list";
     let card;
@@ -181,12 +151,42 @@ export default function Memlist(props){
         );
     }
 
+    function Search(){
+        async function sumbit(formData: FormData) {
+            formData.forEach(function(value, key){
+                if(value == null){
+                    if(key == 'user_search'){
+                        alert("검색할 내용을 입력해주세요.");
+                    }
+                    return 0;
+                }
+            });
+    
+            const value = formData.get("user_search");
+    
+            location.href = url + "?value=" + value;
+        }
+    
+        return(
+            <form action={sumbit} method="post">
+                <div className="search">
+                    <input type="text" name="user_search" id="id_search" placeholder="검색할 회원 이름을 입력해주세요." />
+                    <button type="submit" className="btn btn-outline-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        );
+    }
+
     if(pop){
         return(
             <>
                 <main>
                     <link rel="stylesheet" href="/css/form-base.css" />
-                    {Search(url)}
+                    {Search()}
                     <div className="container text-center">
                         <div className="row row-cols-auto">
                             {card}
@@ -199,37 +199,33 @@ export default function Memlist(props){
         if(state != '1'){
             return(
                 <>
-                    <link rel="stylesheet" href="/css/form-noaside.css" />
                     <Navigation navsearch={nav} />
                     <main>
                         <div className="dynamic_search" style={{ top: check ? '115px' : '-110px' }}>
-                            {Search(url)}
+                            {Search()}
                         </div>
                         <div className="container text-center">
                             <div className="row row-cols-auto">
                                 {card}
                             </div>
                         </div>
-                        <script src="/js/search.js"></script>
                     </main>
                 </>
             );
         }else{
             return(
                 <>
-                    <link rel="stylesheet" href="/css/form-base.css" />
-                    <Navigation navsearch={nav} />
+                    <Navigation navsearch={nav} search={Search()} />
                     <Aside id={'기타'} />
                     <main>
                         <div className="dynamic_search" style={{ top: check ? '115px' : '-110px' }}>
-                            {Search(url)}
+                            {Search()}
                         </div>
                         <div className="container text-center">
                             <div className="row row-cols-auto">
                                 {card}
                             </div>
                         </div>
-                        <script src="/js/search.js"></script>
                     </main>
                 </>
             );

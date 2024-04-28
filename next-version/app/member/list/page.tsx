@@ -1,7 +1,9 @@
 "use server";
 
-import { Controller } from "../../../components/Controller";
 import Memlist from "../memlist";
+import { cookies } from 'next/headers';
+import { getCookie } from "cookies-next";
+import { Controller } from "../../../components/Controller";
 
 export default async function memList(props){
     class Member extends Controller{
@@ -32,6 +34,11 @@ export default async function memList(props){
     let value = url.value;
     let page: JSX.Element;
     let result: string[];
+    let state = getCookie("state", {cookies});
+
+    if(state == null){
+        state = '2';
+    }
 
     if(value == null){
         page = await member.allMember();
@@ -40,7 +47,19 @@ export default async function memList(props){
     }
     result = member.getResult();
 
-    return(
-        <Memlist data={result}/>
-    );
+    if(state != '1'){
+        return(
+            <>
+                <link rel="stylesheet" href="/css/form-noaside.css" />
+                <Memlist data={result} />
+            </>
+        );
+    }else{
+        return(
+            <>
+                <link rel="stylesheet" href="/css/form-base.css" />
+                <Memlist data={result} />
+            </>
+        );
+    }
 }
