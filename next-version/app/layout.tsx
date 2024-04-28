@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { getCookie } from 'cookies-next';
 import "../components/styles/form-root.css"
-import "../components/styles/form-home.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "../components/layout/header"
 import Footer from "../components/layout/footer"

@@ -176,7 +176,7 @@ export default async function home(props){
         }
 
         return (
-            <><Navigation /><main>
+            <><link rel="stylesheet" href="/css/form-home.css" /><Navigation /><main>
             <Searchmat option={option}/>
             <div className="main_context">
                 <div className="slide slide_wrap">
@@ -262,7 +262,7 @@ export default async function home(props){
         }
 
         return(
-            <><Navigation /><main>
+            <><link rel="stylesheet" href="/css/form-home.css" /><Navigation /><main>
                 <h2>자주찾는 메뉴</h2>
                 <div className="quickmenu">
                     <div className="quick" id="menu1">

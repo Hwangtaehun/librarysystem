@@ -1,6 +1,11 @@
+//pagementation 설정하기
 "use client";
 
 import Memdel from "./list/memdel";
+import { getCookie } from "cookies-next";
+import Aside from '../../components/layout/aside';
+import Navigation from "../../components/layout/navigation";
+import { useEffect, useState } from "react";
 
 function cardparame(data, pop){
     let result: JSX.Element[] = [];
@@ -85,21 +90,11 @@ function cardparame(data, pop){
     return result;
 }
 
-export default function Memlist(props){
-    let pop = false;
-    let url = "/member/list";
-    let card;
-
-    if(props.pop != null){
-        pop = true;
-        url = "member/list?pop=true";
-    }
-    card = cardparame(props.data, pop)
-
+function Search(url){
     async function sumbit(formData: FormData) {
         formData.forEach(function(value, key){
             if(value == null){
-                if(key == 'user_research'){
+                if(key == 'user_search'){
                     alert("검색할 내용을 입력해주세요.");
                 }
                 return 0;
@@ -111,48 +106,110 @@ export default function Memlist(props){
         location.href = url + "?value=" + value;
     }
 
+    return(
+        <form action={sumbit} method="post">
+            <div className="search">
+                <input type="text" name="user_search" id="id_search" placeholder="검색할 회원 이름을 입력해주세요." />
+                <button type="submit" className="btn btn-outline-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+    );
+}
+
+export default function Memlist(props){
+    const [check, setCheck] = useState(false);
+    let pop = false;
+    let url = "/member/list";
+    let card;
+    let state = getCookie("state");
+    let nav = Navsearch();
+
+    if(state == null){
+        state = '2';
+    }
+
+    if(props.pop != null){
+        pop = true;
+        url = "member/list?pop=true";
+    }
+    card = cardparame(props.data, pop)
+
+    function Navsearch(){
+        function checkEvent(e){
+            setCheck(e.target.checked);
+        }
+    
+        return(
+            <>
+                <input type="checkbox" id="searchicon" onChange={checkEvent}/>
+                <label htmlFor="searchicon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                    </svg>
+                </label>
+            </>
+        );
+    }
+
     if(pop){
         return(
             <>
-                <form action={sumbit} method="post">
-                    <div className="search">
-                        <input type="text" name="user_search" id="id_search" placeholder="검색할 회원 이름을 입력해주세요." />
-                        <button type="submit" className="btn btn-outline-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </button>
+                <main>
+                    <link rel="stylesheet" href="/css/form-base.css" />
+                    {Search(url)}
+                    <div className="container text-center">
+                        <div className="row row-cols-auto">
+                            {card}
+                        </div>
                     </div>
-                </form>
-                <div className="container text-center">
-                    <div className="row row-cols-auto">
-                        {card}
-                    </div>
-                </div>
+                </main>
             </>
         );        
     }else{
-        return(
-            <>
-                <div className="dynamic_search">
-                    <form action={sumbit} method="post">
-                        <div className="search">
-                            <input type="text" name="user_research" id="id_research" placeholder="검색할 회원 이름을 입력해주세요." />
-                            <button type="submit" className="btn btn-outline-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                </svg>
-                            </button>
+        if(state != '1'){
+            return(
+                <>
+                    <link rel="stylesheet" href="/css/form-noaside.css" />
+                    <Navigation navsearch={nav} />
+                    <main>
+                        <div className="dynamic_search" style={{ top: check ? '115px' : '-110px' }}>
+                            {Search(url)}
                         </div>
-                    </form>
-                </div>
-                <div className="container text-center">
-                    <div className="row row-cols-auto">
-                        {card}
-                    </div>
-                </div>
-                <script src="/js/search.js"></script>
-            </>
-        );
+                        <div className="container text-center">
+                            <div className="row row-cols-auto">
+                                {card}
+                            </div>
+                        </div>
+                        <script src="/js/search.js"></script>
+                    </main>
+                </>
+            );
+        }else{
+            return(
+                <>
+                    <link rel="stylesheet" href="/css/form-base.css" />
+                    <Navigation navsearch={nav} />
+                    <Aside id={'기타'} />
+                    <main>
+                        <div className="dynamic_search" style={{ top: check ? '115px' : '-110px' }}>
+                            {Search(url)}
+                        </div>
+                        <div className="container text-center">
+                            <div className="row row-cols-auto">
+                                {card}
+                            </div>
+                        </div>
+                        <script src="/js/search.js"></script>
+                    </main>
+                </>
+            );
+        }
     }
 }
