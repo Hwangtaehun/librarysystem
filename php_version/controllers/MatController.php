@@ -86,7 +86,7 @@ class MatController extends Controller{
         return ['tempName'=>'matList.html.php','title'=>$title,'result'=>$result,'pagi'=>$pagi];
     }
 
-    //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수 -- 요부분 다시하기
+    //팝업을 이용해서 자료 목록을 나타낼때 사용하는 함수
     public function poplist(){
         $title = $_GET['title'];
         $this->popSQL($title);
@@ -274,29 +274,6 @@ class MatController extends Controller{
         }
         else{
             echo "<script>alert('다른 회원분이 예약했습니다.');</script>";
-        }
-    }
-
-    //책 검색 팝업창을 불러오는 함수 
-    public function bookpop(){
-        echo "<script>location.href='/book/list?title=책검색&pop=true';</script>";
-    }
-
-    //자료 상세 검색 팝업창을 불러오는 함수
-    public function matpop(){
-        echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
-
-    }
-
-    //상호대차 팝업창을 불러오는 함수
-    public function delpop(){
-        $mem_state = $_SESSION['mem_state'];
-        if($mem_state == 0){
-            $mat_no = $_GET['mat_no'];
-            echo "<script>location.href='/del/addupdate?mat_no=$mat_no&pop=true';</script>";
-        }
-        else{
-            echo "<script>alert('현재 계정은 상호대차 예약이 불가능합니다.');window.close();</script>";
         }
     }
 }

@@ -62,13 +62,13 @@
 
         //회원 팝업창 띄우는 함수
         function checkmem() {
-            url = "/len/mempop";
+            url = "/member/list?title=회원찾기&pop=true";
             window.open(url,"chkbk","width=310,height=445");
         }
 
         //자료 팝업창 띄우는 함수 
         function checkmat() {
-            url = "/len/matpop";
+            url = "/mat/poplist?title=자료찾기&pop=true";
             window.open(url,"chkbk","width=500,height=445");
         }
 

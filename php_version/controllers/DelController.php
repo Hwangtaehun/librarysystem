@@ -397,21 +397,6 @@ class DelController extends Controller{
         echo "<script>history.back();</script>";
     }
 
-    //회원 팝업창 열기
-    public function mempop(){
-        echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
-    }
-
-    //자료 검색 팝업창 열기
-    public function matpop(){
-        echo "<script>location.href='/mat/poplist?title=자료찾기&pop=true';</script>";
-    }
-
-    //자료 상세검색 팝업창 열기
-    public function matlibpop(){
-        echo "<script>location.href='/mat/poplist?title=상세검색&pop=true';</script>";
-    }
-
     //대출 정보로 이동
     public function pagelent(){
         $len_no = $_POST['len_no'];

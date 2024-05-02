@@ -3,7 +3,7 @@
     //오늘날짜 변수
     $date = date("Y-m-d");
     //회원 상태
-    $mem_state = 3;
+    $mem_state = 2;
     if(isset($_SESSION['mem_state'])){
         $mem_state = $_SESSION['mem_state'];
     }
@@ -178,14 +178,13 @@
                                         <input type="hidden" name="mat_no" value="<?=$row['mat_no']?>">
                                         <input type="submit" value="삭제">
                                         <a href="/mat/addupdate?mat_no=<?=$row['mat_no']?>"><input type="button" value="수정"></a>
-                                <?php }else if($mem_state == 3){}else{ ?>
-                                <form action="/res/addupdate" method="post" onsubmit="return checkRes(this)">
+                                <?php }else if($mem_state == 2){}else{ ?>
+                                <form action="/res/add" method="post" onsubmit="return checkRes(this)">
                                         <input type="hidden" name="mat_no" value="<?=$row['15']?>">
                                         <input type="hidden" name="mem_no" value="<?=$_SESSION['mem_no']?>">
                                         <input type="hidden" name="res_date" value="<?=$date?>">
-                                        <input type="hidden" id="id_state" value="<?=$res_state?>">
                                         <input id="bt_res" type="submit" value="예약" <?php if($res_state != "예약가능"){ echo "disabled"; } ?> >
-                                        <a href="/mat/delpop?mat_no=<?=$row['15']?>" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                        <a href="/del/addupdate?mat_no=<?=$row['15']?>&pop=true" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
                                             <input id="bt_del" type="button" value="상호대차" <?php if($lent_re_state != "대출가능"){ echo "disabled"; } ?> >
                                         </a>
                                 <?php } ?>

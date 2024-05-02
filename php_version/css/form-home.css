@@ -50,12 +50,13 @@ main .search select{
     position : absolute;
     top: 1px;
     width: 20%;
-    height: 40px;
+    height: 44px;
     border-radius: 8px;
     border-right-style: double;
 }
 main .search input {
     width: 80%;
+    height: 44px;
     border: 1px solid #bbb;
     border-radius: 8px;
     border-left-style: double;

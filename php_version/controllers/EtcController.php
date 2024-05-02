@@ -113,15 +113,5 @@ class EtcController{
             return ['tempName'=>'dueForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
         }
     }
-
-    //회원 찾는 팝업창 불러오기
-    public function mempop(){
-        echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
-    }
-
-    //대출 찾는 팝업창 불러오기
-    public function lenpop(){
-        echo "<script>location.href='/len/list?title=대출찾기&pop=true';</script>";
-    }
 }
 ?>

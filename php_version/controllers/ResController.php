@@ -94,33 +94,21 @@ class ResController extends Controller{
         header('location: /res/list');
     }
 
-    public function addupdate(){
-        if(isset($_POST['res_no'])) {
-            if($_POST['res_no'] == ''){
-                $param = ['res_date'=>$_POST['res_date'], 'mem_no'=>$_POST['mem_no'], 'mat_no'=>$_POST['mat_no']];
-                $this->resTable->insertData($param);
-            }
-            else{
-                $this->resTable->updateData($_POST);
-            }
-            header('location: /res/list');
-        }
-        if(isset($_GET['res_no'])){
-            $row = $this->resTable->selectID($_GET['res_no']);
-            $title2 = ' 수정';
-            $title = '예약'.$title2;
-            return ['tempName'=>'resForm.html.php','title'=>$title, 'title2'=>$title2, 'row'=>$row];
+    public function add(){
+        $mat_no = $_POST['mat_no'];
+        $mem_no = $_SESSION['mem_no'];
+        $where = "WHERE `mat_no` = $mat_no";
+        $row = $this->resTable->whereSQL($where);
+        $num = $row->rowCount();
+
+        if($num == 0){
+            $param = ['mem_no'=>$mem_no, 'mat_no'=>$mat_no, 'res_date'=>$_POST['res_date']];
+            $this->resTable->insertData($param);
+            header('location: /mat/list');
         }
         else{
-            $title2 = ' 입력';
-            $title = '예약'.$title2;
-            return ['tempName'=>'resForm.html.php', 'title'=>$title, 'title2'=>$title2];
+            echo "<script>alert('다른 회원분이 예약했습니다.');</script>";
         }
-    }
-
-    //회원 찾기 팝업창으로 띄우는 함수
-    public function mempop(){
-        echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
     }
 }
 ?>

@@ -1,17 +1,5 @@
 <head>
-    <?php
-    // 웹페이지 맞는 css설정
-    if($title == '종류 현황'){
-        echo '<link rel="stylesheet" href="../css/form-base.css">';
-        $ispop = false;
-        $action = "/kind/research";
-    }
-    else{
-        echo '<link rel="stylesheet" href="../css/form-popup.css">';
-        $ispop = true;
-        $action = "/kind/research?title=$title&pop=true";
-    }
-    ?>
+    <link rel="stylesheet" href="../css/form-base.css">
     <script>
         // 검색 내용이 있는 없는지 확인
         function checkResearch(myform) {
@@ -42,10 +30,8 @@
     $subarray = $inherit2->call_result();
 ?>
 <body>
-<?php if(!$ispop){ ?>
     <div class="dynamic_search">
-<?php } ?>
-        <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
+        <form action="/kind/research" method="post" onsubmit="return checkResearch(this)">
             <div class="sel">
                 <label for = "kind_super">대분류</label>
                 <select id = "s1" name = "super" onchange='superChange(this)'>
@@ -86,29 +72,18 @@
                 <input type="submit" value = "검색">
             </div>
         </form>
-<?php if(!$ispop){ ?>
     </div>
-<?php } ?>
     <?php if(isset($result)){foreach($result as $row): ?>
     <fieldset id="fieldset_row">
         <div id="div_row">
             <?=htmlspecialchars($row['kind_no'],ENT_QUOTES,'UTF-8');?>
             <?=htmlspecialchars($row['kind_name'],ENT_QUOTES,'UTF-8');?>
         </div>
-        <?php
-            if($ispop){
-                echo '<form>';
-                $no = "'".$row['kind_no']."'";
-                echo '<input type=button value="선택" onclick="opener.parent.kindValue('.$no.'); window.close();">';
-            }
-            else{
-        ?>
         <form action="/kind/delete" method="post">
                 <input type="submit" value="삭제">
                 <input type="hidden" name="kind_no" value="<?php if(isset($row)){echo $row['kind_no'];}?>">
                 <a href="/kind/addupdate?kind_no=<?=$row['kind_no']?>"><input type="button" value="수정"></a>
         </form>
-        <?php } ?>
     </fieldset>
     <?php endforeach; }?>
     <script src="../js/search.js"></script>

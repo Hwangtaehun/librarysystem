@@ -1,5 +1,5 @@
 <?php
-include include_once __DIR__.'/Key.php';
+include_once __DIR__.'./Key.php';
 
 class BookSymbol{
 	//초성

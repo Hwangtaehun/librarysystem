@@ -29,25 +29,25 @@
 
         //회원 팝업창
         function checkmem() {
-            url = "/len/mempop";
+            url = "/member/list?title=회원찾기&pop=true";
             window.open(url,"chkme","width=310,height=445");
         }
 
         //자료 팝업창
         function checkmat() {
-            url = "/len/matpop";
+            url = "/mat/poplist?title=상세 검색&pop=true";
             window.open(url,"chkma","width=500,height=445");
         }
 
         //상호대차 팝업창
         function checkdel() {
-            url = "/len/delpop";
+            url = "/del/list?title=상호대차찾기&pop=true";
             window.open(url,"chkde","width=310,height=445");
         }
 
         //예약 팝업창
         function checkres() { //reservation의 template을 완성후 사용해보기
-            url = "/len/respop";
+            url = "/res/list?title=예약찾기&pop=true";
             window.open(url,"chkde","width=310,height=445");
         }
     </script>

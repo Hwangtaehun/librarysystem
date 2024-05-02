@@ -7,10 +7,10 @@
         $state = $_SESSION['mem_state'];
 
         if($state != 1){
-            echo '<link rel="stylesheet" href="../css/form-base.css">';
+            echo '<link rel="stylesheet" href="../css/form-noaside.css">';
         }
         else{
-            echo '<link rel="stylesheet" href="../css/form-noaside.css">';
+            echo '<link rel="stylesheet" href="../css/form-base.css">';
         }
     }else{
         echo '<link rel="stylesheet" href="../css/form-noaside.css">';

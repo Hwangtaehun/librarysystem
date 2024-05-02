@@ -26,7 +26,7 @@
 
         //대출 팝업창 띄우는 함수
         function checklen() {
-            url = "/etc/lenpop";
+            url = "/len/list?title=대출찾기&pop=true";
             window.open(url,"chkbk","width=310,height=445");
         }
 

@@ -17,6 +17,22 @@ class Controller{
     protected $delTable;
     protected $notTable;
 
+    // public function __construct(TableManager $libTable, TableManager $bookTable, TableManager $kindTable, TableManager $memTable, TableManager $matTable, 
+    //                             TableManager $resTable, TableManager $lenTable, TableManager $dueTable, TableManager $plaTable, TableManager $delTable, TableManager $notTable)
+    // {
+    //     $this->libTable = $libTable;
+    //     $this->bookTable = $bookTable;
+    //     $this->kindTable = $kindTable;
+    //     $this->memTable = $memTable;
+    //     $this->matTable = $matTable;
+    //     $this->resTable = $resTable;
+    //     $this->lenTable = $lenTable;
+    //     $this->dueTable = $dueTable;
+    //     $this->plaTable = $plaTable;
+    //     $this->delTable = $delTable;
+    //     $this->notTable = $notTable;
+    // }
+
     //page번호 달기 만들기위한 html제작
 	private function pagemanager(int $total_cnt, string $value){
         $pagenum = 19;

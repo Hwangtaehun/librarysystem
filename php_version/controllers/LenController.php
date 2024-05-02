@@ -319,25 +319,5 @@ class LenController extends Controller{
         }
         header('location: /len/returnLent');
     }
-
-    //회원 팝업창 열기
-    public function mempop(){
-        echo "<script>location.href='/member/list?title=회원찾기&pop=true';</script>";
-    }
-
-    //자료 팝업창 열기
-    public function matpop(){
-        echo "<script>location.href='/mat/poplist?title=상세 검색&pop=true';</script>";
-    }
-
-    //상호대차 팝업창 열기
-    public function delpop(){
-        echo "<script>location.href='/del/list?title=상호대차찾기&pop=true';</script>";
-    }
-
-    //예약 팝업창 열기
-    public function respop(){
-        echo "<script>location.href='/res/list?title=예약찾기&pop=true';</script>";
-    }
 }
 ?>

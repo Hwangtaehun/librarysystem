@@ -27,7 +27,7 @@
 
         //책 팝업창 띄우는 함수
         function checkbook() {
-            url = "/mat/bookpop";
+            url = "/book/list?title=책검색&pop=true";
             window.open(url,"chkbk","width=484,height=445");
         }
 
