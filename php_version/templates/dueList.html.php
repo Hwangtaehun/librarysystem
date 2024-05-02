@@ -12,7 +12,7 @@
         }
 
         //회원 팝업창 띄우는 함수
-        function checkdue() {
+        function checkmen() {
             url = "/member/list?title=회원찾기&pop=true";
             window.open(url,"chkbk","width=310,height=445");
         }
@@ -33,7 +33,7 @@ $lib_array = $assist->libraryarray($pdo);
     <div class="dynamic_search">
         <form action="/etc/dueresearch" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
-                <input type="button" id="ie_research" class="srbt" value="회원찾기" onclick="checkdue();">
+                <input type="button" id="ie_research" class="srbt" value="회원찾기" onclick="checkmen();">
                 <input type="text" name="user_research" id="id_research" value = "" readonly>
                 <input type="hidden" id="id_mem" name="mem_no" value="">
                 <button type="submit" class="btn btn-outline-secondary">
