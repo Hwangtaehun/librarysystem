@@ -27,7 +27,7 @@ export class Controller{
     }
 
     private partpage(value: string, total_pages: number, sp_pg: number): JSX.Element[]{
-        var result: JSX.Element[];
+        var result: JSX.Element[] = [];
         var go_pg: number;
         var sup_pg: number;
         var m_page: number;

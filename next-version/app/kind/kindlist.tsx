@@ -120,16 +120,30 @@ export default function Kindlist(props){
     
             location.href = url + "?value=" + value;
         }
+
+        function optionArray(array){
+            let element: JSX.Element[] = [];
+            for(let i = 0; i < array.length; i++){
+                element.push(<option value={array[i][0]}>{array[i][1]}</option>)
+            }
+            return element;
+        }
     
         return(
             <form action={sumbit} method="post">
                 <div className="sel">
                     <label htmlFor="s1">대분류</label>
-                    <select name="super" id="s1">
-                        
+                    <select name="super" id="s1" onChange={superChange}>
+                        {optionArray(props.sup)}
                     </select>
                     <label htmlFor="s2">중분류</label>
+                    <select name="base" id="s2" onChange={baseChange}>
+                        {optionArray(props.base)}
+                    </select>
                     <label htmlFor="s3">소분류</label>
+                    <select name="sup" id="s3">
+                        {optionArray(props.sub)}
+                    </select>
                     <input type="submit" value = "검색"/>
                 </div>
             </form>

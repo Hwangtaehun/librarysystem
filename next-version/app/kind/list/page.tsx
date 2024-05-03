@@ -13,8 +13,8 @@ export default async function kindList(props){
         }
 
         public async allKind(){
-            let where = "WHERE `mem_state` NOT LIKE 1";
-            let result = await this.whereSQL(where);
+            let where = '';
+            let result = await this.selectAll();
             let total_cnt = result.length;
             return await this.makePage(total_cnt, where, true);
         }

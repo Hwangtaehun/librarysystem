@@ -46,7 +46,7 @@ export class Combobox_Manager {
 			sql = "SELECT * FROM `" + this.table + "`";
 		}
 		else{
-			sql = "SELECT * FROM `" + this.table + "` WHERE $where";
+			sql = "SELECT * FROM `" + this.table + "` WHERE " + this.where;
 		}
 
         var data = await PDO(sql, '');
