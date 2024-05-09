@@ -303,14 +303,50 @@
                 }else{
                     echo "<tr><th>공지사항</th> <th>도서관</th> <th>자료 검색</th> <th>내서재</th> <th>내정보수정</th></tr>";
                     echo '<tr><td><a href="/not/list">공지사항</a></td><td><a href="/lib/list">도서관</a></td><td><a href="/mat/list">자료검색</a></td><td><a href="'.$menus['내서재'][0][1].'">'.$menus['내서재'][0][0].'</a></td><td><a href="'.$menus['내정보수정'][0][1].'">'.$menus['내정보수정'][0][0].'</a></td></tr>';
-                    echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][1][1].'">'.$menus['내서재'][1][0].'</a></td><td><a href="'.$menus['내정보수정'][1][1].'">'.$menus['내정보수정'][1][0].'</a></td></tr>';
-                    echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][2][1].'">'.$menus['내서재'][2][0].'</a></td><td></td></tr>';
-                    echo '<tr><td></td><td></td><td><a href="'.$menus['내서재'][3][1].'">'.$menus['내서재'][3][0].'</a></td><td></td></tr>';
+                    echo '<tr><td></td><td></td><td></td><td><a href="'.$menus['내서재'][1][1].'">'.$menus['내서재'][1][0].'</a></td><td><a href="'.$menus['내정보수정'][1][1].'">'.$menus['내정보수정'][1][0].'</a></td></tr>';
+                    echo '<tr><td></td><td></td><td></td><td><a href="'.$menus['내서재'][2][1].'">'.$menus['내서재'][2][0].'</a></td><td></td></tr>';
+                    echo '<tr><td></td><td></td><td></td><td><a href="'.$menus['내서재'][3][1].'">'.$menus['내서재'][3][0].'</a></td><td></td></tr>';
                 }
                 echo "</table></div>";
             }
             ?>
         </footer>
+        <script>
+            let sidemenu = document.querySelector('.sidemenu');
+            let menu_bt = document.querySelector('#menuicon');
+
+            <?php
+            if($not_pop){
+                if($state != 1){
+                    if($title != '자료 현황' && $title != '도서관 관리' && $title != '로그인' && 
+                    $title != '회원가입' && $title != '공지사항 현황' && $title != '공지사항 수정' && $title != '도서관 정보'){
+            ?>
+            menu_bt.addEventListener("change", function (e) {
+                if(menu_bt.checked == true){
+                    sidemenu.style.background = '#000000';
+                }else{
+                    sidemenu.style.background = 'none';
+                }
+            });
+            <?php
+                    }
+                }
+                else{
+                    if($title != '도서관 관리'){
+            ?>
+            menu_bt.addEventListener("change", function (e) {
+                if(menu_bt.checked == true){
+                    sidemenu.style.background = '#000000';
+                }else{
+                    sidemenu.style.background = 'none';
+                }
+            });
+            <?php
+                    }
+                }
+            }
+            ?>
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

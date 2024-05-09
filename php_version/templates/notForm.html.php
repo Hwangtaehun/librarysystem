@@ -90,12 +90,14 @@
                 <li><label for  = "id_name">제목</label>
                     <input class="input" type= "text" name="not_name" id="id_name" value="<?php if(isset($row)){echo $row['not_name'];}?>" readonly></li>
                 <li><label for  = "id_context">내용</label></li>
-                <li><a href="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>">
-                    <img src="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>" alt="" style="width:75%">
-                    </a></li>
-                <li><textarea class="context" name="not_detail" id="id_context" cols="30" rows="10" readonly>
-                    <?php if(isset($row)){echo $row['not_detail'];}?>
-                    </textarea></li>
+                <li class="notcontext">
+                    <a href="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>">
+                    <img src="<?php if(isset($row)){echo '.'.$row['not_det_url'];}?>" alt="" style="width:100%">
+                    </a>
+                    <textarea class="context" name="not_detail" id="id_context" cols="30" rows="10" readonly>
+<?php if(isset($row)){echo $row['not_detail'];}?>
+                    </textarea>
+                </li>
             </ul>
             <div class="form_class">
                 <input type="button" value="이전" onclick="javascript:history.back()">

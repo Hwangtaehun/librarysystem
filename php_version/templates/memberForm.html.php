@@ -4,14 +4,7 @@
     <?php
     // 웹페이지 맞는 css설정
     if(isset($_SESSION['mem_state'])){
-        $state = $_SESSION['mem_state'];
-
-        if($state != 1){
-            echo '<link rel="stylesheet" href="../css/form-noaside.css">';
-        }
-        else{
-            echo '<link rel="stylesheet" href="../css/form-base.css">';
-        }
+        echo '<link rel="stylesheet" href="../css/form-base.css">';
     }else{
         echo '<link rel="stylesheet" href="../css/form-noaside.css">';
     }

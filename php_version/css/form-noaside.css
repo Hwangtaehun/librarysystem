@@ -66,9 +66,17 @@ main .card .card-body .card-text{
     margin-bottom: 5px;
 }
 
-main .context {
-    width: 100%;
-    height: 300px;
+main .notcontext{
+    display: flex;
+    flex-direction: row;
+}
+
+main .notcontext a{
+    width: 25%;
+}
+
+main .notcontext .context{
+    width: 75%;
 }
 
 footer {
