@@ -45,12 +45,19 @@ main .card{
     display: flex;
     flex-direction: row;
     margin: auto;
-    margin-bottom: 5px;
+    margin-top: 0.5rem;
 }
 main .card img{
     margin: 0 auto;
-    width: 90px;
-    object-fit: contain;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+main .list .card img{
+    margin: 0 auto;
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
 }
 main .card .card-body{
     padding-top: 5px;
