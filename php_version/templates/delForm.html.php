@@ -65,15 +65,18 @@
                     <?php if(!isset($_GET['mat_no'])){ ?>
                         <input type="button" name="mat_check" id="mat_check" value="자료 찾기" onclick="checkmat();">
                     <?php } ?></li>
-                    <li><?php if(isset($m_row['lib_no'])) {
-                        $lib_arr[0] = '없음';
-                        for ($z=0; $z < sizeof($lib); $z++) { 
-                            $lib_arr[$z+1] = $lib[$z][1];
-                        }
-                        $value = $lib_arr[$m_row['lib_no']];?>
-                        <label>소장도서관</label><br>
-                        <input type="text" value="<?php echo $value; ?>" readonly>
-                    </li>
+                    <?php if(isset($m_row['lib_no'])) { ?>
+                        <li>
+                            <?php 
+                            $lib_arr[0] = '없음';
+                            for ($z=0; $z < sizeof($lib); $z++) { 
+                                $lib_arr[$z+1] = $lib[$z][1];
+                            }
+                            $value = $lib_arr[$m_row['lib_no']];
+                            ?>
+                            <label>소장도서관</label><br>
+                            <input type="text" value="<?php echo $value; ?>" readonly>
+                        </li>
                     <?php } ?>
                     <li>
                         <label for ="il_no">수신도서관</label><br>
