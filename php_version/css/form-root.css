@@ -275,6 +275,10 @@ main .container > .row-cols-auto{
     width: 80%;
 }
 
+#black{
+    color: #000000 !important;
+}
+
 /*바닥글*/
 footer {
     grid-area: footer; 

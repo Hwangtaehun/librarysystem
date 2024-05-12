@@ -146,7 +146,7 @@
         <?php }else if($title == '상호대차 도착일 추가'){ ?>
         <form action="<?php echo $action; ?>" method="post" onsubmit="return checkResearch(this)">
             <div class="search">
-                <label for="s1">수신도서관</label>
+                <label for="s1" id="black">수신도서관</label>
                 <select class = "re" id = "s1" name = "lib_research">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){
@@ -177,7 +177,7 @@
         <?php }else if($title == '상호대차 승인 거절'){ ?>
         <form action="<?php echo $action; ?>" method="post">
             <div class="search">
-                <label for="s1">소장도서관</label>
+                <label for="s1" id="black">소장도서관</label>
                 <select class = "re" id = "s1" name = "lib_research">
                     <?php
                     for($z = 0; $z < sizeof($lib); $z++){

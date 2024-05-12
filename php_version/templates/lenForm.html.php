@@ -35,7 +35,7 @@
 
         //자료 팝업창
         function checkmat() {
-            url = "/mat/poplist?title=상세 검색&pop=true";
+            url = "/mat/poplist?title=자료찾기&pop=true";
             window.open(url,"chkma","width=500,height=445");
         }
 
