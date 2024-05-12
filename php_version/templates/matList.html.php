@@ -184,7 +184,7 @@
                                         <input type="hidden" name="mem_no" value="<?=$_SESSION['mem_no']?>">
                                         <input type="hidden" name="res_date" value="<?=$date?>">
                                         <input id="bt_res" type="submit" value="예약" <?php if($res_state != "예약가능"){ echo "disabled"; } ?> >
-                                        <a href="/del/addupdate?mat_no=<?=$row['15']?>&pop=true" onclick="window.open(this.href, '_blank', 'width=560, height=240'); return false;">
+                                        <a href="/del/addupdate?mat_no=<?=$row['15']?>&pop=true" onclick="window.open(this.href, '_blank', 'width=285, height=380'); return false;">
                                             <input id="bt_del" type="button" value="상호대차" <?php if($lent_re_state != "대출가능"){ echo "disabled"; } ?> >
                                         </a>
                                 <?php } ?>

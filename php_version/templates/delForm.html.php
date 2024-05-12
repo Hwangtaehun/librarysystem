@@ -73,7 +73,9 @@
                         $value = $lib_arr[$m_row['lib_no']];?>
                         <label>소장도서관</label><br>
                         <input type="text" value="<?php echo $value; ?>" readonly>
+                    </li>
                     <?php } ?>
+                    <li>
                         <label for ="il_no">수신도서관</label><br>
                         <select id ="il_no" name="lib_no_arr">
                             <?php
@@ -85,7 +87,8 @@
                                 echo "<option  value = $no[$z] > $name[$z] </option>";
                             }
                             ?>
-                        </select></li>
+                        </select>
+                    </li>
                     <!-- 수정할때만 생성 -->
                     <?php if(isset($row)){ ?>
                     <li><label for ="id_arr_date">도착일</label><br>

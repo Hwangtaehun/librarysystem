@@ -97,6 +97,23 @@ main .context {
     height: 300px;
 }
 
+/* 책 내용입력 부분 */
+main .book_button li{
+    display: flex;
+    justify-content: space-between;
+    height: 40px !important;
+}
+main .book_button li .form-check{
+    display: flex;
+    align-items: center;
+}
+main .book_img li {
+    height: 160px !important;
+}
+main .book_img li img {
+    height: 130px;
+}
+
 aside{
     grid-area: aside; 
     float:left; 

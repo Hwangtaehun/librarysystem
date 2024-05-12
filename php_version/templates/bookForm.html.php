@@ -61,13 +61,15 @@
         <h2><?=$title?></h2>
             <div class="form_text">
                 <ul>
-                    <li>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">직접입력</label>
+                    <div class="book_button">
+                        <li>
+                            <input type = "button" name="book_check" id="id_check" value="책검색" onclick="checkbook();">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">직접입력</label>
+                            </div>
+                        </li>
                     </div>
-                    <input type = "button" name="book_check" id="id_check" value="책검색" onclick="checkbook();">
-                    </li>
                     <li><label for  = "id_id">ISBN</label><br>
                         <input class="input" type= "text" name="book_no" id="id_id" value="<?php if(isset($row)){echo $row['book_no'];}?>" readonly></li>
                     <li><label for  = "id_name">책이름</label><br>
@@ -80,10 +82,12 @@
                         <input class="input" type= "text" name="book_year" id="id_year" value="<?php if(isset($row)){echo $row['book_year'];}?>" readonly></li>
                     <li><label for  = "id_price">가격</label><br>
                         <input class="input" type= "text" name="book_price" id="id_price" value="<?php if(isset($row)){echo $row['book_price'];}?>" readonly></li>
-                    <li><label for  = "id_img">이미지</label><br>
-                        <img id="id_img" src="<?php if(isset($row)){echo $row['book_url'];}?>" alt="">
-                        <input class="input" type= "hidden" name="book_url" id="id_url" value="<?php if(isset($row)){echo $row['book_url'];}?>" readonly></li>
-                        <input type="hidden" name="bk_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
+                    <div class="book_img">
+                        <li><label for  = "id_img">이미지</label><br>
+                            <img id="id_img" src="<?php if(isset($row)){echo $row['book_url'];}?>" alt="">
+                            <input class="input" type= "hidden" name="book_url" id="id_url" value="<?php if(isset($row)){echo $row['book_url'];}?>" readonly></li>
+                    </div>
+                    <input type="hidden" name="bk_no" value="<?php if(isset($row)){echo $row['book_no'];}?>">
                     <div class="form_bt">
                         <input type= "submit" value="<?=$title2 ?>">
                         <input type= "reset" value='지우기'>
