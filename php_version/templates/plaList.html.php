@@ -27,7 +27,7 @@
         //대출 팝업창 띄우는 함수
         function checklen() {
             url = "/len/list?title=대출찾기&pop=true";
-            window.open(url,"chkbk","width=310,height=445");
+            window.open(url,"chkbk","width=290,height=1470");
         }
 
         //대출 팝업창에 받는 함수

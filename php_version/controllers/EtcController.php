@@ -4,7 +4,6 @@ session_start();
 class EtcController{
     private $sql = "SELECT * FROM overdue, lent, material, member, book WHERE overdue.len_no = lent.len_no AND lent.mat_no = material.mat_no 
                     AND lent.mem_no = member.mem_no AND material.book_no = book.book_no";
-    private $sort = " ORDER BY mem_id";
     private $libTable;
     private $bookTable;
     private $kindTable;
@@ -47,8 +46,8 @@ class EtcController{
 
     //연체 검색
     public function dueresearch(){
-        $value = $_POST['user_research'];
-        $sql= $this->sql." AND lent.mem_no = $value".$this->sort;
+        $value = $_POST['mem_no'];
+        $sql= $this->sql." AND lent.mem_no = $value";
         $stmt = $this->dueTable->joinSQL($sql);
         $result = $stmt->fetchAll();
         $title = '연체 현황';
