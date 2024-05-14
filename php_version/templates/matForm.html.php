@@ -42,7 +42,6 @@
 <?php
     //선택창을 불러오는 함수
     include_once __DIR__.'/../includes/Combobox_Manager.php';
-    include_once __DIR__.'/../includes/Combobox_Inheritance.php';
 
     $lib_man = new Combobox_Manager($pdo, "library", "lib_no", "", false);
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", false);
