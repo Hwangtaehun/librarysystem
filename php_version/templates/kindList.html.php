@@ -14,20 +14,17 @@
 </head>
 <?php
     include_once __DIR__.'/../includes/Combobox_Manager.php';
-    include_once __DIR__.'/../includes/Combobox_Inheritance.php';
 
     // 모든 분류 객체 생성
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", true);
     $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", true);
     $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", true);
-    $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", true);
-    $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", true);
     
     $super = $super_man->result_call();
     $base = $base_man->result_call();
     $sub = $sub_man->result_call();
-    $basearray = $inherit1->call_result();
-    $subarray = $inherit2->call_result();
+    $basearray = $base_man->base_call();
+    $subarray = $sub_man->sub_call();
 ?>
 <body>
     <div class="dynamic_search">

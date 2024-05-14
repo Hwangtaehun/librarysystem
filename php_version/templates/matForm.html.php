@@ -48,15 +48,13 @@
     $super_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '_00'", false);
     $base_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '0_0'", false);
     $sub_man = new Combobox_Manager($pdo, "kind", "kind_no", "`kind_no` LIKE '00_'", false);
-    $inherit1 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '?_0'", false);
-    $inherit2 = new Combobox_Inheritance($pdo, "kind", "kind_no", "`kind_no` LIKE '??_'", false);
     
     $lib = $lib_man->result_call();
     $super = $super_man->result_call();
     $base = $base_man->result_call();
     $sub = $sub_man->result_call();
-    $basearray = $inherit1->call_result();
-    $subarray = $inherit2->call_result();
+    $basearray = $base_man->base_call();
+    $subarray = $sub_man->sub_call();
 ?>
 <body>
     <form action="/mat/addupdate" method="post" onSubmit="return checkInput(this)" onReset="return checkReset()">
