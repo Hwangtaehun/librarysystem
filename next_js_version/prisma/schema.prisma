@@ -7,9 +7,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id    Int     @id @default(autoincrement())
-  title String
-  body  String
-  createdAt DateTime @default(now())
+model Book {
+  book_no Int @id @default(autoincrement())
+  book_name String
+  book_author String
+  book_publish String
+  book_price Int @default(7000)
+  book_year Int @default(2024)
+  book_url String
+}
+
+model Delivery {
+  del_no Int @id @default(autoincrement())
+  mem_no Int
+  mat_no Int
+  lib_no_arr Int
+  del_arr_data DateTime
+  del_app Int
+  len_no Int
+}
+
+model Kind {
+  kind_no String
+  kind_name String
+}
+
+model Lent {
+  len_no Int @id @default(autoincrement())
+  mem_no Int
+  mat_no Int
+  len_data DateTime
+  len_ex Int
+  len_re_data DateTime
+  len_re_st Int
+  len_memo String
+}
+
+model Library {
+  lib_no Int @id @default(autoincrement())
+  lib_name String
+  lib_data DateTime
+  lib_zip String
+  lib_add String
+  lib_detail String
+  lib_close Int
+  lib_url String
+}
+
+model material {
+  mat_no Int @id @default(autoincrement())
+  lib_no Int
+  book_no Int
+  kind_no String
+  mat_symbol String
+  mat_many String @default('0')
+  mat_overlap String @default('c.1')
+  mat_exist Int @default(1)
 }
